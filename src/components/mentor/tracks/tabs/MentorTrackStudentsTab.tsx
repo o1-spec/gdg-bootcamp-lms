@@ -28,21 +28,21 @@ export function MentorTrackStudentsTab({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-black text-[#0D0E11]">Enrolled Students</h2>
-        <p className="text-xs text-[#5F6368]">
+        <h2 className="text-xl font-black text-gdg-black">Enrolled Students</h2>
+        <p className="text-xs text-gdg-gray">
           Supervise individual student learning trajectory, submission completions, and session attendance.
         </p>
       </div>
 
       {students.length === 0 ? (
-        <div className="p-8 rounded-3xl bg-white border border-[#E5DFD0] text-center text-xs text-[#5F6368]">
+        <div className="p-8 rounded-3xl bg-white border border-gdg-border text-center text-xs text-gdg-gray">
           No students currently enrolled in this track.
         </div>
       ) : (
-        <div className="rounded-3xl bg-white border border-[#E5DFD0] shadow-sm overflow-hidden">
+        <div className="rounded-3xl bg-white border border-gdg-border shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#FAF7EE] border-b border-[#E5DFD0] text-[#5F6368] uppercase font-bold text-[10px] tracking-wider">
+              <thead className="bg-gdg-cream border-b border-gdg-border text-gdg-gray uppercase font-bold text-[10px] tracking-wider">
                 <tr>
                   <th className="py-4 px-6">Student</th>
                   <th className="py-4 px-4 text-center">Progress</th>
@@ -52,11 +52,11 @@ export function MentorTrackStudentsTab({
                   <th className="py-4 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5DFD0]">
+              <tbody className="divide-y divide-gdg-border">
                 {students.map((st) => (
                   <tr
                     key={st.id}
-                    className="hover:bg-[#FAF7EE]/50 transition-colors cursor-pointer"
+                    className="hover:bg-gdg-cream/50 transition-colors cursor-pointer"
                     onClick={() => onSelectStudent(st)}
                   >
                     <td className="py-4 px-6">
@@ -64,29 +64,29 @@ export function MentorTrackStudentsTab({
                         <img
                           src={st.avatar}
                           alt={st.name}
-                          className="w-9 h-9 rounded-full object-cover border border-[#E5DFD0]"
+                          className="w-9 h-9 rounded-full object-cover border border-gdg-border"
                         />
                         <div>
-                          <span className="font-bold text-[#0D0E11] block text-sm">{st.name}</span>
-                          <span className="text-[#5F6368] text-[11px]">{st.email}</span>
+                          <span className="font-bold text-gdg-black block text-sm">{st.name}</span>
+                          <span className="text-gdg-gray text-[11px]">{st.email}</span>
                         </div>
                       </div>
                     </td>
                     <td className="py-4 px-4 text-center">
                       <div className="inline-flex items-center gap-2">
-                        <div className="w-16 bg-[#E5DFD0] h-2 rounded-full overflow-hidden">
+                        <div className="w-16 bg-gdg-border h-2 rounded-full overflow-hidden">
                           <div
-                            className="bg-[#34A853] h-full rounded-full"
+                            className="bg-gdg-green h-full rounded-full"
                             style={{ width: `${st.progressPercentage}%` }}
                           />
                         </div>
-                        <span className="font-bold text-[#0D0E11] font-mono">{st.progressPercentage}%</span>
+                        <span className="font-bold text-gdg-black font-mono">{st.progressPercentage}%</span>
                       </div>
                     </td>
-                    <td className="py-4 px-4 text-center font-bold text-[#0D0E11]">
+                    <td className="py-4 px-4 text-center font-bold text-gdg-black">
                       {st.completedLessons}/{st.totalLessons}
                     </td>
-                    <td className="py-4 px-4 text-center font-bold text-[#0D0E11]">
+                    <td className="py-4 px-4 text-center font-bold text-gdg-black">
                       {st.completedAssignments}/{st.totalAssignments}
                     </td>
                     <td className="py-4 px-4 text-center">
@@ -94,10 +94,10 @@ export function MentorTrackStudentsTab({
                         className={cn(
                           'px-2.5 py-1 rounded-full text-[10px] font-black font-mono',
                           st.attendanceRate >= 80
-                            ? 'bg-[#34A853]/10 text-[#34A853]'
+                            ? 'bg-gdg-green/10 text-gdg-green'
                             : st.attendanceRate >= 60
-                            ? 'bg-[#FBBC04]/20 text-[#0D0E11]'
-                            : 'bg-[#EA4335]/10 text-[#EA4335]'
+                            ? 'bg-gdg-yellow/20 text-gdg-black'
+                            : 'bg-gdg-red/10 text-gdg-red'
                         )}
                       >
                         {st.attendanceRate}%
@@ -109,7 +109,7 @@ export function MentorTrackStudentsTab({
                           e.stopPropagation();
                           onSelectStudent(st);
                         }}
-                        className="px-3 py-1.5 rounded-xl border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] hover:bg-white shadow-xs"
+                        className="px-3 py-1.5 rounded-xl border border-gdg-border text-xs font-bold text-gdg-black hover:bg-white shadow-xs"
                       >
                         View Details
                       </button>

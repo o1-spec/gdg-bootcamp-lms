@@ -197,7 +197,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
   });
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="users"
         admin={admin}
@@ -214,7 +214,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
           actions={
             <button
               onClick={openCreateModal}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>Create User</span>
@@ -232,7 +232,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 placeholder="Search name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#4285F4]"
+                className="w-full pl-10 pr-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs text-white placeholder-white/30 focus:outline-none focus:border-gdg-blue"
               />
             </div>
 
@@ -277,7 +277,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                         <div className="flex items-center gap-3 min-w-0">
                           <Avatar className="w-10 h-10 border border-white/10 shrink-0">
                             <AvatarImage src={u.avatarUrl || ''} alt={u.name} />
-                            <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
+                            <AvatarFallback className="bg-gdg-blue text-white text-xs font-bold">
                               {u.firstName[0]}
                               {u.lastName[0]}
                             </AvatarFallback>
@@ -298,12 +298,12 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider shrink-0 ${
                             u.role === Role.SUPER_ADMIN
-                              ? 'bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30'
+                              ? 'bg-gdg-red/20 text-gdg-red border border-gdg-red/30'
                               : u.role === Role.ADMIN
-                              ? 'bg-[#4285F4]/20 text-[#4285F4] border border-[#4285F4]/30'
+                              ? 'bg-gdg-blue/20 text-gdg-blue border border-gdg-blue/30'
                               : u.role === Role.MENTOR
-                              ? 'bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30'
-                              : 'bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30'
+                              ? 'bg-gdg-yellow/20 text-gdg-yellow border border-gdg-yellow/30'
+                              : 'bg-gdg-green/20 text-gdg-green border border-gdg-green/30'
                           }`}
                         >
                           {u.role}
@@ -415,7 +415,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                             <div className="flex items-center gap-3">
                               <Avatar className="w-9 h-9 border border-white/10">
                                 <AvatarImage src={u.avatarUrl || ''} alt={u.name} />
-                                <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
+                                <AvatarFallback className="bg-gdg-blue text-white text-xs font-bold">
                                   {u.firstName[0]}
                                   {u.lastName[0]}
                                 </AvatarFallback>
@@ -438,12 +438,12 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                             <span
                               className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider ${
                                 u.role === Role.SUPER_ADMIN
-                                  ? 'bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30'
+                                  ? 'bg-gdg-red/20 text-gdg-red border border-gdg-red/30'
                                   : u.role === Role.ADMIN
-                                  ? 'bg-[#4285F4]/20 text-[#4285F4] border border-[#4285F4]/30'
+                                  ? 'bg-gdg-blue/20 text-gdg-blue border border-gdg-blue/30'
                                   : u.role === Role.MENTOR
-                                  ? 'bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30'
-                                  : 'bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30'
+                                  ? 'bg-gdg-yellow/20 text-gdg-yellow border border-gdg-yellow/30'
+                                  : 'bg-gdg-green/20 text-gdg-green border border-gdg-green/30'
                               }`}
                             >
                               {u.role}
@@ -506,7 +506,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                               {canEditThisUser ? (
                                 <button
                                   onClick={() => openEditModal(u)}
-                                  className="p-1.5 rounded-lg text-white/50 hover:text-[#4285F4] hover:bg-white/10 transition-colors"
+                                  className="p-1.5 rounded-lg text-white/50 hover:text-gdg-blue hover:bg-white/10 transition-colors"
                                   title="Edit User"
                                 >
                                   <Edit2 className="w-4 h-4" />
@@ -536,7 +536,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
             className="fixed inset-0"
             onClick={() => setSelectedUser(null)}
           />
-          <div className="relative w-full max-w-md bg-[#0D0E11] border-l border-white/15 h-full overflow-y-auto p-6 space-y-6 shadow-2xl flex flex-col justify-between">
+          <div className="relative w-full max-w-md bg-gdg-black border-l border-white/15 h-full overflow-y-auto p-6 space-y-6 shadow-2xl flex flex-col justify-between">
             <div className="space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <span className="text-xs uppercase font-mono tracking-wider text-white/50">
@@ -554,7 +554,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10">
                 <Avatar className="w-14 h-14 border border-white/15">
                   <AvatarImage src={selectedUser.avatarUrl || ''} alt={selectedUser.name} />
-                  <AvatarFallback className="bg-[#4285F4] text-white font-bold text-lg">
+                  <AvatarFallback className="bg-gdg-blue text-white font-bold text-lg">
                     {selectedUser.firstName[0]}
                     {selectedUser.lastName[0]}
                   </AvatarFallback>
@@ -565,12 +565,12 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                   <span
                     className={`inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
                       selectedUser.role === Role.SUPER_ADMIN
-                        ? 'bg-[#EA4335]/20 text-[#EA4335]'
+                        ? 'bg-gdg-red/20 text-gdg-red'
                         : selectedUser.role === Role.ADMIN
-                        ? 'bg-[#4285F4]/20 text-[#4285F4]'
+                        ? 'bg-gdg-blue/20 text-gdg-blue'
                         : selectedUser.role === Role.MENTOR
-                        ? 'bg-[#FBBC04]/20 text-[#FBBC04]'
-                        : 'bg-[#34A853]/20 text-[#34A853]'
+                        ? 'bg-gdg-yellow/20 text-gdg-yellow'
+                        : 'bg-gdg-green/20 text-gdg-green'
                     }`}
                   >
                     {selectedUser.role}
@@ -592,7 +592,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                       <span className="text-[10px] text-white/40">Syllabus Progress</span>
                     </div>
                     <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5">
-                      <span className="block text-xl font-black text-[#34A853]">
+                      <span className="block text-xl font-black text-gdg-green">
                         {selectedUser.attendanceRate ?? 92}%
                       </span>
                       <span className="text-[10px] text-white/40">Attendance Rate</span>
@@ -613,7 +613,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                             className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-xs"
                           >
                             <span className="font-bold text-white">{t.name}</span>
-                            <span className="text-[10px] font-mono text-[#34A853]">Active Roster</span>
+                            <span className="text-[10px] font-mono text-gdg-green">Active Roster</span>
                           </div>
                         ))}
                       </div>
@@ -642,7 +642,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                             className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-xs"
                           >
                             <span className="font-bold text-white">{t.name}</span>
-                            <span className="text-[10px] font-mono text-[#FBBC04]">Track Lead</span>
+                            <span className="text-[10px] font-mono text-gdg-yellow">Track Lead</span>
                           </div>
                         ))}
                       </div>
@@ -676,7 +676,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
       {/* CREATE USER MODAL (Requirement 10) */}
       {isCreateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Create Platform User</h3>
@@ -691,7 +691,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
             </div>
 
             {createError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{createError}</span>
               </div>
@@ -701,33 +701,33 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                    First Name <span className="text-[#EA4335]">*</span>
+                    First Name <span className="text-gdg-red">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     value={createFormData.firstName}
                     onChange={(e) => setCreateFormData({ ...createFormData, firstName: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                    Last Name <span className="text-[#EA4335]">*</span>
+                    Last Name <span className="text-gdg-red">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     value={createFormData.lastName}
                     onChange={(e) => setCreateFormData({ ...createFormData, lastName: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Email Address <span className="text-[#EA4335]">*</span>
+                  Email Address <span className="text-gdg-red">*</span>
                 </label>
                 <input
                   type="email"
@@ -735,13 +735,13 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                   placeholder="student@gdglasu.dev"
                   value={createFormData.email}
                   onChange={(e) => setCreateFormData({ ...createFormData, email: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Temporary Password <span className="text-[#EA4335]">*</span>
+                  Temporary Password <span className="text-gdg-red">*</span>
                 </label>
                 <input
                   type="password"
@@ -750,24 +750,24 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                   placeholder="At least 6 characters"
                   value={createFormData.password}
                   onChange={(e) => setCreateFormData({ ...createFormData, password: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Role Authorization <span className="text-[#EA4335]">*</span>
+                  Role Authorization <span className="text-gdg-red">*</span>
                 </label>
                 <select
                   value={createFormData.role}
                   onChange={(e) => setCreateFormData({ ...createFormData, role: e.target.value as Role })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
-                  <option value={Role.STUDENT} className="bg-[#0D0E11]">STUDENT (Default)</option>
-                  <option value={Role.MENTOR} className="bg-[#0D0E11]">MENTOR (Track Instructor)</option>
-                  <option value={Role.ADMIN} className="bg-[#0D0E11]">ADMIN (Platform Administrator)</option>
+                  <option value={Role.STUDENT} className="bg-gdg-black">STUDENT (Default)</option>
+                  <option value={Role.MENTOR} className="bg-gdg-black">MENTOR (Track Instructor)</option>
+                  <option value={Role.ADMIN} className="bg-gdg-black">ADMIN (Platform Administrator)</option>
                   {isSuperAdmin && (
-                    <option value={Role.SUPER_ADMIN} className="bg-[#0D0E11]">
+                    <option value={Role.SUPER_ADMIN} className="bg-gdg-black">
                       SUPER_ADMIN (Full Hierarchy Control)
                     </option>
                   )}
@@ -790,7 +790,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 <button
                   type="submit"
                   disabled={isCreating}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
                 >
                   {isCreating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Create User</span>
@@ -804,7 +804,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
       {/* EDIT USER MODAL (Requirement 11) */}
       {editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Edit User Profile</h3>
@@ -819,7 +819,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
             </div>
 
             {editError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{editError}</span>
               </div>
@@ -835,7 +835,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                     type="text"
                     value={editFormData.firstName}
                     onChange={(e) => setEditFormData({ ...editFormData, firstName: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
                 <div>
@@ -846,7 +846,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                     type="text"
                     value={editFormData.lastName}
                     onChange={(e) => setEditFormData({ ...editFormData, lastName: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
               </div>
@@ -860,7 +860,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                   placeholder="https://example.com/avatar.jpg"
                   value={editFormData.avatarUrl}
                   onChange={(e) => setEditFormData({ ...editFormData, avatarUrl: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
@@ -871,13 +871,13 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 <select
                   value={editFormData.role}
                   onChange={(e) => setEditFormData({ ...editFormData, role: e.target.value as Role })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
-                  <option value={Role.STUDENT} className="bg-[#0D0E11]">STUDENT</option>
-                  <option value={Role.MENTOR} className="bg-[#0D0E11]">MENTOR</option>
-                  <option value={Role.ADMIN} className="bg-[#0D0E11]">ADMIN</option>
+                  <option value={Role.STUDENT} className="bg-gdg-black">STUDENT</option>
+                  <option value={Role.MENTOR} className="bg-gdg-black">MENTOR</option>
+                  <option value={Role.ADMIN} className="bg-gdg-black">ADMIN</option>
                   {isSuperAdmin && (
-                    <option value={Role.SUPER_ADMIN} className="bg-[#0D0E11]">SUPER_ADMIN</option>
+                    <option value={Role.SUPER_ADMIN} className="bg-gdg-black">SUPER_ADMIN</option>
                   )}
                 </select>
               </div>
@@ -893,7 +893,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 <button
                   type="submit"
                   disabled={isUpdating}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
                 >
                   {isUpdating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Save Changes</span>

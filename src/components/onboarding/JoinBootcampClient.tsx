@@ -146,29 +146,29 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
   const invite = validationResult?.invite;
 
   return (
-    <div className="min-h-screen bg-[#FAF7EE] text-[#0D0E11] py-12 px-4 sm:px-6 lg:px-8 selection:bg-[#FBBC04]/30">
+    <div className="min-h-screen bg-gdg-cream text-gdg-black py-12 px-4 sm:px-6 lg:px-8 selection:bg-gdg-yellow/30">
       <div className="max-w-xl mx-auto space-y-8">
         {/* Step Indicator */}
         <OnboardingStepIndicator currentStep={2} />
 
         {/* Card */}
-        <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-10 shadow-sm space-y-6">
+        <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-10 shadow-sm space-y-6">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#4285F4]/15 border border-[#4285F4]/30 text-xs font-black text-[#4285F4] uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gdg-blue/15 border border-gdg-blue/30 text-xs font-black text-gdg-blue uppercase tracking-wider">
               <Ticket className="w-3.5 h-3.5" />
               <span>Step 2 of 3 · Join Bootcamp</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight">
               Enter your invite code
             </h1>
-            <p className="text-xs sm:text-sm text-[#5F6368] max-w-sm mx-auto">
+            <p className="text-xs sm:text-sm text-gdg-gray max-w-sm mx-auto">
               Join your designated bootcamp track with the invite code provided by GDG LASU organizers.
             </p>
           </div>
 
           {/* Error Message Alert */}
           {errorMessage && (
-            <div className="p-4 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 flex items-center gap-3 text-xs font-bold text-[#EA4335] animate-in fade-in">
+            <div className="p-4 rounded-2xl bg-gdg-red/10 border border-gdg-red/30 flex items-center gap-3 text-xs font-bold text-gdg-red animate-in fade-in">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -177,12 +177,12 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
           <form onSubmit={handleJoin} className="space-y-6">
             {/* Invite Code Input */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-[#0D0E11]">
-                Invite Code <span className="text-[#EA4335]">*</span>
+              <label className="block text-xs font-bold text-gdg-black">
+                Invite Code <span className="text-gdg-red">*</span>
               </label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
-                  <Ticket className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#5F6368]" />
+                  <Ticket className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gdg-gray" />
                   <input
                     type="text"
                     required
@@ -198,41 +198,41 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                         setErrorMessage(null);
                       }
                     }}
-                    className="w-full pl-10 pr-4 py-3 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-sm font-mono font-bold tracking-wider text-[#0D0E11] uppercase focus:bg-white focus:border-[#0D0E11] outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3 rounded-2xl bg-gdg-cream border border-gdg-border text-sm font-mono font-bold tracking-wider text-gdg-black uppercase focus:bg-white focus:border-gdg-black outline-none transition-all"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={() => handleValidate(code)}
                   disabled={isValidating || !code.trim()}
-                  className="px-5 py-3 rounded-2xl bg-[#FAF7EE] hover:bg-[#E5DFD0] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] transition-all cursor-pointer disabled:opacity-50"
+                  className="px-5 py-3 rounded-2xl bg-gdg-cream hover:bg-gdg-border border border-gdg-border text-xs font-bold text-gdg-black transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isValidating ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Check'}
                 </button>
               </div>
-              <p className="text-[11px] text-[#5F6368]">
-                Codes are case-insensitive. Example: <code className="font-bold text-[#0D0E11]">BACKEND26</code> or <code className="font-bold text-[#0D0E11]">GDGLASU26</code>
+              <p className="text-[11px] text-gdg-gray">
+                Codes are case-insensitive. Example: <code className="font-bold text-gdg-black">BACKEND26</code> or <code className="font-bold text-gdg-black">GDGLASU26</code>
               </p>
             </div>
 
             {/* PREVIEW OF VALID INVITE */}
             {invite && (
-              <div className="rounded-2xl border-2 border-[#34A853]/40 bg-[#34A853]/5 p-5 space-y-4 animate-in fade-in slide-in-from-top-2">
+              <div className="rounded-2xl border-2 border-gdg-green/40 bg-gdg-green/5 p-5 space-y-4 animate-in fade-in slide-in-from-top-2">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#34A853]" />
-                    <span className="text-[11px] font-black uppercase tracking-wider text-[#34A853]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-gdg-green" />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-gdg-green">
                       Verified Invite
                     </span>
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#0D0E11] bg-white px-2 py-0.5 rounded-md border border-[#E5DFD0]">
+                  <span className="font-mono text-xs font-bold text-gdg-black bg-white px-2 py-0.5 rounded-md border border-gdg-border">
                     {invite.code}
                   </span>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#5F6368]">
-                    <Award className="w-3.5 h-3.5 text-[#FBBC04]" />
+                  <div className="flex items-center gap-2 text-xs font-bold text-gdg-gray">
+                    <Award className="w-3.5 h-3.5 text-gdg-yellow" />
                     <span>{invite.bootcampName}</span>
                     {invite.cohortName && (
                       <>
@@ -241,19 +241,19 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                       </>
                     )}
                   </div>
-                  <h3 className="text-lg font-black text-[#0D0E11]">
+                  <h3 className="text-lg font-black text-gdg-black">
                     {invite.trackName || (invite.allowTrackSelection ? 'Multi-Track Cohort Access' : 'Bootcamp Access')}
                   </h3>
                 </div>
 
                 {/* TRACK SELECTION (If invite allows choosing tracks) */}
                 {invite.allowTrackSelection && invite.availableTracks && invite.availableTracks.length > 0 && (
-                  <div className="pt-2 border-t border-[#34A853]/20 space-y-2.5">
+                  <div className="pt-2 border-t border-gdg-green/20 space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold text-[#0D0E11]">
+                      <label className="text-xs font-bold text-gdg-black">
                         Select Your Track{invite.maxTrackSelections && invite.maxTrackSelections > 1 ? ` (up to ${invite.maxTrackSelections})` : ''}:
                       </label>
-                      <span className="text-[11px] text-[#5F6368]">
+                      <span className="text-[11px] text-gdg-gray">
                         {selectedTrackIds.length} of {invite.maxTrackSelections || 1} selected
                       </span>
                     </div>
@@ -268,8 +268,8 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                             className={cn(
                               'p-3.5 rounded-xl border text-left cursor-pointer transition-all flex items-start justify-between gap-2',
                               isSelected
-                                ? 'bg-white border-[#0D0E11] shadow-xs ring-2 ring-[#0D0E11]/10'
-                                : 'bg-white/60 border-[#E5DFD0] hover:bg-white hover:border-[#0D0E11]/30'
+                                ? 'bg-white border-gdg-black shadow-xs ring-2 ring-gdg-black/10'
+                                : 'bg-white/60 border-gdg-border hover:bg-white hover:border-gdg-black/30'
                             )}
                           >
                             <div className="space-y-1 min-w-0">
@@ -278,12 +278,12 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                                   className="w-2 h-2 rounded-full shrink-0"
                                   style={{ backgroundColor: t.accent || '#4285F4' }}
                                 />
-                                <span className="text-xs font-black text-[#0D0E11] truncate">
+                                <span className="text-xs font-black text-gdg-black truncate">
                                   {t.name}
                                 </span>
                               </div>
                               {t.description && (
-                                <p className="text-[10px] text-[#5F6368] line-clamp-2">
+                                <p className="text-[10px] text-gdg-gray line-clamp-2">
                                   {t.description}
                                 </p>
                               )}
@@ -293,8 +293,8 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                               className={cn(
                                 'w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 transition-colors',
                                 isSelected
-                                  ? 'bg-[#0D0E11] text-white border-[#0D0E11]'
-                                  : 'border-[#E5DFD0] bg-white'
+                                  ? 'bg-gdg-black text-white border-gdg-black'
+                                  : 'border-gdg-border bg-white'
                               )}
                             >
                               {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -309,11 +309,11 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
             )}
 
             {/* Actions */}
-            <div className="pt-4 border-t border-[#E5DFD0] flex items-center justify-between">
+            <div className="pt-4 border-t border-gdg-border flex items-center justify-between">
               <button
                 type="button"
                 onClick={() => router.push('/onboarding/profile')}
-                className="text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors"
+                className="text-xs font-bold text-gdg-gray hover:text-gdg-black transition-colors"
               >
                 Back to Profile
               </button>
@@ -321,17 +321,17 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
               <button
                 type="submit"
                 disabled={!invite || isJoining}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-40"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gdg-black hover:bg-gdg-dark-border text-xs font-black text-gdg-cream shadow-sm transition-all cursor-pointer disabled:opacity-40"
               >
                 {isJoining ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin text-[#FBBC04]" />
+                    <Loader2 className="w-4 h-4 animate-spin text-gdg-yellow" />
                     <span>Joining Track...</span>
                   </>
                 ) : (
                   <>
                     <span>Join Bootcamp</span>
-                    <ArrowRight className="w-4 h-4 text-[#FBBC04]" />
+                    <ArrowRight className="w-4 h-4 text-gdg-yellow" />
                   </>
                 )}
               </button>

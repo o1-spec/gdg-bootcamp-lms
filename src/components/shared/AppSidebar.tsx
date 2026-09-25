@@ -76,30 +76,30 @@ export function AppSidebar({
       {/* Sidebar Container */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-[280px] sm:w-72 max-w-[85vw] flex-col bg-[#0D0E11] text-[#FAF7EE] border-r border-[#22242B] transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shrink-0 select-none',
+          'fixed inset-y-0 left-0 z-50 flex w-70 sm:w-72 max-w-[85vw] flex-col bg-gdg-black text-gdg-cream border-r border-gdg-dark-border transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shrink-0 select-none',
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         {/* Brand Header */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-[#22242B]/80">
+        <div className="flex h-20 items-center justify-between px-6 border-b border-gdg-dark-border/80">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1A1C23] border border-[#2D3039] shadow-inner">
               <div className="flex flex-wrap w-5 h-5 gap-1 items-center justify-center">
-                <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
-                <span className="h-2 w-2 rounded-full bg-[#4285F4]" />
-                <span className="h-2 w-2 rounded-full bg-[#34A853]" />
-                <span className="h-2 w-2 rounded-full bg-[#FBBC04]" />
+                <span className="h-2 w-2 rounded-full bg-gdg-red" />
+                <span className="h-2 w-2 rounded-full bg-gdg-blue" />
+                <span className="h-2 w-2 rounded-full bg-gdg-green" />
+                <span className="h-2 w-2 rounded-full bg-gdg-yellow" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-black tracking-wider uppercase text-[#FAF7EE]">
+                <span className="text-xs font-black tracking-wider uppercase text-gdg-cream">
                   {portalName}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#34A853] animate-pulse" />
-                <span className="text-[10px] font-semibold tracking-wider text-[#FAF7EE]/50 uppercase">
+                <span className="h-1.5 w-1.5 rounded-full bg-gdg-green animate-pulse" />
+                <span className="text-[10px] font-semibold tracking-wider text-gdg-cream/50 uppercase">
                   {portalBadge}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export function AppSidebar({
           <button
             type="button"
             onClick={onMobileClose}
-            className="rounded-xl p-1.5 text-[#FAF7EE]/60 hover:bg-[#1A1C23] hover:text-[#FAF7EE] lg:hidden transition-colors"
+            className="rounded-xl p-1.5 text-gdg-cream/60 hover:bg-[#1A1C23] hover:text-gdg-cream lg:hidden transition-colors"
             aria-label="Close sidebar"
           >
             <X className="h-5 w-5" />
@@ -117,11 +117,11 @@ export function AppSidebar({
         </div>
 
         {/* Navigation Section */}
-        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-thin scrollbar-thumb-[#22242B]">
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-thin scrollbar-thumb-gdg-dark-border">
           {sections.map((section, idx) => (
             <div key={idx} className="space-y-1.5">
               {section.title && (
-                <div className="px-3 pb-2 text-[10px] font-black uppercase tracking-widest text-[#FAF7EE]/40">
+                <div className="px-3 pb-2 text-[10px] font-black uppercase tracking-widest text-gdg-cream/40">
                   {section.title}
                 </div>
               )}
@@ -138,8 +138,8 @@ export function AppSidebar({
                     className={cn(
                       'group flex items-center justify-between rounded-2xl px-3.5 py-2.5 text-xs font-semibold transition-all duration-200',
                       active
-                        ? 'bg-[#FBBC04] text-[#0D0E11] font-bold shadow-md shadow-[#FBBC04]/10'
-                        : 'text-[#FAF7EE]/70 hover:bg-[#1A1C23] hover:text-[#FAF7EE]'
+                        ? 'bg-gdg-yellow text-gdg-black font-bold shadow-md shadow-gdg-yellow/10'
+                        : 'text-gdg-cream/70 hover:bg-[#1A1C23] hover:text-gdg-cream'
                     )}
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -147,8 +147,8 @@ export function AppSidebar({
                         className={cn(
                           'h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110',
                           active
-                            ? 'text-[#0D0E11]'
-                            : 'text-[#FAF7EE]/50 group-hover:text-[#FAF7EE]'
+                            ? 'text-gdg-black'
+                            : 'text-gdg-cream/50 group-hover:text-gdg-cream'
                         )}
                       />
                       <span className="truncate">{item.label}</span>
@@ -159,10 +159,10 @@ export function AppSidebar({
                         className={cn(
                           'ml-2 rounded-full px-2 py-0.5 text-[10px] font-black tracking-wider transition-colors',
                           active
-                            ? 'bg-[#0D0E11] text-[#FBBC04]'
+                            ? 'bg-gdg-black text-gdg-yellow'
                             : item.badgeVariant === 'danger'
-                            ? 'bg-[#EA4335] text-white animate-pulse'
-                            : 'bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30'
+                              ? 'bg-gdg-red text-white animate-pulse'
+                              : 'bg-gdg-yellow/20 text-gdg-yellow border border-gdg-yellow/30'
                         )}
                       >
                         {badgeVal}
@@ -178,7 +178,7 @@ export function AppSidebar({
         </div>
 
         {/* User Profile Footer */}
-        <div className="border-t border-[#22242B] p-4 bg-[#0A0B0E]">
+        <div className="border-t border-gdg-dark-border p-4 bg-[#0A0B0E]">
           <div className="flex items-center justify-between gap-3">
             <Link
               href="/settings"
@@ -187,7 +187,7 @@ export function AppSidebar({
             >
               <Avatar className="h-9 w-9 rounded-xl border border-[#2D3039]">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="bg-[#4285F4] text-white font-bold text-xs">
+                <AvatarFallback className="bg-gdg-blue text-white font-bold text-xs">
                   {user.name
                     .split(' ')
                     .map((n) => n[0])
@@ -197,10 +197,10 @@ export function AppSidebar({
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0 flex-1">
-                <span className="text-xs font-bold text-[#FAF7EE] truncate block">
+                <span className="text-xs font-bold text-gdg-cream truncate block">
                   {user.name}
                 </span>
-                <span className="text-[10px] text-[#FAF7EE]/50 font-medium truncate block">
+                <span className="text-[10px] text-gdg-cream/50 font-medium truncate block">
                   {user.role}
                 </span>
               </div>
@@ -209,7 +209,7 @@ export function AppSidebar({
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-xl p-2 text-[#FAF7EE]/50 hover:bg-[#EA4335]/20 hover:text-[#EA4335] transition-colors"
+              className="rounded-xl p-2 text-gdg-cream/50 hover:bg-gdg-red/20 hover:text-gdg-red transition-colors"
               title="Sign Out"
               aria-label="Sign out"
             >

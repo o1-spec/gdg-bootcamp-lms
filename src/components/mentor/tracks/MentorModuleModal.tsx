@@ -55,21 +55,21 @@ function MentorModuleModalForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
-      <div className="w-full max-w-lg rounded-3xl bg-white border border-[#E5DFD0] p-5 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-lg rounded-3xl bg-white border border-gdg-border p-5 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-black text-[#0D0E11]">
+          <h3 className="text-xl font-black text-gdg-black">
             {editingModule ? 'Edit Module' : 'Create New Module'}
           </h3>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl hover:bg-[#FAF7EE] text-[#5F6368] hover:text-[#0D0E11]"
+            className="p-2 rounded-xl hover:bg-gdg-cream text-gdg-gray hover:text-gdg-black"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {formError && (
-          <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 text-xs font-bold text-[#EA4335] flex items-center gap-2">
+          <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/30 text-xs font-bold text-gdg-red flex items-center gap-2">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{formError}</span>
           </div>
@@ -77,7 +77,7 @@ function MentorModuleModalForm({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+            <label className="text-xs font-bold text-gdg-black block mb-1">
               Module Title *
             </label>
             <input
@@ -89,13 +89,13 @@ function MentorModuleModalForm({
                 if (!editingModule) setModuleSlug(slugify(e.target.value));
               }}
               placeholder="e.g., PostgreSQL & Advanced Schema Design"
-              className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium"
+              className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+              <label className="text-xs font-bold text-gdg-black block mb-1">
                 Slug *
               </label>
               <input
@@ -104,11 +104,11 @@ function MentorModuleModalForm({
                 value={moduleSlug}
                 onChange={(e) => setModuleSlug(slugify(e.target.value))}
                 placeholder="postgresql-schema-design"
-                className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+              <label className="text-xs font-bold text-gdg-black block mb-1">
                 Order Number *
               </label>
               <input
@@ -117,13 +117,13 @@ function MentorModuleModalForm({
                 required
                 value={moduleOrder}
                 onChange={(e) => setModuleOrder(Number(e.target.value))}
-                className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+            <label className="text-xs font-bold text-gdg-black block mb-1">
               Description
             </label>
             <textarea
@@ -131,7 +131,7 @@ function MentorModuleModalForm({
               value={moduleDescription}
               onChange={(e) => setModuleDescription(e.target.value)}
               placeholder="Brief overview of learning outcomes for this module..."
-              className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium resize-none"
+              className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium resize-none"
             />
           </div>
 
@@ -139,14 +139,14 @@ function MentorModuleModalForm({
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-2xl border border-[#E5DFD0] text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] text-center"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-2xl border border-gdg-border text-xs font-bold text-gdg-gray hover:text-gdg-black text-center"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-2xl bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border disabled:opacity-50 transition-colors shadow-sm cursor-pointer"
             >
               {isSubmitting ? 'Saving...' : editingModule ? 'Save Changes' : 'Create Module'}
             </button>

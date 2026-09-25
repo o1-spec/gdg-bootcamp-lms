@@ -123,14 +123,14 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
     currentModule: 'Curriculum',
     nextLesson: undefined,
     colorTheme: {
-      badge: 'bg-[#4285F4]/10 text-[#4285F4]',
-      border: 'border-[#4285F4]/30',
+      badge: 'bg-gdg-blue/10 text-gdg-blue',
+      border: 'border-gdg-blue/30',
       accent: et.accent || '#4285F4',
     },
   }));
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="dashboard"
@@ -150,18 +150,18 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-5xl w-full mx-auto">
           {/* Header Banner */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#E5DFD0]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gdg-border">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#4285F4]" />
-                <span className="text-[11px] font-black uppercase tracking-wider text-[#5F6368]">
+                <span className="w-2.5 h-2.5 rounded-full bg-gdg-blue" />
+                <span className="text-[11px] font-black uppercase tracking-wider text-gdg-gray">
                   Account Settings
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight">
                 Student Profile
               </h1>
-              <p className="text-xs sm:text-sm text-[#5F6368]">
+              <p className="text-xs sm:text-sm text-gdg-gray">
                 Manage your personal identity, bio, social connections, and cohort tracks.
               </p>
             </div>
@@ -169,16 +169,16 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gdg-black hover:bg-gdg-dark-border text-xs font-black text-gdg-cream shadow-sm transition-all cursor-pointer disabled:opacity-50"
             >
               {isSaving ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#FBBC04]" />
+                  <Loader2 className="w-4 h-4 animate-spin text-gdg-yellow" />
                   <span>Saving...</span>
                 </>
               ) : (
                 <>
-                  <Save className="w-4 h-4 text-[#FBBC04]" />
+                  <Save className="w-4 h-4 text-gdg-yellow" />
                   <span>Save Changes</span>
                 </>
               )}
@@ -187,14 +187,14 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
 
           {/* Feedback alerts */}
           {successMessage && (
-            <div className="p-4 rounded-2xl bg-[#34A853]/15 border border-[#34A853]/30 text-xs font-bold text-[#34A853] flex items-center gap-2 animate-in fade-in">
+            <div className="p-4 rounded-2xl bg-gdg-green/15 border border-gdg-green/30 text-xs font-bold text-gdg-green flex items-center gap-2 animate-in fade-in">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
 
           {errorMessage && (
-            <div className="p-4 rounded-2xl bg-[#EA4335]/15 border border-[#EA4335]/30 text-xs font-bold text-[#EA4335] flex items-center gap-2 animate-in fade-in">
+            <div className="p-4 rounded-2xl bg-gdg-red/15 border border-gdg-red/30 text-xs font-bold text-gdg-red flex items-center gap-2 animate-in fade-in">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -204,40 +204,40 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
             {/* Left Column: Profile Card & Enrolled Tracks */}
             <div className="space-y-6">
               {/* Profile Overview Card */}
-              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-6 shadow-sm space-y-4 text-center">
-                <Avatar className="w-24 h-24 rounded-3xl border-2 border-[#0D0E11] mx-auto shadow-md">
+              <div className="rounded-3xl border border-gdg-border bg-white p-5 sm:p-6 shadow-sm space-y-4 text-center">
+                <Avatar className="w-24 h-24 rounded-3xl border-2 border-gdg-black mx-auto shadow-md">
                   <AvatarImage src={formData.avatarUrl} alt={formData.displayName} />
-                  <AvatarFallback className="bg-[#0D0E11] text-[#FAF7EE] font-black text-2xl">
+                  <AvatarFallback className="bg-gdg-black text-gdg-cream font-black text-2xl">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
 
                 <div className="space-y-1">
-                  <h2 className="text-lg font-black text-[#0D0E11]">
+                  <h2 className="text-lg font-black text-gdg-black">
                     {formData.displayName || `${formData.firstName} ${formData.lastName}`}
                   </h2>
-                  <p className="text-xs text-[#5F6368] font-medium">{initialUser.email}</p>
+                  <p className="text-xs text-gdg-gray font-medium">{initialUser.email}</p>
                 </div>
 
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#34A853]/15 text-[#34A853] border border-[#34A853]/30 text-[11px] font-black uppercase tracking-wider">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gdg-green/15 text-gdg-green border border-gdg-green/30 text-[11px] font-black uppercase tracking-wider">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Enrolled Student</span>
                 </div>
 
                 {formData.bio && (
-                  <p className="text-xs text-[#5F6368] leading-relaxed pt-2 border-t border-[#E5DFD0]">
+                  <p className="text-xs text-gdg-gray leading-relaxed pt-2 border-t border-gdg-border">
                     &ldquo;{formData.bio}&rdquo;
                   </p>
                 )}
 
                 {/* Social Badges */}
-                <div className="flex items-center justify-center gap-3 pt-3 border-t border-[#E5DFD0]">
+                <div className="flex items-center justify-center gap-3 pt-3 border-t border-gdg-border">
                   {formData.githubUrl ? (
                     <a
                       href={formData.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-2 rounded-xl bg-[#FAF7EE] hover:bg-[#E5DFD0] border border-[#E5DFD0] text-[#0D0E11] transition-colors"
+                      className="p-2 rounded-xl bg-gdg-cream hover:bg-gdg-border border border-gdg-border text-gdg-black transition-colors"
                       title="GitHub Profile"
                     >
                       <GithubIcon className="w-4 h-4" />
@@ -248,28 +248,28 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                       href={formData.linkedinUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-2 rounded-xl bg-[#FAF7EE] hover:bg-[#E5DFD0] border border-[#E5DFD0] text-[#4285F4] transition-colors"
+                      className="p-2 rounded-xl bg-gdg-cream hover:bg-gdg-border border border-gdg-border text-gdg-blue transition-colors"
                       title="LinkedIn Profile"
                     >
                       <LinkedinIcon className="w-4 h-4" />
                     </a>
                   ) : null}
                   {!formData.githubUrl && !formData.linkedinUrl && (
-                    <span className="text-[11px] text-[#5F6368]">No social links attached</span>
+                    <span className="text-[11px] text-gdg-gray">No social links attached</span>
                   )}
                 </div>
               </div>
 
               {/* Enrolled Tracks (Readonly - Student cannot edit arbitary enrollments) */}
-              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-6 shadow-sm space-y-4">
+              <div className="rounded-3xl border border-gdg-border bg-white p-5 sm:p-6 shadow-sm space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-[#4285F4]" />
-                    <h3 className="text-xs font-black uppercase tracking-wider text-[#0D0E11]">
+                    <Layers className="w-4 h-4 text-gdg-blue" />
+                    <h3 className="text-xs font-black uppercase tracking-wider text-gdg-black">
                       My Enrolled Tracks
                     </h3>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF7EE] border border-[#E5DFD0] text-[#5F6368]">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gdg-cream border border-gdg-border text-gdg-gray">
                     {enrolledTracks.length} Active
                   </span>
                 </div>
@@ -280,7 +280,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                       <Link
                         key={trk.id}
                         href={`/tracks/${trk.slug || trk.id}`}
-                        className="flex items-center justify-between p-3 rounded-2xl bg-[#FAF7EE] hover:bg-white border border-[#E5DFD0] hover:border-[#0D0E11]/30 transition-all group"
+                        className="flex items-center justify-between p-3 rounded-2xl bg-gdg-cream hover:bg-white border border-gdg-border hover:border-gdg-black/30 transition-all group"
                       >
                         <div className="space-y-0.5 min-w-0">
                           <div className="flex items-center gap-1.5">
@@ -288,26 +288,26 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                               className="w-2 h-2 rounded-full shrink-0"
                               style={{ backgroundColor: trk.accent || '#4285F4' }}
                             />
-                            <span className="text-xs font-bold text-[#0D0E11] truncate group-hover:text-black">
+                            <span className="text-xs font-bold text-gdg-black truncate group-hover:text-black">
                               {trk.name}
                             </span>
                           </div>
                           {trk.cohortName && (
-                            <span className="text-[10px] text-[#5F6368] pl-3.5 block truncate">
+                            <span className="text-[10px] text-gdg-gray pl-3.5 block truncate">
                               {trk.cohortName}
                             </span>
                           )}
                         </div>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-[#5F6368] group-hover:text-[#0D0E11] shrink-0" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-gdg-gray group-hover:text-gdg-black shrink-0" />
                       </Link>
                     ))}
                   </div>
                 ) : (
-                  <div className="p-4 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center space-y-2">
-                    <p className="text-xs text-[#5F6368]">You have not joined any track yet.</p>
+                  <div className="p-4 rounded-2xl bg-gdg-cream border border-gdg-border text-center space-y-2">
+                    <p className="text-xs text-gdg-gray">You have not joined any track yet.</p>
                     <Link
                       href="/onboarding/join"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4285F4] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-gdg-blue hover:underline"
                     >
                       <span>Join via Invite Code</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -319,93 +319,93 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
 
             {/* Right Column: Editable Profile Form */}
             <div className="lg:col-span-2">
-              <form onSubmit={handleSave} className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 shadow-sm space-y-6">
+              <form onSubmit={handleSave} className="rounded-3xl border border-gdg-border bg-white p-5 sm:p-8 shadow-sm space-y-6">
                 <div>
-                  <h3 className="text-base font-black text-[#0D0E11]">Personal Details</h3>
-                  <p className="text-xs text-[#5F6368]">Update your personal information and contact links.</p>
+                  <h3 className="text-base font-black text-gdg-black">Personal Details</h3>
+                  <p className="text-xs text-gdg-gray">Update your personal information and contact links.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-[#0D0E11]">First Name</label>
+                    <label className="block text-xs font-bold text-gdg-black">First Name</label>
                     <input
                       type="text"
                       required
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black focus:bg-white focus:border-gdg-black outline-none"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-[#0D0E11]">Last Name</label>
+                    <label className="block text-xs font-bold text-gdg-black">Last Name</label>
                     <input
                       type="text"
                       required
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black focus:bg-white focus:border-gdg-black outline-none"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#0D0E11]">Display Name</label>
+                  <label className="block text-xs font-bold text-gdg-black">Display Name</label>
                   <input
                     type="text"
                     value={formData.displayName}
                     onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black focus:bg-white focus:border-gdg-black outline-none"
                   />
-                  <p className="text-[10px] text-[#5F6368]">The name shown on leaderboards, assignment submissions, and discussions.</p>
+                  <p className="text-[10px] text-gdg-gray">The name shown on leaderboards, assignment submissions, and discussions.</p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#0D0E11]">Email Address</label>
+                  <label className="block text-xs font-bold text-gdg-black">Email Address</label>
                   <input
                     type="email"
                     disabled
                     value={initialUser.email}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE]/50 border border-[#E5DFD0] text-xs font-medium text-[#5F6368] cursor-not-allowed"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream/50 border border-gdg-border text-xs font-medium text-gdg-gray cursor-not-allowed"
                   />
-                  <p className="text-[10px] text-[#5F6368]">Primary login email managed by administrative team.</p>
+                  <p className="text-[10px] text-gdg-gray">Primary login email managed by administrative team.</p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#0D0E11]">Avatar Image URL</label>
+                  <label className="block text-xs font-bold text-gdg-black">Avatar Image URL</label>
                   <input
                     type="url"
                     value={formData.avatarUrl}
                     onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
                     placeholder="https://..."
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black focus:bg-white focus:border-gdg-black outline-none"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#0D0E11]">Short Bio</label>
+                  <label className="block text-xs font-bold text-gdg-black">Short Bio</label>
                   <textarea
                     rows={4}
                     value={formData.bio}
                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                     placeholder="Tell your mentors and cohort about your interests and goals..."
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none resize-none"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs text-gdg-black focus:bg-white focus:border-gdg-black outline-none resize-none"
                   />
-                  <div className="flex justify-between items-center text-[10px] text-[#5F6368]">
+                  <div className="flex justify-between items-center text-[10px] text-gdg-gray">
                     <span>Max 500 characters</span>
                     <span>{formData.bio.length}/500</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#E5DFD0] space-y-4">
+                <div className="pt-4 border-t border-gdg-border space-y-4">
                   <div>
-                    <h3 className="text-base font-black text-[#0D0E11]">Portfolio & Socials</h3>
-                    <p className="text-xs text-[#5F6368]">Connect your developer profiles for mentor review.</p>
+                    <h3 className="text-base font-black text-gdg-black">Portfolio & Socials</h3>
+                    <p className="text-xs text-gdg-gray">Connect your developer profiles for mentor review.</p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="flex items-center gap-1.5 text-xs font-bold text-[#0D0E11]">
+                      <label className="flex items-center gap-1.5 text-xs font-bold text-gdg-black">
                         <GithubIcon className="w-3.5 h-3.5" />
                         <span>GitHub Profile</span>
                       </label>
@@ -414,13 +414,13 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                         placeholder="https://github.com/..."
                         value={formData.githubUrl}
                         onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none"
+                        className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black focus:bg-white focus:border-gdg-black outline-none"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="flex items-center gap-1.5 text-xs font-bold text-[#0D0E11]">
-                        <LinkedinIcon className="w-3.5 h-3.5 text-[#4285F4]" />
+                      <label className="flex items-center gap-1.5 text-xs font-bold text-gdg-black">
+                        <LinkedinIcon className="w-3.5 h-3.5 text-gdg-blue" />
                         <span>LinkedIn Profile</span>
                       </label>
                       <input
@@ -428,26 +428,26 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                         placeholder="https://linkedin.com/in/..."
                         value={formData.linkedinUrl}
                         onChange={(e) => setFormData({ ...formData, linkedinUrl: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] focus:bg-white focus:border-[#0D0E11] outline-none"
+                        className="w-full px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black focus:bg-white focus:border-gdg-black outline-none"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#E5DFD0] flex items-center justify-end">
+                <div className="pt-4 border-t border-gdg-border flex items-center justify-end">
                   <button
                     type="submit"
                     disabled={isSaving}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gdg-black hover:bg-gdg-dark-border text-xs font-black text-gdg-cream shadow-sm transition-all cursor-pointer disabled:opacity-50"
                   >
                     {isSaving ? (
                       <>
-                        <Loader2 className="w-4 h-4 animate-spin text-[#FBBC04]" />
+                        <Loader2 className="w-4 h-4 animate-spin text-gdg-yellow" />
                         <span>Saving Changes...</span>
                       </>
                     ) : (
                       <>
-                        <Save className="w-4 h-4 text-[#FBBC04]" />
+                        <Save className="w-4 h-4 text-gdg-yellow" />
                         <span>Save Profile</span>
                       </>
                     )}

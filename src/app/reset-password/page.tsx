@@ -71,20 +71,20 @@ function ResetPasswordForm() {
   return (
     <div className="w-full max-w-md space-y-6">
       <div className="text-center space-y-2">
-        <div className="inline-flex h-14 w-14 rounded-3xl bg-[#0D0E11] text-[#34A853] items-center justify-center shadow-md mb-2">
+        <div className="inline-flex h-14 w-14 rounded-3xl bg-gdg-black text-gdg-green items-center justify-center shadow-md mb-2">
           <Lock className="h-7 w-7" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight">
           Reset Your Password
         </h1>
-        <p className="text-xs sm:text-sm text-[#5F6368] font-medium max-w-sm mx-auto">
+        <p className="text-xs sm:text-sm text-gdg-gray font-medium max-w-sm mx-auto">
           Enter and confirm your new secure password below to regain full account access.
         </p>
       </div>
 
-      <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-sm space-y-6">
+      <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 shadow-sm space-y-6">
         {!token && (
-          <div className="p-4 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 text-xs font-semibold text-[#EA4335] space-y-2">
+          <div className="p-4 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 text-xs font-semibold text-gdg-red space-y-2">
             <div className="flex items-center gap-2 font-bold">
               <AlertCircle className="h-4 w-4 shrink-0" />
               <span>Invalid Reset URL</span>
@@ -95,7 +95,7 @@ function ResetPasswordForm() {
             <div className="pt-2">
               <Link
                 href="/forgot-password"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#EA4335] hover:underline"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-gdg-red hover:underline"
               >
                 <span>Request password reset</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -106,13 +106,13 @@ function ResetPasswordForm() {
 
         {isSuccess ? (
           <div className="space-y-6 text-center">
-            <div className="h-12 w-12 rounded-2xl bg-[#34A853]/10 text-[#34A853] flex items-center justify-center mx-auto">
+            <div className="h-12 w-12 rounded-2xl bg-gdg-green/10 text-gdg-green flex items-center justify-center mx-auto">
               <CheckCircle2 className="h-6 w-6" />
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-base font-black text-[#0D0E11]">Password Reset Complete!</h3>
-              <p className="text-xs text-[#5F6368] font-medium leading-relaxed">
+              <h3 className="text-base font-black text-gdg-black">Password Reset Complete!</h3>
+              <p className="text-xs text-gdg-gray font-medium leading-relaxed">
                 Your account password has been updated and securely hashed. You can now sign in with your new credentials.
               </p>
             </div>
@@ -120,24 +120,24 @@ function ResetPasswordForm() {
             <div className="pt-2">
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#0D0E11]/85 transition-all shadow-2xs"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold bg-gdg-black text-gdg-cream hover:bg-gdg-black/85 transition-all shadow-2xs"
               >
                 <span>Proceed to Sign In</span>
-                <ArrowRight className="h-3.5 w-3.5 text-[#34A853]" />
+                <ArrowRight className="h-3.5 w-3.5 text-gdg-green" />
               </Link>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             {errorMessage && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 text-xs font-semibold text-[#EA4335] flex items-center gap-2.5">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 text-xs font-semibold text-gdg-red flex items-center gap-2.5">
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{errorMessage}</span>
               </div>
             )}
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0D0E11]">New Password *</label>
+              <label className="text-xs font-bold text-gdg-black">New Password *</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -145,12 +145,12 @@ function ResetPasswordForm() {
                   placeholder="Minimum 8 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3.5 py-2.5 pr-10 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+                  className="w-full px-3.5 py-2.5 pr-10 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5F6368] hover:text-[#0D0E11]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gdg-gray hover:text-gdg-black"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -158,21 +158,21 @@ function ResetPasswordForm() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0D0E11]">Confirm Password *</label>
+              <label className="text-xs font-bold text-gdg-black">Confirm Password *</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
                 placeholder="Repeat new password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+                className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting || !token || !password || !confirmPassword}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#0D0E11]/85 transition-all shadow-2xs flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-2.5 rounded-xl text-xs font-bold bg-gdg-black text-gdg-cream hover:bg-gdg-black/85 transition-all shadow-2xs flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
               <span>Reset Password</span>
@@ -181,7 +181,7 @@ function ResetPasswordForm() {
             <div className="text-center pt-2">
               <Link
                 href="/login"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-gdg-gray hover:text-gdg-black transition-colors"
               >
                 <span>Back to Sign In</span>
               </Link>
@@ -195,9 +195,9 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="min-h-screen bg-[#FAF7EE] text-[#0D0E11] flex flex-col justify-between antialiased selection:bg-[#FBBC04]/30">
+    <div className="min-h-screen bg-gdg-cream text-gdg-black flex flex-col justify-between antialiased selection:bg-gdg-yellow/30">
       {/* Top Banner Ribbon */}
-      <div className="w-full bg-[#0D0E11] text-[#FAF7EE] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+      <div className="w-full bg-gdg-black text-gdg-cream py-2 px-6 overflow-hidden border-b border-gdg-black/10">
         <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
           <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
             <span>BUILD ✦</span>
@@ -206,7 +206,7 @@ export default function ResetPasswordPage() {
             <span>SHIP ✦</span>
             <span>LEARN ✦</span>
           </div>
-          <span className="hidden lg:inline text-[11px] font-semibold text-[#FAF7EE]/70">
+          <span className="hidden lg:inline text-[11px] font-semibold text-gdg-cream/70">
             GDG on Campus LASU · Account Security Recovery
           </span>
         </div>
@@ -216,7 +216,7 @@ export default function ResetPasswordPage() {
         <Suspense
           fallback={
             <div className="flex items-center justify-center p-12">
-              <Loader2 className="h-8 w-8 animate-spin text-[#4285F4]" />
+              <Loader2 className="h-8 w-8 animate-spin text-gdg-blue" />
             </div>
           }
         >
@@ -225,7 +225,7 @@ export default function ResetPasswordPage() {
       </div>
 
       {/* Footer */}
-      <div className="py-4 text-center text-xs text-[#5F6368] font-medium border-t border-[#E5DFD0]">
+      <div className="py-4 text-center text-xs text-gdg-gray font-medium border-t border-gdg-border">
         GDG on Campus LASU &copy; 2026. All rights reserved.
       </div>
     </div>

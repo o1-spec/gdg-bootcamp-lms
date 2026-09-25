@@ -17,18 +17,18 @@ export function UpcomingClassCard({
   const getTrackBadgeStyle = () => {
     switch (upcomingClass.trackName) {
       case 'Backend Development':
-        return 'bg-[#4285F4]/15 text-[#4285F4] border-[#4285F4]/30';
+        return 'bg-gdg-blue/15 text-gdg-blue border-gdg-blue/30';
       case 'Frontend Development':
-        return 'bg-[#34A853]/15 text-[#34A853] border-[#34A853]/30';
+        return 'bg-gdg-green/15 text-gdg-green border-gdg-green/30';
       case 'DSA / Interview Preparation':
-        return 'bg-[#EA4335]/15 text-[#EA4335] border-[#EA4335]/30';
+        return 'bg-gdg-red/15 text-gdg-red border-gdg-red/30';
       default:
-        return 'bg-[#FBBC04]/15 text-[#FBBC04] border-[#FBBC04]/30';
+        return 'bg-gdg-yellow/15 text-gdg-yellow border-gdg-yellow/30';
     }
   };
 
   return (
-    <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 shadow-xs hover:shadow-md transition-all duration-200 space-y-4">
+    <div className="rounded-3xl border border-gdg-border bg-white p-5 shadow-xs hover:shadow-md transition-all duration-200 space-y-4">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           <span
@@ -41,44 +41,44 @@ export function UpcomingClassCard({
           </span>
 
           {upcomingClass.isLiveNow && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30 animate-pulse">
-              <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-gdg-red/15 text-gdg-red border border-gdg-red/30 animate-pulse">
+              <span className="h-2 w-2 rounded-full bg-gdg-red" />
               LIVE WORKSHOP
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#5F6368]">
+        <div className="flex items-center gap-1.5 text-[11px] font-bold text-gdg-gray">
           <Users className="h-3.5 w-3.5" />
           <span>{upcomingClass.attendeesCount} enrolled</span>
         </div>
       </div>
 
       <div>
-        <h4 className="text-base font-black text-[#0D0E11] tracking-tight">
+        <h4 className="text-base font-black text-gdg-black tracking-tight">
           {upcomingClass.title}
         </h4>
-        <div className="flex items-center gap-3 text-xs text-[#5F6368] font-medium mt-1.5">
-          <span className="flex items-center gap-1 text-[#0D0E11] font-bold">
-            <Calendar className="h-3.5 w-3.5 text-[#4285F4]" />
+        <div className="flex items-center gap-3 text-xs text-gdg-gray font-medium mt-1.5">
+          <span className="flex items-center gap-1 text-gdg-black font-bold">
+            <Calendar className="h-3.5 w-3.5 text-gdg-blue" />
             {upcomingClass.dateTime}
           </span>
           <span>•</span>
           <span className="flex items-center gap-1">
-            <Clock className="h-3.5 w-3.5 text-[#5F6368]" />
+            <Clock className="h-3.5 w-3.5 text-gdg-gray" />
             {upcomingClass.duration}
           </span>
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-3 border-t border-[#E5DFD0]">
+      <div className="flex items-center justify-between pt-3 border-t border-gdg-border">
         <div className="flex items-center gap-2.5">
-          <Avatar className="h-8 w-8 border border-[#E5DFD0]">
+          <Avatar className="h-8 w-8 border border-gdg-border">
             <AvatarImage
               src={upcomingClass.instructor.avatar}
               alt={upcomingClass.instructor.name}
             />
-            <AvatarFallback className="text-[10px] font-bold bg-[#FAF7EE] text-[#0D0E11]">
+            <AvatarFallback className="text-[10px] font-bold bg-gdg-cream text-gdg-black">
               {upcomingClass.instructor.name
                 .split(' ')
                 .map((n) => n[0])
@@ -86,10 +86,10 @@ export function UpcomingClassCard({
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="text-xs font-bold text-[#0D0E11] leading-none">
+            <p className="text-xs font-bold text-gdg-black leading-none">
               {upcomingClass.instructor.name}
             </p>
-            <p className="text-[10px] text-[#5F6368] mt-0.5 font-medium">
+            <p className="text-[10px] text-gdg-gray mt-0.5 font-medium">
               {upcomingClass.instructor.role}
             </p>
           </div>
@@ -101,8 +101,8 @@ export function UpcomingClassCard({
           className={cn(
             'inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer',
             upcomingClass.isLiveNow
-              ? 'bg-[#EA4335] text-white hover:bg-[#d6382a]'
-              : 'bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#1f2127]'
+              ? 'bg-gdg-red text-white hover:bg-[#d6382a]'
+              : 'bg-gdg-black text-gdg-cream hover:bg-[#1f2127]'
           )}
         >
           <Video className="h-3.5 w-3.5" />

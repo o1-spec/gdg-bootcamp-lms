@@ -399,7 +399,7 @@ export function MentorTrackDetailClient({
   const targetMod = modules.find((m) => m.id === targetModuleForLesson);
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       <MentorSidebar
         currentTab="tracks"
         mentor={mentor}
@@ -417,8 +417,8 @@ export function MentorTrackDetailClient({
         />
 
         {toastMessage && (
-          <div className="fixed bottom-6 right-6 z-50 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] px-5 py-3 shadow-xl border border-[#34A853]/40 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3">
-            <CheckCircle2 className="h-4 w-4 text-[#34A853]" />
+          <div className="fixed bottom-6 right-6 z-50 rounded-2xl bg-gdg-black text-gdg-cream px-5 py-3 shadow-xl border border-gdg-green/40 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3">
+            <CheckCircle2 className="h-4 w-4 text-gdg-green" />
             <span className="text-xs font-bold">{toastMessage}</span>
           </div>
         )}
@@ -428,13 +428,13 @@ export function MentorTrackDetailClient({
           <div className="space-y-6">
             <Link
               href="/mentor/tracks"
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-bold text-gdg-gray hover:text-gdg-black transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to All Assigned Tracks</span>
             </Link>
 
-            <div className="p-5 sm:p-8 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="p-5 sm:p-8 rounded-3xl bg-white border border-gdg-border shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div
                 className="absolute top-0 left-0 bottom-0 w-2.5"
                 style={{ backgroundColor: track.accent || '#4285F4' }}
@@ -442,39 +442,39 @@ export function MentorTrackDetailClient({
 
               <div className="space-y-2 pl-3">
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-gdg-cream text-gdg-gray border border-gdg-border">
                     {track.cohort?.name || 'Cohort 1.0'}
                   </span>
-                  <span className="text-xs text-[#5F6368] font-bold">Track ID: {track.slug}</span>
+                  <span className="text-xs text-gdg-gray font-bold">Track ID: {track.slug}</span>
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-black text-[#0D0E11]">
+                <h1 className="text-2xl sm:text-4xl font-black text-gdg-black">
                   {track.name}
                 </h1>
-                <p className="text-xs sm:text-sm text-[#5F6368] max-w-2xl font-medium">
+                <p className="text-xs sm:text-sm text-gdg-gray max-w-2xl font-medium">
                   {track.description}
                 </p>
               </div>
 
               {/* Header Quick Metrics */}
               <div className="flex items-center gap-3 self-start md:self-auto flex-wrap">
-                <div className="px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center">
-                  <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Students</span>
-                  <span className="text-lg font-black text-[#0D0E11]">{students.length}</span>
+                <div className="px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-center">
+                  <span className="text-[10px] font-bold uppercase text-gdg-gray block">Students</span>
+                  <span className="text-lg font-black text-gdg-black">{students.length}</span>
                 </div>
-                <div className="px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center">
-                  <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Modules</span>
-                  <span className="text-lg font-black text-[#0D0E11]">{modules.length}</span>
+                <div className="px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-center">
+                  <span className="text-[10px] font-bold uppercase text-gdg-gray block">Modules</span>
+                  <span className="text-lg font-black text-gdg-black">{modules.length}</span>
                 </div>
-                <div className="px-4 py-2.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center">
-                  <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Lessons</span>
-                  <span className="text-lg font-black text-[#0D0E11]">{totalLessonsCount}</span>
+                <div className="px-4 py-2.5 rounded-2xl bg-gdg-cream border border-gdg-border text-center">
+                  <span className="text-[10px] font-bold uppercase text-gdg-gray block">Lessons</span>
+                  <span className="text-lg font-black text-gdg-black">{totalLessonsCount}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center gap-2 border-b border-[#E5DFD0] overflow-x-auto no-scrollbar pb-px">
+          <div className="flex items-center gap-2 border-b border-gdg-border overflow-x-auto no-scrollbar pb-px">
             {[
               { id: 'curriculum', label: 'Curriculum & Modules', icon: Layers, badge: modules.length },
               { id: 'overview', label: 'Overview', icon: BookOpen },
@@ -492,17 +492,17 @@ export function MentorTrackDetailClient({
                   className={cn(
                     'flex items-center gap-2 px-5 py-3 text-xs font-bold border-b-2 whitespace-nowrap transition-colors rounded-t-xl',
                     isActive
-                      ? 'border-[#0D0E11] text-[#0D0E11] bg-white'
-                      : 'border-transparent text-[#5F6368] hover:text-[#0D0E11] hover:bg-white/50'
+                      ? 'border-gdg-black text-gdg-black bg-white'
+                      : 'border-transparent text-gdg-gray hover:text-gdg-black hover:bg-white/50'
                   )}
                 >
-                  <Icon className={cn('h-4 w-4', isActive ? 'text-[#4285F4]' : 'text-[#5F6368]')} />
+                  <Icon className={cn('h-4 w-4', isActive ? 'text-gdg-blue' : 'text-gdg-gray')} />
                   <span>{tab.label}</span>
                   {tab.badge !== undefined && (
                     <span
                       className={cn(
                         'px-2 py-0.5 rounded-full text-[10px] font-mono font-bold',
-                        isActive ? 'bg-[#0D0E11] text-white' : 'bg-[#E5DFD0] text-[#5F6368]'
+                        isActive ? 'bg-gdg-black text-white' : 'bg-gdg-border text-gdg-gray'
                       )}
                     >
                       {tab.badge}

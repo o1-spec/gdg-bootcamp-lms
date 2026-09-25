@@ -47,7 +47,7 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 space-y-6">
+      <div className="relative w-full max-w-2xl rounded-3xl border border-gdg-border bg-gdg-cream p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 space-y-6">
         {/* Top colored accent line */}
         <div
           className="absolute top-0 left-8 right-8 h-1.5 rounded-b-full"
@@ -58,7 +58,7 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-5 top-5 p-2 rounded-full text-[#5F6368] hover:text-[#0D0E11] hover:bg-[#E5DFD0]/50 transition-colors cursor-pointer"
+          className="absolute right-5 top-5 p-2 rounded-full text-gdg-gray hover:text-gdg-black hover:bg-gdg-border/50 transition-colors cursor-pointer"
         >
           <X className="h-5 w-5" />
           <span className="sr-only">Close</span>
@@ -78,19 +78,19 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
             <span>{session.trackName}</span>
           </span>
 
-          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#5F6368] border border-[#E5DFD0]">
+          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white text-gdg-gray border border-gdg-border">
             {session.mode} Mode
           </span>
 
           {session.isLiveNow && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30 animate-pulse">
-              <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gdg-red/15 text-gdg-red border border-gdg-red/30 animate-pulse">
+              <span className="h-2 w-2 rounded-full bg-gdg-red" />
               LIVE NOW
             </span>
           )}
 
           {session.isPast && (
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0D0E11]/10 text-[#0D0E11] border border-[#0D0E11]/20">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gdg-black/10 text-gdg-black border border-gdg-black/20">
               PAST SESSION
             </span>
           )}
@@ -98,60 +98,60 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
 
         {/* Title & Topic */}
         <div className="space-y-1.5">
-          <p className="text-xs font-bold text-[#5F6368] uppercase tracking-wider">
+          <p className="text-xs font-bold text-gdg-gray uppercase tracking-wider">
             Curriculum Topic: {session.topic}
           </p>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight leading-tight">
             {session.title}
           </h2>
         </div>
 
         {/* Meta Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-white border border-[#E5DFD0]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-white border border-gdg-border">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FAF7EE] text-[#4285F4] border border-[#E5DFD0]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gdg-cream text-gdg-blue border border-gdg-border">
               <Calendar className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368]">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray">
                 Date & Day
               </p>
-              <p className="text-xs font-black text-[#0D0E11]">
+              <p className="text-xs font-black text-gdg-black">
                 {session.dayOfWeek}, {session.date}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FAF7EE] text-[#FBBC04] border border-[#E5DFD0]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gdg-cream text-gdg-yellow border border-gdg-border">
               <Clock className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368]">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray">
                 Session Time
               </p>
-              <p className="text-xs font-black text-[#0D0E11]">{session.timeRange}</p>
+              <p className="text-xs font-black text-gdg-black">{session.timeRange}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 rounded-xl border border-[#E5DFD0]">
+            <Avatar className="h-10 w-10 rounded-xl border border-gdg-border">
               <AvatarImage src={session.mentor.avatar} />
-              <AvatarFallback className="rounded-xl font-bold bg-[#FAF7EE] text-[#0D0E11]">
+              <AvatarFallback className="rounded-xl font-bold bg-gdg-cream text-gdg-black">
                 {session.mentor.name.slice(0, 2)}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368]">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray">
                 Instructor / Mentor
               </p>
-              <p className="text-xs font-black text-[#0D0E11]">{session.mentor.name}</p>
-              <p className="text-[10px] text-[#5F6368]">{session.mentor.role}</p>
+              <p className="text-xs font-black text-gdg-black">{session.mentor.name}</p>
+              <p className="text-[10px] text-gdg-gray">{session.mentor.role}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FAF7EE] text-[#34A853] border border-[#E5DFD0]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gdg-cream text-gdg-green border border-gdg-border">
               {session.mode === 'Virtual' ? (
                 <Video className="h-5 w-5" />
               ) : (
@@ -159,10 +159,10 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
               )}
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368]">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray">
                 Venue / Platform
               </p>
-              <p className="text-xs font-black text-[#0D0E11]">{session.venueOrLink}</p>
+              <p className="text-xs font-black text-gdg-black">{session.venueOrLink}</p>
             </div>
           </div>
         </div>
@@ -170,14 +170,14 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
         {/* Topics Covered */}
         {session.topicsCovered && session.topicsCovered.length > 0 && (
           <div className="space-y-2">
-            <div className="flex items-center gap-1.5 text-xs font-black text-[#0D0E11] uppercase tracking-wider">
-              <BookOpen className="h-3.5 w-3.5 text-[#4285F4]" />
+            <div className="flex items-center gap-1.5 text-xs font-black text-gdg-black uppercase tracking-wider">
+              <BookOpen className="h-3.5 w-3.5 text-gdg-blue" />
               <span>Topics & Outcomes to be Covered</span>
             </div>
-            <div className="space-y-1.5 bg-white p-4 rounded-2xl border border-[#E5DFD0]">
+            <div className="space-y-1.5 bg-white p-4 rounded-2xl border border-gdg-border">
               {session.topicsCovered.map((tpc, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-[#0D0E11]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#FBBC04]" />
+                <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-gdg-black">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gdg-yellow" />
                   <span>{tpc}</span>
                 </div>
               ))}
@@ -188,20 +188,20 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
         {/* Attached Resources or Recording */}
         {session.attachedResources.length > 0 && (
           <div className="space-y-2">
-            <span className="text-xs font-black text-[#0D0E11] uppercase tracking-wider block">
+            <span className="text-xs font-black text-gdg-black uppercase tracking-wider block">
               Attached Learning Resources
             </span>
             <div className="space-y-2">
               {session.attachedResources.map((res, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-white border border-[#E5DFD0]"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-white border border-gdg-border"
                 >
                   <div className="flex items-center gap-2.5">
-                    <FileText className="h-4 w-4 text-[#5F6368]" />
-                    <span className="text-xs font-bold text-[#0D0E11]">{res.title}</span>
+                    <FileText className="h-4 w-4 text-gdg-gray" />
+                    <span className="text-xs font-bold text-gdg-black">{res.title}</span>
                   </div>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-[#FAF7EE] text-[#5F6368]">
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-gdg-cream text-gdg-gray">
                     {res.type}
                   </span>
                 </div>
@@ -211,11 +211,11 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-3 border-t border-[#E5DFD0]">
+        <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-3 border-t border-gdg-border">
           <button
             type="button"
             onClick={onClose}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-full text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] cursor-pointer"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-full text-xs font-bold text-gdg-gray hover:text-gdg-black cursor-pointer"
           >
             Dismiss
           </button>
@@ -225,9 +225,9 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
               href={session.recordingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md"
             >
-              <PlayCircle className="h-4 w-4 text-[#FBBC04]" />
+              <PlayCircle className="h-4 w-4 text-gdg-yellow" />
               <span>Watch Recording</span>
             </a>
           ) : session.meetUrl ? (
@@ -235,9 +235,9 @@ export function SessionDetails({ session, isOpen, onClose }: SessionDetailsProps
               href={session.meetUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md"
             >
-              <Video className="h-4 w-4 text-[#34A853]" />
+              <Video className="h-4 w-4 text-gdg-green" />
               <span>{session.isLiveNow ? 'Join Live Room' : 'Join Google Meet Session'}</span>
             </a>
           ) : null}

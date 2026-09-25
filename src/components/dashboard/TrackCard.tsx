@@ -27,7 +27,7 @@ export function TrackCard({ track }: TrackCardProps) {
       : Terminal;
 
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-5 sm:p-7 shadow-sm hover:border-[#383A42] transition-all duration-200">
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-gdg-dark-border bg-gdg-black text-gdg-cream p-5 sm:p-7 shadow-sm hover:border-[#383A42] transition-all duration-200">
       {/* Signature top accent border stroke */}
       <div
         className="absolute top-0 left-0 right-0 h-1.5"
@@ -65,19 +65,19 @@ export function TrackCard({ track }: TrackCardProps) {
         {/* Title & Description with Link */}
         <div>
           <Link href={`/tracks/${track.slug}`}>
-            <h3 className="text-xl font-black text-[#FAF7EE] tracking-tight hover:underline transition-colors">
+            <h3 className="text-xl font-black text-gdg-cream tracking-tight hover:underline transition-colors">
               {track.name}
             </h3>
           </Link>
-          <p className="mt-2 text-xs text-[#FAF7EE]/70 leading-relaxed font-normal">
+          <p className="mt-2 text-xs text-gdg-cream/70 leading-relaxed font-normal">
             {track.description}
           </p>
         </div>
 
         {/* Progress Bar Container */}
-        <div className="space-y-2 rounded-2xl bg-[#15161A] p-4 border border-[#22242B]">
+        <div className="space-y-2 rounded-2xl bg-[#15161A] p-4 border border-gdg-dark-border">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-bold text-[#FAF7EE]">Curriculum Progress</span>
+            <span className="font-bold text-gdg-cream">Curriculum Progress</span>
             <span
               className="font-black text-sm"
               style={{ color: accentColor }}
@@ -87,7 +87,7 @@ export function TrackCard({ track }: TrackCardProps) {
           </div>
 
           {/* Custom colored progress bar */}
-          <div className="h-2 w-full bg-[#22242B] rounded-full overflow-hidden">
+          <div className="h-2 w-full bg-gdg-dark-border rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-300"
               style={{
@@ -97,7 +97,7 @@ export function TrackCard({ track }: TrackCardProps) {
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-[#FAF7EE]/60 pt-1 font-medium">
+          <div className="flex items-center justify-between text-[11px] text-gdg-cream/60 pt-1 font-medium">
             <span>{track.completedLessons} of {track.totalLessons} lessons completed</span>
             <span>{track.totalLessons - track.completedLessons} left</span>
           </div>
@@ -106,14 +106,14 @@ export function TrackCard({ track }: TrackCardProps) {
         {/* Next lesson block */}
         {track.nextLesson && (
           <div className="space-y-1.5 pt-1">
-            <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#FAF7EE]/50">
+            <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-gdg-cream/50">
               <BookOpen className="h-3.5 w-3.5" style={{ color: accentColor }} />
               <span>Up Next</span>
             </div>
-            <p className="text-xs font-bold text-[#FAF7EE] line-clamp-1">
+            <p className="text-xs font-bold text-gdg-cream line-clamp-1">
               {track.nextLesson.title}
             </p>
-            <div className="flex items-center gap-2 text-[11px] text-[#FAF7EE]/60">
+            <div className="flex items-center gap-2 text-[11px] text-gdg-cream/60">
               <span className="flex items-center gap-1">
                 <Clock className="h-3 w-3" />
                 {track.nextLesson.durationMinutes} mins
@@ -126,12 +126,12 @@ export function TrackCard({ track }: TrackCardProps) {
       </div>
 
       {/* Mentor and Resume Button */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-5 mt-5 border-t border-[#22242B]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-5 mt-5 border-t border-gdg-dark-border">
         {leadInstructor && (
           <div className="flex items-center gap-2.5">
-            <Avatar className="h-8 w-8 border border-[#22242B]">
+            <Avatar className="h-8 w-8 border border-gdg-dark-border">
               <AvatarImage src={leadInstructor.avatar} alt={leadInstructor.name} />
-              <AvatarFallback className="text-[10px] font-bold bg-[#1C1D22] text-[#FAF7EE]">
+              <AvatarFallback className="text-[10px] font-bold bg-[#1C1D22] text-gdg-cream">
                 {leadInstructor.name
                   .split(' ')
                   .map((n) => n[0])
@@ -139,10 +139,10 @@ export function TrackCard({ track }: TrackCardProps) {
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-xs font-bold text-[#FAF7EE] leading-none">
+              <p className="text-xs font-bold text-gdg-cream leading-none">
                 {leadInstructor.name}
               </p>
-              <p className="text-[10px] text-[#FAF7EE]/60 mt-0.5 font-medium">
+              <p className="text-[10px] text-gdg-cream/60 mt-0.5 font-medium">
                 Lead Mentor
               </p>
             </div>
@@ -151,7 +151,7 @@ export function TrackCard({ track }: TrackCardProps) {
 
         <Link
           href={`/tracks/${track.slug}`}
-          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-4 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer w-full sm:w-auto sm:ml-auto"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-gdg-cream text-gdg-black hover:bg-white px-4 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer w-full sm:w-auto sm:ml-auto"
         >
           <span>Continue Learning</span>
           <ArrowRight className="h-3.5 w-3.5" />

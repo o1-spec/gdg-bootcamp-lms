@@ -37,7 +37,7 @@ export function AdminTrackResourcesTab({
           onClick={openCreateResourceModal}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white transition-colors cursor-pointer"
         >
-          <Plus className="w-3.5 h-3.5 text-[#34A853]" />
+          <Plus className="w-3.5 h-3.5 text-gdg-green" />
           <span>Add Resource</span>
         </button>
       </div>
@@ -77,19 +77,19 @@ export function AdminTrackResourcesTab({
                         {res.type}
                       </span>
                       {isCloudinary && (
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-md bg-[#4285F4]/20 text-[#4285F4] border border-[#4285F4]/30">
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-md bg-gdg-blue/20 text-gdg-blue border border-gdg-blue/30">
                           CLOUD ASSET
                         </span>
                       )}
                     </div>
                     {res.isRequired && (
-                      <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30">
+                      <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-gdg-red/20 text-gdg-red border border-gdg-red/30">
                         REQUIRED
                       </span>
                     )}
                   </div>
 
-                  <h4 className="font-bold text-sm text-white group-hover:text-[#4285F4] transition-colors">
+                  <h4 className="font-bold text-sm text-white group-hover:text-gdg-blue transition-colors">
                     {res.title}
                   </h4>
 
@@ -101,7 +101,7 @@ export function AdminTrackResourcesTab({
 
                   {isCloudinary && res.originalFileName && (
                     <div className="flex items-center gap-2 text-[11px] text-white/60 bg-white/[0.02] px-3 py-1.5 rounded-xl border border-white/5">
-                      <FileCode2 className="w-3.5 h-3.5 text-[#34A853]" />
+                      <FileCode2 className="w-3.5 h-3.5 text-gdg-green" />
                       <span className="font-medium text-white/80 truncate">
                         {res.originalFileName}
                       </span>
@@ -127,7 +127,7 @@ export function AdminTrackResourcesTab({
                     href={res.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4285F4] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-gdg-blue hover:underline"
                   >
                     {isCloudinary ? (
                       <>
@@ -144,7 +144,7 @@ export function AdminTrackResourcesTab({
 
                   <button
                     onClick={() => setDeletingResource(res)}
-                    className="p-1.5 rounded-xl hover:bg-[#EA4335]/20 text-white/40 hover:text-[#EA4335] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-xl hover:bg-gdg-red/20 text-white/40 hover:text-gdg-red transition-colors cursor-pointer"
                     title="Delete Resource"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

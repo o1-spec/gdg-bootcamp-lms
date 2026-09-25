@@ -116,7 +116,7 @@ export function ResourceLibraryClient({
   const requiredCount = allResources.filter((r) => r.isRequired).length;
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="resources"
@@ -137,7 +137,7 @@ export function ResourceLibraryClient({
         />
 
         {/* Ticker Ribbon */}
-        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
           <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
             <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
               <span>BUILD ✦</span>
@@ -157,60 +157,60 @@ export function ResourceLibraryClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header Banner */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gdg-border pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#4285F4]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                <span className="h-2.5 w-2.5 rounded-full bg-gdg-blue" />
+                <span className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                   Curated Material Vault
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0D0E11] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gdg-black tracking-tight">
                 Resources
               </h1>
-              <p className="text-sm text-[#5F6368] font-medium max-w-xl">
+              <p className="text-sm text-gdg-gray font-medium max-w-xl">
                 Access learning materials from all your enrolled tracks. Download guides, examine starter repos, review slides, and consult cheatsheets.
               </p>
             </div>
 
             {/* Quick Stats Pills */}
             <div className="flex flex-wrap items-center gap-3">
-              <div className="rounded-2xl border border-[#E5DFD0] bg-white px-4 py-2.5 shadow-2xs">
+              <div className="rounded-2xl border border-gdg-border bg-white px-4 py-2.5 shadow-2xs">
                 <div className="flex items-center gap-2">
-                  <FolderGit2 className="h-4 w-4 text-[#4285F4]" />
+                  <FolderGit2 className="h-4 w-4 text-gdg-blue" />
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray block">
                       Total Assets
                     </span>
-                    <span className="text-lg font-black text-[#0D0E11]">
+                    <span className="text-lg font-black text-gdg-black">
                       {allResources.length}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[#E5DFD0] bg-white px-4 py-2.5 shadow-2xs">
+              <div className="rounded-2xl border border-gdg-border bg-white px-4 py-2.5 shadow-2xs">
                 <div className="flex items-center gap-2">
-                  <FileCheck2 className="h-4 w-4 text-[#EA4335]" />
+                  <FileCheck2 className="h-4 w-4 text-gdg-red" />
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray block">
                       Required
                     </span>
-                    <span className="text-lg font-black text-[#0D0E11]">
+                    <span className="text-lg font-black text-gdg-black">
                       {requiredCount}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[#E5DFD0] bg-white px-4 py-2.5 shadow-2xs">
+              <div className="rounded-2xl border border-gdg-border bg-white px-4 py-2.5 shadow-2xs">
                 <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-[#34A853]" />
+                  <Layers className="h-4 w-4 text-gdg-green" />
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray block">
                       Tracks Covered
                     </span>
-                    <span className="text-lg font-black text-[#0D0E11]">
+                    <span className="text-lg font-black text-gdg-black">
                       4 Tracks
                     </span>
                   </div>
@@ -245,22 +245,22 @@ export function ResourceLibraryClient({
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-[#E5DFD0] bg-white p-12 text-center space-y-4">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+            <div className="rounded-3xl border border-dashed border-gdg-border bg-white p-12 text-center space-y-4">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gdg-cream text-gdg-gray border border-gdg-border">
                 <Inbox className="h-7 w-7" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-lg font-black text-[#0D0E11]">
+                <h3 className="text-lg font-black text-gdg-black">
                   No resources match your filters
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5F6368] max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-gdg-gray max-w-md mx-auto">
                   Try adjusting your search query, selecting &quot;All Tracks&quot; or resetting your format requirements.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 <span>Reset all filters</span>
@@ -269,19 +269,19 @@ export function ResourceLibraryClient({
           )}
 
           {/* Cross-track Contributor Callout */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 relative overflow-hidden">
+          <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 relative overflow-hidden">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="space-y-1 max-w-xl">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#4285F4]" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#4285F4]">
+                  <Sparkles className="h-4 w-4 text-gdg-blue" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-gdg-blue">
                     GDG Library Contributions
                   </span>
                 </div>
-                <h4 className="text-lg sm:text-xl font-black text-[#0D0E11] tracking-tight">
+                <h4 className="text-lg sm:text-xl font-black text-gdg-black tracking-tight">
                   Have a great starter repo, cheat sheet, or tool to share?
                 </h4>
-                <p className="text-xs text-[#5F6368] leading-relaxed">
+                <p className="text-xs text-gdg-gray leading-relaxed">
                   Bootcamp mentors and senior alumni regularly review peer-submitted resources to enrich the curriculum. Submit recommendations in your squad channel.
                 </p>
               </div>
@@ -290,7 +290,7 @@ export function ResourceLibraryClient({
                 href="https://gdg.community.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FAF7EE] hover:bg-[#E5DFD0]/60 border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] shrink-0 transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gdg-cream hover:bg-gdg-border/60 border border-gdg-border text-xs font-bold text-gdg-black shrink-0 transition-colors"
               >
                 <span>GDG LASU Discord Vault</span>
               </a>

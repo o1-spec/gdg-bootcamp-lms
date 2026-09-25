@@ -88,7 +88,7 @@ export function LessonViewClient({
   };
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* App Sidebar */}
       <DashboardSidebar
         currentTab="my-tracks"
@@ -108,7 +108,7 @@ export function LessonViewClient({
         />
 
         {/* Ticker Ribbon */}
-        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
           <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
             <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
               <span>BUILD ✦</span>
@@ -129,14 +129,14 @@ export function LessonViewClient({
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Toast Notification */}
           {activeAlert && (
-            <div className="flex items-center justify-between rounded-2xl border border-[#0D0E11] bg-[#0D0E11] text-[#FAF7EE] px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
+            <div className="flex items-center justify-between rounded-2xl border border-gdg-black bg-gdg-black text-gdg-cream px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center gap-3">
-                <Sparkles className="h-4 w-4 text-[#FBBC04] shrink-0" />
+                <Sparkles className="h-4 w-4 text-gdg-yellow shrink-0" />
                 <span className="font-semibold">{activeAlert}</span>
               </div>
               <button
                 type="button"
-                className="text-xs font-black text-[#FBBC04] hover:underline ml-4 cursor-pointer"
+                className="text-xs font-black text-gdg-yellow hover:underline ml-4 cursor-pointer"
                 onClick={() => setActiveAlert(null)}
               >
                 Dismiss

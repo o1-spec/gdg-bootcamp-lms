@@ -321,27 +321,27 @@ export function MentorResourcesClient({
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'PDF':
-        return <FileText className="h-4 w-4 text-[#EA4335]" />;
+        return <FileText className="h-4 w-4 text-gdg-red" />;
       case 'VIDEO':
-        return <Video className="h-4 w-4 text-[#4285F4]" />;
+        return <Video className="h-4 w-4 text-gdg-blue" />;
       case 'CODE':
       case 'GITHUB':
-        return <Code className="h-4 w-4 text-[#34A853]" />;
+        return <Code className="h-4 w-4 text-gdg-green" />;
       case 'SLIDE':
-        return <BookOpen className="h-4 w-4 text-[#FBBC04]" />;
+        return <BookOpen className="h-4 w-4 text-gdg-yellow" />;
       case 'FIGMA':
-        return <Palette className="h-4 w-4 text-[#EA4335]" />;
+        return <Palette className="h-4 w-4 text-gdg-red" />;
       case 'DATASET':
-        return <Database className="h-4 w-4 text-[#4285F4]" />;
+        return <Database className="h-4 w-4 text-gdg-blue" />;
       case 'CHEATSHEET':
-        return <FileSpreadsheet className="h-4 w-4 text-[#FBBC04]" />;
+        return <FileSpreadsheet className="h-4 w-4 text-gdg-yellow" />;
       default:
-        return <LinkIcon className="h-4 w-4 text-[#34A853]" />;
+        return <LinkIcon className="h-4 w-4 text-gdg-green" />;
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       <MentorSidebar
         currentTab="resources"
         mentor={mentor}
@@ -365,37 +365,37 @@ export function MentorResourcesClient({
         <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
           {/* Toast notification */}
           {toastMessage && (
-            <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl bg-[#0D0E11] text-white text-xs font-bold shadow-xl animate-in fade-in slide-in-from-bottom-2">
-              <CheckCircle2 className="h-4 w-4 text-[#34A853]" />
+            <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl bg-gdg-black text-white text-xs font-bold shadow-xl animate-in fade-in slide-in-from-bottom-2">
+              <CheckCircle2 className="h-4 w-4 text-gdg-green" />
               <span>{toastMessage}</span>
             </div>
           )}
 
           {/* Top Banner Action */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DFD0]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-gdg-border">
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-[#0D0E11]">Resource Library</h2>
-              <p className="text-xs text-[#5F6368] font-medium">Curate files and links for students across your assigned tracks.</p>
+              <h2 className="text-xl sm:text-2xl font-black text-gdg-black">Resource Library</h2>
+              <p className="text-xs text-gdg-gray font-medium">Curate files and links for students across your assigned tracks.</p>
             </div>
             <button
               onClick={openCreateModal}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] transition-all shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border transition-all shadow-sm cursor-pointer"
             >
-              <Plus className="h-4 w-4 text-[#FBBC04]" />
+              <Plus className="h-4 w-4 text-gdg-yellow" />
               <span>Add Resource</span>
             </button>
           </div>
 
           {/* Search & Filter Bar */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white border border-[#E5DFD0] shadow-xs">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white border border-gdg-border shadow-xs">
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5F6368]" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
               <input
                 type="text"
                 placeholder="Search resources by title, description, or filename..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium text-[#0D0E11] placeholder:text-[#5F6368] focus:border-[#0D0E11] focus:bg-white outline-none"
+                className="w-full pl-10 pr-4 py-2 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium text-gdg-black placeholder:text-gdg-gray focus:border-gdg-black focus:bg-white outline-none"
               />
             </div>
 
@@ -404,7 +404,7 @@ export function MentorResourcesClient({
               <select
                 value={selectedTrackFilter}
                 onChange={(e) => setSelectedTrackFilter(e.target.value)}
-                className="px-3.5 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none"
+                className="px-3.5 py-2 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-bold text-gdg-black outline-none"
               >
                 <option value="all">All Tracks</option>
                 {tracks.map((t) => (
@@ -418,7 +418,7 @@ export function MentorResourcesClient({
               <select
                 value={selectedTypeFilter}
                 onChange={(e) => setSelectedTypeFilter(e.target.value)}
-                className="px-3.5 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none"
+                className="px-3.5 py-2 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-bold text-gdg-black outline-none"
               >
                 <option value="all">All Types</option>
                 <option value="PDF">PDF</option>
@@ -439,12 +439,12 @@ export function MentorResourcesClient({
 
           {/* Resources Grid */}
           {filteredResources.length === 0 ? (
-            <div className="rounded-3xl bg-white border border-[#E5DFD0] p-12 text-center shadow-xs max-w-md mx-auto space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#4285F4]/10 text-[#4285F4] flex items-center justify-center mx-auto">
+            <div className="rounded-3xl bg-white border border-gdg-border p-12 text-center shadow-xs max-w-md mx-auto space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-gdg-blue/10 text-gdg-blue flex items-center justify-center mx-auto">
                 <FolderGit2 className="h-7 w-7" />
               </div>
-              <h3 className="text-lg font-black text-[#0D0E11]">No Resources Found</h3>
-              <p className="text-xs text-[#5F6368]">
+              <h3 className="text-lg font-black text-gdg-black">No Resources Found</h3>
+              <p className="text-xs text-gdg-gray">
                 {resources.length === 0
                   ? "You haven't uploaded any learning resources for your assigned tracks yet."
                   : 'No resources match your search or selected filter options.'}
@@ -452,9 +452,9 @@ export function MentorResourcesClient({
               {resources.length === 0 && (
                 <button
                   onClick={openCreateModal}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border transition-colors cursor-pointer"
                 >
-                  <Plus className="h-4 w-4 text-[#FBBC04]" />
+                  <Plus className="h-4 w-4 text-gdg-yellow" />
                   <span>Create First Resource</span>
                 </button>
               )}
@@ -470,27 +470,27 @@ export function MentorResourcesClient({
                 return (
                   <div
                     key={res.id}
-                    className="p-6 rounded-3xl bg-white border border-[#E5DFD0] hover:border-[#0D0E11] transition-all shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                    className="p-6 rounded-3xl bg-white border border-gdg-border hover:border-gdg-black transition-all shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <div className="p-2 rounded-xl bg-[#FAF7EE] border border-[#E5DFD0]">
+                          <div className="p-2 rounded-xl bg-gdg-cream border border-gdg-border">
                             {getTypeIcon(res.type)}
                           </div>
-                          <span className="text-[10px] font-black uppercase tracking-wider text-[#5F6368]">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-gdg-gray">
                             {res.type}
                           </span>
                         </div>
 
                         <div className="flex items-center gap-1.5">
                           {isUploaded && (
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#4285F4]/10 text-[#4285F4] border border-[#4285F4]/20">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-gdg-blue/10 text-gdg-blue border border-gdg-blue/20">
                               CLOUD ASSET
                             </span>
                           )}
                           {res.isRequired && (
-                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#EA4335]/10 text-[#EA4335] border border-[#EA4335]/30">
+                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gdg-red/10 text-gdg-red border border-gdg-red/30">
                               Required
                             </span>
                           )}
@@ -498,11 +498,11 @@ export function MentorResourcesClient({
                       </div>
 
                       <div>
-                        <h3 className="font-black text-base text-[#0D0E11] group-hover:text-[#4285F4] transition-colors line-clamp-1">
+                        <h3 className="font-black text-base text-gdg-black group-hover:text-gdg-blue transition-colors line-clamp-1">
                           {res.title}
                         </h3>
                         {res.description && (
-                          <p className="text-xs text-[#5F6368] mt-1 line-clamp-2 leading-relaxed">
+                          <p className="text-xs text-gdg-gray mt-1 line-clamp-2 leading-relaxed">
                             {res.description}
                           </p>
                         )}
@@ -510,43 +510,43 @@ export function MentorResourcesClient({
 
                       {/* File metadata info */}
                       {isUploaded && (
-                        <div className="flex items-center gap-2 text-[11px] text-[#5F6368] bg-[#FAF7EE]/60 px-3 py-1.5 rounded-xl border border-[#E5DFD0]/60">
-                          <FileCode2 className="h-3.5 w-3.5 text-[#34A853]" />
-                          <span className="font-bold text-[#0D0E11] truncate">
+                        <div className="flex items-center gap-2 text-[11px] text-gdg-gray bg-gdg-cream/60 px-3 py-1.5 rounded-xl border border-gdg-border/60">
+                          <FileCode2 className="h-3.5 w-3.5 text-gdg-green" />
+                          <span className="font-bold text-gdg-black truncate">
                             {res.originalFileName || 'Attached Asset'}
                           </span>
                           {res.fileSize && (
-                            <span className="text-[10px] font-medium text-[#5F6368] shrink-0">
+                            <span className="text-[10px] font-medium text-gdg-gray shrink-0">
                               ({formatFileSize(res.fileSize)})
                             </span>
                           )}
                         </div>
                       )}
 
-                      <div className="p-3 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] space-y-1 text-[11px]">
-                        <div className="flex items-center gap-1.5 text-[#5F6368] font-medium">
-                          <Layers className="h-3 w-3 text-[#4285F4]" />
-                          <span className="font-bold text-[#0D0E11]">{trackName}</span>
+                      <div className="p-3 rounded-2xl bg-gdg-cream border border-gdg-border space-y-1 text-[11px]">
+                        <div className="flex items-center gap-1.5 text-gdg-gray font-medium">
+                          <Layers className="h-3 w-3 text-gdg-blue" />
+                          <span className="font-bold text-gdg-black">{trackName}</span>
                         </div>
                         {moduleName && (
-                          <div className="text-[10px] text-[#5F6368] truncate pl-4.5">
+                          <div className="text-[10px] text-gdg-gray truncate pl-4.5">
                             Module: {moduleName}
                           </div>
                         )}
                         {lessonTitle && (
-                          <div className="text-[10px] text-[#5F6368] truncate pl-4.5">
+                          <div className="text-[10px] text-gdg-gray truncate pl-4.5">
                             Lesson: {lessonTitle}
                           </div>
                         )}
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[#E5DFD0] flex items-center justify-between">
+                    <div className="pt-4 border-t border-gdg-border flex items-center justify-between">
                       <a
                         href={res.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4285F4] hover:underline"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-gdg-blue hover:underline"
                       >
                         {isUploaded ? (
                           <>
@@ -564,14 +564,14 @@ export function MentorResourcesClient({
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => openEditModal(res)}
-                          className="p-1.5 rounded-xl hover:bg-[#FAF7EE] text-[#5F6368] hover:text-[#0D0E11] transition-colors cursor-pointer"
+                          className="p-1.5 rounded-xl hover:bg-gdg-cream text-gdg-gray hover:text-gdg-black transition-colors cursor-pointer"
                           title="Edit Resource"
                         >
                           <Edit2 className="h-3.5 w-3.5" />
                         </button>
                         <button
                           onClick={() => setDeletingResource(res)}
-                          className="p-1.5 rounded-xl hover:bg-[#EA4335]/10 text-[#5F6368] hover:text-[#EA4335] transition-colors cursor-pointer"
+                          className="p-1.5 rounded-xl hover:bg-gdg-red/10 text-gdg-gray hover:text-gdg-red transition-colors cursor-pointer"
                           title="Delete Resource"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -589,13 +589,13 @@ export function MentorResourcesClient({
       {/* CREATE / EDIT MODAL */}
       {(isCreateOpen || editingResource) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
-          <div className="w-full max-w-lg rounded-3xl bg-white border border-[#E5DFD0] p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E5DFD0]">
+          <div className="w-full max-w-lg rounded-3xl bg-white border border-gdg-border p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-gdg-border">
               <div className="space-y-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#4285F4]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-blue">
                   Resource Management
                 </span>
-                <h3 className="text-xl font-black text-[#0D0E11]">
+                <h3 className="text-xl font-black text-gdg-black">
                   {editingResource ? 'Edit Resource' : 'Add New Resource'}
                 </h3>
               </div>
@@ -604,32 +604,32 @@ export function MentorResourcesClient({
                   setIsCreateOpen(false);
                   setEditingResource(null);
                 }}
-                className="p-2 rounded-xl hover:bg-[#FAF7EE] text-[#5F6368] hover:text-[#0D0E11] cursor-pointer"
+                className="p-2 rounded-xl hover:bg-gdg-cream text-gdg-gray hover:text-gdg-black cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {formError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 text-xs font-bold text-[#EA4335] flex items-center gap-2">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/30 text-xs font-bold text-gdg-red flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{formError}</span>
               </div>
             )}
 
             {/* Source Mode Toggle: Upload File vs External Link */}
-            <div className="grid grid-cols-2 p-1 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0]">
+            <div className="grid grid-cols-2 p-1 rounded-2xl bg-gdg-cream border border-gdg-border">
               <button
                 type="button"
                 onClick={() => setSourceMode('upload')}
                 className={cn(
                   'flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-black transition-all cursor-pointer',
                   sourceMode === 'upload'
-                    ? 'bg-white text-[#0D0E11] shadow-xs'
-                    : 'text-[#5F6368] hover:text-[#0D0E11]'
+                    ? 'bg-white text-gdg-black shadow-xs'
+                    : 'text-gdg-gray hover:text-gdg-black'
                 )}
               >
-                <Upload className="h-3.5 w-3.5 text-[#34A853]" />
+                <Upload className="h-3.5 w-3.5 text-gdg-green" />
                 <span>Upload File</span>
               </button>
               <button
@@ -638,11 +638,11 @@ export function MentorResourcesClient({
                 className={cn(
                   'flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-black transition-all cursor-pointer',
                   sourceMode === 'link'
-                    ? 'bg-white text-[#0D0E11] shadow-xs'
-                    : 'text-[#5F6368] hover:text-[#0D0E11]'
+                    ? 'bg-white text-gdg-black shadow-xs'
+                    : 'text-gdg-gray hover:text-gdg-black'
                 )}
               >
-                <LinkIcon className="h-3.5 w-3.5 text-[#4285F4]" />
+                <LinkIcon className="h-3.5 w-3.5 text-gdg-blue" />
                 <span>External Link</span>
               </button>
             </div>
@@ -651,32 +651,32 @@ export function MentorResourcesClient({
               {/* File upload picker if mode is upload */}
               {sourceMode === 'upload' && (
                 <div className="space-y-1.5">
-                  <label className="text-xs font-black text-[#0D0E11] flex items-center justify-between">
+                  <label className="text-xs font-black text-gdg-black flex items-center justify-between">
                     <span>File Asset (PDF, Slides, Images, Documents, Code)</span>
-                    <span className="text-[10px] font-bold text-[#5F6368]">
+                    <span className="text-[10px] font-bold text-gdg-gray">
                       MAX {MAX_FILE_SIZE_MB}MB
                     </span>
                   </label>
 
                   {formOriginalFileName ? (
-                    <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0]">
+                    <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gdg-cream border border-gdg-border">
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="p-2 rounded-xl bg-white text-[#34A853] border border-[#E5DFD0]">
+                        <div className="p-2 rounded-xl bg-white text-gdg-green border border-gdg-border">
                           <FileCode2 className="h-4 w-4" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-xs font-black text-[#0D0E11] truncate">
+                          <p className="text-xs font-black text-gdg-black truncate">
                             {formOriginalFileName}
                           </p>
                           {formFileSize && (
-                            <p className="text-[10px] text-[#5F6368]">
+                            <p className="text-[10px] text-gdg-gray">
                               {formatFileSize(formFileSize)} • Cloudinary Uploaded
                             </p>
                           )}
                         </div>
                       </div>
 
-                      <label className="text-[11px] font-black text-[#4285F4] hover:underline cursor-pointer ml-3 shrink-0">
+                      <label className="text-[11px] font-black text-gdg-blue hover:underline cursor-pointer ml-3 shrink-0">
                         Replace
                         <input
                           type="file"
@@ -691,27 +691,27 @@ export function MentorResourcesClient({
                       <label
                         className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${
                           isUploading
-                            ? 'border-[#4285F4] bg-[#4285F4]/5 pointer-events-none'
-                            : 'border-[#E5DFD0] bg-[#FAF7EE]/50 hover:bg-[#FAF7EE] hover:border-[#0D0E11]/30'
+                            ? 'border-gdg-blue bg-gdg-blue/5 pointer-events-none'
+                            : 'border-gdg-border bg-gdg-cream/50 hover:bg-gdg-cream hover:border-gdg-black/30'
                         }`}
                       >
                         {isUploading ? (
                           <div className="flex flex-col items-center py-2">
-                            <Loader2 className="h-6 w-6 text-[#4285F4] animate-spin mb-2" />
-                            <span className="text-xs font-bold text-[#0D0E11]">
+                            <Loader2 className="h-6 w-6 text-gdg-blue animate-spin mb-2" />
+                            <span className="text-xs font-bold text-gdg-black">
                               Uploading file to Cloudinary...
                             </span>
-                            <span className="text-[10px] text-[#5F6368]">
+                            <span className="text-[10px] text-gdg-gray">
                               Processing and securing asset
                             </span>
                           </div>
                         ) : (
                           <>
-                            <Upload className="h-6 w-6 text-[#5F6368] mb-1.5" />
-                            <span className="text-xs font-bold text-[#0D0E11]">
+                            <Upload className="h-6 w-6 text-gdg-gray mb-1.5" />
+                            <span className="text-xs font-bold text-gdg-black">
                               Click to choose file or drag & drop
                             </span>
-                            <span className="text-[10px] text-[#5F6368] mt-0.5">
+                            <span className="text-[10px] text-gdg-gray mt-0.5">
                               PDF, ZIP, PPTX, DOCX, CSV, PNG, or JPG up to {MAX_FILE_SIZE_MB}MB
                             </span>
                             <input
@@ -724,7 +724,7 @@ export function MentorResourcesClient({
                         )}
                       </label>
                       {uploadError && (
-                        <p className="text-[11px] text-[#EA4335] font-bold mt-1.5">
+                        <p className="text-[11px] text-gdg-red font-bold mt-1.5">
                           {uploadError}
                         </p>
                       )}
@@ -735,7 +735,7 @@ export function MentorResourcesClient({
 
               {/* Title input */}
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Resource Title *
                 </label>
                 <input
@@ -744,14 +744,14 @@ export function MentorResourcesClient({
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                   placeholder="e.g., PostgreSQL Official Cheat Sheet & Docs"
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium"
                 />
               </div>
 
               {/* External URL input if link mode */}
               {sourceMode === 'link' && (
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Resource URL *
                   </label>
                   <input
@@ -760,7 +760,7 @@ export function MentorResourcesClient({
                     value={formUrl}
                     onChange={(e) => setFormUrl(e.target.value)}
                     placeholder="https://youtube.com/..., https://github.com/..., etc."
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
                   />
                 </div>
               )}
@@ -768,7 +768,7 @@ export function MentorResourcesClient({
               {/* Track & Module selects */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Track *
                   </label>
                   <select
@@ -779,7 +779,7 @@ export function MentorResourcesClient({
                       setFormModuleId(t?.modules?.[0]?.id || '');
                       setFormLessonId('');
                     }}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium bg-white"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium bg-white"
                   >
                     {tracks.map((t) => (
                       <option key={t.id} value={t.id}>
@@ -790,7 +790,7 @@ export function MentorResourcesClient({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Module *
                   </label>
                   <select
@@ -800,7 +800,7 @@ export function MentorResourcesClient({
                       setFormLessonId('');
                     }}
                     required
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium bg-white"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium bg-white"
                   >
                     {availableModules.length === 0 ? (
                       <option value="">No modules available</option>
@@ -818,13 +818,13 @@ export function MentorResourcesClient({
               {/* Optional Lesson select */}
               {availableLessons.length > 0 && (
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
-                    Associated Lesson <span className="text-[#5F6368] font-normal">(Optional)</span>
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
+                    Associated Lesson <span className="text-gdg-gray font-normal">(Optional)</span>
                   </label>
                   <select
                     value={formLessonId}
                     onChange={(e) => setFormLessonId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium bg-white"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium bg-white"
                   >
                     <option value="">No specific lesson (Module-level resource)</option>
                     {availableLessons.map((l: any) => (
@@ -838,13 +838,13 @@ export function MentorResourcesClient({
 
               {/* Resource Type */}
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Resource Type *
                 </label>
                 <select
                   value={formType}
                   onChange={(e) => setFormType(e.target.value as ResourceType)}
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium bg-white"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium bg-white"
                 >
                   <option value={ResourceType.PDF}>PDF Document</option>
                   <option value={ResourceType.DOCUMENT}>Document / Word / Notes</option>
@@ -864,7 +864,7 @@ export function MentorResourcesClient({
 
               {/* Description */}
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Description
                 </label>
                 <textarea
@@ -872,45 +872,45 @@ export function MentorResourcesClient({
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   placeholder="How students should utilize this material..."
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium resize-none"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium resize-none"
                 />
               </div>
 
               {/* Required Checkbox */}
-              <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0]">
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-gdg-cream border border-gdg-border">
                 <input
                   type="checkbox"
                   id="reqCheckbox"
                   checked={formIsRequired}
                   onChange={(e) => setFormIsRequired(e.target.checked)}
-                  className="rounded text-[#0D0E11] focus:ring-0 cursor-pointer"
+                  className="rounded text-gdg-black focus:ring-0 cursor-pointer"
                 />
-                <label htmlFor="reqCheckbox" className="text-xs font-bold text-[#0D0E11] cursor-pointer">
+                <label htmlFor="reqCheckbox" className="text-xs font-bold text-gdg-black cursor-pointer">
                   Mark as Required Course Material
                 </label>
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E5DFD0]">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-gdg-border">
                 <button
                   type="button"
                   onClick={() => {
                     setIsCreateOpen(false);
                     setEditingResource(null);
                   }}
-                  className="px-5 py-2.5 rounded-full border border-[#0D0E11] text-xs font-bold text-[#0D0E11] hover:bg-[#FAF7EE] cursor-pointer"
+                  className="px-5 py-2.5 rounded-full border border-gdg-black text-xs font-bold text-gdg-black hover:bg-gdg-cream cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || isUploading}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 cursor-pointer shadow-md"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border disabled:opacity-50 cursor-pointer shadow-md"
                 >
                   {isSubmitting ? (
-                    <Loader2 className="h-4 w-4 animate-spin text-[#34A853]" />
+                    <Loader2 className="h-4 w-4 animate-spin text-gdg-green" />
                   ) : (
-                    <CheckCircle2 className="h-4 w-4 text-[#34A853]" />
+                    <CheckCircle2 className="h-4 w-4 text-gdg-green" />
                   )}
                   <span>{editingResource ? 'Save Changes' : 'Publish Resource'}</span>
                 </button>

@@ -13,13 +13,21 @@
 
   --color-gdg-cream: #FAF7EE;
   --color-gdg-cream-dark: #F2EDE0;
+  --color-gdg-cream-border: #E5DFD0;
+  --color-gdg-border: #E5DFD0;
   --color-gdg-black: #0D0E11;
+  --color-gdg-dark-hover: #202124;
   --color-gdg-dark-card: #15161A;
-  --color-gdg-dark-border: #24262C;
+  --color-gdg-dark-border: #22242B;
+  --color-gdg-gray: #5F6368;
   --color-gdg-blue: #4285F4;
+  --color-gdg-blue-dark: #3367D6;
   --color-gdg-red: #EA4335;
+  --color-gdg-red-dark: #D93025;
   --color-gdg-yellow: #FBBC04;
+  --color-gdg-yellow-dark: #F29900;
   --color-gdg-green: #34A853;
+  --color-gdg-green-dark: #1E7E34;
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

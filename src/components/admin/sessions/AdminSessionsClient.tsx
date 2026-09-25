@@ -245,7 +245,7 @@ export function AdminSessionsClient({
     totalAttendances > 0 ? Math.round(((totalPresents + totalExcused) / totalAttendances) * 100) : 94;
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="sessions"
         admin={admin}
@@ -262,7 +262,7 @@ export function AdminSessionsClient({
           actions={
             <button
               onClick={openCreateModal}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>Create Session</span>
@@ -297,7 +297,7 @@ export function AdminSessionsClient({
             </div>
 
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/60">
-              <span>Overall Rate: <strong className="text-[#34A853]">{overallRate}%</strong></span>
+              <span>Overall Rate: <strong className="text-gdg-green">{overallRate}%</strong></span>
               <span>•</span>
               <span>Total Recorded: <strong className="text-white">{totalAttendances}</strong></span>
             </div>
@@ -317,11 +317,11 @@ export function AdminSessionsClient({
                   <select
                     value={trackFilter}
                     onChange={(e) => setTrackFilter(e.target.value)}
-                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   >
-                    <option value="all" className="bg-[#0D0E11]">All Tracks</option>
+                    <option value="all" className="bg-gdg-black">All Tracks</option>
                     {tracks.map((t) => (
-                      <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                      <option key={t.id} value={t.id} className="bg-gdg-black">
                         {t.name}
                       </option>
                     ))}
@@ -330,11 +330,11 @@ export function AdminSessionsClient({
                   <select
                     value={mentorFilter}
                     onChange={(e) => setMentorFilter(e.target.value)}
-                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   >
-                    <option value="all" className="bg-[#0D0E11]">All Mentors</option>
+                    <option value="all" className="bg-gdg-black">All Mentors</option>
                     {mentors.map((m) => (
-                      <option key={m.id} value={m.id} className="bg-[#0D0E11]">
+                      <option key={m.id} value={m.id} className="bg-gdg-black">
                         {m.name}
                       </option>
                     ))}
@@ -343,11 +343,11 @@ export function AdminSessionsClient({
                   <select
                     value={timeFilter}
                     onChange={(e) => setTimeFilter(e.target.value as any)}
-                    className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   >
-                    <option value="all" className="bg-[#0D0E11]">All Dates</option>
-                    <option value="upcoming" className="bg-[#0D0E11]">Upcoming Only</option>
-                    <option value="past" className="bg-[#0D0E11]">Past Only</option>
+                    <option value="all" className="bg-gdg-black">All Dates</option>
+                    <option value="upcoming" className="bg-gdg-black">Upcoming Only</option>
+                    <option value="past" className="bg-gdg-black">Past Only</option>
                   </select>
                 </div>
 
@@ -360,13 +360,13 @@ export function AdminSessionsClient({
               {/* Sessions Grid */}
               {filteredSessions.length === 0 ? (
                 <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#FBBC04]/10 text-[#FBBC04] flex items-center justify-center mx-auto">
+                  <div className="w-12 h-12 rounded-2xl bg-gdg-yellow/10 text-gdg-yellow flex items-center justify-center mx-auto">
                     <CalendarDays className="w-6 h-6" />
                   </div>
                   <p className="text-xs text-white/50">No sessions match current filter criteria.</p>
                   <button
                     onClick={openCreateModal}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] text-xs font-bold text-white hover:bg-[#EA4335]/90"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red text-xs font-bold text-white hover:bg-gdg-red/90"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Create Session</span>
@@ -410,7 +410,7 @@ export function AdminSessionsClient({
                               </button>
                               <button
                                 onClick={() => setDeleteTarget(s)}
-                                className="p-1.5 rounded-lg text-white/40 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors"
+                                className="p-1.5 rounded-lg text-white/40 hover:text-gdg-red hover:bg-gdg-red/10 transition-colors"
                                 title="Delete Session"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
@@ -427,7 +427,7 @@ export function AdminSessionsClient({
 
                           <div className="space-y-1 text-xs text-white/50 pt-1">
                             <div className="flex items-center gap-2">
-                              <Clock className="w-3.5 h-3.5 text-[#FBBC04]" />
+                              <Clock className="w-3.5 h-3.5 text-gdg-yellow" />
                               <span>
                                 {format(new Date(s.startTime), 'EEEE, MMM d, yyyy • h:mm a')} -{' '}
                                 {format(new Date(s.endTime), 'h:mm a')}
@@ -436,14 +436,14 @@ export function AdminSessionsClient({
 
                             {s.mentor && (
                               <div className="flex items-center gap-2">
-                                <ShieldCheck className="w-3.5 h-3.5 text-[#34A853]" />
+                                <ShieldCheck className="w-3.5 h-3.5 text-gdg-green" />
                                 <span>Instructor: {s.mentor.name}</span>
                               </div>
                             )}
 
                             {s.location && (
                               <div className="flex items-center gap-2">
-                                <MapPin className="w-3.5 h-3.5 text-[#EA4335]" />
+                                <MapPin className="w-3.5 h-3.5 text-gdg-red" />
                                 <span>{s.location}</span>
                               </div>
                             )}
@@ -460,7 +460,7 @@ export function AdminSessionsClient({
                                 rel="noreferrer"
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium"
                               >
-                                <Video className="w-3.5 h-3.5 text-[#4285F4]" />
+                                <Video className="w-3.5 h-3.5 text-gdg-blue" />
                                 <span>Join Room</span>
                               </a>
                             )}
@@ -469,7 +469,7 @@ export function AdminSessionsClient({
                                 href={s.recordingUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#EA4335]/10 hover:bg-[#EA4335]/20 text-[#EA4335] font-semibold"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gdg-red/10 hover:bg-gdg-red/20 text-gdg-red font-semibold"
                               >
                                 <ExternalLink className="w-3.5 h-3.5" />
                                 <span>Watch Recording</span>
@@ -497,7 +497,7 @@ export function AdminSessionsClient({
               {/* Summary Metrics */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
-                  <span className="block text-2xl font-black text-[#34A853]">{overallRate}%</span>
+                  <span className="block text-2xl font-black text-gdg-green">{overallRate}%</span>
                   <span className="text-xs text-white/50">Overall Attendance</span>
                 </div>
                 <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
@@ -505,11 +505,11 @@ export function AdminSessionsClient({
                   <span className="text-xs text-white/50">Present Check-ins</span>
                 </div>
                 <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
-                  <span className="block text-2xl font-black text-[#EA4335]">{totalAbsents}</span>
+                  <span className="block text-2xl font-black text-gdg-red">{totalAbsents}</span>
                   <span className="text-xs text-white/50">Absences Recorded</span>
                 </div>
                 <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
-                  <span className="block text-2xl font-black text-[#FBBC04]">{totalExcused}</span>
+                  <span className="block text-2xl font-black text-gdg-yellow">{totalExcused}</span>
                   <span className="text-xs text-white/50">Excused Records</span>
                 </div>
               </div>
@@ -567,15 +567,15 @@ export function AdminSessionsClient({
                           <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center text-xs">
                             <div className="p-2 rounded-xl bg-white/[0.03]">
                               <span className="block text-[10px] text-white/40 uppercase">Present</span>
-                              <span className="font-bold text-[#34A853]">{s.attendance.present}</span>
+                              <span className="font-bold text-gdg-green">{s.attendance.present}</span>
                             </div>
                             <div className="p-2 rounded-xl bg-white/[0.03]">
                               <span className="block text-[10px] text-white/40 uppercase">Absent</span>
-                              <span className="font-bold text-[#EA4335]">{s.attendance.absent}</span>
+                              <span className="font-bold text-gdg-red">{s.attendance.absent}</span>
                             </div>
                             <div className="p-2 rounded-xl bg-white/[0.03]">
                               <span className="block text-[10px] text-white/40 uppercase">Excused</span>
-                              <span className="font-bold text-[#FBBC04]">{s.attendance.excused}</span>
+                              <span className="font-bold text-gdg-yellow">{s.attendance.excused}</span>
                             </div>
                           </div>
                         </div>
@@ -629,15 +629,15 @@ export function AdminSessionsClient({
                               {format(new Date(s.startTime), 'MMM d, yyyy')}
                             </td>
 
-                            <td className="py-4 px-4 font-bold text-[#34A853]">
+                            <td className="py-4 px-4 font-bold text-gdg-green">
                               {s.attendance.present}
                             </td>
 
-                            <td className="py-4 px-4 font-bold text-[#EA4335]">
+                            <td className="py-4 px-4 font-bold text-gdg-red">
                               {s.attendance.absent}
                             </td>
 
-                            <td className="py-4 px-4 font-bold text-[#FBBC04]">
+                            <td className="py-4 px-4 font-bold text-gdg-yellow">
                               {s.attendance.excused}
                             </td>
 
@@ -659,7 +659,7 @@ export function AdminSessionsClient({
       {/* CREATE / EDIT SESSION MODAL */}
       {(isCreateOpen || editingSession) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">
@@ -679,7 +679,7 @@ export function AdminSessionsClient({
             </div>
 
             {formError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{formError}</span>
               </div>
@@ -688,15 +688,15 @@ export function AdminSessionsClient({
             <form onSubmit={handleSaveSession} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Curriculum Track <span className="text-[#EA4335]">*</span>
+                  Curriculum Track <span className="text-gdg-red">*</span>
                 </label>
                 <select
                   value={formData.trackId}
                   onChange={(e) => setFormData({ ...formData, trackId: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {tracks.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                    <option key={t.id} value={t.id} className="bg-gdg-black">
                       {t.name}
                     </option>
                   ))}
@@ -710,11 +710,11 @@ export function AdminSessionsClient({
                 <select
                   value={formData.mentorId}
                   onChange={(e) => setFormData({ ...formData, mentorId: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
-                  <option value="" className="bg-[#0D0E11]">Unassigned</option>
+                  <option value="" className="bg-gdg-black">Unassigned</option>
                   {mentors.map((m) => (
-                    <option key={m.id} value={m.id} className="bg-[#0D0E11]">
+                    <option key={m.id} value={m.id} className="bg-gdg-black">
                       {m.name} ({m.email})
                     </option>
                   ))}
@@ -723,7 +723,7 @@ export function AdminSessionsClient({
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Session Title <span className="text-[#EA4335]">*</span>
+                  Session Title <span className="text-gdg-red">*</span>
                 </label>
                 <input
                   type="text"
@@ -731,7 +731,7 @@ export function AdminSessionsClient({
                   placeholder="e.g. Masterclass: PostgreSQL Indexes & Query Optimization"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
@@ -743,7 +743,7 @@ export function AdminSessionsClient({
                     required
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
                 <div>
@@ -753,7 +753,7 @@ export function AdminSessionsClient({
                     required
                     value={formData.startTime}
                     onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
                 <div>
@@ -763,7 +763,7 @@ export function AdminSessionsClient({
                     required
                     value={formData.endTime}
                     onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
               </div>
@@ -774,11 +774,11 @@ export function AdminSessionsClient({
                   <select
                     value={formData.mode}
                     onChange={(e) => setFormData({ ...formData, mode: e.target.value as any })}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-3 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   >
-                    <option value={SessionMode.VIRTUAL} className="bg-[#0D0E11]">VIRTUAL</option>
-                    <option value={SessionMode.PHYSICAL} className="bg-[#0D0E11]">PHYSICAL</option>
-                    <option value={SessionMode.HYBRID} className="bg-[#0D0E11]">HYBRID</option>
+                    <option value={SessionMode.VIRTUAL} className="bg-gdg-black">VIRTUAL</option>
+                    <option value={SessionMode.PHYSICAL} className="bg-gdg-black">PHYSICAL</option>
+                    <option value={SessionMode.HYBRID} className="bg-gdg-black">HYBRID</option>
                   </select>
                 </div>
                 <div>
@@ -788,7 +788,7 @@ export function AdminSessionsClient({
                     placeholder="https://meet.google.com/..."
                     value={formData.meetingUrl}
                     onChange={(e) => setFormData({ ...formData, meetingUrl: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-3 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
               </div>
@@ -802,7 +802,7 @@ export function AdminSessionsClient({
                   placeholder="e.g. LASU Computer Science Lab 1"
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
@@ -815,7 +815,7 @@ export function AdminSessionsClient({
                   placeholder="https://youtu.be/..."
                   value={formData.recordingUrl}
                   onChange={(e) => setFormData({ ...formData, recordingUrl: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
@@ -833,7 +833,7 @@ export function AdminSessionsClient({
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{editingSession ? 'Save Changes' : 'Schedule Session'}</span>

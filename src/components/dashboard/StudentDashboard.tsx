@@ -137,7 +137,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar Navigation: Near-black with cream text */}
       <DashboardSidebar
         currentTab={currentTab}
@@ -160,7 +160,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
         />
 
         {/* GDG LASU Signature Ticker Ribbon */}
-        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
           <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
             <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
               <span>BUILD ✦</span>
@@ -181,14 +181,14 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 max-w-7xl w-full mx-auto">
           {/* Interactive alert toast */}
           {activeAlert && (
-            <div className="flex items-center justify-between rounded-2xl border border-[#0D0E11] bg-[#0D0E11] text-[#FAF7EE] px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
+            <div className="flex items-center justify-between rounded-2xl border border-gdg-black bg-gdg-black text-gdg-cream px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center gap-3">
-                <Sparkles className="h-4 w-4 text-[#FBBC04] shrink-0" />
+                <Sparkles className="h-4 w-4 text-gdg-yellow shrink-0" />
                 <span className="font-semibold">{activeAlert}</span>
               </div>
               <button
                 type="button"
-                className="text-xs font-black text-[#FBBC04] hover:underline ml-4 cursor-pointer"
+                className="text-xs font-black text-gdg-yellow hover:underline ml-4 cursor-pointer"
                 onClick={() => setActiveAlert(null)}
               >
                 Dismiss
@@ -197,42 +197,42 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
           )}
 
           {/* 1. Welcome Section: High-contrast GDG LASU dark card */}
-          <section className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-5 sm:p-8 lg:p-12 shadow-sm">
+          <section className="relative overflow-hidden rounded-3xl border border-gdg-dark-border bg-gdg-black text-gdg-cream p-5 sm:p-8 lg:p-12 shadow-sm">
             {/* Top right Google accent geometric glow */}
-            <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-[#4285F4]/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[#FBBC04]/10 blur-3xl" />
+            <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-gdg-blue/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-gdg-yellow/10 blur-3xl" />
 
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               <div className="space-y-4 max-w-2xl">
                 {/* Google 4-color dots + cohort tag */}
                 <div className="flex flex-wrap items-center gap-3">
                   <div className="flex items-center -space-x-1">
-                    <span className="h-3 w-3 rounded-full bg-[#4285F4] ring-2 ring-[#0D0E11]" />
-                    <span className="h-3 w-3 rounded-full bg-[#EA4335] ring-2 ring-[#0D0E11]" />
-                    <span className="h-3 w-3 rounded-full bg-[#FBBC04] ring-2 ring-[#0D0E11]" />
-                    <span className="h-3 w-3 rounded-full bg-[#34A853] ring-2 ring-[#0D0E11]" />
+                    <span className="h-3 w-3 rounded-full bg-gdg-blue ring-2 ring-gdg-black" />
+                    <span className="h-3 w-3 rounded-full bg-gdg-red ring-2 ring-gdg-black" />
+                    <span className="h-3 w-3 rounded-full bg-gdg-yellow ring-2 ring-gdg-black" />
+                    <span className="h-3 w-3 rounded-full bg-gdg-green ring-2 ring-gdg-black" />
                   </div>
-                  <span className="text-xs font-bold text-[#FAF7EE]/70 uppercase tracking-wider">
+                  <span className="text-xs font-bold text-gdg-cream/70 uppercase tracking-wider">
                     {student.cohort}
                   </span>
-                  <span className="rounded-full bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30 px-3 py-0.5 text-xs font-bold">
+                  <span className="rounded-full bg-gdg-green/20 text-gdg-green border border-gdg-green/30 px-3 py-0.5 text-xs font-bold">
                     Active Student
                   </span>
                 </div>
 
-                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gdg-cream leading-tight">
                   {timeGreeting}, {firstName}
                 </h2>
 
-                <p className="text-sm sm:text-base text-[#FAF7EE]/80 leading-relaxed font-normal">
+                <p className="text-sm sm:text-base text-gdg-cream/80 leading-relaxed font-normal">
                   Connect with mentors, build impactful fullstack products with Google technologies, and ship verifiable capstone projects at Lagos State University.
                 </p>
 
-                <div className="flex items-center gap-2 pt-2 text-xs font-bold text-[#FAF7EE]/60">
-                  <span className="h-2 w-2 rounded-full bg-[#34A853]" />
+                <div className="flex items-center gap-2 pt-2 text-xs font-bold text-gdg-cream/60">
+                  <span className="h-2 w-2 rounded-full bg-gdg-green" />
                   <span>
-                    You completed <strong className="text-[#FAF7EE]">{stats.completedLessons} lessons</strong> • Overall progress is at{' '}
-                    <strong className="text-[#34A853]">{stats.overallProgressPercentage}%</strong>
+                    You completed <strong className="text-gdg-cream">{stats.completedLessons} lessons</strong> • Overall progress is at{' '}
+                    <strong className="text-gdg-green">{stats.overallProgressPercentage}%</strong>
                   </span>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
                 <Link
                   href={enrolledTracks[0]?.slug ? `/tracks/${enrolledTracks[0].slug}` : '/tracks'}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-7 py-3.5 text-xs font-black tracking-wide shadow-md transition-transform active:scale-95 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gdg-cream text-gdg-black hover:bg-white px-7 py-3.5 text-xs font-black tracking-wide shadow-md transition-transform active:scale-95 cursor-pointer"
                 >
                   <BookOpen className="h-4 w-4" />
                   <span>Resume Next Lesson</span>
@@ -251,9 +251,9 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                 <button
                   type="button"
                   onClick={() => setCurrentTab('resources')}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#FAF7EE]/30 text-[#FAF7EE] hover:bg-[#FAF7EE]/10 px-7 py-3.5 text-xs font-bold tracking-wide transition-all active:scale-95 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-gdg-cream/30 text-gdg-cream hover:bg-gdg-cream/10 px-7 py-3.5 text-xs font-bold tracking-wide transition-all active:scale-95 cursor-pointer"
                 >
-                  <FolderGit2 className="h-4 w-4 text-[#FBBC04]" />
+                  <FolderGit2 className="h-4 w-4 text-gdg-yellow" />
                   <span>Browse Repository</span>
                 </button>
               </div>
@@ -306,16 +306,16 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
           <section className="space-y-5">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                <p className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                   Learning Pathways
                 </p>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight mt-1">
+                <h3 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight mt-1">
                   Continue Learning
                 </h3>
               </div>
               <Link
                 href="/tracks"
-                className="inline-flex items-center gap-1.5 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-gdg-black hover:text-gdg-blue transition-colors cursor-pointer"
               >
                 <span>View all tracks</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -333,29 +333,29 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                 ))}
               </div>
             ) : (
-              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-8 sm:p-12 text-center space-y-4 shadow-sm">
-                <div className="w-14 h-14 rounded-2xl bg-[#4285F4]/10 text-[#4285F4] border border-[#4285F4]/20 flex items-center justify-center mx-auto">
+              <div className="rounded-3xl border border-gdg-border bg-white p-8 sm:p-12 text-center space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-2xl bg-gdg-blue/10 text-gdg-blue border border-gdg-blue/20 flex items-center justify-center mx-auto">
                   <Ticket className="w-7 h-7" />
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-xl font-black text-[#0D0E11]">
+                  <h4 className="text-xl font-black text-gdg-black">
                     You haven&apos;t joined a bootcamp track yet.
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#5F6368] max-w-md mx-auto">
+                  <p className="text-xs sm:text-sm text-gdg-gray max-w-md mx-auto">
                     Use an invite code provided by your organizers or contact an admin to unlock your track curriculum and lessons.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                   <Link
                     href="/onboarding/join"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gdg-black hover:bg-gdg-dark-border text-xs font-black text-gdg-cream shadow-sm transition-all"
                   >
-                    <Ticket className="w-4 h-4 text-[#FBBC04]" />
+                    <Ticket className="w-4 h-4 text-gdg-yellow" />
                     <span>Enter Invite Code</span>
                   </Link>
                   <a
                     href="mailto:lead@gdglasu.org"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#FAF7EE] hover:bg-[#E5DFD0] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gdg-cream hover:bg-gdg-border border border-gdg-border text-xs font-bold text-gdg-black transition-all"
                   >
                     <span>Contact Admin</span>
                   </a>
@@ -372,20 +372,20 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               <section className="space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                    <p className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                       Sprint Tasks
                     </p>
                     <Link href="/assignments" className="group inline-flex items-center gap-2">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight mt-1 group-hover:text-gdg-blue transition-colors">
                         Upcoming Assignments
                       </h3>
-                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-gdg-blue" />
                     </Link>
                   </div>
 
                   <div className="flex items-center gap-3">
                     {/* Filter pills */}
-                    <div className="flex items-center gap-1.5 p-1 rounded-full bg-white border border-[#E5DFD0]">
+                    <div className="flex items-center gap-1.5 p-1 rounded-full bg-white border border-gdg-border">
                       {(['all', 'pending', 'submitted'] as const).map((filter) => (
                         <button
                           key={filter}
@@ -394,8 +394,8 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                           className={cn(
                             'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
                             assignmentFilter === filter
-                              ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                              : 'text-[#5F6368] hover:text-[#0D0E11]'
+                              ? 'bg-gdg-black text-gdg-cream'
+                              : 'text-gdg-gray hover:text-gdg-black'
                           )}
                         >
                           {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -405,7 +405,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
 
                     <Link
                       href="/assignments"
-                      className="hidden sm:inline-flex items-center gap-1 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors"
+                      className="hidden sm:inline-flex items-center gap-1 text-xs font-black text-gdg-black hover:text-gdg-blue transition-colors"
                     >
                       <span>View all</span>
                       <ArrowRight className="h-3.5 w-3.5" />
@@ -423,7 +423,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       />
                     ))
                   ) : (
-                    <div className="rounded-3xl border border-dashed border-[#E5DFD0] p-8 text-center text-xs font-semibold text-[#5F6368] bg-white">
+                    <div className="rounded-3xl border border-dashed border-gdg-border p-8 text-center text-xs font-semibold text-gdg-gray bg-white">
                       No assignments found matching this filter.
                     </div>
                   )}
@@ -434,14 +434,14 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               <section className="space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                    <p className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                       Curated Knowledge
                     </p>
                     <Link href="/resources" className="group inline-flex items-center gap-2">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight mt-1 group-hover:text-gdg-blue transition-colors">
                         Recent Resources
                       </h3>
-                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-gdg-blue" />
                     </Link>
                   </div>
 
@@ -453,8 +453,8 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       className={cn(
                         'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
                         resourceFilter === 'all'
-                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                          ? 'bg-gdg-black text-gdg-cream'
+                          : 'bg-white border border-gdg-border text-gdg-gray hover:text-gdg-black'
                       )}
                     >
                       All
@@ -465,8 +465,8 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       className={cn(
                         'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
                         resourceFilter === 'pdf'
-                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                          ? 'bg-gdg-black text-gdg-cream'
+                          : 'bg-white border border-gdg-border text-gdg-gray hover:text-gdg-black'
                       )}
                     >
                       PDFs
@@ -477,8 +477,8 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       className={cn(
                         'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
                         resourceFilter === 'code-all'
-                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                          ? 'bg-gdg-black text-gdg-cream'
+                          : 'bg-white border border-gdg-border text-gdg-gray hover:text-gdg-black'
                       )}
                     >
                       Code & Sandbox
@@ -489,8 +489,8 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       className={cn(
                         'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
                         resourceFilter === 'figma'
-                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                          ? 'bg-gdg-black text-gdg-cream'
+                          : 'bg-white border border-gdg-border text-gdg-gray hover:text-gdg-black'
                       )}
                     >
                       Figma
@@ -511,7 +511,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                 <div className="pt-2">
                   <Link
                     href="/resources"
-                    className="w-full py-3 rounded-full border border-[#0D0E11] text-xs font-black text-[#0D0E11] hover:bg-[#0D0E11] hover:text-[#FAF7EE] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="w-full py-3 rounded-full border border-gdg-black text-xs font-black text-gdg-black hover:bg-gdg-black hover:text-gdg-cream transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <span>View All Learning Resources Repository</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -526,19 +526,19 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               <section className="space-y-5">
                 <div className="flex items-end justify-between">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                    <p className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                       Live Sessions
                     </p>
                     <Link href="/schedule" className="group inline-flex items-center gap-2">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight mt-1 group-hover:text-gdg-blue transition-colors">
                         Upcoming Classes
                       </h3>
-                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-gdg-blue" />
                     </Link>
                   </div>
                   <Link
                     href="/schedule"
-                    className="inline-flex items-center gap-1 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1 text-xs font-black text-gdg-black hover:text-gdg-blue transition-colors cursor-pointer"
                   >
                     <span>Full Schedule</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -555,7 +555,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       />
                     ))
                   ) : (
-                    <div className="rounded-2xl border border-dashed border-[#E5DFD0] bg-white/50 p-6 text-center text-xs font-medium text-[#5F6368]">
+                    <div className="rounded-2xl border border-dashed border-gdg-border bg-white/50 p-6 text-center text-xs font-medium text-gdg-gray">
                       No upcoming live sessions scheduled.
                     </div>
                   )}
@@ -566,19 +566,19 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               <section className="space-y-5">
                 <div className="flex items-end justify-between">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                    <p className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                       Cohort News
                     </p>
                     <Link href="/announcements" className="group inline-flex items-center gap-2">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight mt-1 group-hover:text-gdg-blue transition-colors">
                         Announcements
                       </h3>
-                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-gdg-blue" />
                     </Link>
                   </div>
                   <Link
                     href="/announcements"
-                    className="inline-flex items-center gap-1 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1 text-xs font-black text-gdg-black hover:text-gdg-blue transition-colors cursor-pointer"
                   >
                     <span>All news</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -597,7 +597,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                       />
                     ))
                   ) : (
-                    <div className="rounded-2xl border border-dashed border-[#E5DFD0] bg-white/50 p-6 text-center text-xs font-medium text-[#5F6368]">
+                    <div className="rounded-2xl border border-dashed border-gdg-border bg-white/50 p-6 text-center text-xs font-medium text-gdg-gray">
                       No announcements posted yet.
                     </div>
                   )}
@@ -605,40 +605,40 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               </section>
 
               {/* Curriculum Progress & Attendance Card */}
-              <div className="rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-7 shadow-sm space-y-5">
+              <div className="rounded-3xl border border-gdg-dark-border bg-gdg-black text-gdg-cream p-6 sm:p-7 shadow-sm space-y-5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#FAF7EE]/60">
+                  <span className="text-xs font-bold uppercase tracking-wider text-gdg-cream/60">
                     Curriculum Progress
                   </span>
-                  <span className="text-sm font-black text-[#FAF7EE]">
+                  <span className="text-sm font-black text-gdg-cream">
                     {stats.completedLessons} / {stats.totalLessons} Lessons
                   </span>
                 </div>
 
-                <div className="h-2.5 w-full bg-[#22242B] rounded-full overflow-hidden">
+                <div className="h-2.5 w-full bg-gdg-dark-border rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#FBBC04] rounded-full transition-all duration-300"
+                    className="h-full bg-gdg-yellow rounded-full transition-all duration-300"
                     style={{ width: `${Math.min(100, stats.overallProgressPercentage)}%` }}
                   />
                 </div>
 
-                <div className="flex items-center justify-between text-xs font-medium text-[#FAF7EE]/70">
+                <div className="flex items-center justify-between text-xs font-medium text-gdg-cream/70">
                   <span>{Math.max(0, stats.totalLessons - stats.completedLessons)} lessons remaining</span>
-                  <span className="font-bold text-[#34A853]">{stats.overallProgressPercentage}% Completed</span>
+                  <span className="font-bold text-gdg-green">{stats.overallProgressPercentage}% Completed</span>
                 </div>
 
-                <div className="pt-3 border-t border-[#22242B] flex items-center justify-between">
+                <div className="pt-3 border-t border-gdg-dark-border flex items-center justify-between">
                   <Link
                     href="/attendance"
-                    className="text-xs text-[#FAF7EE]/80 hover:text-white flex items-center gap-1 font-bold transition-colors"
+                    className="text-xs text-gdg-cream/80 hover:text-white flex items-center gap-1 font-bold transition-colors"
                   >
-                    <span className="h-2 w-2 rounded-full bg-[#34A853]" />
+                    <span className="h-2 w-2 rounded-full bg-gdg-green" />
                     <span>{stats.attendanceRate}% Attendance Record</span>
                   </Link>
 
                   <Link
                     href="/progress"
-                    className="text-xs text-[#FBBC04] font-black flex items-center gap-1 cursor-pointer hover:underline"
+                    className="text-xs text-gdg-yellow font-black flex items-center gap-1 cursor-pointer hover:underline"
                   >
                     <span>View Analytics</span>
                     <ArrowRight className="h-3 w-3" />

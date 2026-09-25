@@ -133,7 +133,7 @@ export function AdminMentorsClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="mentors"
         admin={admin}
@@ -150,7 +150,7 @@ export function AdminMentorsClient({
           actions={
             <button
               onClick={() => openAssignModal()}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>Assign Mentor</span>
@@ -177,7 +177,7 @@ export function AdminMentorsClient({
           {/* Mentors Card Grid */}
           {mentors.length === 0 ? (
             <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#FBBC04]/10 text-[#FBBC04] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-gdg-yellow/10 text-gdg-yellow flex items-center justify-center mx-auto">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <p className="text-xs text-white/50">No mentors configured in the platform.</p>
@@ -195,7 +195,7 @@ export function AdminMentorsClient({
                       <div className="flex items-center gap-3.5 min-w-0">
                         <Avatar className="w-12 h-12 border border-white/15 shrink-0">
                           <AvatarImage src={mentor.avatar} alt={mentor.name} />
-                          <AvatarFallback className="bg-[#FBBC04] text-black font-bold text-sm">
+                          <AvatarFallback className="bg-gdg-yellow text-black font-bold text-sm">
                             {mentor.name[0]}
                           </AvatarFallback>
                         </Avatar>
@@ -210,7 +210,7 @@ export function AdminMentorsClient({
                         className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors shrink-0"
                         title="Assign to Track"
                       >
-                        <Plus className="w-4 h-4 text-[#4285F4]" />
+                        <Plus className="w-4 h-4 text-gdg-blue" />
                       </button>
                     </div>
 
@@ -268,7 +268,7 @@ export function AdminMentorsClient({
                                       trackName: assignment.trackName,
                                     })
                                   }
-                                  className="p-1 rounded text-white/30 hover:text-[#EA4335] transition-colors"
+                                  className="p-1 rounded text-white/30 hover:text-gdg-red transition-colors"
                                   title="Unassign Mentor"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -290,7 +290,7 @@ export function AdminMentorsClient({
       {/* ASSIGN MENTOR MODAL (Requirement 15) */}
       {isAssignOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-md rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Assign Mentor to Track</h3>
@@ -305,7 +305,7 @@ export function AdminMentorsClient({
             </div>
 
             {assignError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{assignError}</span>
               </div>
@@ -314,15 +314,15 @@ export function AdminMentorsClient({
             <form onSubmit={handleAssignMentor} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Select Mentor <span className="text-[#EA4335]">*</span>
+                  Select Mentor <span className="text-gdg-red">*</span>
                 </label>
                 <select
                   value={selectedMentorId}
                   onChange={(e) => setSelectedMentorId(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {mentors.map((m) => (
-                    <option key={m.id} value={m.id} className="bg-[#0D0E11]">
+                    <option key={m.id} value={m.id} className="bg-gdg-black">
                       {m.name} ({m.email})
                     </option>
                   ))}
@@ -331,15 +331,15 @@ export function AdminMentorsClient({
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Select Curriculum Track <span className="text-[#EA4335]">*</span>
+                  Select Curriculum Track <span className="text-gdg-red">*</span>
                 </label>
                 <select
                   value={selectedTrackId}
                   onChange={(e) => setSelectedTrackId(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {tracks.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                    <option key={t.id} value={t.id} className="bg-gdg-black">
                       {t.name} ({t.cohort.name})
                     </option>
                   ))}
@@ -357,7 +357,7 @@ export function AdminMentorsClient({
                 <button
                   type="submit"
                   disabled={isAssigning}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isAssigning && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Assign Mentor</span>

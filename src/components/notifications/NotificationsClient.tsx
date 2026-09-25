@@ -56,74 +56,74 @@ const TYPE_META: Record<
   ASSIGNMENT_NEW: {
     icon: FileText,
     label: 'Assignment',
-    bgColor: 'bg-[#4285F4]/10',
-    textColor: 'text-[#4285F4]',
-    badgeBg: 'bg-[#4285F4]/10',
-    badgeText: 'text-[#4285F4]',
+    bgColor: 'bg-gdg-blue/10',
+    textColor: 'text-gdg-blue',
+    badgeBg: 'bg-gdg-blue/10',
+    badgeText: 'text-gdg-blue',
   },
   ASSIGNMENT_GRADED: {
     icon: Award,
     label: 'Graded',
-    bgColor: 'bg-[#34A853]/10',
-    textColor: 'text-[#34A853]',
-    badgeBg: 'bg-[#34A853]/10',
-    badgeText: 'text-[#34A853]',
+    bgColor: 'bg-gdg-green/10',
+    textColor: 'text-gdg-green',
+    badgeBg: 'bg-gdg-green/10',
+    badgeText: 'text-gdg-green',
   },
   SUBMISSION_RECEIVED: {
     icon: BookOpen,
     label: 'Submission',
-    bgColor: 'bg-[#FBBC04]/15',
+    bgColor: 'bg-gdg-yellow/15',
     textColor: 'text-[#B08800]',
-    badgeBg: 'bg-[#FBBC04]/15',
+    badgeBg: 'bg-gdg-yellow/15',
     badgeText: 'text-[#B08800]',
   },
   SESSION_NEW: {
     icon: Calendar,
     label: 'Live Session',
-    bgColor: 'bg-[#EA4335]/10',
-    textColor: 'text-[#EA4335]',
-    badgeBg: 'bg-[#EA4335]/10',
-    badgeText: 'text-[#EA4335]',
+    bgColor: 'bg-gdg-red/10',
+    textColor: 'text-gdg-red',
+    badgeBg: 'bg-gdg-red/10',
+    badgeText: 'text-gdg-red',
   },
   SESSION_REMINDER: {
     icon: Calendar,
     label: 'Session Alert',
-    bgColor: 'bg-[#EA4335]/10',
-    textColor: 'text-[#EA4335]',
-    badgeBg: 'bg-[#EA4335]/10',
-    badgeText: 'text-[#EA4335]',
+    bgColor: 'bg-gdg-red/10',
+    textColor: 'text-gdg-red',
+    badgeBg: 'bg-gdg-red/10',
+    badgeText: 'text-gdg-red',
   },
   RESOURCE_NEW: {
     icon: FileText,
     label: 'Resource',
-    bgColor: 'bg-[#4285F4]/10',
-    textColor: 'text-[#4285F4]',
-    badgeBg: 'bg-[#4285F4]/10',
-    badgeText: 'text-[#4285F4]',
+    bgColor: 'bg-gdg-blue/10',
+    textColor: 'text-gdg-blue',
+    badgeBg: 'bg-gdg-blue/10',
+    badgeText: 'text-gdg-blue',
   },
   ANNOUNCEMENT_NEW: {
     icon: Megaphone,
     label: 'Announcement',
-    bgColor: 'bg-[#FBBC04]/15',
+    bgColor: 'bg-gdg-yellow/15',
     textColor: 'text-[#B08800]',
-    badgeBg: 'bg-[#FBBC04]/15',
+    badgeBg: 'bg-gdg-yellow/15',
     badgeText: 'text-[#B08800]',
   },
   ENROLLMENT_CONFIRMED: {
     icon: CheckCircle2,
     label: 'Enrolment',
-    bgColor: 'bg-[#34A853]/10',
-    textColor: 'text-[#34A853]',
-    badgeBg: 'bg-[#34A853]/10',
-    badgeText: 'text-[#34A853]',
+    bgColor: 'bg-gdg-green/10',
+    textColor: 'text-gdg-green',
+    badgeBg: 'bg-gdg-green/10',
+    badgeText: 'text-gdg-green',
   },
   GENERAL: {
     icon: AlertCircle,
     label: 'Notice',
-    bgColor: 'bg-[#5F6368]/10',
-    textColor: 'text-[#5F6368]',
-    badgeBg: 'bg-[#5F6368]/10',
-    badgeText: 'text-[#5F6368]',
+    bgColor: 'bg-gdg-gray/10',
+    textColor: 'text-gdg-gray',
+    badgeBg: 'bg-gdg-gray/10',
+    badgeText: 'text-gdg-gray',
   },
 };
 
@@ -351,9 +351,9 @@ export function NotificationsClient({
   }, [notifications]);
 
   return (
-    <div className="min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Ticker Ribbon */}
-      <div className="w-full bg-[#0D0E11] text-[#FAF7EE] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+      <div className="w-full bg-gdg-black text-gdg-cream py-2 px-6 overflow-hidden border-b border-gdg-black/10">
         <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
           <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
             <span>BUILD ✦</span>
@@ -364,7 +364,7 @@ export function NotificationsClient({
             <span>CONNECT ✦</span>
             <span>GROW ✦</span>
           </div>
-          <span className="hidden lg:inline text-[11px] font-semibold tracking-normal text-[#FAF7EE]/70 pl-4">
+          <span className="hidden lg:inline text-[11px] font-semibold tracking-normal text-gdg-cream/70 pl-4">
             GDG on Campus LASU · In-App Activity & Broadcast Center
           </span>
         </div>
@@ -376,7 +376,7 @@ export function NotificationsClient({
         <div className="flex items-center justify-between">
           <Link
             href={backLink}
-            className="inline-flex items-center gap-2 text-sm font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors rounded-xl px-3 py-2 -ml-3 hover:bg-black/5"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gdg-gray hover:text-gdg-black transition-colors rounded-xl px-3 py-2 -ml-3 hover:bg-black/5"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Dashboard</span>
@@ -387,21 +387,21 @@ export function NotificationsClient({
               onClick={refreshNotifications}
               disabled={isRefreshing}
               title="Refresh notifications"
-              className="p-2 rounded-xl border border-[#E5DFD0] bg-white text-[#5F6368] hover:text-[#0D0E11] hover:border-[#0D0E11]/30 transition-all shadow-2xs disabled:opacity-50"
+              className="p-2 rounded-xl border border-gdg-border bg-white text-gdg-gray hover:text-gdg-black hover:border-gdg-black/30 transition-all shadow-2xs disabled:opacity-50"
             >
-              <RefreshCw className={cn('h-4 w-4', isRefreshing && 'animate-spin text-[#4285F4]')} />
+              <RefreshCw className={cn('h-4 w-4', isRefreshing && 'animate-spin text-gdg-blue')} />
             </button>
 
             {unreadCount > 0 && (
               <button
                 onClick={handleMarkAllRead}
                 disabled={isMarkingAll}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#0D0E11]/85 transition-all shadow-2xs disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-gdg-black text-gdg-cream hover:bg-gdg-black/85 transition-all shadow-2xs disabled:opacity-50"
               >
                 {isMarkingAll ? (
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
                 ) : (
-                  <CheckCheck className="h-3.5 w-3.5 text-[#34A853]" />
+                  <CheckCheck className="h-3.5 w-3.5 text-gdg-green" />
                 )}
                 <span>Mark all as read</span>
               </button>
@@ -410,35 +410,35 @@ export function NotificationsClient({
         </div>
 
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gdg-border pb-8">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#4285F4] animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+              <span className="h-2.5 w-2.5 rounded-full bg-gdg-blue animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                 Real-Time Activity Feed
               </span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black text-[#0D0E11] tracking-tight">
+            <h1 className="text-3xl sm:text-5xl font-black text-gdg-black tracking-tight">
               Notifications
             </h1>
-            <p className="text-sm text-[#5F6368] font-medium max-w-xl">
+            <p className="text-sm text-gdg-gray font-medium max-w-xl">
               Stay on top of assignment releases, review evaluations, scheduled cohort sessions, and community broadcasts.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="rounded-2xl border border-[#E5DFD0] bg-white px-5 py-3 shadow-2xs">
+            <div className="rounded-2xl border border-gdg-border bg-white px-5 py-3 shadow-2xs">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-[#4285F4]/10 flex items-center justify-center text-[#4285F4]">
+                <div className="h-9 w-9 rounded-xl bg-gdg-blue/10 flex items-center justify-center text-gdg-blue">
                   <Bell className="h-5 w-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray block">
                     Unread Alerts
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-black text-[#0D0E11]">{unreadCount}</span>
-                    <span className="text-xs text-[#5F6368] font-medium">
+                    <span className="text-lg font-black text-gdg-black">{unreadCount}</span>
+                    <span className="text-xs text-gdg-gray font-medium">
                       / {notifications.length} total
                     </span>
                   </div>
@@ -470,15 +470,15 @@ export function NotificationsClient({
                   className={cn(
                     'flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border',
                     active
-                      ? 'bg-[#0D0E11] text-[#FAF7EE] border-[#0D0E11] shadow-2xs'
-                      : 'bg-white text-[#5F6368] border-[#E5DFD0] hover:border-[#0D0E11]/30 hover:text-[#0D0E11]'
+                      ? 'bg-gdg-black text-gdg-cream border-gdg-black shadow-2xs'
+                      : 'bg-white text-gdg-gray border-gdg-border hover:border-gdg-black/30 hover:text-gdg-black'
                   )}
                 >
                   <span>{tab.label}</span>
                   <span
                     className={cn(
                       'text-[10px] px-1.5 py-0.5 rounded-full font-black',
-                      active ? 'bg-white/20 text-[#FAF7EE]' : 'bg-[#FAF7EE] text-[#5F6368]'
+                      active ? 'bg-white/20 text-gdg-cream' : 'bg-gdg-cream text-gdg-gray'
                     )}
                   >
                     {tab.count}
@@ -491,13 +491,13 @@ export function NotificationsClient({
           {/* Secondary Controls: Search & Unread Toggle */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5F6368]" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
               <input
                 type="text"
                 placeholder="Search notifications..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-xs font-medium rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] placeholder:text-[#5F6368]/60 focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+                className="w-full pl-10 pr-4 py-2 text-xs font-medium rounded-xl border border-gdg-border bg-white text-gdg-black placeholder:text-gdg-gray/60 focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
               />
             </div>
 
@@ -507,14 +507,14 @@ export function NotificationsClient({
                 className={cn(
                   'flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all border',
                   unreadOnly
-                    ? 'bg-[#FBBC04]/20 border-[#FBBC04] text-[#805B00]'
-                    : 'bg-white border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                    ? 'bg-gdg-yellow/20 border-gdg-yellow text-[#805B00]'
+                    : 'bg-white border-gdg-border text-gdg-gray hover:text-gdg-black'
                 )}
               >
                 <span
                   className={cn(
                     'h-2 w-2 rounded-full',
-                    unreadOnly ? 'bg-[#FBBC04]' : 'bg-[#E5DFD0]'
+                    unreadOnly ? 'bg-gdg-yellow' : 'bg-gdg-border'
                   )}
                 />
                 <span>Unread only</span>
@@ -526,13 +526,13 @@ export function NotificationsClient({
         {/* Notifications Feed */}
         <div className="space-y-8">
           {filteredNotifications.length === 0 ? (
-            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-12 text-center space-y-4 shadow-2xs">
-              <div className="h-16 w-16 mx-auto rounded-2xl bg-[#FAF7EE] flex items-center justify-center border border-[#E5DFD0] text-[#5F6368]">
-                <Inbox className="h-8 w-8 text-[#5F6368]/70" />
+            <div className="rounded-3xl border border-gdg-border bg-white p-12 text-center space-y-4 shadow-2xs">
+              <div className="h-16 w-16 mx-auto rounded-2xl bg-gdg-cream flex items-center justify-center border border-gdg-border text-gdg-gray">
+                <Inbox className="h-8 w-8 text-gdg-gray/70" />
               </div>
               <div className="space-y-1 max-w-sm mx-auto">
-                <h3 className="text-base font-black text-[#0D0E11]">No notifications to display</h3>
-                <p className="text-xs text-[#5F6368] font-medium leading-relaxed">
+                <h3 className="text-base font-black text-gdg-black">No notifications to display</h3>
+                <p className="text-xs text-gdg-gray font-medium leading-relaxed">
                   {unreadOnly
                     ? "You're all caught up! You don't have any unread notifications right now."
                     : searchQuery
@@ -547,9 +547,9 @@ export function NotificationsClient({
                     setSearchQuery('');
                     setSelectedTab('all');
                   }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#FAF7EE] text-[#0D0E11] border border-[#E5DFD0] hover:bg-[#E5DFD0]/40 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gdg-cream text-gdg-black border border-gdg-border hover:bg-gdg-border/40 transition-colors"
                 >
-                  <Sparkles className="h-3.5 w-3.5 text-[#FBBC04]" />
+                  <Sparkles className="h-3.5 w-3.5 text-gdg-yellow" />
                   <span>Reset filters</span>
                 </button>
               )}
@@ -562,11 +562,11 @@ export function NotificationsClient({
               return (
                 <div key={groupName} className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-black uppercase tracking-wider text-[#5F6368]">
+                    <span className="text-xs font-black uppercase tracking-wider text-gdg-gray">
                       {groupName}
                     </span>
-                    <div className="h-[1px] flex-1 bg-[#E5DFD0]" />
-                    <span className="text-[10px] font-bold text-[#5F6368]">
+                    <div className="h-[1px] flex-1 bg-gdg-border" />
+                    <span className="text-[10px] font-bold text-gdg-gray">
                       {items.length} {items.length === 1 ? 'alert' : 'alerts'}
                     </span>
                   </div>
@@ -584,16 +584,16 @@ export function NotificationsClient({
                           className={cn(
                             'group relative rounded-2xl border transition-all duration-200 cursor-pointer p-4 sm:p-5 flex items-start gap-4 shadow-2xs',
                             isUnread
-                              ? 'bg-white border-[#4285F4]/30 hover:border-[#4285F4] shadow-sm'
-                              : 'bg-white/70 hover:bg-white border-[#E5DFD0] hover:border-[#0D0E11]/30 opacity-90 hover:opacity-100'
+                              ? 'bg-white border-gdg-blue/30 hover:border-gdg-blue shadow-sm'
+                              : 'bg-white/70 hover:bg-white border-gdg-border hover:border-gdg-black/30 opacity-90 hover:opacity-100'
                           )}
                         >
                           {/* Unread Accent Indicator */}
                           {isUnread && (
                             <div className="absolute top-4 right-4 sm:top-5 sm:right-5">
                               <span className="flex h-2.5 w-2.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4285F4] opacity-75" />
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4285F4]" />
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gdg-blue opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gdg-blue" />
                               </span>
                             </div>
                           )}
@@ -621,28 +621,28 @@ export function NotificationsClient({
                               >
                                 {meta.label}
                               </span>
-                              <span className="text-xs text-[#5F6368] font-semibold">
+                              <span className="text-xs text-gdg-gray font-semibold">
                                 • {timeAgo(notif.createdAt)}
                               </span>
                             </div>
 
                             <h4
                               className={cn(
-                                'text-sm sm:text-base font-bold text-[#0D0E11] leading-snug group-hover:text-[#4285F4] transition-colors',
+                                'text-sm sm:text-base font-bold text-gdg-black leading-snug group-hover:text-gdg-blue transition-colors',
                                 isUnread && 'font-black'
                               )}
                             >
                               {notif.title}
                             </h4>
 
-                            <p className="text-xs sm:text-sm text-[#5F6368] font-normal leading-relaxed">
+                            <p className="text-xs sm:text-sm text-gdg-gray font-normal leading-relaxed">
                               {notif.message}
                             </p>
 
                             {/* Actions / Link Bar */}
                             <div className="flex items-center gap-3 pt-2">
                               {notif.link && (
-                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4285F4] group-hover:underline">
+                                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-gdg-blue group-hover:underline">
                                   <span>View details</span>
                                   <ExternalLink className="h-3.5 w-3.5" />
                                 </span>
@@ -651,9 +651,9 @@ export function NotificationsClient({
                               {isUnread && (
                                 <button
                                   onClick={(e) => handleMarkSingleRead(notif.id, e)}
-                                  className="inline-flex items-center gap-1 text-[11px] font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors px-2 py-0.5 rounded-md hover:bg-black/5"
+                                  className="inline-flex items-center gap-1 text-[11px] font-bold text-gdg-gray hover:text-gdg-black transition-colors px-2 py-0.5 rounded-md hover:bg-black/5"
                                 >
-                                  <Check className="h-3 w-3 text-[#34A853]" />
+                                  <Check className="h-3 w-3 text-gdg-green" />
                                   <span>Mark read</span>
                                 </button>
                               )}

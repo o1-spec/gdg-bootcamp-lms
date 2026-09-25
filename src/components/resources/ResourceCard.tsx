@@ -26,27 +26,27 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
     switch (type) {
       case 'pdf':
       case 'document':
-        return { icon: FileText, label: 'Document / PDF', color: 'text-[#EA4335]', bg: 'bg-[#EA4335]/12 border-[#EA4335]/25' };
+        return { icon: FileText, label: 'Document / PDF', color: 'text-gdg-red', bg: 'bg-gdg-red/12 border-gdg-red/25' };
       case 'video':
-        return { icon: Video, label: 'Video Lecture', color: 'text-[#4285F4]', bg: 'bg-[#4285F4]/12 border-[#4285F4]/25' };
+        return { icon: Video, label: 'Video Lecture', color: 'text-gdg-blue', bg: 'bg-gdg-blue/12 border-gdg-blue/25' };
       case 'slides':
-        return { icon: Presentation, label: 'Slide Deck', color: 'text-[#FBBC04]', bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30' };
+        return { icon: Presentation, label: 'Slide Deck', color: 'text-gdg-yellow', bg: 'bg-gdg-yellow/15 border-gdg-yellow/30' };
       case 'github':
       case 'code':
-        return { icon: GitBranch, label: 'Code Repository', color: 'text-[#0D0E11]', bg: 'bg-[#0D0E11]/10 border-[#0D0E11]/20' };
+        return { icon: GitBranch, label: 'Code Repository', color: 'text-gdg-black', bg: 'bg-gdg-black/10 border-gdg-black/20' };
       case 'figma':
-        return { icon: Palette, label: 'Figma Community Kit', color: 'text-[#FBBC04]', bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30' };
+        return { icon: Palette, label: 'Figma Community Kit', color: 'text-gdg-yellow', bg: 'bg-gdg-yellow/15 border-gdg-yellow/30' };
       case 'dataset':
-        return { icon: Database, label: 'Dataset', color: 'text-[#4285F4]', bg: 'bg-[#4285F4]/12 border-[#4285F4]/25' };
+        return { icon: Database, label: 'Dataset', color: 'text-gdg-blue', bg: 'bg-gdg-blue/12 border-gdg-blue/25' };
       case 'cheatsheet':
-        return { icon: FileSpreadsheet, label: 'Cheat Sheet', color: 'text-[#EA4335]', bg: 'bg-[#EA4335]/12 border-[#EA4335]/25' };
+        return { icon: FileSpreadsheet, label: 'Cheat Sheet', color: 'text-gdg-red', bg: 'bg-gdg-red/12 border-gdg-red/25' };
       case 'practice':
       case 'exercise':
-        return { icon: Code2, label: 'Practice Exercise', color: 'text-[#34A853]', bg: 'bg-[#34A853]/15 border-[#34A853]/30' };
+        return { icon: Code2, label: 'Practice Exercise', color: 'text-gdg-green', bg: 'bg-gdg-green/15 border-gdg-green/30' };
       case 'article':
       case 'link':
       default:
-        return { icon: ExternalLink, label: 'Web Resource', color: 'text-[#34A853]', bg: 'bg-[#34A853]/15 border-[#34A853]/30' };
+        return { icon: ExternalLink, label: 'Web Resource', color: 'text-gdg-green', bg: 'bg-gdg-green/15 border-gdg-green/30' };
     }
   };
 
@@ -56,7 +56,7 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
   return (
     <div
       onClick={() => onSelect(resource)}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-xs hover:border-[#0D0E11]/30 hover:shadow-md transition-all duration-200 cursor-pointer"
+      className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-gdg-border bg-white p-6 shadow-xs hover:border-gdg-black/30 hover:shadow-md transition-all duration-200 cursor-pointer"
     >
       {/* Top track colored border accent */}
       <div
@@ -79,11 +79,11 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
 
           <div className="flex items-center gap-1.5">
             {resource.isRequired ? (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gdg-red/15 text-gdg-red border border-gdg-red/30">
                 REQUIRED
               </span>
             ) : (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gdg-cream text-gdg-gray border border-gdg-border">
                 OPTIONAL
               </span>
             )}
@@ -97,30 +97,30 @@ export function ResourceCard({ resource, onSelect }: ResourceCardProps) {
               className="h-2 w-2 rounded-full shrink-0"
               style={{ backgroundColor: resource.accentColor }}
             />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#5F6368] truncate">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gdg-gray truncate">
               {resource.trackName} • {resource.moduleName}
             </span>
           </div>
 
-          <h3 className="text-base sm:text-lg font-black text-[#0D0E11] tracking-tight group-hover:text-black line-clamp-2">
+          <h3 className="text-base sm:text-lg font-black text-gdg-black tracking-tight group-hover:text-black line-clamp-2">
             {resource.title}
           </h3>
 
-          <p className="text-xs text-[#5F6368] font-normal leading-relaxed line-clamp-2 pt-1">
+          <p className="text-xs text-gdg-gray font-normal leading-relaxed line-clamp-2 pt-1">
             {resource.description}
           </p>
         </div>
       </div>
 
       {/* Footer Info & Action */}
-      <div className="mt-5 pt-4 border-t border-[#E5DFD0] flex items-center justify-between text-xs">
-        <div className="text-[11px] font-medium text-[#5F6368]">
+      <div className="mt-5 pt-4 border-t border-gdg-border flex items-center justify-between text-xs">
+        <div className="text-[11px] font-medium text-gdg-gray">
           {resource.fileSize && <span>{resource.fileSize}</span>}
           {resource.duration && <span>{resource.duration}</span>}
           {!resource.fileSize && !resource.duration && <span>Online Link</span>}
         </div>
 
-        <div className="flex items-center gap-1 text-xs font-bold text-[#0D0E11] group-hover:text-[#4285F4] transition-colors">
+        <div className="flex items-center gap-1 text-xs font-bold text-gdg-black group-hover:text-gdg-blue transition-colors">
           <span>Inspect Details</span>
           <Eye className="h-3.5 w-3.5" />
         </div>

@@ -32,7 +32,7 @@ export function AdminTrackOverviewTab({
           <h3 className="text-sm font-bold text-white">Track Mentors</h3>
           <Link
             href="/admin/mentors"
-            className="text-xs text-[#FBBC04] hover:underline"
+            className="text-xs text-gdg-yellow hover:underline"
           >
             Manage
           </Link>
@@ -49,7 +49,7 @@ export function AdminTrackOverviewTab({
                 <div className="flex items-center gap-3">
                   <Avatar className="w-8 h-8">
                     <AvatarImage src={m.avatar || ''} alt={m.name} />
-                    <AvatarFallback className="bg-[#FBBC04] text-black text-xs font-bold">
+                    <AvatarFallback className="bg-gdg-yellow text-black text-xs font-bold">
                       {m.name[0]}
                     </AvatarFallback>
                   </Avatar>
@@ -58,7 +58,7 @@ export function AdminTrackOverviewTab({
                     <p className="text-[10px] text-white/40">{m.email}</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FBBC04]/10 text-[#FBBC04]">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-gdg-yellow/10 text-gdg-yellow">
                   Assigned Mentor
                 </span>
               </div>
@@ -73,7 +73,7 @@ export function AdminTrackOverviewTab({
           <h3 className="text-sm font-bold text-white">Track Sessions</h3>
           <Link
             href="/admin/sessions"
-            className="text-xs text-[#4285F4] hover:underline"
+            className="text-xs text-gdg-blue hover:underline"
           >
             View All
           </Link>

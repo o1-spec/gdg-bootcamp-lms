@@ -22,7 +22,7 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-7 shadow-xs hover:shadow-md transition-all duration-200 space-y-6">
+    <div className="overflow-hidden rounded-3xl border border-gdg-border bg-white p-6 sm:p-7 shadow-xs hover:shadow-md transition-all duration-200 space-y-6">
       {/* Top track header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -43,11 +43,11 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
                 className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: trackProgress.trackAccentColor }}
               />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#5F6368]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-gdg-gray">
                 Enrolled Track
               </span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight">
               {trackProgress.trackName}
             </h3>
           </div>
@@ -56,17 +56,17 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
         {/* Big percentage & Continue Learning Action */}
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <span className="text-3xl font-black text-[#0D0E11]">
+            <span className="text-3xl font-black text-gdg-black">
               {trackProgress.overallPercentage}%
             </span>
-            <span className="text-[10px] text-[#5F6368] font-bold block uppercase tracking-wider">
+            <span className="text-[10px] text-gdg-gray font-bold block uppercase tracking-wider">
               Completed
             </span>
           </div>
 
           <Link
             href={trackProgress.nextLessonHref}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs shrink-0"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs shrink-0"
           >
             <span>Continue</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -76,7 +76,7 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
 
       {/* Main Track Progress Bar */}
       <div className="space-y-1.5">
-        <div className="h-2.5 w-full bg-[#FAF7EE] rounded-full overflow-hidden border border-[#E5DFD0]">
+        <div className="h-2.5 w-full bg-gdg-cream rounded-full overflow-hidden border border-gdg-border">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{
@@ -88,44 +88,44 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
       </div>
 
       {/* Summary Pills */}
-      <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-medium">
+      <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-medium">
         <div className="space-y-0.5">
-          <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider flex items-center gap-1">
-            <BookOpen className="h-3 w-3 text-[#4285F4]" />
+          <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider flex items-center gap-1">
+            <BookOpen className="h-3 w-3 text-gdg-blue" />
             Lessons
           </span>
-          <p className="font-black text-[#0D0E11]">
+          <p className="font-black text-gdg-black">
             {trackProgress.completedLessons} / {trackProgress.totalLessons}
           </p>
         </div>
 
         <div className="space-y-0.5">
-          <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider flex items-center gap-1">
-            <CheckCircle2 className="h-3 w-3 text-[#34A853]" />
+          <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider flex items-center gap-1">
+            <CheckCircle2 className="h-3 w-3 text-gdg-green" />
             Modules
           </span>
-          <p className="font-black text-[#0D0E11]">
+          <p className="font-black text-gdg-black">
             {trackProgress.completedModules} / {trackProgress.totalModules}
           </p>
         </div>
 
         <div className="space-y-0.5">
-          <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider flex items-center gap-1">
-            <FileCheck className="h-3 w-3 text-[#EA4335]" />
+          <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider flex items-center gap-1">
+            <FileCheck className="h-3 w-3 text-gdg-red" />
             Assignments
           </span>
-          <p className="font-black text-[#0D0E11]">
+          <p className="font-black text-gdg-black">
             {trackProgress.completedAssignments} / {trackProgress.totalAssignments}
           </p>
         </div>
       </div>
 
       {/* Expand/Collapse Module Breakdown Controller */}
-      <div className="pt-2 border-t border-[#E5DFD0]">
+      <div className="pt-2 border-t border-gdg-border">
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center justify-between w-full text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors cursor-pointer py-1"
+          className="flex items-center justify-between w-full text-xs font-bold text-gdg-gray hover:text-gdg-black transition-colors cursor-pointer py-1"
         >
           <span className="uppercase tracking-wider text-[11px]">
             {isExpanded ? 'Hide' : 'Show'} Module Breakdown ({trackProgress.modules.length} Modules)
@@ -143,28 +143,28 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
             {trackProgress.modules.map((mod) => (
               <div
                 key={mod.id}
-                className="p-3.5 rounded-2xl bg-white border border-[#E5DFD0] space-y-2"
+                className="p-3.5 rounded-2xl bg-white border border-gdg-border space-y-2"
               >
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-gdg-cream text-gdg-gray border border-gdg-border">
                       Mod {mod.moduleOrder}
                     </span>
-                    <span className="font-bold text-[#0D0E11]">{mod.title}</span>
+                    <span className="font-bold text-gdg-black">{mod.title}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-medium text-[#5F6368]">
+                    <span className="text-[11px] font-medium text-gdg-gray">
                       {mod.completedLessons} / {mod.totalLessons} lessons
                     </span>
                     <span
                       className={cn(
                         'text-xs font-black',
                         mod.percentage === 100
-                          ? 'text-[#1e7e34]'
+                          ? 'text-gdg-green-dark'
                           : mod.percentage > 0
-                          ? 'text-[#0D0E11]'
-                          : 'text-[#5F6368]'
+                          ? 'text-gdg-black'
+                          : 'text-gdg-gray'
                       )}
                     >
                       {mod.percentage}%
@@ -173,11 +173,11 @@ export function TrackProgressCard({ trackProgress }: TrackProgressCardProps) {
                 </div>
 
                 {/* Module bar */}
-                <div className="h-2 w-full bg-[#FAF7EE] rounded-full overflow-hidden border border-[#E5DFD0]">
+                <div className="h-2 w-full bg-gdg-cream rounded-full overflow-hidden border border-gdg-border">
                   <div
                     className={cn(
                       'h-full rounded-full transition-all duration-300',
-                      mod.percentage === 100 ? 'bg-[#34A853]' : 'bg-[#0D0E11]'
+                      mod.percentage === 100 ? 'bg-gdg-green' : 'bg-gdg-black'
                     )}
                     style={{ width: `${mod.percentage}%` }}
                   />

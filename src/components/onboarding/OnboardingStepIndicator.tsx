@@ -19,9 +19,9 @@ export function OnboardingStepIndicator({ currentStep }: OnboardingStepIndicator
     <div className="w-full max-w-md mx-auto mb-8">
       <div className="flex items-center justify-between relative">
         {/* Connecting Progress Line */}
-        <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[2px] bg-[#E5DFD0] -z-0">
+        <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[2px] bg-gdg-border -z-0">
           <div
-            className="h-full bg-[#0D0E11] transition-all duration-300"
+            className="h-full bg-gdg-black transition-all duration-300"
             style={{
               width: currentStep === 1 ? '0%' : currentStep === 2 ? '50%' : '100%',
             }}
@@ -38,13 +38,13 @@ export function OnboardingStepIndicator({ currentStep }: OnboardingStepIndicator
               <div
                 className={cn(
                   'w-10 h-10 rounded-full flex items-center justify-center font-black text-xs transition-all duration-200 border-2',
-                  isDone && 'bg-[#0D0E11] text-[#FAF7EE] border-[#0D0E11]',
-                  isCurrent && 'bg-[#FAF7EE] text-[#0D0E11] border-[#0D0E11] shadow-md ring-4 ring-[#FBBC04]/30',
-                  !isDone && !isCurrent && 'bg-[#FAF7EE] text-[#5F6368] border-[#E5DFD0]'
+                  isDone && 'bg-gdg-black text-gdg-cream border-gdg-black',
+                  isCurrent && 'bg-gdg-cream text-gdg-black border-gdg-black shadow-md ring-4 ring-gdg-yellow/30',
+                  !isDone && !isCurrent && 'bg-gdg-cream text-gdg-gray border-gdg-border'
                 )}
               >
                 {isDone ? (
-                  <Check className="w-4 h-4 text-[#34A853] stroke-[3]" />
+                  <Check className="w-4 h-4 text-gdg-green stroke-[3]" />
                 ) : (
                   <Icon className="w-4 h-4" />
                 )}
@@ -52,7 +52,7 @@ export function OnboardingStepIndicator({ currentStep }: OnboardingStepIndicator
               <span
                 className={cn(
                   'text-[11px] font-bold tracking-tight uppercase',
-                  isCurrent ? 'text-[#0D0E11]' : isDone ? 'text-[#0D0E11]/70' : 'text-[#5F6368]'
+                  isCurrent ? 'text-gdg-black' : isDone ? 'text-gdg-black/70' : 'text-gdg-gray'
                 )}
               >
                 {step.label}

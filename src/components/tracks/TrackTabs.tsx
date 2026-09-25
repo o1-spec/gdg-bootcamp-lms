@@ -79,14 +79,14 @@ export function TrackTabs({
             className={cn(
               'inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all cursor-pointer whitespace-nowrap shadow-2xs',
               isActive
-                ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11] hover:border-[#0D0E11]/30'
+                ? 'bg-gdg-black text-gdg-cream'
+                : 'bg-white border border-gdg-border text-gdg-gray hover:text-gdg-black hover:border-gdg-black/30'
             )}
           >
             <Icon
               className={cn(
                 'h-3.5 w-3.5',
-                isActive ? 'text-[#FAF7EE]' : 'text-[#5F6368]'
+                isActive ? 'text-gdg-cream' : 'text-gdg-gray'
               )}
             />
             <span>{tab.label}</span>
@@ -96,8 +96,8 @@ export function TrackTabs({
                 className={cn(
                   'rounded-full px-2 py-0.5 text-[10px] font-black',
                   isActive
-                    ? 'bg-[#15161A] text-[#FAF7EE]'
-                    : 'bg-[#FAF7EE] text-[#0D0E11]'
+                    ? 'bg-[#15161A] text-gdg-cream'
+                    : 'bg-gdg-cream text-gdg-black'
                 )}
                 style={isActive ? { color: accentColor } : undefined}
               >

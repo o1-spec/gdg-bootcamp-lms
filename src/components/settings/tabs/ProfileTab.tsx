@@ -143,10 +143,10 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
   return (
     <div className="space-y-6">
       {/* Avatar Section */}
-      <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-2xs space-y-6">
-        <div className="border-b border-[#E5DFD0] pb-4">
-          <h3 className="text-lg font-black text-[#0D0E11]">Profile Avatar</h3>
-          <p className="text-xs text-[#5F6368] font-medium">
+      <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 shadow-2xs space-y-6">
+        <div className="border-b border-gdg-border pb-4">
+          <h3 className="text-lg font-black text-gdg-black">Profile Avatar</h3>
+          <p className="text-xs text-gdg-gray font-medium">
             Upload your profile photo. Supported formats: JPG, PNG, WebP up to 5MB.
           </p>
         </div>
@@ -156,8 +156,8 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
             className={cn(
               'p-4 rounded-2xl text-xs font-semibold flex items-center gap-3',
               avatarFeedback.type === 'success'
-                ? 'bg-[#34A853]/10 text-[#34A853] border border-[#34A853]/20'
-                : 'bg-[#EA4335]/10 text-[#EA4335] border border-[#EA4335]/20'
+                ? 'bg-gdg-green/10 text-gdg-green border border-gdg-green/20'
+                : 'bg-gdg-red/10 text-gdg-red border border-gdg-red/20'
             )}
           >
             {avatarFeedback.type === 'success' ? (
@@ -171,9 +171,9 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
 
         <div className="flex flex-col sm:flex-row items-center gap-6">
           <div className="relative group">
-            <Avatar className="h-24 w-24 border-4 border-[#FAF7EE] shadow-sm">
+            <Avatar className="h-24 w-24 border-4 border-gdg-cream shadow-sm">
               <AvatarImage src={currentUser.avatarUrl || ''} />
-              <AvatarFallback className="bg-[#4285F4] text-white font-black text-2xl">
+              <AvatarFallback className="bg-gdg-blue text-white font-black text-2xl">
                 {currentUser.firstName?.[0] || 'U'}
               </AvatarFallback>
             </Avatar>
@@ -199,9 +199,9 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={avatarUploading}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#0D0E11]/85 transition-all shadow-2xs disabled:opacity-50 cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gdg-black text-gdg-cream hover:bg-gdg-black/85 transition-all shadow-2xs disabled:opacity-50 cursor-pointer"
               >
-                <Camera className="h-3.5 w-3.5 text-[#FBBC04]" />
+                <Camera className="h-3.5 w-3.5 text-gdg-yellow" />
                 <span>{currentUser.avatarUrl ? 'Replace Avatar' : 'Upload Avatar'}</span>
               </button>
 
@@ -210,7 +210,7 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
                   type="button"
                   onClick={handleRemoveAvatar}
                   disabled={avatarUploading}
-                  className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold border border-[#E5DFD0] text-[#EA4335] hover:bg-[#EA4335]/5 transition-all disabled:opacity-50 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold border border-gdg-border text-gdg-red hover:bg-gdg-red/5 transition-all disabled:opacity-50 cursor-pointer"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   <span>Remove</span>
@@ -218,7 +218,7 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
               )}
             </div>
 
-            <p className="text-[11px] text-[#5F6368] font-medium">
+            <p className="text-[11px] text-gdg-gray font-medium">
               Recommended: Square image, 400x400 pixels or larger.
             </p>
           </div>
@@ -228,11 +228,11 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
       {/* Profile Form */}
       <form
         onSubmit={handleSaveProfile}
-        className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-2xs space-y-6"
+        className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 shadow-2xs space-y-6"
       >
-        <div className="border-b border-[#E5DFD0] pb-4">
-          <h3 className="text-lg font-black text-[#0D0E11]">Personal Details</h3>
-          <p className="text-xs text-[#5F6368] font-medium">
+        <div className="border-b border-gdg-border pb-4">
+          <h3 className="text-lg font-black text-gdg-black">Personal Details</h3>
+          <p className="text-xs text-gdg-gray font-medium">
             Update your public profile, display name, and biographical information.
           </p>
         </div>
@@ -242,8 +242,8 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
             className={cn(
               'p-4 rounded-2xl text-xs font-semibold flex items-center gap-3',
               profileFeedback.type === 'success'
-                ? 'bg-[#34A853]/10 text-[#34A853] border border-[#34A853]/20'
-                : 'bg-[#EA4335]/10 text-[#EA4335] border border-[#EA4335]/20'
+                ? 'bg-gdg-green/10 text-gdg-green border border-gdg-green/20'
+                : 'bg-gdg-red/10 text-gdg-red border border-gdg-red/20'
             )}
           >
             {profileFeedback.type === 'success' ? (
@@ -257,7 +257,7 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-[#0D0E11]">First Name *</label>
+            <label className="text-xs font-bold text-gdg-black">First Name *</label>
             <input
               type="text"
               required
@@ -265,12 +265,12 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
               onChange={(e) =>
                 setProfileForm((prev) => ({ ...prev, firstName: e.target.value }))
               }
-              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-[#0D0E11]">Last Name *</label>
+            <label className="text-xs font-bold text-gdg-black">Last Name *</label>
             <input
               type="text"
               required
@@ -278,70 +278,70 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
               onChange={(e) =>
                 setProfileForm((prev) => ({ ...prev, lastName: e.target.value }))
               }
-              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-bold text-[#0D0E11]">Display Name</label>
+          <label className="text-xs font-bold text-gdg-black">Display Name</label>
           <input
             type="text"
             value={profileForm.displayName}
             onChange={(e) =>
               setProfileForm((prev) => ({ ...prev, displayName: e.target.value }))
             }
-            className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+            className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
             placeholder="How other students and mentors see your name"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-bold text-[#0D0E11]">Bio</label>
+          <label className="text-xs font-bold text-gdg-black">Bio</label>
           <textarea
             rows={3}
             value={profileForm.bio}
             onChange={(e) =>
               setProfileForm((prev) => ({ ...prev, bio: e.target.value }))
             }
-            className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+            className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
             placeholder="Tell your cohort about your background, interests, and what you're building..."
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-[#0D0E11]">GitHub Profile URL</label>
+            <label className="text-xs font-bold text-gdg-black">GitHub Profile URL</label>
             <input
               type="url"
               value={profileForm.githubUrl}
               onChange={(e) =>
                 setProfileForm((prev) => ({ ...prev, githubUrl: e.target.value }))
               }
-              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
               placeholder="https://github.com/username"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-[#0D0E11]">LinkedIn Profile URL</label>
+            <label className="text-xs font-bold text-gdg-black">LinkedIn Profile URL</label>
             <input
               type="url"
               value={profileForm.linkedinUrl}
               onChange={(e) =>
                 setProfileForm((prev) => ({ ...prev, linkedinUrl: e.target.value }))
               }
-              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-[#E5DFD0] bg-white text-[#0D0E11] focus:outline-none focus:border-[#4285F4] focus:ring-1 focus:ring-[#4285F4] transition-all"
+              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
               placeholder="https://linkedin.com/in/username"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-2 border-t border-[#E5DFD0]">
+        <div className="flex items-center justify-end gap-3 pt-2 border-t border-gdg-border">
           <button
             type="submit"
             disabled={profileSaving}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-[#0D0E11] text-white hover:bg-[#202124] transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gdg-black text-white hover:bg-gdg-dark-hover transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
             {profileSaving && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
             <span>Save Profile</span>

@@ -31,7 +31,7 @@ export function TrackDetailClient({ track, student = fallbackStudent, enrolledTr
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="my-tracks"
@@ -51,7 +51,7 @@ export function TrackDetailClient({ track, student = fallbackStudent, enrolledTr
         />
 
         {/* Ticker Ribbon */}
-        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
           <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
             <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
               <span>BUILD ✦</span>

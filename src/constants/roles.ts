@@ -9,23 +9,23 @@ export const ROLE_LABELS: Record<Role, string> = {
 
 export const ROLE_COLORS: Record<Role, { bg: string; text: string; border: string }> = {
   [Role.STUDENT]: {
-    bg: "bg-[#4285F4]/10",
-    text: "text-[#4285F4]",
-    border: "border-[#4285F4]/30",
+    bg: "bg-gdg-blue/10",
+    text: "text-gdg-blue",
+    border: "border-gdg-blue/30",
   },
   [Role.MENTOR]: {
-    bg: "bg-[#34A853]/10",
-    text: "text-[#34A853]",
-    border: "border-[#34A853]/30",
+    bg: "bg-gdg-green/10",
+    text: "text-gdg-green",
+    border: "border-gdg-green/30",
   },
   [Role.ADMIN]: {
-    bg: "bg-[#FBBC04]/10",
-    text: "text-[#FBBC04]",
-    border: "border-[#FBBC04]/30",
+    bg: "bg-gdg-yellow/10",
+    text: "text-gdg-yellow",
+    border: "border-gdg-yellow/30",
   },
   [Role.SUPER_ADMIN]: {
-    bg: "bg-[#EA4335]/10",
-    text: "text-[#EA4335]",
-    border: "border-[#EA4335]/30",
+    bg: "bg-gdg-red/10",
+    text: "text-gdg-red",
+    border: "border-gdg-red/30",
   },
 };

@@ -39,51 +39,51 @@ export default async function PublicJoinPage(props: {
   const loginHref = cleanCode ? `/login?code=${encodeURIComponent(cleanCode)}` : "/login";
 
   return (
-    <div className="min-h-screen bg-[#FAF7EE] text-[#0D0E11] flex flex-col justify-center items-center py-12 px-4 sm:px-6 selection:bg-[#FBBC04]/30">
+    <div className="min-h-screen bg-gdg-cream text-gdg-black flex flex-col justify-center items-center py-12 px-4 sm:px-6 selection:bg-gdg-yellow/30">
       <div className="max-w-md w-full space-y-6 text-center">
         {/* Brand */}
         <div className="flex justify-center">
-          <div className="w-14 h-14 rounded-3xl bg-gradient-to-tr from-[#EA4335] via-[#4285F4] to-[#34A853] p-[2px] shadow-lg">
-            <div className="w-full h-full bg-[#0D0E11] rounded-[22px] flex items-center justify-center">
-              <span className="font-black text-xl text-[#FAF7EE]">G</span>
+          <div className="w-14 h-14 rounded-3xl bg-gradient-to-tr from-gdg-red via-gdg-blue to-gdg-green p-[2px] shadow-lg">
+            <div className="w-full h-full bg-gdg-black rounded-[22px] flex items-center justify-center">
+              <span className="font-black text-xl text-gdg-cream">G</span>
             </div>
           </div>
         </div>
 
         {/* Card */}
-        <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-10 shadow-sm space-y-6 text-center">
+        <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-10 shadow-sm space-y-6 text-center">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FBBC04]/20 border border-[#FBBC04]/40 text-xs font-black text-[#0D0E11] uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-[#EA4335]" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gdg-yellow/20 border border-gdg-yellow/40 text-xs font-black text-gdg-black uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-gdg-red" />
               <span>Official Invitation</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight">
               You&apos;ve been invited
             </h1>
-            <p className="text-xs sm:text-sm text-[#5F6368]">
+            <p className="text-xs sm:text-sm text-gdg-gray">
               Join the Google Developer Groups on Campus LASU Bootcamp.
             </p>
           </div>
 
           {/* Invite Preview Badge if code present */}
           {cleanCode && (
-            <div className="p-4 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-left space-y-2">
+            <div className="p-4 rounded-2xl bg-gdg-cream border border-gdg-border text-left space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#5F6368]">
+                <span className="text-[10px] font-black uppercase tracking-wider text-gdg-gray">
                   Invite Code
                 </span>
-                <span className="font-mono text-xs font-black text-[#0D0E11] px-2 py-0.5 rounded bg-white border border-[#E5DFD0]">
+                <span className="font-mono text-xs font-black text-gdg-black px-2 py-0.5 rounded bg-white border border-gdg-border">
                   {cleanCode}
                 </span>
               </div>
 
               {inviteDetails && (
-                <div className="space-y-1 pt-1 border-t border-[#E5DFD0]">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#5F6368]">
-                    <Award className="w-3.5 h-3.5 text-[#FBBC04]" />
+                <div className="space-y-1 pt-1 border-t border-gdg-border">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-gdg-gray">
+                    <Award className="w-3.5 h-3.5 text-gdg-yellow" />
                     <span>{inviteDetails.bootcampName}</span>
                   </div>
-                  <h4 className="text-sm font-black text-[#0D0E11]">
+                  <h4 className="text-sm font-black text-gdg-black">
                     {inviteDetails.trackName || "Bootcamp Cohort Track"}
                   </h4>
                 </div>
@@ -95,25 +95,25 @@ export default async function PublicJoinPage(props: {
           <div className="space-y-3 pt-2">
             <Link
               href={registerHref}
-              className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all group"
+              className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gdg-black hover:bg-gdg-dark-border text-xs font-black text-gdg-cream shadow-sm transition-all group"
             >
-              <UserPlus className="w-4 h-4 text-[#FBBC04]" />
+              <UserPlus className="w-4 h-4 text-gdg-yellow" />
               <span>Create an Account</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
 
             <Link
               href={loginHref}
-              className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-[#FAF7EE] hover:bg-[#E5DFD0] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] transition-all"
+              className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gdg-cream hover:bg-gdg-border border border-gdg-border text-xs font-bold text-gdg-black transition-all"
             >
-              <LogIn className="w-4 h-4 text-[#4285F4]" />
+              <LogIn className="w-4 h-4 text-gdg-blue" />
               <span>Log In to Existing Account</span>
             </Link>
           </div>
         </div>
 
         {/* Footer info */}
-        <p className="text-[11px] text-[#5F6368]">
+        <p className="text-[11px] text-gdg-gray">
           GDG on Campus Lagos State University · Knowledge & Skills Platform
         </p>
       </div>

@@ -28,7 +28,7 @@ export function AdminTrackCurriculumTab({
           onClick={openCreateModule}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white"
         >
-          <Plus className="w-3.5 h-3.5 text-[#4285F4]" />
+          <Plus className="w-3.5 h-3.5 text-gdg-blue" />
           <span>Add Module</span>
         </button>
       </div>
@@ -38,7 +38,7 @@ export function AdminTrackCurriculumTab({
           <p className="text-xs text-white/40">No modules created yet for this track.</p>
           <button
             onClick={openCreateModule}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] text-xs font-bold text-white"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red text-xs font-bold text-white"
           >
             <Plus className="w-4 h-4" />
             <span>Create Module</span>

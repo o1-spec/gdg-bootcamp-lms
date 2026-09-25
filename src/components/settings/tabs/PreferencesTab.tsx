@@ -82,10 +82,10 @@ export function PreferencesTab({ initialPreferences }: PreferencesTabProps) {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-2xs space-y-6">
-        <div className="border-b border-[#E5DFD0] pb-4">
-          <h3 className="text-lg font-black text-[#0D0E11]">In-App Notification Preferences</h3>
-          <p className="text-xs text-[#5F6368] font-medium">
+      <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 shadow-2xs space-y-6">
+        <div className="border-b border-gdg-border pb-4">
+          <h3 className="text-lg font-black text-gdg-black">In-App Notification Preferences</h3>
+          <p className="text-xs text-gdg-gray font-medium">
             Control which optional activity notifications appear in your bell dropdown and feed.
           </p>
         </div>
@@ -95,8 +95,8 @@ export function PreferencesTab({ initialPreferences }: PreferencesTabProps) {
             className={cn(
               'p-4 rounded-2xl text-xs font-semibold flex items-center gap-3',
               prefsFeedback.type === 'success'
-                ? 'bg-[#34A853]/10 text-[#34A853] border border-[#34A853]/20'
-                : 'bg-[#EA4335]/10 text-[#EA4335] border border-[#EA4335]/20'
+                ? 'bg-gdg-green/10 text-gdg-green border border-gdg-green/20'
+                : 'bg-gdg-red/10 text-gdg-red border border-gdg-red/20'
             )}
           >
             {prefsFeedback.type === 'success' ? (
@@ -114,13 +114,13 @@ export function PreferencesTab({ initialPreferences }: PreferencesTabProps) {
             return (
               <div
                 key={item.key}
-                className="flex items-center justify-between p-4 rounded-2xl border border-[#E5DFD0] bg-[#FAF7EE] hover:bg-white transition-colors"
+                className="flex items-center justify-between p-4 rounded-2xl border border-gdg-border bg-gdg-cream hover:bg-white transition-colors"
               >
                 <div className="space-y-0.5 pr-4">
-                  <span className="text-xs font-black text-[#0D0E11] block">
+                  <span className="text-xs font-black text-gdg-black block">
                     {item.title}
                   </span>
-                  <span className="text-[11px] text-[#5F6368] font-medium block">
+                  <span className="text-[11px] text-gdg-gray font-medium block">
                     {item.desc}
                   </span>
                 </div>
@@ -132,7 +132,7 @@ export function PreferencesTab({ initialPreferences }: PreferencesTabProps) {
                   }
                   className={cn(
                     'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
-                    enabled ? 'bg-[#34A853]' : 'bg-[#E5DFD0]'
+                    enabled ? 'bg-gdg-green' : 'bg-gdg-border'
                   )}
                 >
                   <span
@@ -147,7 +147,7 @@ export function PreferencesTab({ initialPreferences }: PreferencesTabProps) {
           })}
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#4285F4]/10 border border-[#4285F4]/20 text-xs text-[#4285F4] flex items-start gap-2.5">
+        <div className="p-4 rounded-2xl bg-gdg-blue/10 border border-gdg-blue/20 text-xs text-gdg-blue flex items-start gap-2.5">
           <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold block">Critical System Alerts:</span>
@@ -157,12 +157,12 @@ export function PreferencesTab({ initialPreferences }: PreferencesTabProps) {
           </div>
         </div>
 
-        <div className="flex items-center justify-end pt-2 border-t border-[#E5DFD0]">
+        <div className="flex items-center justify-end pt-2 border-t border-gdg-border">
           <button
             type="button"
             onClick={handleSavePreferences}
             disabled={prefsSaving}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#0D0E11]/85 transition-all shadow-2xs disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gdg-black text-gdg-cream hover:bg-gdg-black/85 transition-all shadow-2xs disabled:opacity-50"
           >
             {prefsSaving && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
             <span>Save Preferences</span>

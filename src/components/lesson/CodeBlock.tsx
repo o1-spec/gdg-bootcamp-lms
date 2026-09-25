@@ -23,12 +23,12 @@ export function CodeBlock({ code, language = 'http', title }: CodeBlockProps) {
   };
 
   return (
-    <div className="my-4 overflow-hidden rounded-2xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] shadow-sm">
+    <div className="my-4 overflow-hidden rounded-2xl border border-gdg-dark-border bg-gdg-black text-gdg-cream shadow-sm">
       {/* Code Header */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#15161A] border-b border-[#22242B]">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-[#15161A] border-b border-gdg-dark-border">
         <div className="flex items-center gap-2">
-          <Terminal className="h-3.5 w-3.5 text-[#FBBC04]" />
-          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#FAF7EE]/70">
+          <Terminal className="h-3.5 w-3.5 text-gdg-yellow" />
+          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-gdg-cream/70">
             {title || language}
           </span>
         </div>
@@ -36,13 +36,13 @@ export function CodeBlock({ code, language = 'http', title }: CodeBlockProps) {
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] font-bold text-[#FAF7EE]/70 hover:bg-[#22242B] hover:text-[#FAF7EE] transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] font-bold text-gdg-cream/70 hover:bg-gdg-dark-border hover:text-gdg-cream transition-colors cursor-pointer"
           aria-label="Copy code"
         >
           {copied ? (
             <>
-              <Check className="h-3.5 w-3.5 text-[#34A853]" />
-              <span className="text-[#34A853]">Copied!</span>
+              <Check className="h-3.5 w-3.5 text-gdg-green" />
+              <span className="text-gdg-green">Copied!</span>
             </>
           ) : (
             <>
@@ -54,7 +54,7 @@ export function CodeBlock({ code, language = 'http', title }: CodeBlockProps) {
       </div>
 
       {/* Code Content */}
-      <div className="p-4 overflow-x-auto font-mono text-xs sm:text-[13px] leading-relaxed text-[#FAF7EE]/90">
+      <div className="p-4 overflow-x-auto font-mono text-xs sm:text-[13px] leading-relaxed text-gdg-cream/90">
         <pre>
           <code>{code}</code>
         </pre>

@@ -21,12 +21,12 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "rounded-2xl sm:rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-6 shadow-2xs relative overflow-hidden flex flex-col justify-between transition-all hover:shadow-xs",
+        "rounded-2xl sm:rounded-3xl border border-gdg-border bg-white p-5 sm:p-6 shadow-2xs relative overflow-hidden flex flex-col justify-between transition-all hover:shadow-xs",
         className
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+        <span className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
           {label}
         </span>
         <div
@@ -42,11 +42,11 @@ export function StatCard({
       </div>
 
       <div className="mt-3">
-        <span className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight block">
+        <span className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight block">
           {value}
         </span>
         {subtitle && (
-          <span className="text-xs text-[#5F6368] font-medium block mt-0.5">
+          <span className="text-xs text-gdg-gray font-medium block mt-0.5">
             {subtitle}
           </span>
         )}

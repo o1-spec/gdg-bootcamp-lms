@@ -215,7 +215,7 @@ export function AdminEnrollmentsClient({
   });
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="enrollments"
         admin={admin}
@@ -235,12 +235,12 @@ export function AdminEnrollmentsClient({
                 onClick={() => setIsSingleOpen(true)}
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
               >
-                <UserPlus className="w-3.5 h-3.5 text-[#4285F4]" />
+                <UserPlus className="w-3.5 h-3.5 text-gdg-blue" />
                 <span>Single Enroll</span>
               </button>
               <button
                 onClick={() => setIsBulkOpen(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
               >
                 <Users className="w-3.5 h-3.5" />
                 <span>Bulk Enrollment</span>
@@ -259,7 +259,7 @@ export function AdminEnrollmentsClient({
                 placeholder="Search student or track..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#4285F4]"
+                className="w-full pl-10 pr-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs text-white placeholder-white/30 focus:outline-none focus:border-gdg-blue"
               />
             </div>
 
@@ -271,11 +271,11 @@ export function AdminEnrollmentsClient({
               <select
                 value={selectedTrackFilter}
                 onChange={(e) => setSelectedTrackFilter(e.target.value)}
-                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4] max-w-full"
+                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue max-w-full"
               >
-                <option value="all" className="bg-[#0D0E11]">All Tracks</option>
+                <option value="all" className="bg-gdg-black">All Tracks</option>
                 {tracks.map((t) => (
-                  <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                  <option key={t.id} value={t.id} className="bg-gdg-black">
                     {t.name} ({t.cohortName})
                   </option>
                 ))}
@@ -298,7 +298,7 @@ export function AdminEnrollmentsClient({
                       <div className="flex items-center gap-3 min-w-0">
                         <Avatar className="w-10 h-10 border border-white/10 shrink-0">
                           <AvatarImage src={enr.studentAvatar || ''} alt={enr.studentName} />
-                          <AvatarFallback className="bg-[#4285F4] text-white font-bold text-xs">
+                          <AvatarFallback className="bg-gdg-blue text-white font-bold text-xs">
                             {enr.studentName[0]}
                           </AvatarFallback>
                         </Avatar>
@@ -311,7 +311,7 @@ export function AdminEnrollmentsClient({
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase shrink-0 ${
                           enr.isActive
-                            ? 'bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30'
+                            ? 'bg-gdg-green/20 text-gdg-green border border-gdg-green/30'
                             : 'bg-white/10 text-white/40 border border-white/10'
                         }`}
                       >
@@ -343,8 +343,8 @@ export function AdminEnrollmentsClient({
                         onClick={() => setDeactivateTarget(enr)}
                         className={`w-full py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                           enr.isActive
-                            ? 'bg-red-500/10 hover:bg-red-500/20 text-[#EA4335] border border-red-500/20'
-                            : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-[#34A853] border border-emerald-500/20'
+                            ? 'bg-red-500/10 hover:bg-red-500/20 text-gdg-red border border-red-500/20'
+                            : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-gdg-green border border-emerald-500/20'
                         }`}
                       >
                         <Power className="w-3.5 h-3.5" />
@@ -382,7 +382,7 @@ export function AdminEnrollmentsClient({
                           <div className="flex items-center gap-3">
                             <Avatar className="w-9 h-9 border border-white/10">
                               <AvatarImage src={enr.studentAvatar || ''} alt={enr.studentName} />
-                              <AvatarFallback className="bg-[#4285F4] text-white font-bold text-xs">
+                              <AvatarFallback className="bg-gdg-blue text-white font-bold text-xs">
                                 {enr.studentName[0]}
                               </AvatarFallback>
                             </Avatar>
@@ -416,7 +416,7 @@ export function AdminEnrollmentsClient({
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
                               enr.isActive
-                                ? 'bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30'
+                                ? 'bg-gdg-green/20 text-gdg-green border border-gdg-green/30'
                                 : 'bg-white/10 text-white/40 border border-white/10'
                             }`}
                           >
@@ -429,8 +429,8 @@ export function AdminEnrollmentsClient({
                             onClick={() => setDeactivateTarget(enr)}
                             className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
                               enr.isActive
-                                ? 'text-white/40 hover:text-[#EA4335] hover:bg-[#EA4335]/10'
-                                : 'text-white/40 hover:text-[#34A853] hover:bg-[#34A853]/10'
+                                ? 'text-white/40 hover:text-gdg-red hover:bg-gdg-red/10'
+                                : 'text-white/40 hover:text-gdg-green hover:bg-gdg-green/10'
                             }`}
                             title={enr.isActive ? 'Deactivate Student Enrollment' : 'Reactivate Student Enrollment'}
                           >
@@ -450,7 +450,7 @@ export function AdminEnrollmentsClient({
       {/* SINGLE ENROLLMENT MODAL */}
       {isSingleOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-md rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Enroll Student</h3>
@@ -465,7 +465,7 @@ export function AdminEnrollmentsClient({
             </div>
 
             {singleError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{singleError}</span>
               </div>
@@ -479,10 +479,10 @@ export function AdminEnrollmentsClient({
                 <select
                   value={singleStudentId}
                   onChange={(e) => setSingleStudentId(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {students.map((s) => (
-                    <option key={s.id} value={s.id} className="bg-[#0D0E11]">
+                    <option key={s.id} value={s.id} className="bg-gdg-black">
                       {s.name} ({s.email})
                     </option>
                   ))}
@@ -496,10 +496,10 @@ export function AdminEnrollmentsClient({
                 <select
                   value={singleTrackId}
                   onChange={(e) => setSingleTrackId(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {tracks.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                    <option key={t.id} value={t.id} className="bg-gdg-black">
                       {t.name} • {t.cohortName}
                     </option>
                   ))}
@@ -517,7 +517,7 @@ export function AdminEnrollmentsClient({
                 <button
                   type="submit"
                   disabled={isSingleSaving}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
                 >
                   {isSingleSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Enroll Student</span>
@@ -531,7 +531,7 @@ export function AdminEnrollmentsClient({
       {/* BULK ENROLLMENT MODAL (Requirement 13) */}
       {isBulkOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-xl rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col justify-between">
+          <div className="w-full max-w-xl rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -547,14 +547,14 @@ export function AdminEnrollmentsClient({
               </div>
 
               {bulkError && (
-                <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+                <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{bulkError}</span>
                 </div>
               )}
 
               {bulkSuccessMessage && (
-                <div className="p-3.5 rounded-2xl bg-[#34A853]/10 border border-[#34A853]/20 flex items-center gap-3 text-xs text-[#34A853]">
+                <div className="p-3.5 rounded-2xl bg-gdg-green/10 border border-gdg-green/20 flex items-center gap-3 text-xs text-gdg-green">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
                   <span>{bulkSuccessMessage}</span>
                 </div>
@@ -563,7 +563,7 @@ export function AdminEnrollmentsClient({
               {/* 1. Track Selector */}
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Choose Target Track <span className="text-[#EA4335]">*</span>
+                  Choose Target Track <span className="text-gdg-red">*</span>
                 </label>
                 <select
                   value={bulkTrackId}
@@ -571,10 +571,10 @@ export function AdminEnrollmentsClient({
                     setBulkTrackId(e.target.value);
                     setSelectedStudentIds([]);
                   }}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {tracks.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                    <option key={t.id} value={t.id} className="bg-gdg-black">
                       {t.name} ({t.cohortName})
                     </option>
                   ))}
@@ -590,7 +590,7 @@ export function AdminEnrollmentsClient({
                   <button
                     type="button"
                     onClick={handleSelectAllBulk}
-                    className="text-[#4285F4] hover:underline cursor-pointer"
+                    className="text-gdg-blue hover:underline cursor-pointer"
                   >
                     Select Eligible
                   </button>
@@ -618,7 +618,7 @@ export function AdminEnrollmentsClient({
                         isAlreadyEnrolled
                           ? 'opacity-40 bg-white/[0.01] border-transparent cursor-not-allowed'
                           : isChecked
-                          ? 'bg-[#4285F4]/15 border-[#4285F4]/40 cursor-pointer'
+                          ? 'bg-gdg-blue/15 border-gdg-blue/40 cursor-pointer'
                           : 'bg-white/[0.02] border-white/5 hover:border-white/15 cursor-pointer'
                       }`}
                     >
@@ -628,7 +628,7 @@ export function AdminEnrollmentsClient({
                           disabled={isAlreadyEnrolled}
                           checked={isChecked || isAlreadyEnrolled}
                           onChange={() => !isAlreadyEnrolled && toggleStudentSelection(student.id)}
-                          className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#4285F4] focus:ring-0"
+                          className="w-4 h-4 rounded border-white/20 bg-white/5 text-gdg-blue focus:ring-0"
                         />
                         <div>
                           <p className="text-xs font-bold text-white">{student.name}</p>
@@ -655,7 +655,7 @@ export function AdminEnrollmentsClient({
               <button
                 onClick={handleBulkEnroll}
                 disabled={isBulkSaving || selectedStudentIds.length === 0}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50 transition-all cursor-pointer"
               >
                 {isBulkSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 <span>Enroll Selected ({selectedStudentIds.length})</span>

@@ -114,7 +114,7 @@ export function AdminDashboardClient({
   ];
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="dashboard"
         admin={admin}
@@ -136,12 +136,12 @@ export function AdminDashboardClient({
                 href="/admin/bootcamps"
                 className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
               >
-                <Plus className="w-3.5 h-3.5 text-[#4285F4]" />
+                <Plus className="w-3.5 h-3.5 text-gdg-blue" />
                 <span>New Bootcamp</span>
               </Link>
               <Link
                 href="/admin/users"
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add User</span>
@@ -201,7 +201,7 @@ export function AdminDashboardClient({
                 </div>
                 <Link
                   href="/admin/cohorts"
-                  className="text-xs font-semibold text-[#4285F4] hover:underline flex items-center gap-1"
+                  className="text-xs font-semibold text-gdg-blue hover:underline flex items-center gap-1"
                 >
                   <span>Manage</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -229,8 +229,8 @@ export function AdminDashboardClient({
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#34A853] animate-pulse" />
-                          <h4 className="font-bold text-sm text-white group-hover:text-[#4285F4] transition-colors">
+                          <span className="w-2.5 h-2.5 rounded-full bg-gdg-green animate-pulse" />
+                          <h4 className="font-bold text-sm text-white group-hover:text-gdg-blue transition-colors">
                             {cohort.name}
                           </h4>
                         </div>
@@ -267,7 +267,7 @@ export function AdminDashboardClient({
                 </div>
                 <Link
                   href="/admin/sessions"
-                  className="text-xs font-semibold text-[#FBBC04] hover:underline flex items-center gap-1"
+                  className="text-xs font-semibold text-gdg-yellow hover:underline flex items-center gap-1"
                 >
                   <span>All Sessions</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -310,12 +310,12 @@ export function AdminDashboardClient({
                         <h4 className="font-bold text-sm text-white truncate">{session.title}</h4>
                         <div className="flex flex-wrap items-center gap-3 text-xs text-white/50 pt-1">
                           <span className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-[#FBBC04]" />
+                            <Clock className="w-3.5 h-3.5 text-gdg-yellow" />
                             {format(new Date(session.startTime), 'EEE, MMM d • h:mm a')}
                           </span>
                           {session.mentor && (
                             <span className="flex items-center gap-1">
-                              <ShieldCheck className="w-3.5 h-3.5 text-[#34A853]" />
+                              <ShieldCheck className="w-3.5 h-3.5 text-gdg-green" />
                               {session.mentor.firstName} {session.mentor.lastName}
                             </span>
                           )}
@@ -329,7 +329,7 @@ export function AdminDashboardClient({
                           className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors shrink-0"
                           title="Join Meeting"
                         >
-                          <Video className="w-4 h-4 text-[#4285F4]" />
+                          <Video className="w-4 h-4 text-gdg-blue" />
                         </a>
                       )}
                     </div>
@@ -348,7 +348,7 @@ export function AdminDashboardClient({
               </div>
               <Link
                 href="/admin/tracks"
-                className="text-xs font-semibold text-[#4285F4] hover:underline flex items-center gap-1"
+                className="text-xs font-semibold text-gdg-blue hover:underline flex items-center gap-1"
               >
                 <span>View All Tracks</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -367,7 +367,7 @@ export function AdminDashboardClient({
                     <span className="text-[10px] font-mono text-white/40 uppercase">
                       {track.cohortName}
                     </span>
-                    <h4 className="font-black text-base text-white group-hover:text-[#4285F4] transition-colors leading-tight">
+                    <h4 className="font-black text-base text-white group-hover:text-gdg-blue transition-colors leading-tight">
                       {track.name}
                     </h4>
                     {track.description && (
@@ -407,7 +407,7 @@ export function AdminDashboardClient({
                 </div>
                 <Link
                   href="/admin/enrollments"
-                  className="text-xs font-semibold text-[#34A853] hover:underline flex items-center gap-1"
+                  className="text-xs font-semibold text-gdg-green hover:underline flex items-center gap-1"
                 >
                   <span>All Enrollments</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -428,7 +428,7 @@ export function AdminDashboardClient({
                       <div className="flex items-center gap-3 min-w-0">
                         <Avatar className="w-9 h-9 border border-white/10">
                           <AvatarImage src={enr.studentAvatar} alt={enr.studentName} />
-                          <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
+                          <AvatarFallback className="bg-gdg-blue text-white text-xs font-bold">
                             {enr.studentName
                               .split(' ')
                               .map((n) => n[0])
@@ -471,7 +471,7 @@ export function AdminDashboardClient({
                 </div>
                 <Link
                   href="/admin/announcements"
-                  className="text-xs font-semibold text-[#EA4335] hover:underline flex items-center gap-1"
+                  className="text-xs font-semibold text-gdg-red hover:underline flex items-center gap-1"
                 >
                   <span>Broadcast New</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -495,9 +495,9 @@ export function AdminDashboardClient({
                             className={cn(
                               'text-[10px] uppercase font-mono px-2 py-0.5 rounded-full font-bold',
                               ann.priority === 'URGENT'
-                                ? 'bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30'
+                                ? 'bg-gdg-red/20 text-gdg-red border border-gdg-red/30'
                                 : ann.priority === 'IMPORTANT'
-                                ? 'bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30'
+                                ? 'bg-gdg-yellow/20 text-gdg-yellow border border-gdg-yellow/30'
                                 : 'bg-white/10 text-white/70'
                             )}
                           >

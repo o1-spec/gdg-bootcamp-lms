@@ -263,7 +263,7 @@ export function MentorScheduleClient({
   const pastCount = sessions.filter((s) => new Date(s.startTime) < now).length;
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       <MentorSidebar
         currentTab="schedule"
         mentor={mentor}
@@ -282,26 +282,26 @@ export function MentorScheduleClient({
 
         {/* Success Toast */}
         {toastMessage && (
-          <div className="fixed bottom-6 right-6 z-50 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] px-5 py-3 shadow-xl border border-[#34A853]/40 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3">
-            <CheckCircle2 className="h-4 w-4 text-[#34A853]" />
+          <div className="fixed bottom-6 right-6 z-50 rounded-2xl bg-gdg-black text-gdg-cream px-5 py-3 shadow-xl border border-gdg-green/40 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3">
+            <CheckCircle2 className="h-4 w-4 text-gdg-green" />
             <span className="text-xs font-bold">{toastMessage}</span>
           </div>
         )}
 
         <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gdg-border pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#4285F4]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                <span className="h-2.5 w-2.5 rounded-full bg-gdg-blue" />
+                <span className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                   Workshops, Live Labs &amp; Office Hours
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#0D0E11]">
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-gdg-black">
                 Schedule Management
               </h1>
-              <p className="text-base text-[#5F6368] max-w-2xl font-medium">
+              <p className="text-base text-gdg-gray max-w-2xl font-medium">
                 Organize upcoming synchronous workshops, update Google Meet / physical venue coordinates, and track student attendance records.
               </p>
             </div>
@@ -309,43 +309,43 @@ export function MentorScheduleClient({
             <button
               onClick={openCreateModal}
               disabled={tracks.length === 0}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm self-start md:self-auto"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border disabled:opacity-50 transition-colors shadow-sm self-start md:self-auto"
             >
-              <Plus className="h-4 w-4 text-[#FBBC04]" />
+              <Plus className="h-4 w-4 text-gdg-yellow" />
               <span>Schedule Session</span>
             </button>
           </div>
 
           {/* Metric Summary Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="p-6 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm">
-              <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Total Sessions</span>
-              <p className="text-3xl font-black text-[#0D0E11] font-mono mt-1">{sessions.length}</p>
-              <span className="text-[11px] text-[#5F6368] font-medium block mt-1">Assigned tracks</span>
+            <div className="p-6 rounded-3xl bg-white border border-gdg-border shadow-sm">
+              <span className="text-[10px] font-bold uppercase text-gdg-gray block">Total Sessions</span>
+              <p className="text-3xl font-black text-gdg-black font-mono mt-1">{sessions.length}</p>
+              <span className="text-[11px] text-gdg-gray font-medium block mt-1">Assigned tracks</span>
             </div>
 
-            <div className="p-6 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm">
-              <span className="text-[10px] font-bold uppercase text-[#4285F4] block">Upcoming</span>
-              <p className="text-3xl font-black text-[#4285F4] font-mono mt-1">{upcomingCount}</p>
-              <span className="text-[11px] text-[#5F6368] font-medium block mt-1">Scheduled ahead</span>
+            <div className="p-6 rounded-3xl bg-white border border-gdg-border shadow-sm">
+              <span className="text-[10px] font-bold uppercase text-gdg-blue block">Upcoming</span>
+              <p className="text-3xl font-black text-gdg-blue font-mono mt-1">{upcomingCount}</p>
+              <span className="text-[11px] text-gdg-gray font-medium block mt-1">Scheduled ahead</span>
             </div>
 
-            <div className="p-6 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm">
-              <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Past Workshops</span>
-              <p className="text-3xl font-black text-[#0D0E11] font-mono mt-1">{pastCount}</p>
-              <span className="text-[11px] text-[#5F6368] font-medium block mt-1">Concluded classes</span>
+            <div className="p-6 rounded-3xl bg-white border border-gdg-border shadow-sm">
+              <span className="text-[10px] font-bold uppercase text-gdg-gray block">Past Workshops</span>
+              <p className="text-3xl font-black text-gdg-black font-mono mt-1">{pastCount}</p>
+              <span className="text-[11px] text-gdg-gray font-medium block mt-1">Concluded classes</span>
             </div>
 
-            <div className="p-6 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm">
-              <span className="text-[10px] font-bold uppercase text-[#34A853] block">Active Tracks</span>
-              <p className="text-3xl font-black text-[#34A853] font-mono mt-1">{tracks.length}</p>
-              <span className="text-[11px] text-[#5F6368] font-medium block mt-1">Supervised cohorts</span>
+            <div className="p-6 rounded-3xl bg-white border border-gdg-border shadow-sm">
+              <span className="text-[10px] font-bold uppercase text-gdg-green block">Active Tracks</span>
+              <p className="text-3xl font-black text-gdg-green font-mono mt-1">{tracks.length}</p>
+              <span className="text-[11px] text-gdg-gray font-medium block mt-1">Supervised cohorts</span>
             </div>
           </div>
 
           {/* Filter Bar */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm">
-            <div className="flex items-center gap-2 p-1 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0]">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white border border-gdg-border shadow-sm">
+            <div className="flex items-center gap-2 p-1 rounded-2xl bg-gdg-cream border border-gdg-border">
               {[
                 { id: 'all', label: `All (${sessions.length})` },
                 { id: 'upcoming', label: `Upcoming (${upcomingCount})` },
@@ -357,8 +357,8 @@ export function MentorScheduleClient({
                   className={cn(
                     'px-4 py-1.5 rounded-xl text-xs font-bold transition-colors',
                     timeFilter === t.id
-                      ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                      : 'text-[#5F6368] hover:text-[#0D0E11]'
+                      ? 'bg-gdg-black text-gdg-cream'
+                      : 'text-gdg-gray hover:text-gdg-black'
                   )}
                 >
                   {t.label}
@@ -369,7 +369,7 @@ export function MentorScheduleClient({
             <select
               value={trackFilter}
               onChange={(e) => setTrackFilter(e.target.value)}
-              className="px-3.5 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none"
+              className="px-3.5 py-2 rounded-2xl bg-gdg-cream border border-gdg-border text-xs font-bold text-gdg-black outline-none"
             >
               <option value="all">All Tracks</option>
               {tracks.map((t) => (
@@ -382,12 +382,12 @@ export function MentorScheduleClient({
 
           {/* Sessions List */}
           {filteredSessions.length === 0 ? (
-            <div className="rounded-3xl bg-white border border-[#E5DFD0] p-12 text-center shadow-sm max-w-md mx-auto space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-[#4285F4]/10 text-[#4285F4] flex items-center justify-center mx-auto">
+            <div className="rounded-3xl bg-white border border-gdg-border p-12 text-center shadow-sm max-w-md mx-auto space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-gdg-blue/10 text-gdg-blue flex items-center justify-center mx-auto">
                 <CalendarDays className="h-7 w-7" />
               </div>
-              <h3 className="text-lg font-black text-[#0D0E11]">No Sessions Found</h3>
-              <p className="text-xs text-[#5F6368]">
+              <h3 className="text-lg font-black text-gdg-black">No Sessions Found</h3>
+              <p className="text-xs text-gdg-gray">
                 {sessions.length === 0
                   ? 'No workshop sessions have been scheduled yet.'
                   : 'No sessions match your active filter options.'}
@@ -395,9 +395,9 @@ export function MentorScheduleClient({
               {sessions.length === 0 && (
                 <button
                   onClick={openCreateModal}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border transition-colors"
                 >
-                  <Plus className="h-4 w-4 text-[#FBBC04]" />
+                  <Plus className="h-4 w-4 text-gdg-yellow" />
                   <span>Schedule First Session</span>
                 </button>
               )}
@@ -410,28 +410,28 @@ export function MentorScheduleClient({
                 return (
                   <div
                     key={s.id}
-                    className="p-6 rounded-3xl bg-white border border-[#E5DFD0] hover:border-[#0D0E11] transition-all shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6"
+                    className="p-6 rounded-3xl bg-white border border-gdg-border hover:border-gdg-black transition-all shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6"
                   >
                     <div className="flex items-start gap-4">
                       {/* Date Badge Box */}
-                      <div className="p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center min-w-[75px] shrink-0">
-                        <span className="text-[10px] font-black uppercase text-[#EA4335] block">
+                      <div className="p-3.5 rounded-2xl bg-gdg-cream border border-gdg-border text-center min-w-[75px] shrink-0">
+                        <span className="text-[10px] font-black uppercase text-gdg-red block">
                           {new Date(s.startTime).toLocaleDateString('en-US', { month: 'short' })}
                         </span>
-                        <span className="text-2xl font-black text-[#0D0E11] font-mono leading-none mt-0.5 block">
+                        <span className="text-2xl font-black text-gdg-black font-mono leading-none mt-0.5 block">
                           {new Date(s.startTime).getDate()}
                         </span>
-                        <span className="text-[9px] font-bold text-[#5F6368] block mt-0.5 uppercase">
+                        <span className="text-[9px] font-bold text-gdg-gray block mt-0.5 uppercase">
                           {new Date(s.startTime).toLocaleDateString('en-US', { weekday: 'short' })}
                         </span>
                       </div>
 
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-[#4285F4]/10 text-[#4285F4]">
+                          <span className="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-gdg-blue/10 text-gdg-blue">
                             {s.mode}
                           </span>
-                          <span className="text-xs font-bold text-[#5F6368] flex items-center gap-1">
+                          <span className="text-xs font-bold text-gdg-gray flex items-center gap-1">
                             <span
                               className="w-2 h-2 rounded-full inline-block"
                               style={{ backgroundColor: s.track.accent || '#4285F4' }}
@@ -439,26 +439,26 @@ export function MentorScheduleClient({
                             {s.track.name}
                           </span>
                           {isUpcoming ? (
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#34A853]/10 text-[#34A853] border border-[#34A853]/30">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-gdg-green/10 text-gdg-green border border-gdg-green/30">
                               Upcoming
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#5F6368]/10 text-[#5F6368] border border-[#E5DFD0]">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-gdg-gray/10 text-gdg-gray border border-gdg-border">
                               Concluded
                             </span>
                           )}
                         </div>
 
-                        <h3 className="text-lg font-black text-[#0D0E11]">{s.title}</h3>
+                        <h3 className="text-lg font-black text-gdg-black">{s.title}</h3>
                         {s.description && (
-                          <p className="text-xs text-[#5F6368] line-clamp-1 max-w-xl">
+                          <p className="text-xs text-gdg-gray line-clamp-1 max-w-xl">
                             {s.description}
                           </p>
                         )}
 
-                        <div className="flex items-center gap-4 text-xs text-[#5F6368] pt-1 flex-wrap">
+                        <div className="flex items-center gap-4 text-xs text-gdg-gray pt-1 flex-wrap">
                           <span className="flex items-center gap-1 font-mono font-medium">
-                            <Clock className="h-3.5 w-3.5 text-[#FBBC04]" />
+                            <Clock className="h-3.5 w-3.5 text-gdg-yellow" />
                             {new Date(s.startTime).toLocaleTimeString('en-US', {
                               hour: 'numeric',
                               minute: '2-digit',
@@ -475,7 +475,7 @@ export function MentorScheduleClient({
                               href={s.meetingUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-flex items-center gap-1 font-bold text-[#4285F4] hover:underline"
+                              className="inline-flex items-center gap-1 font-bold text-gdg-blue hover:underline"
                             >
                               <Video className="h-3.5 w-3.5" />
                               <span>Join Meeting</span>
@@ -484,13 +484,13 @@ export function MentorScheduleClient({
 
                           {s.location && (
                             <span className="flex items-center gap-1">
-                              <MapPin className="h-3.5 w-3.5 text-[#EA4335]" />
+                              <MapPin className="h-3.5 w-3.5 text-gdg-red" />
                               {s.location}
                             </span>
                           )}
 
-                          <span className="flex items-center gap-1 text-[#5F6368]">
-                            <UserCheck className="h-3.5 w-3.5 text-[#34A853]" />
+                          <span className="flex items-center gap-1 text-gdg-gray">
+                            <UserCheck className="h-3.5 w-3.5 text-gdg-green" />
                             {s._count?.attendances || 0} marked attendance
                           </span>
                         </div>
@@ -501,14 +501,14 @@ export function MentorScheduleClient({
                     <div className="flex items-center gap-2 self-end md:self-center">
                       <Link
                         href={`/mentor/attendance?trackId=${s.trackId}&sessionId=${s.id}`}
-                        className="px-4 py-2 rounded-xl bg-[#FAF7EE] hover:bg-[#E5DFD0] text-xs font-bold text-[#0D0E11] border border-[#E5DFD0] transition-colors"
+                        className="px-4 py-2 rounded-xl bg-gdg-cream hover:bg-gdg-border text-xs font-bold text-gdg-black border border-gdg-border transition-colors"
                       >
                         Attendance
                       </Link>
 
                       <button
                         onClick={() => openEditModal(s)}
-                        className="p-2 rounded-xl hover:bg-[#FAF7EE] text-[#5F6368] hover:text-[#0D0E11] transition-colors"
+                        className="p-2 rounded-xl hover:bg-gdg-cream text-gdg-gray hover:text-gdg-black transition-colors"
                         title="Edit Session"
                       >
                         <Edit2 className="h-4 w-4" />
@@ -516,7 +516,7 @@ export function MentorScheduleClient({
 
                       <button
                         onClick={() => setDeletingSession(s)}
-                        className="p-2 rounded-xl hover:bg-[#EA4335]/10 text-[#5F6368] hover:text-[#EA4335] transition-colors"
+                        className="p-2 rounded-xl hover:bg-gdg-red/10 text-gdg-gray hover:text-gdg-red transition-colors"
                         title="Delete Session"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -533,9 +533,9 @@ export function MentorScheduleClient({
       {/* CREATE / EDIT MODAL */}
       {(isCreateOpen || editingSession) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
-          <div className="w-full max-w-xl rounded-3xl bg-white border border-[#E5DFD0] p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-xl rounded-3xl bg-white border border-gdg-border p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-black text-[#0D0E11]">
+              <h3 className="text-xl font-black text-gdg-black">
                 {editingSession ? 'Edit Session' : 'Schedule Live Workshop Session'}
               </h3>
               <button
@@ -543,14 +543,14 @@ export function MentorScheduleClient({
                   setIsCreateOpen(false);
                   setEditingSession(null);
                 }}
-                className="p-2 rounded-xl hover:bg-[#FAF7EE] text-[#5F6368] hover:text-[#0D0E11]"
+                className="p-2 rounded-xl hover:bg-gdg-cream text-gdg-gray hover:text-gdg-black"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {formError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 text-xs font-bold text-[#EA4335] flex items-center gap-2">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/30 text-xs font-bold text-gdg-red flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{formError}</span>
               </div>
@@ -558,7 +558,7 @@ export function MentorScheduleClient({
 
             <form onSubmit={handleSaveSession} className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Session Title *
                 </label>
                 <input
@@ -567,20 +567,20 @@ export function MentorScheduleClient({
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                   placeholder="e.g., Live Code Review & Architecture Q&A"
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Track *
                   </label>
                   <select
                     value={formTrackId}
                     disabled={!!editingSession}
                     onChange={(e) => setFormTrackId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium bg-white disabled:opacity-60"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium bg-white disabled:opacity-60"
                   >
                     {tracks.map((t) => (
                       <option key={t.id} value={t.id}>
@@ -591,13 +591,13 @@ export function MentorScheduleClient({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Mode *
                   </label>
                   <select
                     value={formMode}
                     onChange={(e) => setFormMode(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium bg-white"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium bg-white"
                   >
                     <option value="VIRTUAL">Virtual (Online)</option>
                     <option value="IN_PERSON">In Person</option>
@@ -608,7 +608,7 @@ export function MentorScheduleClient({
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Date *
                   </label>
                   <input
@@ -616,12 +616,12 @@ export function MentorScheduleClient({
                     required
                     value={formDate}
                     onChange={(e) => setFormDate(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     Start Time *
                   </label>
                   <input
@@ -629,12 +629,12 @@ export function MentorScheduleClient({
                     required
                     value={formStartTime}
                     onChange={(e) => setFormStartTime(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                  <label className="text-xs font-bold text-gdg-black block mb-1">
                     End Time *
                   </label>
                   <input
@@ -642,13 +642,13 @@ export function MentorScheduleClient({
                     required
                     value={formEndTime}
                     onChange={(e) => setFormEndTime(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Meeting URL (Google Meet / Zoom)
                 </label>
                 <input
@@ -656,12 +656,12 @@ export function MentorScheduleClient({
                   value={formMeetingUrl}
                   onChange={(e) => setFormMeetingUrl(e.target.value)}
                   placeholder="https://meet.google.com/..."
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Location / Physical Venue
                 </label>
                 <input
@@ -669,12 +669,12 @@ export function MentorScheduleClient({
                   value={formLocation}
                   onChange={(e) => setFormLocation(e.target.value)}
                   placeholder="LASU Tech Hub, Room 102 (if physical/hybrid)"
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Recording URL (Optional)
                 </label>
                 <input
@@ -682,12 +682,12 @@ export function MentorScheduleClient({
                   value={formRecordingUrl}
                   onChange={(e) => setFormRecordingUrl(e.target.value)}
                   placeholder="https://youtube.com/..."
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-mono"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-mono"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#0D0E11] block mb-1">
+                <label className="text-xs font-bold text-gdg-black block mb-1">
                   Description &amp; Agenda
                 </label>
                 <textarea
@@ -695,7 +695,7 @@ export function MentorScheduleClient({
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   placeholder="Workshop agenda, preparation items, questions to discuss..."
-                  className="w-full px-4 py-2.5 rounded-2xl border border-[#E5DFD0] focus:border-[#0D0E11] outline-none text-xs font-medium resize-none"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-gdg-border focus:border-gdg-black outline-none text-xs font-medium resize-none"
                 />
               </div>
 
@@ -706,14 +706,14 @@ export function MentorScheduleClient({
                     setIsCreateOpen(false);
                     setEditingSession(null);
                   }}
-                  className="px-5 py-2.5 rounded-2xl border border-[#E5DFD0] text-xs font-bold text-[#5F6368] hover:text-[#0D0E11]"
+                  className="px-5 py-2.5 rounded-2xl border border-gdg-border text-xs font-bold text-gdg-gray hover:text-gdg-black"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2.5 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm"
+                  className="px-6 py-2.5 rounded-2xl bg-gdg-black text-gdg-cream text-xs font-bold hover:bg-gdg-dark-border disabled:opacity-50 transition-colors shadow-sm"
                 >
                   {isSubmitting ? 'Saving...' : editingSession ? 'Save Changes' : 'Schedule Session'}
                 </button>

@@ -107,7 +107,7 @@ export function AnnouncementsClient({
   }, [allAnnouncements, searchQuery, selectedTrack, selectedCategory]);
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="announcements"
@@ -128,7 +128,7 @@ export function AnnouncementsClient({
         />
 
         {/* Ticker Ribbon */}
-        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
           <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
             <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
               <span>BUILD ✦</span>
@@ -147,31 +147,31 @@ export function AnnouncementsClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Page Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gdg-border pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FBBC04]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                <span className="h-2.5 w-2.5 rounded-full bg-gdg-yellow" />
+                <span className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                   Cohort Broadcast Channel
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0D0E11] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gdg-black tracking-tight">
                 Announcements
               </h1>
-              <p className="text-sm text-[#5F6368] font-medium max-w-xl">
+              <p className="text-sm text-gdg-gray font-medium max-w-xl">
                 Stay updated with important bootcamp information, schedule shifts, project release notes, and community updates.
               </p>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-[#E5DFD0] bg-white px-4 py-2.5 shadow-2xs">
+              <div className="rounded-2xl border border-gdg-border bg-white px-4 py-2.5 shadow-2xs">
                 <div className="flex items-center gap-2">
-                  <Bell className="h-4 w-4 text-[#FBBC04]" />
+                  <Bell className="h-4 w-4 text-gdg-yellow" />
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray block">
                       Active Bulletins
                     </span>
-                    <span className="text-sm font-black text-[#0D0E11]">
+                    <span className="text-sm font-black text-gdg-black">
                       {allAnnouncements.length} Announcements
                     </span>
                   </div>
@@ -204,22 +204,22 @@ export function AnnouncementsClient({
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-[#E5DFD0] bg-white p-12 text-center space-y-4">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+            <div className="rounded-3xl border border-dashed border-gdg-border bg-white p-12 text-center space-y-4">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gdg-cream text-gdg-gray border border-gdg-border">
                 <Inbox className="h-7 w-7" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-lg font-black text-[#0D0E11]">
+                <h3 className="text-lg font-black text-gdg-black">
                   No announcements match your filter
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5F6368] max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-gdg-gray max-w-md mx-auto">
                   Try adjusting your search query or selecting &quot;All Updates&quot;.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 <span>Reset filters</span>
@@ -228,18 +228,18 @@ export function AnnouncementsClient({
           )}
 
           {/* Discord & WhatsApp Community Callout */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
+          <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
             <div className="space-y-1 max-w-xl">
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#4285F4]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#4285F4]">
+                <Sparkles className="h-4 w-4 text-gdg-blue" />
+                <span className="text-xs font-bold uppercase tracking-wider text-gdg-blue">
                   Real-time Community Chat
                 </span>
               </div>
-              <h4 className="text-lg sm:text-xl font-black text-[#0D0E11] tracking-tight">
+              <h4 className="text-lg sm:text-xl font-black text-gdg-black tracking-tight">
                 Join your squad channel on the GDG LASU Discord server
               </h4>
-              <p className="text-xs text-[#5F6368] leading-relaxed">
+              <p className="text-xs text-gdg-gray leading-relaxed">
                 Connect with mentors and fellow bootcamp peers in real time for instant debugging assistance and squad discussions.
               </p>
             </div>
@@ -248,7 +248,7 @@ export function AnnouncementsClient({
               href="https://gdg.community.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md shrink-0"
             >
               <span>Open GDG Discord</span>
             </a>

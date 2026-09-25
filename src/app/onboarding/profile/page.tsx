@@ -18,8 +18,8 @@ export default async function OnboardingProfilePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#FBBC04]" />
+        <div className="min-h-screen bg-gdg-cream flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-gdg-yellow" />
         </div>
       }
     >

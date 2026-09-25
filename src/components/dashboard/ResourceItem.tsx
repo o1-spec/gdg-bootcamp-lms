@@ -27,8 +27,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: FileText,
           label: 'PDF Cheatsheet',
-          color: 'text-[#EA4335]',
-          bg: 'bg-[#EA4335]/12 border-[#EA4335]/25',
+          color: 'text-gdg-red',
+          bg: 'bg-gdg-red/12 border-gdg-red/25',
           actionText: 'Download',
           actionIcon: Download,
         };
@@ -36,8 +36,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: Palette,
           label: 'Figma Design System',
-          color: 'text-[#FBBC04]',
-          bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30',
+          color: 'text-gdg-yellow',
+          bg: 'bg-gdg-yellow/15 border-gdg-yellow/30',
           actionText: 'Open Figma',
           actionIcon: ArrowUpRight,
         };
@@ -45,8 +45,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: GitBranch,
           label: 'GitHub Repository',
-          color: 'text-[#0D0E11]',
-          bg: 'bg-[#0D0E11]/10 border-[#0D0E11]/20',
+          color: 'text-gdg-black',
+          bg: 'bg-gdg-black/10 border-gdg-black/20',
           actionText: 'View Repo',
           actionIcon: ArrowUpRight,
         };
@@ -54,8 +54,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: Video,
           label: 'Video Masterclass',
-          color: 'text-[#4285F4]',
-          bg: 'bg-[#4285F4]/12 border-[#4285F4]/25',
+          color: 'text-gdg-blue',
+          bg: 'bg-gdg-blue/12 border-gdg-blue/25',
           actionText: 'Watch Video',
           actionIcon: ArrowUpRight,
         };
@@ -63,8 +63,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: Presentation,
           label: 'Workshop Slides',
-          color: 'text-[#FBBC04]',
-          bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30',
+          color: 'text-gdg-yellow',
+          bg: 'bg-gdg-yellow/15 border-gdg-yellow/30',
           actionText: 'View Slides',
           actionIcon: ArrowUpRight,
         };
@@ -72,8 +72,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: Database,
           label: 'Live Dataset',
-          color: 'text-[#4285F4]',
-          bg: 'bg-[#4285F4]/12 border-[#4285F4]/25',
+          color: 'text-gdg-blue',
+          bg: 'bg-gdg-blue/12 border-gdg-blue/25',
           actionText: 'Download',
           actionIcon: Download,
         };
@@ -81,8 +81,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: Code2,
           label: 'Interactive Sandbox',
-          color: 'text-[#34A853]',
-          bg: 'bg-[#34A853]/15 border-[#34A853]/30',
+          color: 'text-gdg-green',
+          bg: 'bg-gdg-green/15 border-gdg-green/30',
           actionText: 'Practice',
           actionIcon: ArrowUpRight,
         };
@@ -90,8 +90,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: FileSpreadsheet,
           label: 'Architecture Sheet',
-          color: 'text-[#EA4335]',
-          bg: 'bg-[#EA4335]/12 border-[#EA4335]/25',
+          color: 'text-gdg-red',
+          bg: 'bg-gdg-red/12 border-gdg-red/25',
           actionText: 'Download',
           actionIcon: Download,
         };
@@ -102,8 +102,8 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
         return {
           icon: ExternalLink,
           label: 'Resource Link',
-          color: 'text-[#34A853]',
-          bg: 'bg-[#34A853]/15 border-[#34A853]/30',
+          color: 'text-gdg-green',
+          bg: 'bg-gdg-green/15 border-gdg-green/30',
           actionText: 'Open Resource',
           actionIcon: ArrowUpRight,
         };
@@ -115,7 +115,7 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
   const ActionIcon = meta.actionIcon;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-3xl border border-[#E5DFD0] bg-white hover:border-gdg-black/30 transition-all duration-200 shadow-xs hover:shadow-md">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-3xl border border-gdg-border bg-white hover:border-gdg-black/30 transition-all duration-200 shadow-xs hover:shadow-md">
       <div className="flex items-start gap-3.5">
         <div
           className={cn(
@@ -129,25 +129,25 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
 
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] font-black uppercase tracking-wider text-[#5F6368]">
+            <span className="text-[10px] font-black uppercase tracking-wider text-gdg-gray">
               {meta.label}
             </span>
-            <span className="text-[#5F6368]/40">•</span>
+            <span className="text-gdg-gray/40">•</span>
             <span className="text-xs font-bold text-gdg-black">
               {resource.trackName}
             </span>
             {resource.fileSize && (
               <>
-                <span className="text-[#5F6368]/40">•</span>
-                <span className="text-xs font-medium text-[#5F6368]">
+                <span className="text-gdg-gray/40">•</span>
+                <span className="text-xs font-medium text-gdg-gray">
                   {resource.fileSize}
                 </span>
               </>
             )}
             {resource.duration && (
               <>
-                <span className="text-[#5F6368]/40">•</span>
-                <span className="text-xs font-medium text-[#5F6368]">
+                <span className="text-gdg-gray/40">•</span>
+                <span className="text-xs font-medium text-gdg-gray">
                   {resource.duration}
                 </span>
               </>
@@ -159,7 +159,7 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
           </h4>
 
           {resource.lessonName && (
-            <p className="text-xs text-[#5F6368] font-normal">
+            <p className="text-xs text-gdg-gray font-normal">
               Module: {resource.lessonName}
             </p>
           )}

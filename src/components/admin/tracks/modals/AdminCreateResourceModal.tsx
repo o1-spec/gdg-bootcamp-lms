@@ -143,7 +143,7 @@ export function AdminCreateResourceModal({
       <div className="w-full max-w-lg rounded-3xl bg-[#14151B] border border-white/10 p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto text-white">
         <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <div className="space-y-0.5">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#4285F4]">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-blue">
               Track Curriculum
             </span>
             <h3 className="text-xl font-black text-white">
@@ -159,7 +159,7 @@ export function AdminCreateResourceModal({
         </div>
 
         {resFormError && (
-          <div className="p-3.5 rounded-2xl bg-[#EA4335]/15 border border-[#EA4335]/30 text-xs font-bold text-[#EA4335] flex items-center gap-2">
+          <div className="p-3.5 rounded-2xl bg-gdg-red/15 border border-gdg-red/30 text-xs font-bold text-gdg-red flex items-center gap-2">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{resFormError}</span>
           </div>
@@ -174,7 +174,7 @@ export function AdminCreateResourceModal({
               resSourceMode === 'upload' ? 'bg-white/15 text-white' : 'text-white/50 hover:text-white'
             }`}
           >
-            <Upload className="h-3.5 w-3.5 text-[#34A853]" />
+            <Upload className="h-3.5 w-3.5 text-gdg-green" />
             <span>Upload File</span>
           </button>
           <button
@@ -184,7 +184,7 @@ export function AdminCreateResourceModal({
               resSourceMode === 'link' ? 'bg-white/15 text-white' : 'text-white/50 hover:text-white'
             }`}
           >
-            <ExternalLink className="h-3.5 w-3.5 text-[#4285F4]" />
+            <ExternalLink className="h-3.5 w-3.5 text-gdg-blue" />
             <span>External Link</span>
           </button>
         </div>
@@ -200,7 +200,7 @@ export function AdminCreateResourceModal({
               {resFileName ? (
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 border border-white/10">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <FileCode2 className="h-4 w-4 text-[#34A853]" />
+                    <FileCode2 className="h-4 w-4 text-gdg-green" />
                     <div className="min-w-0">
                       <p className="text-xs font-bold text-white truncate">{resFileName}</p>
                       {resFileSize && (
@@ -208,7 +208,7 @@ export function AdminCreateResourceModal({
                       )}
                     </div>
                   </div>
-                  <label className="text-[11px] font-bold text-[#4285F4] hover:underline cursor-pointer ml-3 shrink-0">
+                  <label className="text-[11px] font-bold text-gdg-blue hover:underline cursor-pointer ml-3 shrink-0">
                     Replace
                     <input
                       type="file"
@@ -223,13 +223,13 @@ export function AdminCreateResourceModal({
                   <label
                     className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${
                       isUploadingRes
-                        ? 'border-[#4285F4] bg-[#4285F4]/10 pointer-events-none'
+                        ? 'border-gdg-blue bg-gdg-blue/10 pointer-events-none'
                         : 'border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/30'
                     }`}
                   >
                     {isUploadingRes ? (
                       <div className="flex flex-col items-center py-2">
-                        <Loader2 className="h-6 w-6 text-[#4285F4] animate-spin mb-2" />
+                        <Loader2 className="h-6 w-6 text-gdg-blue animate-spin mb-2" />
                         <span className="text-xs font-bold text-white">Uploading to Cloudinary...</span>
                       </div>
                     ) : (
@@ -249,7 +249,7 @@ export function AdminCreateResourceModal({
                     )}
                   </label>
                   {resUploadError && (
-                    <p className="text-[11px] text-[#EA4335] font-bold mt-1.5">{resUploadError}</p>
+                    <p className="text-[11px] text-gdg-red font-bold mt-1.5">{resUploadError}</p>
                   )}
                 </div>
               )}
@@ -264,7 +264,7 @@ export function AdminCreateResourceModal({
               value={resTitle}
               onChange={(e) => setResTitle(e.target.value)}
               placeholder="e.g. Architecture Blueprint & Schema Guide"
-              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
             />
           </div>
 
@@ -277,7 +277,7 @@ export function AdminCreateResourceModal({
                 value={resUrl}
                 onChange={(e) => setResUrl(e.target.value)}
                 placeholder="https://..."
-                className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#4285F4]"
+                className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-gdg-blue"
               />
             </div>
           )}
@@ -292,7 +292,7 @@ export function AdminCreateResourceModal({
                   setResLessonId('');
                 }}
                 required
-                className="w-full px-4 py-2.5 rounded-2xl bg-[#1D1F27] border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#1D1F27] border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
               >
                 {modules?.map((m: any) => (
                   <option key={m.id} value={m.id}>
@@ -307,7 +307,7 @@ export function AdminCreateResourceModal({
               <select
                 value={resType}
                 onChange={(e) => setResType(e.target.value as ResourceType)}
-                className="w-full px-4 py-2.5 rounded-2xl bg-[#1D1F27] border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="w-full px-4 py-2.5 rounded-2xl bg-[#1D1F27] border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
               >
                 <option value={ResourceType.PDF}>PDF Document</option>
                 <option value={ResourceType.DOCUMENT}>Document</option>
@@ -331,7 +331,7 @@ export function AdminCreateResourceModal({
               value={resDescription}
               onChange={(e) => setResDescription(e.target.value)}
               placeholder="How students should utilize this material..."
-              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4] resize-none"
+              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue resize-none"
             />
           </div>
 
@@ -341,7 +341,7 @@ export function AdminCreateResourceModal({
               id="adminReqCheckbox"
               checked={resIsRequired}
               onChange={(e) => setResIsRequired(e.target.checked)}
-              className="rounded text-[#4285F4] cursor-pointer"
+              className="rounded text-gdg-blue cursor-pointer"
             />
             <label htmlFor="adminReqCheckbox" className="text-xs font-bold text-white cursor-pointer">
               Mark as Required Track Material
@@ -359,7 +359,7 @@ export function AdminCreateResourceModal({
             <button
               type="submit"
               disabled={isSavingRes || isUploadingRes}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 rounded-xl bg-[#4285F4] hover:bg-[#4285F4]/90 text-xs font-bold text-white disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 rounded-xl bg-gdg-blue hover:bg-gdg-blue/90 text-xs font-bold text-white disabled:opacity-50"
             >
               {isSavingRes && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
               <span>Publish Resource</span>

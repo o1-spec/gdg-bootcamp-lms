@@ -14,11 +14,11 @@ export function AttendanceStatusBadge({ status, className }: AttendanceStatusBad
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#34A853]/15 text-[#1e7e34] border border-[#34A853]/30',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gdg-green/15 text-gdg-green-dark border border-gdg-green/30',
             className
           )}
         >
-          <CheckCircle2 className="h-3.5 w-3.5 text-[#34A853]" />
+          <CheckCircle2 className="h-3.5 w-3.5 text-gdg-green" />
           <span>Present</span>
         </span>
       );
@@ -27,11 +27,11 @@ export function AttendanceStatusBadge({ status, className }: AttendanceStatusBad
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gdg-red/15 text-gdg-red border border-gdg-red/30',
             className
           )}
         >
-          <XCircle className="h-3.5 w-3.5 text-[#EA4335]" />
+          <XCircle className="h-3.5 w-3.5 text-gdg-red" />
           <span>Absent</span>
         </span>
       );
@@ -40,11 +40,11 @@ export function AttendanceStatusBadge({ status, className }: AttendanceStatusBad
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FBBC04]/20 text-[#855B00] border border-[#FBBC04]/40',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gdg-yellow/20 text-[#855B00] border border-gdg-yellow/40',
             className
           )}
         >
-          <AlertCircle className="h-3.5 w-3.5 text-[#FBBC04]" />
+          <AlertCircle className="h-3.5 w-3.5 text-gdg-yellow" />
           <span>Excused</span>
         </span>
       );

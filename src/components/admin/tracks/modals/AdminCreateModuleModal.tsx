@@ -44,7 +44,7 @@ export function AdminCreateModuleModal({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-white/80 mb-1.5">
-              Module Title <span className="text-[#EA4335]">*</span>
+              Module Title <span className="text-gdg-red">*</span>
             </label>
             <input
               type="text"
@@ -52,7 +52,7 @@ export function AdminCreateModuleModal({
               placeholder="e.g. Module 1: Foundations & Architecture"
               value={moduleTitle}
               onChange={(e) => setModuleTitle(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
             />
           </div>
 
@@ -65,7 +65,7 @@ export function AdminCreateModuleModal({
               placeholder="Overview of concepts covered in this module..."
               value={moduleDescription}
               onChange={(e) => setModuleDescription(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4] resize-none"
+              className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue resize-none"
             />
           </div>
 
@@ -80,7 +80,7 @@ export function AdminCreateModuleModal({
             <button
               type="submit"
               disabled={isSaving}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50"
             >
               {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
               <span>Create Module</span>

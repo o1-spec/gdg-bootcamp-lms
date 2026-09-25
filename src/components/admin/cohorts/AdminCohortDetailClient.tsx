@@ -155,7 +155,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
   );
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="cohorts"
         admin={admin}
@@ -175,19 +175,19 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 href="/admin/enrollments"
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
               >
-                <UserPlus className="w-3.5 h-3.5 text-[#34A853]" />
+                <UserPlus className="w-3.5 h-3.5 text-gdg-green" />
                 <span>Add Students</span>
               </Link>
               <Link
                 href="/admin/mentors"
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#FBBC04]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-gdg-yellow" />
                 <span>Assign Mentors</span>
               </Link>
               <button
                 onClick={() => setIsCreateTrackOpen(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Create Track</span>
@@ -213,7 +213,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 <div className="flex items-center gap-2 mb-1.5">
                   <span
                     className={`w-2.5 h-2.5 rounded-full ${
-                      cohort.isActive ? 'bg-[#34A853]' : 'bg-white/30'
+                      cohort.isActive ? 'bg-gdg-green' : 'bg-white/30'
                     }`}
                   />
                   <span className="text-xs uppercase font-mono tracking-wider text-white/50">
@@ -225,7 +225,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   Master Program:{' '}
                   <Link
                     href={`/admin/bootcamps/${cohort.bootcampId}`}
-                    className="text-[#4285F4] hover:underline"
+                    className="text-gdg-blue hover:underline"
                   >
                     {cohort.bootcamp?.name}
                   </Link>
@@ -233,7 +233,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               </div>
 
               <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 text-xs text-white/60">
-                <Calendar className="w-4 h-4 text-[#FBBC04] shrink-0" />
+                <Calendar className="w-4 h-4 text-gdg-yellow shrink-0" />
                 <span>
                   {format(new Date(cohort.startDate), 'MMM d, yyyy')}
                   {cohort.endDate && ` - ${format(new Date(cohort.endDate), 'MMM d, yyyy')}`}
@@ -245,28 +245,28 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-white/5">
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
-                  <Layers className="w-4 h-4 text-[#4285F4]" />
+                  <Layers className="w-4 h-4 text-gdg-blue" />
                   <span>Tracks</span>
                 </div>
                 <span className="text-2xl font-black text-white">{cohort.tracks.length}</span>
               </div>
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
-                  <Users className="w-4 h-4 text-[#34A853]" />
+                  <Users className="w-4 h-4 text-gdg-green" />
                   <span>Students</span>
                 </div>
                 <span className="text-2xl font-black text-white">{cohort.totalStudents}</span>
               </div>
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
-                  <ShieldCheck className="w-4 h-4 text-[#EA4335]" />
+                  <ShieldCheck className="w-4 h-4 text-gdg-red" />
                   <span>Mentors</span>
                 </div>
                 <span className="text-2xl font-black text-white">{cohort.totalMentors}</span>
               </div>
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
-                  <CalendarDays className="w-4 h-4 text-[#FBBC04]" />
+                  <CalendarDays className="w-4 h-4 text-gdg-yellow" />
                   <span>Sessions</span>
                 </div>
                 <span className="text-2xl font-black text-white">{allSessions.length}</span>
@@ -305,7 +305,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   onClick={() => setIsCreateTrackOpen(true)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white"
                 >
-                  <Plus className="w-3.5 h-3.5 text-[#EA4335]" />
+                  <Plus className="w-3.5 h-3.5 text-gdg-red" />
                   <span>Create Track</span>
                 </button>
               </div>
@@ -315,7 +315,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   <p className="text-xs text-white/40">No tracks added to this cohort yet.</p>
                   <button
                     onClick={() => setIsCreateTrackOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] text-xs font-bold text-white"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red text-xs font-bold text-white"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Create Track</span>
@@ -383,7 +383,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 <h3 className="text-base font-bold text-white">Enrolled Students in Cohort</h3>
                 <Link
                   href="/admin/enrollments"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#34A853]/10 hover:bg-[#34A853]/20 text-[#34A853] text-xs font-bold border border-[#34A853]/20"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gdg-green/10 hover:bg-gdg-green/20 text-gdg-green text-xs font-bold border border-gdg-green/20"
                 >
                   <UserPlus className="w-3.5 h-3.5" />
                   <span>Bulk Enroll</span>
@@ -404,7 +404,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                       <div className="flex items-center gap-3 min-w-0">
                         <Avatar className="w-9 h-9 border border-white/10 shrink-0">
                           <AvatarImage src={student.avatarUrl} alt={student.firstName} />
-                          <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
+                          <AvatarFallback className="bg-gdg-blue text-white text-xs font-bold">
                             {student.firstName[0]}
                             {student.lastName[0]}
                           </AvatarFallback>
@@ -442,7 +442,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 <h3 className="text-base font-bold text-white">Assigned Track Mentors</h3>
                 <Link
                   href="/admin/mentors"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FBBC04]/10 hover:bg-[#FBBC04]/20 text-[#FBBC04] text-xs font-bold border border-[#FBBC04]/20"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gdg-yellow/10 hover:bg-gdg-yellow/20 text-gdg-yellow text-xs font-bold border border-gdg-yellow/20"
                 >
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Manage Mentors</span>
@@ -463,7 +463,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                       <div className="flex items-center gap-3 min-w-0">
                         <Avatar className="w-10 h-10 border border-white/10 shrink-0">
                           <AvatarImage src={mentor.avatarUrl} alt={mentor.firstName} />
-                          <AvatarFallback className="bg-[#FBBC04] text-black font-bold text-xs">
+                          <AvatarFallback className="bg-gdg-yellow text-black font-bold text-xs">
                             {mentor.firstName[0]}
                             {mentor.lastName[0]}
                           </AvatarFallback>
@@ -503,7 +503,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   href="/admin/sessions"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white"
                 >
-                  <Plus className="w-3.5 h-3.5 text-[#FBBC04]" />
+                  <Plus className="w-3.5 h-3.5 text-gdg-yellow" />
                   <span>Schedule Session</span>
                 </Link>
               </div>
@@ -548,7 +548,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                           className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white shrink-0"
                           title="Join Meeting"
                         >
-                          <Video className="w-4 h-4 text-[#4285F4]" />
+                          <Video className="w-4 h-4 text-gdg-blue" />
                         </a>
                       )}
                     </div>
@@ -563,7 +563,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
       {/* Create Track Modal */}
       {isCreateTrackOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Create Curriculum Track</h3>
@@ -578,7 +578,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
             </div>
 
             {trackError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{trackError}</span>
               </div>
@@ -587,7 +587,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
             <form onSubmit={handleCreateTrack} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Track Name <span className="text-[#EA4335]">*</span>
+                  Track Name <span className="text-gdg-red">*</span>
                 </label>
                 <input
                   type="text"
@@ -595,13 +595,13 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   placeholder="e.g. Cloud & DevOps Engineering"
                   value={trackFormData.name}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Slug / URL Identifier <span className="text-[#EA4335]">*</span>
+                  Slug / URL Identifier <span className="text-gdg-red">*</span>
                 </label>
                 <input
                   type="text"
@@ -609,7 +609,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   placeholder="cloud-devops"
                   value={trackFormData.slug}
                   onChange={(e) => setTrackFormData({ ...trackFormData, slug: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm font-mono text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm font-mono text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
@@ -622,7 +622,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   placeholder="Summary of track syllabus and objectives..."
                   value={trackFormData.description}
                   onChange={(e) => setTrackFormData({ ...trackFormData, description: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4] resize-none"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue resize-none"
                 />
               </div>
 
@@ -662,7 +662,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 <button
                   type="submit"
                   disabled={isSavingTrack}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSavingTrack && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Create Track</span>

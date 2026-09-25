@@ -93,7 +93,7 @@ export function AttendanceClient({
   };
 
   return (
-    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="attendance"
@@ -114,7 +114,7 @@ export function AttendanceClient({
         />
 
         {/* Ticker Ribbon */}
-        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
           <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
             <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
               <span>BUILD ✦</span>
@@ -133,28 +133,28 @@ export function AttendanceClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Page Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gdg-border pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#34A853]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                <span className="h-2.5 w-2.5 rounded-full bg-gdg-green" />
+                <span className="text-xs font-bold uppercase tracking-wider text-gdg-gray">
                   Official Class Ledger
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0D0E11] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gdg-black tracking-tight">
                 Attendance
               </h1>
-              <p className="text-sm text-[#5F6368] font-medium max-w-xl">
+              <p className="text-sm text-gdg-gray font-medium max-w-xl">
                 View your attendance across bootcamp classes and sessions. Live participation is recorded automatically during Google Meet sessions.
               </p>
             </div>
 
             {/* Overall Rate Badge */}
-            <div className="rounded-2xl border border-[#34A853]/30 bg-[#34A853]/10 px-5 py-3 shadow-2xs self-start md:self-auto">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#1e7e34] block">
+            <div className="rounded-2xl border border-gdg-green/30 bg-gdg-green/10 px-5 py-3 shadow-2xs self-start md:self-auto">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-green-dark block">
                 Overall Rate
               </span>
-              <span className="text-2xl sm:text-3xl font-black text-[#1e7e34]">
+              <span className="text-2xl sm:text-3xl font-black text-gdg-green-dark">
                 {summary.attendanceRate}%
               </span>
             </div>
@@ -162,84 +162,84 @@ export function AttendanceClient({
 
           {/* Metric Summary Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 shadow-xs space-y-1">
+            <div className="rounded-3xl border border-gdg-border bg-white p-5 shadow-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider">
                   Rate
                 </span>
-                <UserCheck className="h-4 w-4 text-[#34A853]" />
+                <UserCheck className="h-4 w-4 text-gdg-green" />
               </div>
-              <p className="text-2xl font-black text-[#1e7e34]">
+              <p className="text-2xl font-black text-gdg-green-dark">
                 {summary.attendanceRate}%
               </p>
-              <span className="text-[11px] text-[#5F6368]">
+              <span className="text-[11px] text-gdg-gray">
                 Target: &gt;80%
               </span>
             </div>
 
-            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 shadow-xs space-y-1">
+            <div className="rounded-3xl border border-gdg-border bg-white p-5 shadow-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider">
                   Present
                 </span>
-                <CheckCircle2 className="h-4 w-4 text-[#34A853]" />
+                <CheckCircle2 className="h-4 w-4 text-gdg-green" />
               </div>
-              <p className="text-2xl font-black text-[#0D0E11]">
+              <p className="text-2xl font-black text-gdg-black">
                 {summary.presentCount}
               </p>
-              <span className="text-[11px] text-[#5F6368]">
+              <span className="text-[11px] text-gdg-gray">
                 Sessions attended
               </span>
             </div>
 
-            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 shadow-xs space-y-1">
+            <div className="rounded-3xl border border-gdg-border bg-white p-5 shadow-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider">
                   Missed
                 </span>
-                <XCircle className="h-4 w-4 text-[#EA4335]" />
+                <XCircle className="h-4 w-4 text-gdg-red" />
               </div>
-              <p className="text-2xl font-black text-[#EA4335]">
+              <p className="text-2xl font-black text-gdg-red">
                 {summary.absentCount}
               </p>
-              <span className="text-[11px] text-[#5F6368]">
+              <span className="text-[11px] text-gdg-gray">
                 Unexcused absences
               </span>
             </div>
 
-            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 shadow-xs space-y-1">
+            <div className="rounded-3xl border border-gdg-border bg-white p-5 shadow-xs space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-gdg-gray uppercase tracking-wider">
                   Excused
                 </span>
-                <AlertCircle className="h-4 w-4 text-[#FBBC04]" />
+                <AlertCircle className="h-4 w-4 text-gdg-yellow" />
               </div>
-              <p className="text-2xl font-black text-[#0D0E11]">
+              <p className="text-2xl font-black text-gdg-black">
                 {summary.excusedCount}
               </p>
-              <span className="text-[11px] text-[#5F6368]">
+              <span className="text-[11px] text-gdg-gray">
                 Authorized leave
               </span>
             </div>
           </div>
 
           {/* Filters Controller */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-xs space-y-5">
+          <div className="rounded-3xl border border-gdg-border bg-white p-6 shadow-xs space-y-5">
             {/* Search Input */}
             <div className="relative w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5F6368]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
               <input
                 type="text"
                 placeholder="Search sessions by topic, mentor, or track..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-12 rounded-full border border-[#E5DFD0] bg-[#FAF7EE]/50 pl-11 pr-11 text-xs sm:text-sm font-medium text-[#0D0E11] placeholder:text-[#5F6368] focus:border-[#0D0E11] focus:bg-white focus:outline-none transition-all"
+                className="w-full h-12 rounded-full border border-gdg-border bg-gdg-cream/50 pl-11 pr-11 text-xs sm:text-sm font-medium text-gdg-black placeholder:text-gdg-gray focus:border-gdg-black focus:bg-white focus:outline-none transition-all"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5F6368] hover:text-[#0D0E11]"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gdg-gray hover:text-gdg-black"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -250,7 +250,7 @@ export function AttendanceClient({
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-1">
               {/* Status Pills */}
               <div className="space-y-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#5F6368]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-gdg-gray">
                   Filter by Status
                 </span>
                 <div className="flex flex-wrap items-center gap-1.5">
@@ -262,8 +262,8 @@ export function AttendanceClient({
                       className={cn(
                         'px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
                         selectedStatus === st.id
-                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                          : 'bg-[#FAF7EE] border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                          ? 'bg-gdg-black text-gdg-cream'
+                          : 'bg-gdg-cream border border-gdg-border text-gdg-gray hover:text-gdg-black'
                       )}
                     >
                       {st.label}
@@ -273,7 +273,7 @@ export function AttendanceClient({
               </div>
 
               {/* Reset button */}
-              <div className="flex items-center gap-3 pt-2 lg:pt-0 text-xs font-medium text-[#5F6368]">
+              <div className="flex items-center gap-3 pt-2 lg:pt-0 text-xs font-medium text-gdg-gray">
                 <span>
                   Showing <strong>{filteredRecords.length}</strong> of{' '}
                   {allRecords.length} records
@@ -282,7 +282,7 @@ export function AttendanceClient({
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#EA4335] hover:underline cursor-pointer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-gdg-red hover:underline cursor-pointer"
                   >
                     <RotateCcw className="h-3 w-3" />
                     <span>Reset</span>
@@ -292,8 +292,8 @@ export function AttendanceClient({
             </div>
 
             {/* Track selector pills */}
-            <div className="pt-3 border-t border-[#E5DFD0] space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#5F6368]">
+            <div className="pt-3 border-t border-gdg-border space-y-2">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-gdg-gray">
                 Filter by Track
               </span>
               <div className="flex flex-wrap items-center gap-2">
@@ -305,8 +305,8 @@ export function AttendanceClient({
                     className={cn(
                       'px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
                       selectedTrack === tr.id
-                        ? 'bg-[#0D0E11] text-[#FAF7EE]'
-                        : 'bg-[#FAF7EE] border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                        ? 'bg-gdg-black text-gdg-cream'
+                        : 'bg-gdg-cream border border-gdg-border text-gdg-gray hover:text-gdg-black'
                     )}
                   >
                     {tr.label}
@@ -320,18 +320,18 @@ export function AttendanceClient({
           <AttendanceTable records={filteredRecords} />
 
           {/* Absence Appeal Policy Callout */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
+          <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
             <div className="space-y-1 max-w-xl">
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#FBBC04]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#FBBC04]">
+                <Sparkles className="h-4 w-4 text-gdg-yellow" />
+                <span className="text-xs font-bold uppercase tracking-wider text-gdg-yellow">
                   Excused Leave Policy
                 </span>
               </div>
-              <h4 className="text-lg sm:text-xl font-black text-[#0D0E11] tracking-tight">
+              <h4 className="text-lg sm:text-xl font-black text-gdg-black tracking-tight">
                 Missed a live session due to exams or technical issues?
               </h4>
-              <p className="text-xs text-[#5F6368] leading-relaxed">
+              <p className="text-xs text-gdg-gray leading-relaxed">
                 Submit an absence excuse note with supporting proof to your track mentor within 48 hours to convert unexcused absences to approved status.
               </p>
             </div>
@@ -342,7 +342,7 @@ export function AttendanceClient({
                 setAppealSubmitted(true);
                 setTimeout(() => setAppealSubmitted(false), 3500);
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gdg-black text-gdg-cream text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md shrink-0"
             >
               <span>{appealSubmitted ? 'Absence Excuse Submitted' : 'Submit Absence Excuse'}</span>
             </button>

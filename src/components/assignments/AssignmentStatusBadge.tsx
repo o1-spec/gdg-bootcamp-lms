@@ -37,7 +37,7 @@ export function AssignmentStatusBadge({
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#34A853]/15 text-[#1e7e34] border border-[#34A853]/30',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-green/15 text-gdg-green-dark border border-gdg-green/30',
             className
           )}
         >
@@ -50,7 +50,7 @@ export function AssignmentStatusBadge({
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#4285F4]/15 text-[#4285F4] border border-[#4285F4]/30',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-blue/15 text-gdg-blue border border-gdg-blue/30',
             className
           )}
         >
@@ -63,7 +63,7 @@ export function AssignmentStatusBadge({
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#34A853]/15 text-[#34A853] border border-[#34A853]/30',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-green/15 text-gdg-green border border-gdg-green/30',
             className
           )}
         >
@@ -76,7 +76,7 @@ export function AssignmentStatusBadge({
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-red/15 text-gdg-red border border-gdg-red/30',
             className
           )}
         >
@@ -89,11 +89,11 @@ export function AssignmentStatusBadge({
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#FBBC04]/20 text-[#855B00] border border-[#FBBC04]/40',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-yellow/20 text-[#855B00] border border-gdg-yellow/40',
             className
           )}
         >
-          <CircleDot className="h-3 w-3 text-[#FBBC04]" />
+          <CircleDot className="h-3 w-3 text-gdg-yellow" />
           <span>{showDueDateText && daysRemaining !== undefined ? getDueDateLabel() : 'In Progress'}</span>
         </span>
       );
@@ -103,7 +103,7 @@ export function AssignmentStatusBadge({
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]',
+            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-cream text-gdg-gray border border-gdg-border',
             className
           )}
         >

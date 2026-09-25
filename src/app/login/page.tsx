@@ -74,47 +74,47 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7EE] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 selection:bg-[#FBBC04]/30">
+    <div className="min-h-screen bg-gdg-cream flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 selection:bg-gdg-yellow/30">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* GDG LASU Brand header */}
         <div className="flex justify-center mb-6">
           <Link href="/" className="inline-flex items-center gap-3">
-            <div className="flex items-center gap-1 bg-[#0D0E11] px-3 py-2 rounded-2xl">
-              <span className="h-4 w-1.5 rounded-full bg-[#4285F4]" />
-              <span className="h-4 w-1.5 rounded-full bg-[#EA4335]" />
-              <span className="h-4 w-1.5 rounded-full bg-[#FBBC04]" />
-              <span className="h-4 w-1.5 rounded-full bg-[#34A853]" />
+            <div className="flex items-center gap-1 bg-gdg-black px-3 py-2 rounded-2xl">
+              <span className="h-4 w-1.5 rounded-full bg-gdg-blue" />
+              <span className="h-4 w-1.5 rounded-full bg-gdg-red" />
+              <span className="h-4 w-1.5 rounded-full bg-gdg-yellow" />
+              <span className="h-4 w-1.5 rounded-full bg-gdg-green" />
             </div>
             <div className="text-left">
-              <span className="text-sm font-black tracking-tight text-[#0D0E11] uppercase block">
+              <span className="text-sm font-black tracking-tight text-gdg-black uppercase block">
                 GDG on Campus
               </span>
-              <span className="text-[11px] font-bold text-[#5F6368] block">
+              <span className="text-[11px] font-bold text-gdg-gray block">
                 Lagos State University • LMS
               </span>
             </div>
           </Link>
         </div>
 
-        <h2 className="text-center text-2xl sm:text-3xl font-black tracking-tight text-[#0D0E11]">
+        <h2 className="text-center text-2xl sm:text-3xl font-black tracking-tight text-gdg-black">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-xs font-semibold text-[#5F6368]">
+        <p className="mt-2 text-center text-xs font-semibold text-gdg-gray">
           Access your enrolled tracks, curriculum notes, assignments, and mentor sessions.
         </p>
       </div>
 
       <div className="mt-6 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-6 px-4 sm:py-8 sm:px-10 rounded-2xl sm:rounded-3xl border border-[#E5DFD0] shadow-sm">
+        <div className="bg-white py-6 px-4 sm:py-8 sm:px-10 rounded-2xl sm:rounded-3xl border border-gdg-border shadow-sm">
           {isSuccess && (
-            <div className="mb-6 rounded-2xl bg-[#34A853]/10 border border-[#34A853]/30 p-4 flex items-center gap-3 text-xs font-bold text-[#0F9D58] animate-in fade-in">
+            <div className="mb-6 rounded-2xl bg-gdg-green/10 border border-gdg-green/30 p-4 flex items-center gap-3 text-xs font-bold text-[#0F9D58] animate-in fade-in">
               <CheckCircle2 className="h-5 w-5 shrink-0" />
               <span>Authentication successful! Launching your learning dashboard...</span>
             </div>
           )}
 
           {errors.general && (
-            <div className="mb-6 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 p-4 flex items-start gap-3 text-xs font-bold text-[#EA4335] animate-in fade-in">
+            <div className="mb-6 rounded-2xl bg-gdg-red/10 border border-gdg-red/30 p-4 flex items-start gap-3 text-xs font-bold text-gdg-red animate-in fade-in">
               <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
               <span>{errors.general}</span>
             </div>
@@ -122,11 +122,11 @@ function LoginForm() {
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-[#0D0E11] mb-2">
+              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-gdg-black mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5F6368]" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
                 <input
                   id="email"
                   name="email"
@@ -137,23 +137,23 @@ function LoginForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="student@gdglasu.dev"
                   className={`w-full h-11 rounded-2xl border ${
-                    errors.email ? 'border-[#EA4335] focus:border-[#EA4335]' : 'border-[#E5DFD0] focus:border-[#0D0E11]'
-                  } bg-[#FAF7EE]/50 pl-10 pr-4 text-xs font-medium text-[#0D0E11] placeholder:text-[#5F6368]/60 focus:bg-white focus:outline-none transition-all`}
+                    errors.email ? 'border-gdg-red focus:border-gdg-red' : 'border-gdg-border focus:border-gdg-black'
+                  } bg-gdg-cream/50 pl-10 pr-4 text-xs font-medium text-gdg-black placeholder:text-gdg-gray/60 focus:bg-white focus:outline-none transition-all`}
                 />
               </div>
               {errors.email && (
-                <p className="mt-1.5 text-xs text-[#EA4335] font-semibold">{errors.email}</p>
+                <p className="mt-1.5 text-xs text-gdg-red font-semibold">{errors.email}</p>
               )}
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-[#0D0E11]">
+                <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-gdg-black">
                   Password
                 </label>
               </div>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5F6368]" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
                 <input
                   id="password"
                   name="password"
@@ -164,23 +164,23 @@ function LoginForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className={`w-full h-11 rounded-2xl border ${
-                    errors.password ? 'border-[#EA4335] focus:border-[#EA4335]' : 'border-[#E5DFD0] focus:border-[#0D0E11]'
-                  } bg-[#FAF7EE]/50 pl-10 pr-4 text-xs font-medium text-[#0D0E11] placeholder:text-[#5F6368]/60 focus:bg-white focus:outline-none transition-all`}
+                    errors.password ? 'border-gdg-red focus:border-gdg-red' : 'border-gdg-border focus:border-gdg-black'
+                  } bg-gdg-cream/50 pl-10 pr-4 text-xs font-medium text-gdg-black placeholder:text-gdg-gray/60 focus:bg-white focus:outline-none transition-all`}
                 />
               </div>
               {errors.password && (
-                <p className="mt-1.5 text-xs text-[#EA4335] font-semibold">{errors.password}</p>
+                <p className="mt-1.5 text-xs text-gdg-red font-semibold">{errors.password}</p>
               )}
             </div>
 
             <button
               type="submit"
               disabled={isLoading || isSuccess}
-              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#0D0E11] py-3 px-4 text-xs font-black uppercase tracking-wider text-[#FAF7EE] hover:bg-[#22242B] disabled:opacity-60 transition-all cursor-pointer shadow-sm"
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-gdg-black py-3 px-4 text-xs font-black uppercase tracking-wider text-gdg-cream hover:bg-gdg-dark-border disabled:opacity-60 transition-all cursor-pointer shadow-sm"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin text-[#FBBC04]" />
+                  <Loader2 className="h-4 w-4 animate-spin text-gdg-yellow" />
                   <span>Signing In...</span>
                 </>
               ) : (
@@ -192,12 +192,12 @@ function LoginForm() {
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-[#E5DFD0] text-center">
-            <p className="text-xs font-semibold text-[#5F6368]">
+          <div className="mt-6 pt-6 border-t border-gdg-border text-center">
+            <p className="text-xs font-semibold text-gdg-gray">
               Don&apos;t have an LMS account yet?{' '}
               <Link
                 href={inviteCode ? `/register?code=${encodeURIComponent(inviteCode)}` : '/register'}
-                className="font-bold text-[#0D0E11] hover:underline"
+                className="font-bold text-gdg-black hover:underline"
               >
                 Create an account
               </Link>
@@ -207,11 +207,11 @@ function LoginForm() {
 
         {/* Demo credentials hint box - Development only */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="mt-6 rounded-2xl border border-[#E5DFD0] bg-white/70 p-4 text-center">
-            <p className="text-xs font-bold text-[#0D0E11] mb-1">Development Demo Credentials</p>
-            <p className="text-[11px] text-[#5F6368]">
-              Email: <code className="font-mono font-bold text-[#0D0E11]">student@gdglasu.dev</code> • Password:{' '}
-              <code className="font-mono font-bold text-[#0D0E11]">Password123!</code>
+          <div className="mt-6 rounded-2xl border border-gdg-border bg-white/70 p-4 text-center">
+            <p className="text-xs font-bold text-gdg-black mb-1">Development Demo Credentials</p>
+            <p className="text-[11px] text-gdg-gray">
+              Email: <code className="font-mono font-bold text-gdg-black">student@gdglasu.dev</code> • Password:{' '}
+              <code className="font-mono font-bold text-gdg-black">Password123!</code>
             </p>
           </div>
         )}
@@ -224,8 +224,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#FBBC04]" />
+        <div className="min-h-screen bg-gdg-cream flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-gdg-yellow" />
         </div>
       }
     >

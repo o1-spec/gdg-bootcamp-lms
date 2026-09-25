@@ -26,8 +26,8 @@ export function EnrolledTrackCard({
     <div
       className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border transition-all duration-200 hover:shadow-lg ${
         isDark
-          ? 'bg-[#0D0E11] text-[#FAF7EE] border-[#22242B] hover:border-[#383A42]'
-          : 'bg-white text-[#0D0E11] border-[#E5DFD0] hover:border-[#0D0E11]/30'
+          ? 'bg-gdg-black text-gdg-cream border-gdg-dark-border hover:border-[#383A42]'
+          : 'bg-white text-gdg-black border-gdg-border hover:border-gdg-black/30'
       }`}
     >
       {/* Signature top Google accent color stroke */}
@@ -66,14 +66,14 @@ export function EnrolledTrackCard({
         <div className="space-y-2">
           <h3
             className={`text-xl sm:text-2xl font-black tracking-tight transition-colors ${
-              isDark ? 'text-[#FAF7EE] group-hover:text-white' : 'text-[#0D0E11]'
+              isDark ? 'text-gdg-cream group-hover:text-white' : 'text-gdg-black'
             }`}
           >
             {track.name}
           </h3>
           <p
             className={`text-xs sm:text-sm leading-relaxed font-normal line-clamp-2 ${
-              isDark ? 'text-[#FAF7EE]/70' : 'text-[#5F6368]'
+              isDark ? 'text-gdg-cream/70' : 'text-gdg-gray'
             }`}
           >
             {track.shortDescription}
@@ -84,14 +84,14 @@ export function EnrolledTrackCard({
         <div
           className={`space-y-2.5 rounded-2xl p-4 border ${
             isDark
-              ? 'bg-[#15161A] border-[#22242B]'
-              : 'bg-[#FAF7EE]/70 border-[#E5DFD0]'
+              ? 'bg-[#15161A] border-gdg-dark-border'
+              : 'bg-gdg-cream/70 border-gdg-border'
           }`}
         >
           <div className="flex items-center justify-between text-xs">
             <span
               className={`font-bold ${
-                isDark ? 'text-[#FAF7EE]' : 'text-[#0D0E11]'
+                isDark ? 'text-gdg-cream' : 'text-gdg-black'
               }`}
             >
               Curriculum Progress
@@ -106,7 +106,7 @@ export function EnrolledTrackCard({
 
           <div
             className={`h-2 w-full rounded-full overflow-hidden ${
-              isDark ? 'bg-[#22242B]' : 'bg-[#E5DFD0]'
+              isDark ? 'bg-gdg-dark-border' : 'bg-gdg-border'
             }`}
           >
             <div
@@ -120,7 +120,7 @@ export function EnrolledTrackCard({
 
           <div
             className={`flex items-center justify-between text-[11px] font-medium ${
-              isDark ? 'text-[#FAF7EE]/60' : 'text-[#5F6368]'
+              isDark ? 'text-gdg-cream/60' : 'text-gdg-gray'
             }`}
           >
             <span>
@@ -135,13 +135,13 @@ export function EnrolledTrackCard({
         {/* Current Module & Next Class Metadata */}
         <div
           className={`space-y-3 pt-3 border-t ${
-            isDark ? 'border-[#22242B]' : 'border-[#E5DFD0]'
+            isDark ? 'border-gdg-dark-border' : 'border-gdg-border'
           }`}
         >
           <div className="space-y-1">
             <div
               className={`flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider ${
-                isDark ? 'text-[#FAF7EE]/50' : 'text-[#5F6368]'
+                isDark ? 'text-gdg-cream/50' : 'text-gdg-gray'
               }`}
             >
               <BookOpen className="h-3 w-3" style={{ color: track.accentColor }} />
@@ -149,7 +149,7 @@ export function EnrolledTrackCard({
             </div>
             <p
               className={`text-xs sm:text-sm font-bold truncate ${
-                isDark ? 'text-[#FAF7EE]' : 'text-[#0D0E11]'
+                isDark ? 'text-gdg-cream' : 'text-gdg-black'
               }`}
             >
               {track.currentModule}
@@ -158,10 +158,10 @@ export function EnrolledTrackCard({
 
           <div
             className={`flex items-center gap-2 text-xs font-semibold ${
-              isDark ? 'text-[#FAF7EE]/70' : 'text-[#0D0E11]'
+              isDark ? 'text-gdg-cream/70' : 'text-gdg-black'
             }`}
           >
-            <Calendar className="h-3.5 w-3.5 text-[#4285F4]" />
+            <Calendar className="h-3.5 w-3.5 text-gdg-blue" />
             <span>Next Class: <strong>{track.nextClass}</strong></span>
           </div>
         </div>
@@ -171,22 +171,22 @@ export function EnrolledTrackCard({
       <div
         className={`p-4 sm:px-8 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t ${
           isDark
-            ? 'border-[#22242B] bg-[#111215]'
-            : 'border-[#E5DFD0] bg-[#FAF7EE]/40'
+            ? 'border-gdg-dark-border bg-[#111215]'
+            : 'border-gdg-border bg-gdg-cream/40'
         }`}
       >
         <div className="flex items-center gap-2.5">
           <Avatar
             className={`h-8 w-8 border ${
-              isDark ? 'border-[#22242B]' : 'border-[#E5DFD0]'
+              isDark ? 'border-gdg-dark-border' : 'border-gdg-border'
             }`}
           >
             <AvatarImage src={track.mentor.avatar} alt={track.mentor.name} />
             <AvatarFallback
               className={`text-[10px] font-bold ${
                 isDark
-                  ? 'bg-[#1C1D22] text-[#FAF7EE]'
-                  : 'bg-white text-[#0D0E11]'
+                  ? 'bg-[#1C1D22] text-gdg-cream'
+                  : 'bg-white text-gdg-black'
               }`}
             >
               {track.mentor.name
@@ -198,14 +198,14 @@ export function EnrolledTrackCard({
           <div className="text-xs">
             <span
               className={`text-[10px] uppercase font-bold tracking-wider ${
-                isDark ? 'text-[#FAF7EE]/50' : 'text-[#5F6368]'
+                isDark ? 'text-gdg-cream/50' : 'text-gdg-gray'
               }`}
             >
               Mentor
             </span>
             <p
               className={`font-bold leading-none ${
-                isDark ? 'text-[#FAF7EE]' : 'text-[#0D0E11]'
+                isDark ? 'text-gdg-cream' : 'text-gdg-black'
               }`}
             >
               {track.mentor.name}
@@ -217,8 +217,8 @@ export function EnrolledTrackCard({
           href={`/tracks/${track.slug}`}
           className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer w-full sm:w-auto ${
             isDark
-              ? 'bg-[#FAF7EE] text-[#0D0E11] hover:bg-white'
-              : 'bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#1a1b20]'
+              ? 'bg-gdg-cream text-gdg-black hover:bg-white'
+              : 'bg-gdg-black text-gdg-cream hover:bg-[#1a1b20]'
           }`}
         >
           <span>Continue Learning</span>

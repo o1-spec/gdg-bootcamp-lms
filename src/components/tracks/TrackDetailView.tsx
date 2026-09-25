@@ -48,16 +48,16 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
   const getResourceMeta = (type: ResourceType) => {
     switch (type) {
       case 'pdf':
-        return { icon: FileText, color: 'text-[#EA4335]', bg: 'bg-[#EA4335]/12 border-[#EA4335]/25', action: 'Download' };
+        return { icon: FileText, color: 'text-gdg-red', bg: 'bg-gdg-red/12 border-gdg-red/25', action: 'Download' };
       case 'video':
-        return { icon: Video, color: 'text-[#4285F4]', bg: 'bg-[#4285F4]/12 border-[#4285F4]/25', action: 'Watch' };
+        return { icon: Video, color: 'text-gdg-blue', bg: 'bg-gdg-blue/12 border-gdg-blue/25', action: 'Watch' };
       case 'github':
-        return { icon: GitBranch, color: 'text-[#0D0E11]', bg: 'bg-[#0D0E11]/10 border-[#0D0E11]/20', action: 'View Repo' };
+        return { icon: GitBranch, color: 'text-gdg-black', bg: 'bg-gdg-black/10 border-gdg-black/20', action: 'View Repo' };
       case 'slides':
-        return { icon: Presentation, color: 'text-[#FBBC04]', bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30', action: 'View Slides' };
+        return { icon: Presentation, color: 'text-gdg-yellow', bg: 'bg-gdg-yellow/15 border-gdg-yellow/30', action: 'View Slides' };
       case 'article':
       default:
-        return { icon: ExternalLink, color: 'text-[#34A853]', bg: 'bg-[#34A853]/15 border-[#34A853]/30', action: 'Open' };
+        return { icon: ExternalLink, color: 'text-gdg-green', bg: 'bg-gdg-green/15 border-gdg-green/30', action: 'Open' };
     }
   };
 
@@ -65,14 +65,14 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
     <div className="space-y-8">
       {/* Toast alert if active */}
       {activeAlert && (
-        <div className="flex items-center justify-between rounded-2xl border border-[#0D0E11] bg-[#0D0E11] text-[#FAF7EE] px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
+        <div className="flex items-center justify-between rounded-2xl border border-gdg-black bg-gdg-black text-gdg-cream px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
           <div className="flex items-center gap-3">
-            <Sparkles className="h-4 w-4 text-[#FBBC04] shrink-0" />
+            <Sparkles className="h-4 w-4 text-gdg-yellow shrink-0" />
             <span className="font-semibold">{activeAlert}</span>
           </div>
           <button
             type="button"
-            className="text-xs font-black text-[#FBBC04] hover:underline ml-4 cursor-pointer"
+            className="text-xs font-black text-gdg-yellow hover:underline ml-4 cursor-pointer"
             onClick={() => setActiveAlert(null)}
           >
             Dismiss
@@ -104,16 +104,16 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight">
                 Curriculum Modules
               </h3>
-              <p className="text-xs text-[#5F6368] font-medium mt-0.5">
+              <p className="text-xs text-gdg-gray font-medium mt-0.5">
                 Structured {track.duration} roadmap • {track.modules.length} modules • {track.progress.totalLessons} lessons
               </p>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#5F6368]">
+              <span className="text-xs font-bold text-gdg-gray">
                 {track.progress.completedLessons} of {track.progress.totalLessons} completed
               </span>
             </div>
@@ -137,46 +137,46 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
       {/* 2. OVERVIEW TAB */}
       {currentTab === 'overview' && (
         <section className="space-y-8">
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-8 shadow-xs space-y-6">
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight">
                 About this Learning Track
               </h3>
-              <p className="mt-3 text-sm text-[#5F6368] leading-relaxed font-normal">
+              <p className="mt-3 text-sm text-gdg-gray leading-relaxed font-normal">
                 {track.fullDescription}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#E5DFD0]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gdg-border">
               <div className="space-y-3">
-                <h4 className="text-sm font-black text-[#0D0E11] uppercase tracking-wider">
+                <h4 className="text-sm font-black text-gdg-black uppercase tracking-wider">
                   What you will build
                 </h4>
-                <ul className="space-y-2 text-xs text-[#5F6368]">
+                <ul className="space-y-2 text-xs text-gdg-gray">
                   <li className="flex items-start gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#34A853] mt-1.5 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-gdg-green mt-1.5 shrink-0" />
                     <span>Production-ready, highly resilient fullstack REST APIs</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#34A853] mt-1.5 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-gdg-green mt-1.5 shrink-0" />
                     <span>PostgreSQL database schemas with indexing and relations</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#34A853] mt-1.5 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-gdg-green mt-1.5 shrink-0" />
                     <span>JWT-based authentication and role-based access controls</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#34A853] mt-1.5 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-gdg-green mt-1.5 shrink-0" />
                     <span>Capstone project deployed on Google Cloud Platform</span>
                   </li>
                 </ul>
               </div>
 
               <div className="space-y-3">
-                <h4 className="text-sm font-black text-[#0D0E11] uppercase tracking-wider">
+                <h4 className="text-sm font-black text-gdg-black uppercase tracking-wider">
                   Weekly Commitment
                 </h4>
-                <div className="space-y-2 text-xs text-[#5F6368]">
+                <div className="space-y-2 text-xs text-gdg-gray">
                   <p>• <strong>2 Live workshops</strong> per week with lead mentors</p>
                   <p>• <strong>1 Hands-on assignment sprint</strong> every Sunday</p>
                   <p>• <strong>Peer squad code reviews</strong> in Discord lounge</p>
@@ -193,10 +193,10 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight">
                 Curated Track Resources
               </h3>
-              <p className="text-xs text-[#5F6368] font-medium mt-0.5">
+              <p className="text-xs text-gdg-gray font-medium mt-0.5">
                 Downloadable guides, repositories, slides, and cheat sheets
               </p>
             </div>
@@ -210,7 +210,7 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
               return (
                 <div
                   key={res.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-3xl border border-[#E5DFD0] bg-white hover:border-[#0D0E11]/30 transition-all duration-200 shadow-xs"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-3xl border border-gdg-border bg-white hover:border-gdg-black/30 transition-all duration-200 shadow-xs"
                 >
                   <div className="flex items-start gap-4">
                     <div
@@ -225,35 +225,35 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
 
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-[#5F6368]">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-gdg-gray">
                           {res.type.toUpperCase()}
                         </span>
-                        <span className="text-[#5F6368]/40">•</span>
-                        <span className="text-xs font-bold text-[#0D0E11]">
+                        <span className="text-gdg-gray/40">•</span>
+                        <span className="text-xs font-bold text-gdg-black">
                           {res.moduleTitle}
                         </span>
                         {res.isRequired ? (
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/25">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gdg-red/15 text-gdg-red border border-gdg-red/25">
                             REQUIRED
                           </span>
                         ) : (
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gdg-cream text-gdg-gray border border-gdg-border">
                             OPTIONAL
                           </span>
                         )}
                         {res.fileSize && (
-                          <span className="text-xs text-[#5F6368] font-medium">
+                          <span className="text-xs text-gdg-gray font-medium">
                             ({res.fileSize})
                           </span>
                         )}
                       </div>
 
-                      <h4 className="text-sm sm:text-base font-black text-[#0D0E11] tracking-tight">
+                      <h4 className="text-sm sm:text-base font-black text-gdg-black tracking-tight">
                         {res.title}
                       </h4>
 
                       {res.description && (
-                        <p className="text-xs text-[#5F6368] leading-relaxed max-w-2xl font-normal">
+                        <p className="text-xs text-gdg-gray leading-relaxed max-w-2xl font-normal">
                           {res.description}
                         </p>
                       )}
@@ -265,7 +265,7 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
                       href={res.url}
                       target={res.url.startsWith('http') ? '_blank' : '_self'}
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[#0D0E11] bg-white text-[#0D0E11] hover:bg-[#0D0E11] hover:text-[#FAF7EE] px-5 py-2 text-xs font-bold tracking-wide transition-all shadow-2xs"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-gdg-black bg-white text-gdg-black hover:bg-gdg-black hover:text-gdg-cream px-5 py-2 text-xs font-bold tracking-wide transition-all shadow-2xs"
                       onClick={() =>
                         setActiveAlert(`Opening resource: "${res.title}"`)
                       }
@@ -286,10 +286,10 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight">
                 Track Assignments & Challenges
               </h3>
-              <p className="text-xs text-[#5F6368] font-medium mt-0.5">
+              <p className="text-xs text-gdg-gray font-medium mt-0.5">
                 Submit hands-on code reviews to earn verified bootcamp badges
               </p>
             </div>
@@ -299,57 +299,57 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
             {track.assignments.map((asg) => (
               <div
                 key={asg.id}
-                className="rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-xs hover:shadow-md transition-all duration-200 space-y-4"
+                className="rounded-3xl border border-gdg-border bg-white p-6 shadow-xs hover:shadow-md transition-all duration-200 space-y-4"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-cream text-gdg-gray border border-gdg-border">
                     {asg.moduleTitle}
                   </span>
 
                   {asg.status === 'in_progress' && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-[#FBBC04]/20 text-[#8c6500] border border-[#FBBC04]/40">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-gdg-yellow/20 text-[#8c6500] border border-gdg-yellow/40">
                       <Clock className="h-3.5 w-3.5" /> IN PROGRESS
                     </span>
                   )}
                   {asg.status === 'not_started' && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0]">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-cream text-gdg-gray border border-gdg-border">
                       NOT STARTED
                     </span>
                   )}
                   {asg.status === 'submitted' && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#34A853]/15 text-[#1e7e34] border border-[#34A853]/30">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-gdg-green/15 text-gdg-green-dark border border-gdg-green/30">
                       <CheckCircle2 className="h-3.5 w-3.5" /> SUBMITTED
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <h4 className="text-base sm:text-lg font-black text-[#0D0E11] tracking-tight">
+                  <h4 className="text-base sm:text-lg font-black text-gdg-black tracking-tight">
                     {asg.title}
                   </h4>
                   {asg.description && (
-                    <p className="text-xs text-[#5F6368] mt-1 leading-relaxed font-normal">
+                    <p className="text-xs text-gdg-gray mt-1 leading-relaxed font-normal">
                       {asg.description}
                     </p>
                   )}
-                  <div className="flex items-center gap-4 text-xs text-[#5F6368] font-medium mt-3">
-                    <span className="flex items-center gap-1 font-bold text-[#0D0E11]">
-                      <Calendar className="h-3.5 w-3.5 text-[#4285F4]" /> Due: {asg.dueDate}
+                  <div className="flex items-center gap-4 text-xs text-gdg-gray font-medium mt-3">
+                    <span className="flex items-center gap-1 font-bold text-gdg-black">
+                      <Calendar className="h-3.5 w-3.5 text-gdg-blue" /> Due: {asg.dueDate}
                     </span>
                     <span>•</span>
-                    <span className="flex items-center gap-1 font-bold text-[#0D0E11]">
-                      <Trophy className="h-3.5 w-3.5 text-[#FBBC04]" /> {asg.points} Points
+                    <span className="flex items-center gap-1 font-bold text-gdg-black">
+                      <Trophy className="h-3.5 w-3.5 text-gdg-yellow" /> {asg.points} Points
                     </span>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-[#E5DFD0] flex items-center justify-end">
+                <div className="pt-3 border-t border-gdg-border flex items-center justify-end">
                   <button
                     type="button"
                     onClick={() =>
                       setActiveAlert(`Opening assignment portal for: "${asg.title}"`)
                     }
-                    className="inline-flex items-center gap-1.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#1a1b20] px-5 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-gdg-black text-gdg-cream hover:bg-[#1a1b20] px-5 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer"
                   >
                     <span>View Assignment</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -366,10 +366,10 @@ export function TrackDetailView({ track }: TrackDetailViewProps) {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-gdg-black tracking-tight">
                 Progress & Metrics
               </h3>
-              <p className="text-xs text-[#5F6368] font-medium mt-0.5">
+              <p className="text-xs text-gdg-gray font-medium mt-0.5">
                 Comprehensive analytics for your {track.name} performance
               </p>
             </div>

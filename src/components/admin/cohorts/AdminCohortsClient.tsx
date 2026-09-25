@@ -189,7 +189,7 @@ export function AdminCohortsClient({
   });
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="cohorts"
         admin={admin}
@@ -206,7 +206,7 @@ export function AdminCohortsClient({
           actions={
             <button
               onClick={openCreateModal}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white shadow-lg shadow-gdg-red/20 transition-all"
             >
               <Plus className="w-4 h-4" />
               <span>Create Cohort</span>
@@ -225,11 +225,11 @@ export function AdminCohortsClient({
               <select
                 value={selectedBootcampFilter}
                 onChange={(e) => setSelectedBootcampFilter(e.target.value)}
-                className="flex-1 sm:flex-initial min-w-[130px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="flex-1 sm:flex-initial min-w-[130px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
               >
-                <option value="all" className="bg-[#0D0E11]">All Bootcamps</option>
+                <option value="all" className="bg-gdg-black">All Bootcamps</option>
                 {bootcamps.map((b) => (
-                  <option key={b.id} value={b.id} className="bg-[#0D0E11]">
+                  <option key={b.id} value={b.id} className="bg-gdg-black">
                     {b.name}
                   </option>
                 ))}
@@ -238,11 +238,11 @@ export function AdminCohortsClient({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as any)}
-                className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
               >
-                <option value="all" className="bg-[#0D0E11]">All Statuses</option>
-                <option value="active" className="bg-[#0D0E11]">Active Only</option>
-                <option value="inactive" className="bg-[#0D0E11]">Archived / Inactive</option>
+                <option value="all" className="bg-gdg-black">All Statuses</option>
+                <option value="active" className="bg-gdg-black">Active Only</option>
+                <option value="inactive" className="bg-gdg-black">Archived / Inactive</option>
               </select>
             </div>
 
@@ -255,7 +255,7 @@ export function AdminCohortsClient({
           {/* Cohorts Grid */}
           {filteredCohorts.length === 0 ? (
             <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#FBBC04]/10 text-[#FBBC04] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-gdg-yellow/10 text-gdg-yellow flex items-center justify-center mx-auto">
                 <CalendarRange className="w-6 h-6" />
               </div>
               <div>
@@ -266,7 +266,7 @@ export function AdminCohortsClient({
               </div>
               <button
                 onClick={openCreateModal}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] text-xs font-bold text-white hover:bg-[#EA4335]/90"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gdg-red text-xs font-bold text-white hover:bg-gdg-red/90"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Cohort</span>
@@ -284,7 +284,7 @@ export function AdminCohortsClient({
                       <div className="flex items-center gap-2">
                         <span
                           className={`w-2.5 h-2.5 rounded-full ${
-                            cohort.isActive ? 'bg-[#34A853]' : 'bg-white/30'
+                            cohort.isActive ? 'bg-gdg-green' : 'bg-white/30'
                           }`}
                         />
                         <span className="text-xs font-mono uppercase text-white/50">
@@ -303,8 +303,8 @@ export function AdminCohortsClient({
                           onClick={() => setDeactivateTarget(cohort)}
                           className={`p-2 rounded-xl transition-colors ${
                             cohort.isActive
-                              ? 'text-white/50 hover:text-[#EA4335] hover:bg-[#EA4335]/10'
-                              : 'text-white/50 hover:text-[#34A853] hover:bg-[#34A853]/10'
+                              ? 'text-white/50 hover:text-gdg-red hover:bg-gdg-red/10'
+                              : 'text-white/50 hover:text-gdg-green hover:bg-gdg-green/10'
                           }`}
                           title={cohort.isActive ? 'Deactivate Cohort' : 'Activate Cohort'}
                         >
@@ -314,19 +314,19 @@ export function AdminCohortsClient({
                     </div>
 
                     <div>
-                      <div className="text-[11px] font-mono text-[#FBBC04] uppercase font-semibold">
+                      <div className="text-[11px] font-mono text-gdg-yellow uppercase font-semibold">
                         {cohort.bootcampName}
                       </div>
                       <Link
                         href={`/admin/cohorts/${cohort.id}`}
-                        className="text-lg font-black text-white hover:text-[#4285F4] transition-colors leading-tight inline-block mt-0.5"
+                        className="text-lg font-black text-white hover:text-gdg-blue transition-colors leading-tight inline-block mt-0.5"
                       >
                         {cohort.name}
                       </Link>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs text-white/50">
-                      <Calendar className="w-3.5 h-3.5 text-[#FBBC04]" />
+                      <Calendar className="w-3.5 h-3.5 text-gdg-yellow" />
                       <span>
                         {format(new Date(cohort.startDate), 'MMM d, yyyy')}
                         {cohort.endDate && ` - ${format(new Date(cohort.endDate), 'MMM d, yyyy')}`}
@@ -393,7 +393,7 @@ export function AdminCohortsClient({
       {/* Create / Edit Cohort Modal */}
       {(isCreateOpen || editingCohort) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-gdg-black border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">
@@ -417,7 +417,7 @@ export function AdminCohortsClient({
             </div>
 
             {formError && (
-              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+              <div className="p-3.5 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 flex items-center gap-3 text-xs text-gdg-red">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{formError}</span>
               </div>
@@ -426,16 +426,16 @@ export function AdminCohortsClient({
             <form onSubmit={handleSaveCohort} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Parent Bootcamp Program <span className="text-[#EA4335]">*</span>
+                  Parent Bootcamp Program <span className="text-gdg-red">*</span>
                 </label>
                 <select
                   required
                   value={formData.bootcampId}
                   onChange={(e) => setFormData({ ...formData, bootcampId: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 >
                   {bootcamps.map((b) => (
-                    <option key={b.id} value={b.id} className="bg-[#0D0E11]">
+                    <option key={b.id} value={b.id} className="bg-gdg-black">
                       {b.name} {!b.isActive ? '(Archived)' : ''}
                     </option>
                   ))}
@@ -444,7 +444,7 @@ export function AdminCohortsClient({
 
               <div>
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                  Cohort Name <span className="text-[#EA4335]">*</span>
+                  Cohort Name <span className="text-gdg-red">*</span>
                 </label>
                 <input
                   type="text"
@@ -452,21 +452,21 @@ export function AdminCohortsClient({
                   placeholder="e.g. Cohort 1.0 (Alpha)"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
-                    Start Date <span className="text-[#EA4335]">*</span>
+                    Start Date <span className="text-gdg-red">*</span>
                   </label>
                   <input
                     type="date"
                     required
                     value={formData.startDate}
                     onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
                 <div>
@@ -477,7 +477,7 @@ export function AdminCohortsClient({
                     type="date"
                     value={formData.endDate}
                     onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
                   />
                 </div>
               </div>
@@ -488,7 +488,7 @@ export function AdminCohortsClient({
                   id="cohortActive"
                   checked={formData.isActive}
                   onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#4285F4] focus:ring-0"
+                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-gdg-blue focus:ring-0"
                 />
                 <label htmlFor="cohortActive" className="text-xs font-medium text-white/80 cursor-pointer">
                   Cohort is active for learning and attendance
@@ -509,7 +509,7 @@ export function AdminCohortsClient({
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{editingCohort ? 'Save Changes' : 'Create Cohort'}</span>

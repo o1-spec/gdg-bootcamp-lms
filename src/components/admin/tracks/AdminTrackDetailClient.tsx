@@ -125,7 +125,7 @@ export function AdminTrackDetailClient({
     track.modules?.reduce((acc: number, m: any) => acc + (m.lessons?.length || 0), 0) || 0;
 
   return (
-    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+    <div className="min-h-screen bg-gdg-black text-gdg-cream flex">
       <AdminSidebar
         currentTab="tracks"
         admin={admin}
@@ -145,7 +145,7 @@ export function AdminTrackDetailClient({
                 href="/admin/enrollments"
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
               >
-                <UserPlus className="w-3.5 h-3.5 text-[#34A853]" />
+                <UserPlus className="w-3.5 h-3.5 text-gdg-green" />
                 <span>Enroll Student</span>
               </Link>
               <Link
@@ -173,7 +173,7 @@ export function AdminTrackDetailClient({
                   <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-white/80">
                     /{track.slug}
                   </span>
-                  <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#4285F4]/10 text-[#4285F4]">
+                  <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-gdg-blue/10 text-gdg-blue">
                     {track.cohort?.name || 'Bootcamp Cohort'}
                   </span>
                 </div>
@@ -209,7 +209,7 @@ export function AdminTrackDetailClient({
                   <span className="text-[10px] font-bold uppercase tracking-wider text-white/50 block">
                     Attendance
                   </span>
-                  <span className="text-lg font-black font-mono text-[#34A853]">
+                  <span className="text-lg font-black font-mono text-gdg-green">
                     {attendanceRate}%
                   </span>
                 </div>
@@ -237,16 +237,16 @@ export function AdminTrackDetailClient({
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-t-2xl text-xs font-bold border-b-2 whitespace-nowrap transition-all cursor-pointer ${
                     isActive
-                      ? 'border-[#EA4335] text-white bg-white/5'
+                      ? 'border-gdg-red text-white bg-white/5'
                       : 'border-transparent text-white/50 hover:text-white hover:bg-white/[0.02]'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#EA4335]' : 'text-white/40'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-gdg-red' : 'text-white/40'}`} />
                   <span>{tab.label}</span>
                   {tab.count !== undefined && (
                     <span
                       className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                        isActive ? 'bg-[#EA4335]/20 text-[#EA4335]' : 'bg-white/10 text-white/50'
+                        isActive ? 'bg-gdg-red/20 text-gdg-red' : 'bg-white/10 text-white/50'
                       }`}
                     >
                       {tab.count}
@@ -322,7 +322,7 @@ export function AdminTrackDetailClient({
                 <h3 className="text-base font-bold text-white">Enrolled Students ({students.length})</h3>
                 <Link
                   href="/admin/enrollments"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#34A853]/10 hover:bg-[#34A853]/20 text-[#34A853] text-xs font-bold border border-[#34A853]/20"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gdg-green/10 hover:bg-gdg-green/20 text-gdg-green text-xs font-bold border border-gdg-green/20"
                 >
                   <UserPlus className="w-3.5 h-3.5" />
                   <span>Enroll More Students</span>
@@ -343,7 +343,7 @@ export function AdminTrackDetailClient({
                       <div className="flex items-center gap-3 min-w-0">
                         <Avatar className="w-9 h-9 border border-white/10">
                           <AvatarImage src={student.avatar} alt={student.name} />
-                          <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
+                          <AvatarFallback className="bg-gdg-blue text-white text-xs font-bold">
                             {student.name[0]}
                           </AvatarFallback>
                         </Avatar>
@@ -359,7 +359,7 @@ export function AdminTrackDetailClient({
                           <span className="text-[10px] text-white/40 block">Course Progress</span>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-bold text-[#34A853]">{student.attendanceRate}%</span>
+                          <span className="text-xs font-bold text-gdg-green">{student.attendanceRate}%</span>
                           <span className="text-[10px] text-white/40 block">Attendance</span>
                         </div>
                       </div>
@@ -377,7 +377,7 @@ export function AdminTrackDetailClient({
                 <h3 className="text-base font-bold text-white">Track Mentors ({mentors.length})</h3>
                 <Link
                   href="/admin/mentors"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FBBC04]/10 hover:bg-[#FBBC04]/20 text-[#FBBC04] text-xs font-bold border border-[#FBBC04]/20"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gdg-yellow/10 hover:bg-gdg-yellow/20 text-gdg-yellow text-xs font-bold border border-gdg-yellow/20"
                 >
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Assign / Remove Mentors</span>
@@ -398,7 +398,7 @@ export function AdminTrackDetailClient({
                       <div className="flex items-center gap-3">
                         <Avatar className="w-10 h-10 border border-white/10">
                           <AvatarImage src={m.avatar || ''} alt={m.name} />
-                          <AvatarFallback className="bg-[#FBBC04] text-black font-bold text-xs">
+                          <AvatarFallback className="bg-gdg-yellow text-black font-bold text-xs">
                             {m.name[0]}
                           </AvatarFallback>
                         </Avatar>
@@ -407,7 +407,7 @@ export function AdminTrackDetailClient({
                           <p className="text-[11px] text-white/40">{m.email}</p>
                         </div>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#34A853]/10 text-[#34A853]">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-gdg-green/10 text-gdg-green">
                         Active Lead
                       </span>
                     </div>
@@ -426,7 +426,7 @@ export function AdminTrackDetailClient({
                   href="/admin/sessions"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white"
                 >
-                  <Calendar className="w-3.5 h-3.5 text-[#4285F4]" />
+                  <Calendar className="w-3.5 h-3.5 text-gdg-blue" />
                   <span>Create Session</span>
                 </Link>
               </div>
@@ -461,7 +461,7 @@ export function AdminTrackDetailClient({
                           rel="noreferrer"
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white"
                         >
-                          <Video className="w-3.5 h-3.5 text-[#4285F4]" />
+                          <Video className="w-3.5 h-3.5 text-gdg-blue" />
                           <span>Join</span>
                         </a>
                       )}
@@ -477,7 +477,7 @@ export function AdminTrackDetailClient({
             <div className="space-y-4">
               <h3 className="text-base font-bold text-white">Track Attendance Records</h3>
               <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4 text-center">
-                <div className="inline-block p-4 rounded-full bg-[#34A853]/10 text-[#34A853] text-2xl font-mono font-black">
+                <div className="inline-block p-4 rounded-full bg-gdg-green/10 text-gdg-green text-2xl font-mono font-black">
                   {attendanceRate}%
                 </div>
                 <p className="text-xs text-white/60 max-w-sm mx-auto">
