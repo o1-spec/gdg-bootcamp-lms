@@ -178,3 +178,43 @@ export async function requireRole(allowedRoles: Role[]): Promise<SafeUser> {
   }
   return user;
 }
+
+/**
+ * Require the user to be an assigned mentor for the track, or an ADMIN / SUPER_ADMIN.
+ * Accepts either track CUID or track slug.
+ */
+export async function requireTrackMentorAccess(
+  userId: string,
+  trackIdOrSlug: string
+) {
+  const user = await requireRole([Role.MENTOR, Role.ADMIN, Role.SUPER_ADMIN]);
+
+  // If Admin / Super Admin, they have universal access to all tracks
+  if (user.role === Role.ADMIN || user.role === Role.SUPER_ADMIN) {
+    const track = await prisma.track.findFirst({
+      where: {
+        OR: [{ id: trackIdOrSlug }, { slug: trackIdOrSlug }],
+      },
+    });
+    if (!track) {
+      throw new Error("TRACK_NOT_FOUND");
+    }
+    return { user, track };
+  }
+
+  // Mentor role: verify MentorAssignment exists
+  const track = await prisma.track.findFirst({
+    where: {
+      OR: [{ id: trackIdOrSlug }, { slug: trackIdOrSlug }],
+      mentorAssignments: {
+        some: { mentorId: userId },
+      },
+    },
+  });
+
+  if (!track) {
+    throw new Error("FORBIDDEN_TRACK_ACCESS");
+  }
+
+  return { user, track };
+}

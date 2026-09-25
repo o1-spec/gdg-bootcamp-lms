@@ -6,7 +6,7 @@ const AUTH_COOKIE_NAME = "bootcamp_lms_session";
 const JWT_SECRET = process.env.AUTH_SECRET || "fallback-secret-for-development-min-32-chars-long";
 const secretKey = new TextEncoder().encode(JWT_SECRET);
 
-// Protected path prefixes
+// Protected path prefixes for students and mentors
 const protectedPaths = [
   "/tracks",
   "/resources",
@@ -16,6 +16,7 @@ const protectedPaths = [
   "/attendance",
   "/announcements",
   "/dashboard",
+  "/mentor",
 ];
 
 export async function middleware(request: NextRequest) {
@@ -23,18 +24,22 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
 
   let isAuthenticated = false;
+  let userRole: string | undefined = undefined;
+
   if (token) {
     try {
-      await jwtVerify(token, secretKey);
+      const { payload } = await jwtVerify(token, secretKey);
       isAuthenticated = true;
+      userRole = payload.role as string;
     } catch {
       isAuthenticated = false;
     }
   }
 
-  // If user is accessing login or register while already authenticated, redirect to home
+  // If user is accessing login or register while already authenticated, redirect
   if (isAuthenticated && (pathname === "/login" || pathname === "/register")) {
-    return NextResponse.redirect(new URL("/", request.url));
+    const isStaff = userRole === "MENTOR" || userRole === "ADMIN" || userRole === "SUPER_ADMIN";
+    return NextResponse.redirect(new URL(isStaff ? "/mentor/dashboard" : "/", request.url));
   }
 
   // Check if current route is protected or root dashboard
@@ -44,11 +49,24 @@ export async function middleware(request: NextRequest) {
 
   if (isProtected && !isAuthenticated) {
     const loginUrl = new URL("/login", request.url);
-    // Don't append returnUrl for root page
     if (pathname !== "/") {
       loginUrl.searchParams.set("from", pathname);
     }
     return NextResponse.redirect(loginUrl);
+  }
+
+  // Restrict /mentor routes: only MENTOR, ADMIN, SUPER_ADMIN can access
+  if (pathname.startsWith("/mentor")) {
+    if (!isAuthenticated) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("from", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    const isStaff = userRole === "MENTOR" || userRole === "ADMIN" || userRole === "SUPER_ADMIN";
+    if (!isStaff) {
+      // Forbidden: redirect student to their student dashboard
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
 
   return NextResponse.next();

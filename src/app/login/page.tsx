@@ -48,8 +48,13 @@ export default function LoginPage() {
       }
 
       setIsSuccess(true);
+      const userRole = data.user?.role;
+      const destination =
+        userRole === 'MENTOR' || userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'
+          ? '/mentor/dashboard'
+          : '/';
       setTimeout(() => {
-        router.push('/');
+        router.push(destination);
         router.refresh();
       }, 1000);
     } catch {
