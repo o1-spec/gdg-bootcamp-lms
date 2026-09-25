@@ -104,23 +104,25 @@ export function TrackCard({ track }: TrackCardProps) {
         </div>
 
         {/* Next lesson block */}
-        <div className="space-y-1.5 pt-1">
-          <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#FAF7EE]/50">
-            <BookOpen className="h-3.5 w-3.5" style={{ color: accentColor }} />
-            <span>Up Next</span>
+        {track.nextLesson && (
+          <div className="space-y-1.5 pt-1">
+            <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#FAF7EE]/50">
+              <BookOpen className="h-3.5 w-3.5" style={{ color: accentColor }} />
+              <span>Up Next</span>
+            </div>
+            <p className="text-xs font-bold text-[#FAF7EE] line-clamp-1">
+              {track.nextLesson.title}
+            </p>
+            <div className="flex items-center gap-2 text-[11px] text-[#FAF7EE]/60">
+              <span className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                {track.nextLesson.durationMinutes} mins
+              </span>
+              <span>•</span>
+              <span className="truncate">{track.currentModule}</span>
+            </div>
           </div>
-          <p className="text-xs font-bold text-[#FAF7EE] line-clamp-1">
-            {track.nextLesson.title}
-          </p>
-          <div className="flex items-center gap-2 text-[11px] text-[#FAF7EE]/60">
-            <span className="flex items-center gap-1">
-              <Clock className="h-3 w-3" />
-              {track.nextLesson.durationMinutes} mins
-            </span>
-            <span>•</span>
-            <span className="truncate">{track.currentModule}</span>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Mentor and Resume Button */}

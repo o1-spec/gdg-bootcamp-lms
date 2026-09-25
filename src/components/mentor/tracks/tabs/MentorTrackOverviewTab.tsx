@@ -52,11 +52,17 @@ export function MentorTrackOverviewTab({
             {track.mentorAssignments?.map((ma: any) => (
               <div key={ma.id} className="py-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img
-                    src={ma.mentor.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
-                    alt={ma.mentor.firstName}
-                    className="w-9 h-9 rounded-full object-cover border border-[#E5DFD0]"
-                  />
+                  {ma.mentor.avatarUrl ? (
+                    <img
+                      src={ma.mentor.avatarUrl}
+                      alt={ma.mentor.firstName}
+                      className="w-9 h-9 rounded-full object-cover border border-[#E5DFD0]"
+                    />
+                  ) : (
+                    <div className="w-9 h-9 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black flex items-center justify-center border border-[#E5DFD0]">
+                      {ma.mentor.firstName?.[0] || 'M'}
+                    </div>
+                  )}
                   <div>
                     <span className="text-xs font-black text-[#0D0E11] block">
                       {ma.mentor.firstName} {ma.mentor.lastName}

@@ -137,9 +137,7 @@ export async function getAdminDashboardData() {
       studentId: enr.userId,
       studentName: `${enr.user.firstName} ${enr.user.lastName}`,
       studentEmail: enr.user.email,
-      studentAvatar:
-        enr.user.avatarUrl ||
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      studentAvatar: enr.user.avatarUrl || "",
       trackId: enr.trackId,
       trackName: enr.track.name,
       trackAccent: enr.track.accent || "#4285F4",
@@ -191,127 +189,23 @@ export async function getAdminDashboardData() {
       trackOverview: trackOverviewList,
     };
   } catch (error) {
-    console.error("getAdminDashboardData fallback:", error);
-    // Offline development fallback
+    console.error("getAdminDashboardData error:", error);
     return {
       metrics: {
-        activeBootcampsCount: 1,
-        activeCohortsCount: 1,
-        totalStudentsCount: 4,
-        totalMentorsCount: 2,
-        totalTracksCount: 4,
-        upcomingSessionsCount: 2,
-        pendingReviewsCount: 2,
-        overallAttendanceRate: 94,
+        activeBootcampsCount: 0,
+        activeCohortsCount: 0,
+        totalStudentsCount: 0,
+        totalMentorsCount: 0,
+        totalTracksCount: 0,
+        upcomingSessionsCount: 0,
+        pendingReviewsCount: 0,
+        overallAttendanceRate: 0,
       },
-      recentEnrollments: [
-        {
-          id: "enr-1",
-          studentId: "stu-1",
-          studentName: "Tobi Adebayo",
-          studentEmail: "student@gdglasu.dev",
-          studentAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          trackId: "track-1",
-          trackName: "Backend Development",
-          trackAccent: "#4285F4",
-          enrolledAt: new Date(),
-          isActive: true,
-        },
-        {
-          id: "enr-2",
-          studentId: "stu-2",
-          studentName: "Kehinde Bankole",
-          studentEmail: "kehinde@gdglasu.dev",
-          studentAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
-          trackId: "track-1",
-          trackName: "Backend Development",
-          trackAccent: "#4285F4",
-          enrolledAt: new Date(),
-          isActive: true,
-        },
-        {
-          id: "enr-3",
-          studentId: "stu-3",
-          studentName: "Amaka Eze",
-          studentEmail: "amaka@gdglasu.dev",
-          studentAvatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
-          trackId: "track-2",
-          trackName: "Frontend Engineering",
-          trackAccent: "#34A853",
-          enrolledAt: new Date(),
-          isActive: true,
-        },
-      ],
-      activeCohorts: [
-        {
-          id: "cohort-1",
-          name: "Cohort 1.0 (Alpha)",
-          bootcampId: "bootcamp-1",
-          bootcampName: "GDG LASU Tech Accelerator 2026",
-          startDate: new Date("2026-09-01"),
-          endDate: new Date("2026-12-15"),
-          isActive: true,
-          trackCount: 4,
-          studentCount: 4,
-          mentorCount: 2,
-        },
-      ],
+      recentEnrollments: [],
+      activeCohorts: [],
       upcomingSessions: [],
       recentAnnouncements: [],
-      trackOverview: [
-        {
-          id: "track-1",
-          name: "Backend Development",
-          slug: "backend-development",
-          description: "Master modern server-side engineering with Node.js, Express, and PostgreSQL.",
-          accent: "#4285F4",
-          cohortId: "cohort-1",
-          cohortName: "Cohort 1.0 (Alpha)",
-          studentCount: 4,
-          mentorCount: 1,
-          moduleCount: 3,
-          lessonCount: 6,
-        },
-        {
-          id: "track-2",
-          name: "Frontend Engineering",
-          slug: "frontend-engineering",
-          description: "Build cutting-edge user interfaces with Next.js, React 19, and Tailwind CSS.",
-          accent: "#34A853",
-          cohortId: "cohort-1",
-          cohortName: "Cohort 1.0 (Alpha)",
-          studentCount: 3,
-          mentorCount: 1,
-          moduleCount: 3,
-          lessonCount: 6,
-        },
-        {
-          id: "track-3",
-          name: "Mobile App Development",
-          slug: "mobile-development",
-          description: "Cross-platform mobile applications with Flutter and React Native.",
-          accent: "#FBBC04",
-          cohortId: "cohort-1",
-          cohortName: "Cohort 1.0 (Alpha)",
-          studentCount: 2,
-          mentorCount: 1,
-          moduleCount: 2,
-          lessonCount: 4,
-        },
-        {
-          id: "track-4",
-          name: "UI/UX & Product Design",
-          slug: "ui-ux-design",
-          description: "User research, wireframing, high-fidelity prototyping, and design systems.",
-          accent: "#EA4335",
-          cohortId: "cohort-1",
-          cohortName: "Cohort 1.0 (Alpha)",
-          studentCount: 2,
-          mentorCount: 1,
-          moduleCount: 2,
-          lessonCount: 4,
-        },
-      ],
+      trackOverview: [],
     };
   }
 }
@@ -373,32 +267,8 @@ export async function getAdminBootcamps() {
       };
     });
   } catch (error) {
-    console.error("getAdminBootcamps fallback:", error);
-    return [
-      {
-        id: "bootcamp-1",
-        name: "GDG LASU Tech Accelerator 2026",
-        description: "Official campus engineering and product accelerator program empowering undergraduate engineers.",
-        startDate: new Date("2026-09-01"),
-        endDate: new Date("2026-12-15"),
-        isActive: true,
-        createdAt: new Date("2026-08-15"),
-        cohortCount: 1,
-        trackCount: 4,
-        studentCount: 4,
-        mentorCount: 2,
-        cohorts: [
-          {
-            id: "cohort-1",
-            name: "Cohort 1.0 (Alpha)",
-            isActive: true,
-            startDate: new Date("2026-09-01"),
-            endDate: new Date("2026-12-15"),
-            trackCount: 4,
-          },
-        ],
-      },
-    ];
+    console.error("getAdminBootcamps error:", error);
+    return [];
   }
 }
 
@@ -446,42 +316,8 @@ export async function getAdminBootcampDetail(bootcampId: string) {
       trackCount: totalTracks,
     };
   } catch (error) {
-    console.error("getAdminBootcampDetail fallback:", error);
-    return {
-      id: bootcampId || "bootcamp-1",
-      name: "GDG LASU Tech Accelerator 2026",
-      description: "Official campus engineering and product accelerator program empowering undergraduate engineers.",
-      startDate: new Date("2026-09-01"),
-      endDate: new Date("2026-12-15"),
-      isActive: true,
-      createdAt: new Date("2026-08-15"),
-      updatedAt: new Date("2026-08-15"),
-      studentCount: 4,
-      mentorCount: 2,
-      trackCount: 4,
-      cohorts: [
-        {
-          id: "cohort-1",
-          name: "Cohort 1.0 (Alpha)",
-          bootcampId: bootcampId || "bootcamp-1",
-          startDate: new Date("2026-09-01"),
-          endDate: new Date("2026-12-15"),
-          isActive: true,
-          createdAt: new Date("2026-08-20"),
-          tracks: [
-            {
-              id: "track-1",
-              name: "Backend Development",
-              slug: "backend-development",
-              accent: "#4285F4",
-              enrollments: [{ id: "enr-1" }, { id: "enr-2" }, { id: "enr-3" }, { id: "enr-4" }],
-              mentorAssignments: [{ id: "ma-1" }],
-              modules: [{}, {}, {}],
-            },
-          ],
-        },
-      ],
-    };
+    console.error("getAdminBootcampDetail error:", error);
+    return null;
   }
 }
 
@@ -540,28 +376,10 @@ export async function getAdminCohorts() {
       bootcamps,
     };
   } catch (error) {
-    console.error("getAdminCohorts fallback:", error);
+    console.error("getAdminCohorts error:", error);
     return {
-      cohorts: [
-        {
-          id: "cohort-1",
-          name: "Cohort 1.0 (Alpha)",
-          bootcampId: "bootcamp-1",
-          bootcampName: "GDG LASU Tech Accelerator 2026",
-          startDate: new Date("2026-09-01"),
-          endDate: new Date("2026-12-15"),
-          isActive: true,
-          createdAt: new Date("2026-08-20"),
-          trackCount: 4,
-          studentCount: 4,
-          mentorCount: 2,
-          tracks: [
-            { id: "track-1", name: "Backend Development", slug: "backend-development", accent: "#4285F4", studentCount: 4 },
-            { id: "track-2", name: "Frontend Engineering", slug: "frontend-engineering", accent: "#34A853", studentCount: 3 },
-          ],
-        },
-      ],
-      bootcamps: [{ id: "bootcamp-1", name: "GDG LASU Tech Accelerator 2026", isActive: true }],
+      cohorts: [],
+      bootcamps: [],
     };
   }
 }
@@ -610,31 +428,8 @@ export async function getAdminCohortDetail(cohortId: string) {
       totalMentors: mentorIds.size,
     };
   } catch (error) {
-    console.error("getAdminCohortDetail fallback:", error);
-    return {
-      id: cohortId || "cohort-1",
-      name: "Cohort 1.0 (Alpha)",
-      bootcampId: "bootcamp-1",
-      bootcamp: { id: "bootcamp-1", name: "GDG LASU Tech Accelerator 2026" },
-      startDate: new Date("2026-09-01"),
-      endDate: new Date("2026-12-15"),
-      isActive: true,
-      totalStudents: 4,
-      totalMentors: 2,
-      tracks: [
-        {
-          id: "track-1",
-          name: "Backend Development",
-          slug: "backend-development",
-          description: "Server-side engineering with Node.js and PostgreSQL.",
-          accent: "#4285F4",
-          enrollments: [],
-          mentorAssignments: [],
-          modules: [],
-          sessions: [],
-        },
-      ],
-    };
+    console.error("getAdminCohortDetail error:", error);
+    return null;
   }
 }
 
@@ -689,37 +484,10 @@ export async function getAdminTracks() {
       cohorts,
     };
   } catch (error) {
-    console.error("getAdminTracks fallback:", error);
+    console.error("getAdminTracks error:", error);
     return {
-      tracks: [
-        {
-          id: "track-1",
-          name: "Backend Development",
-          slug: "backend-development",
-          description: "Master modern server-side engineering with Node.js, Express, and PostgreSQL.",
-          accent: "#4285F4",
-          cohortId: "cohort-1",
-          cohortName: "Cohort 1.0 (Alpha)",
-          bootcampName: "GDG LASU Tech Accelerator 2026",
-          studentCount: 4,
-          mentorCount: 1,
-          moduleCount: 3,
-          lessonCount: 6,
-          assignmentCount: 2,
-          sessionCount: 2,
-          mentors: [
-            {
-              id: "user-mentor-1",
-              name: "Femi Oladipo",
-              email: "mentor@gdglasu.dev",
-              avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-            },
-          ],
-        },
-      ],
-      cohorts: [
-        { id: "cohort-1", name: "Cohort 1.0 (Alpha)", bootcamp: { name: "GDG LASU Tech Accelerator 2026" } },
-      ],
+      tracks: [],
+      cohorts: [],
     };
   }
 }
@@ -826,9 +594,7 @@ export async function getAdminTrackDetail(trackId: string) {
         id: u.id,
         name: `${u.firstName} ${u.lastName}`,
         email: u.email,
-        avatar:
-          u.avatarUrl ||
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatar: u.avatarUrl || "",
         enrolledAt: enr.enrolledAt,
         isActive: enr.isActive,
         progressPercentage,
@@ -868,35 +634,8 @@ export async function getAdminTrackDetail(trackId: string) {
       attendanceRate,
     };
   } catch (error) {
-    console.error("getAdminTrackDetail fallback:", error);
-    return {
-      track: {
-        id: trackId || "track-1",
-        name: "Backend Development",
-        slug: "backend-development",
-        description: "Master modern server-side engineering with Node.js and PostgreSQL.",
-        accent: "#4285F4",
-        cohort: { name: "Cohort 1.0 (Alpha)", bootcamp: { name: "GDG LASU Tech Accelerator 2026" } },
-        modules: [],
-        assignments: [],
-        sessions: [],
-        enrollments: [],
-        mentorAssignments: [],
-      },
-      resources: [],
-      students: [],
-      mentors: [
-        {
-          id: "user-mentor-1",
-          name: "Femi Oladipo",
-          email: "mentor@gdglasu.dev",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        },
-      ],
-      sessions: [],
-      assignments: [],
-      attendanceRate: 94,
-    };
+    console.error("getAdminTrackDetail error:", error);
+    return null;
   }
 }
 
@@ -939,81 +678,8 @@ export async function getAdminUsers() {
       })),
     }));
   } catch (error) {
-    console.error("getAdminUsers fallback:", error);
-    return [
-      {
-        id: "user-admin-1",
-        firstName: "Chioma",
-        lastName: "Okonkwo",
-        name: "Chioma Okonkwo",
-        email: "admin@gdglasu.dev",
-        role: Role.ADMIN,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        createdAt: new Date("2026-08-01"),
-        enrolledTracks: [],
-        assignedTracks: [],
-      },
-      {
-        id: "user-mentor-1",
-        firstName: "Femi",
-        lastName: "Oladipo",
-        name: "Femi Oladipo",
-        email: "mentor@gdglasu.dev",
-        role: Role.MENTOR,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        createdAt: new Date("2026-08-15"),
-        enrolledTracks: [],
-        assignedTracks: [{ id: "track-1", name: "Backend Development", accent: "#4285F4" }],
-      },
-      {
-        id: "user-student-1",
-        firstName: "Alex",
-        lastName: "Johnson",
-        name: "Alex Johnson",
-        email: "student@gdglasu.dev",
-        role: Role.STUDENT,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        createdAt: new Date("2026-09-01"),
-        enrolledTracks: [{ id: "track-1", name: "Backend Development", accent: "#4285F4", isActive: true }],
-        assignedTracks: [],
-      },
-      {
-        id: "stu-1",
-        firstName: "Tobi",
-        lastName: "Adebayo",
-        name: "Tobi Adebayo",
-        email: "tobi@gdglasu.dev",
-        role: Role.STUDENT,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        createdAt: new Date("2026-09-01"),
-        enrolledTracks: [{ id: "track-1", name: "Backend Development", accent: "#4285F4", isActive: true }],
-        assignedTracks: [],
-      },
-      {
-        id: "stu-2",
-        firstName: "Kehinde",
-        lastName: "Bankole",
-        name: "Kehinde Bankole",
-        email: "kehinde@gdglasu.dev",
-        role: Role.STUDENT,
-        avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
-        createdAt: new Date("2026-09-01"),
-        enrolledTracks: [{ id: "track-1", name: "Backend Development", accent: "#4285F4", isActive: true }],
-        assignedTracks: [],
-      },
-      {
-        id: "stu-3",
-        firstName: "Amaka",
-        lastName: "Eze",
-        name: "Amaka Eze",
-        email: "amaka@gdglasu.dev",
-        role: Role.STUDENT,
-        avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
-        createdAt: new Date("2026-09-01"),
-        enrolledTracks: [{ id: "track-2", name: "Frontend Engineering", accent: "#34A853", isActive: true }],
-        assignedTracks: [],
-      },
-    ];
+    console.error("getAdminUsers error:", error);
+    return [];
   }
 }
 
@@ -1075,33 +741,11 @@ export async function getAdminEnrollments() {
       })),
     };
   } catch (error) {
-    console.error("getAdminEnrollments fallback:", error);
+    console.error("getAdminEnrollments error:", error);
     return {
-      enrollments: [
-        {
-          id: "enr-1",
-          studentId: "stu-1",
-          studentName: "Tobi Adebayo",
-          studentEmail: "tobi@gdglasu.dev",
-          studentAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          trackId: "track-1",
-          trackName: "Backend Development",
-          trackAccent: "#4285F4",
-          cohortName: "Cohort 1.0 (Alpha)",
-          enrolledAt: new Date("2026-09-01"),
-          isActive: true,
-        },
-      ],
-      tracks: [
-        { id: "track-1", name: "Backend Development", accent: "#4285F4", cohortName: "Cohort 1.0 (Alpha)", enrolledStudentIds: ["stu-1"] },
-        { id: "track-2", name: "Frontend Engineering", accent: "#34A853", cohortName: "Cohort 1.0 (Alpha)", enrolledStudentIds: ["stu-3"] },
-      ],
-      students: [
-        { id: "stu-1", name: "Tobi Adebayo", email: "tobi@gdglasu.dev", avatar: "", enrolledTrackIds: ["track-1"] },
-        { id: "stu-2", name: "Kehinde Bankole", email: "kehinde@gdglasu.dev", avatar: "", enrolledTrackIds: [] },
-        { id: "stu-3", name: "Amaka Eze", email: "amaka@gdglasu.dev", avatar: "", enrolledTrackIds: ["track-2"] },
-        { id: "stu-4", name: "Daniel Oshodi", email: "daniel@gdglasu.dev", avatar: "", enrolledTrackIds: [] },
-      ],
+      enrollments: [],
+      tracks: [],
+      students: [],
     };
   }
 }
@@ -1159,9 +803,7 @@ export async function getAdminMentors() {
         id: m.id,
         name: `${m.firstName} ${m.lastName}`,
         email: m.email,
-        avatar:
-          m.avatarUrl ||
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatar: m.avatarUrl || "",
         assignedTracks,
         totalAssignedTracks: assignedTracks.length,
         totalSupervisedStudents: totalStudents,
@@ -1180,34 +822,10 @@ export async function getAdminMentors() {
       })),
     };
   } catch (error) {
-    console.error("getAdminMentors fallback:", error);
+    console.error("getAdminMentors error:", error);
     return {
-      mentors: [
-        {
-          id: "user-mentor-1",
-          name: "Femi Oladipo",
-          email: "mentor@gdglasu.dev",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          assignedTracks: [
-            {
-              assignmentId: "ma-1",
-              trackId: "track-1",
-              trackName: "Backend Development",
-              trackAccent: "#4285F4",
-              cohortName: "Cohort 1.0 (Alpha)",
-              studentCount: 4,
-              assignedAt: new Date(),
-            },
-          ],
-          totalAssignedTracks: 1,
-          totalSupervisedStudents: 4,
-          upcomingSessionsCount: 2,
-        },
-      ],
-      tracks: [
-        { id: "track-1", name: "Backend Development", accent: "#4285F4", cohortName: "Cohort 1.0 (Alpha)", assignedMentorIds: ["user-mentor-1"] },
-        { id: "track-2", name: "Frontend Engineering", accent: "#34A853", cohortName: "Cohort 1.0 (Alpha)", assignedMentorIds: [] },
-      ],
+      mentors: [],
+      tracks: [],
     };
   }
 }
@@ -1285,11 +903,11 @@ export async function getAdminSessions() {
       })),
     };
   } catch (error) {
-    console.error("getAdminSessions fallback:", error);
+    console.error("getAdminSessions error:", error);
     return {
       sessions: [],
-      tracks: [{ id: "track-1", name: "Backend Development", slug: "backend-development", accent: "#4285F4", cohort: { name: "Cohort 1.0" } }],
-      mentors: [{ id: "user-mentor-1", name: "Femi Oladipo", email: "mentor@gdglasu.dev" }],
+      tracks: [],
+      mentors: [],
     };
   }
 }
@@ -1329,10 +947,10 @@ export async function getAdminAnnouncements() {
       tracks,
     };
   } catch (error) {
-    console.error("getAdminAnnouncements fallback:", error);
+    console.error("getAdminAnnouncements error:", error);
     return {
       announcements: [],
-      tracks: [{ id: "track-1", name: "Backend Development", slug: "backend-development", accent: "#4285F4" }],
+      tracks: [],
     };
   }
 }

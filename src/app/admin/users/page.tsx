@@ -21,7 +21,7 @@ export default async function AdminUsersPage() {
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
     email: user.email,
-    avatar: user.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+    avatar: user.avatarUrl || "",
     role: user.role === Role.SUPER_ADMIN ? "Super Administrator" : "Platform Administrator",
     rawRole: user.role,
   };

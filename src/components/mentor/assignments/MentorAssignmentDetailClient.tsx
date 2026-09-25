@@ -319,11 +319,17 @@ export function MentorAssignmentDetailClient({
                           <tr key={sub.id} className="hover:bg-[#FAF7EE]/50 transition-colors">
                             <td className="py-4 px-6">
                               <div className="flex items-center gap-3">
-                                <img
-                                  src={sub.student?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
-                                  alt={sub.student?.firstName}
-                                  className="w-9 h-9 rounded-full object-cover border border-[#E5DFD0]"
-                                />
+                                {sub.student?.avatarUrl ? (
+                                  <img
+                                    src={sub.student.avatarUrl}
+                                    alt={sub.student?.firstName}
+                                    className="w-9 h-9 rounded-full object-cover border border-[#E5DFD0]"
+                                  />
+                                ) : (
+                                  <div className="w-9 h-9 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black flex items-center justify-center border border-[#E5DFD0]">
+                                    {sub.student?.firstName?.[0] || 'S'}
+                                  </div>
+                                )}
                                 <div>
                                   <span className="font-bold text-[#0D0E11] block text-sm">
                                     {sub.student?.firstName} {sub.student?.lastName}
@@ -438,14 +444,17 @@ export function MentorAssignmentDetailClient({
           <div className="w-full max-w-xl rounded-3xl bg-white border border-[#E5DFD0] p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <img
-                  src={
-                    reviewingSubmission.student?.avatarUrl ||
-                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
-                  }
-                  alt={reviewingSubmission.student?.firstName}
-                  className="w-12 h-12 rounded-2xl object-cover border border-[#E5DFD0]"
-                />
+                {reviewingSubmission.student?.avatarUrl ? (
+                  <img
+                    src={reviewingSubmission.student.avatarUrl}
+                    alt={reviewingSubmission.student?.firstName}
+                    className="w-12 h-12 rounded-2xl object-cover border border-[#E5DFD0]"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-sm font-black flex items-center justify-center border border-[#E5DFD0]">
+                    {reviewingSubmission.student?.firstName?.[0] || 'S'}
+                  </div>
+                )}
                 <div>
                   <h3 className="text-xl font-black text-[#0D0E11]">
                     Review {reviewingSubmission.student?.firstName}&apos;s Submission

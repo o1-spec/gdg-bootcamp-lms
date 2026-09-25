@@ -146,8 +146,8 @@ export async function getStudentProgress(studentId: string): Promise<OverallBoot
         totalLessons: tTotalLessons,
         completedModules: tCompletedModules,
         totalModules: track.modules.length,
-        completedAssignments: 0,
-        totalAssignments: 0,
+        completedAssignments: tCompletedAssignments,
+        totalAssignments: trackAssignments.length,
         nextLessonHref,
         modules,
       };

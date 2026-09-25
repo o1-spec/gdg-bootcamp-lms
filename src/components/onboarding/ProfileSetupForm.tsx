@@ -132,7 +132,7 @@ export function ProfileSetupForm({ initialUser }: ProfileSetupFormProps) {
                 <div className="relative">
                   <input
                     type="url"
-                    placeholder="https://images.unsplash.com/..."
+                    placeholder="https://example.com/avatar.jpg"
                     value={formData.avatarUrl}
                     onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
                     className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#E5DFD0] text-xs text-[#0D0E11] placeholder:text-[#5F6368] focus:border-[#0D0E11] outline-none"

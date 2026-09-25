@@ -731,7 +731,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 </label>
                 <input
                   type="url"
-                  placeholder="https://images.unsplash.com/..."
+                  placeholder="https://example.com/avatar.jpg"
                   value={editFormData.avatarUrl}
                   onChange={(e) => setEditFormData({ ...editFormData, avatarUrl: e.target.value })}
                   className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"

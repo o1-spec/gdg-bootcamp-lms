@@ -35,28 +35,15 @@ export async function GET() {
       if (dbUser) {
         return NextResponse.json({ user: dbUser });
       }
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     } catch {
-      // Offline fallback
+      return NextResponse.json({
+        user: {
+          ...user,
+          enrollments: [],
+        },
+      });
     }
-
-    return NextResponse.json({
-      user: {
-        ...user,
-        enrollments: [
-          {
-            id: "enr-mock-1",
-            enrolledAt: new Date().toISOString(),
-            track: {
-              id: "track-frontend",
-              name: "Frontend Development",
-              slug: "frontend-development",
-              accent: "#34A853",
-              cohort: { name: "Cohort 1 (Alpha)" },
-            },
-          },
-        ],
-      },
-    });
   } catch (error: any) {
     console.error("Profile GET error:", error);
     return NextResponse.json({ error: "Failed to load profile" }, { status: 500 });

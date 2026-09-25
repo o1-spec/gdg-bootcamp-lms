@@ -360,14 +360,17 @@ export function MentorAnnouncementsClient({
                     <div className="flex items-center gap-3">
                       {ann.author && (
                         <div className="flex items-center gap-2">
-                          <img
-                            src={
-                              ann.author.avatarUrl ||
-                              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'
-                            }
-                            alt={ann.author.firstName}
-                            className="w-6 h-6 rounded-full object-cover border border-[#E5DFD0]"
-                          />
+                          {ann.author.avatarUrl ? (
+                            <img
+                              src={ann.author.avatarUrl}
+                              alt={ann.author.firstName}
+                              className="w-6 h-6 rounded-full object-cover border border-[#E5DFD0]"
+                            />
+                          ) : (
+                            <div className="w-6 h-6 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-[10px] font-black flex items-center justify-center border border-[#E5DFD0]">
+                              {ann.author.firstName?.[0] || 'U'}
+                            </div>
+                          )}
                           <span className="text-xs font-bold text-[#0D0E11]">
                             {ann.author.firstName} {ann.author.lastName}
                           </span>

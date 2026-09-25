@@ -25,32 +25,17 @@ const defaultSummary: AttendanceSummaryData = {
   excusedCount: 0,
 };
 
-const fallbackStudent: StudentProfile = {
-  id: '',
-  name: 'Student',
-  firstName: 'Student',
-  lastName: '',
-  email: '',
-  avatar: '',
-  cohort: 'Bootcamp 2026',
-  role: 'Student',
-  enrolledTracksCount: 0,
-  studyStreakDays: 0,
-  totalHoursSpent: 0,
-  onboardingCompleted: true,
-};
-
 interface AttendanceClientProps {
   initialSummary?: AttendanceSummaryData;
   initialRecords?: AttendanceRecord[];
-  student?: StudentProfile;
+  student: StudentProfile;
   enrolledTracks?: Track[];
 }
 
 export function AttendanceClient({
   initialSummary,
   initialRecords,
-  student = fallbackStudent,
+  student,
   enrolledTracks = [],
 }: AttendanceClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -64,10 +49,7 @@ export function AttendanceClient({
 
   const trackOptions = [
     { id: 'all', label: 'All Tracks' },
-    { id: 'backend-development', label: 'Backend Development' },
-    { id: 'frontend-development', label: 'Frontend Development' },
-    { id: 'dsa-interview-prep', label: 'DSA & Interview Prep' },
-    { id: 'ui-ux-design', label: 'UI/UX Design' },
+    ...enrolledTracks.map((t) => ({ id: t.id, label: t.name })),
   ];
 
   const statusOptions: { id: 'all' | AttendanceStatus; label: string }[] = [

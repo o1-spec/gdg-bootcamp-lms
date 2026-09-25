@@ -38,7 +38,12 @@ export async function getStudentDashboardData(user: SafeUser): Promise<StudentDa
         getStudentAnnouncements(user.id),
       ]);
 
-    const student: StudentProfile = buildStudentProfile(user, enrolledTracks.length);
+    const cohortTitle = enrolledTracks[0]?.name ? `${enrolledTracks[0].name} Cohort` : undefined;
+    const student: StudentProfile = buildStudentProfile(user, enrolledTracks.length, {
+      cohort: cohortTitle,
+      studyStreakDays: 0,
+      totalHoursSpent: Math.round(progressData.completedLessons * 1.5),
+    });
 
     const pendingAssignmentsCount = assignmentsData.filter(
       (a) => a.status === "in_progress" || a.status === "not_started" || a.status === "overdue"
@@ -63,12 +68,12 @@ export async function getStudentDashboardData(user: SafeUser): Promise<StudentDa
         instructor: {
           name: s.mentor.name,
           role: s.mentor.role,
-          avatar: s.mentor.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80",
+          avatar: s.mentor.avatar || "",
         },
         dateTime: `${s.dayOfWeek}, ${s.timeRange}`,
         duration: "120 mins",
         isLiveNow: s.isLiveNow,
-        meetUrl: s.meetUrl || "#",
+        meetUrl: s.meetUrl || "",
         attendeesCount: 0,
       }));
 
@@ -112,9 +117,7 @@ export async function getStudentDashboardData(user: SafeUser): Promise<StudentDa
       author: {
         name: a.author.name,
         role: a.author.role,
-        avatar:
-          a.author.avatar ||
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        avatar: a.author.avatar || "",
       },
       publishedAt: a.postedDate,
       trackName: (a.trackName as TrackCategory | "All Cohort") || "All Cohort",

@@ -215,9 +215,15 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                   <span className="text-xs font-bold text-[#FAF7EE]/70 uppercase tracking-wider">
                     {student.cohort}
                   </span>
-                  <span className="rounded-full bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30 px-3 py-0.5 text-xs font-black">
-                    🔥 {student.studyStreakDays} Day Streak
-                  </span>
+                  {student.studyStreakDays > 0 ? (
+                    <span className="rounded-full bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30 px-3 py-0.5 text-xs font-black">
+                      🔥 {student.studyStreakDays} Day Streak
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30 px-3 py-0.5 text-xs font-bold">
+                      Active Student
+                    </span>
+                  )}
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
@@ -240,7 +246,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               {/* Action Buttons: Solid cream pill + Outlined cream pill */}
               <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
                 <Link
-                  href="/tracks/backend-development"
+                  href={enrolledTracks[0]?.slug ? `/tracks/${enrolledTracks[0].slug}` : '/tracks'}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-7 py-3.5 text-xs font-black tracking-wide shadow-md transition-transform active:scale-95 cursor-pointer"
                 >
                   <BookOpen className="h-4 w-4" />
@@ -546,13 +552,19 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                 </div>
 
                 <div className="space-y-4">
-                  {upcomingClasses.map((classItem) => (
-                    <UpcomingClassCard
-                      key={classItem.id}
-                      upcomingClass={classItem}
-                      onJoin={handleJoinClass}
-                    />
-                  ))}
+                  {upcomingClasses.length > 0 ? (
+                    upcomingClasses.map((classItem) => (
+                      <UpcomingClassCard
+                        key={classItem.id}
+                        upcomingClass={classItem}
+                        onJoin={handleJoinClass}
+                      />
+                    ))
+                  ) : (
+                    <div className="rounded-2xl border border-dashed border-[#E5DFD0] bg-white/50 p-6 text-center text-xs font-medium text-[#5F6368]">
+                      No upcoming live sessions scheduled.
+                    </div>
+                  )}
                 </div>
               </section>
 
@@ -580,39 +592,45 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                 </div>
 
                 <div className="space-y-4">
-                  {announcementsList.map((announcement) => (
-                    <AnnouncementCard
-                      key={announcement.id}
-                      announcement={announcement}
-                      onReadMore={(anc) => {
-                        setActiveAlert(`Announcement: ${anc.title}`);
-                      }}
-                    />
-                  ))}
+                  {announcementsList.length > 0 ? (
+                    announcementsList.map((announcement) => (
+                      <AnnouncementCard
+                        key={announcement.id}
+                        announcement={announcement}
+                        onReadMore={(anc) => {
+                          setActiveAlert(`Announcement: ${anc.title}`);
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <div className="rounded-2xl border border-dashed border-[#E5DFD0] bg-white/50 p-6 text-center text-xs font-medium text-[#5F6368]">
+                      No announcements posted yet.
+                    </div>
+                  )}
                 </div>
               </section>
 
-              {/* Weekly Goal & Study Sprint Card */}
+              {/* Curriculum Progress & Attendance Card */}
               <div className="rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-7 shadow-sm space-y-5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold uppercase tracking-wider text-[#FAF7EE]/60">
-                    Weekly Study Sprint
+                    Curriculum Progress
                   </span>
                   <span className="text-sm font-black text-[#FAF7EE]">
-                    18 / 25 Hours
+                    {stats.completedLessons} / {stats.totalLessons} Lessons
                   </span>
                 </div>
 
                 <div className="h-2.5 w-full bg-[#22242B] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[#FBBC04] rounded-full transition-all duration-300"
-                    style={{ width: '72%' }}
+                    style={{ width: `${Math.min(100, stats.overallProgressPercentage)}%` }}
                   />
                 </div>
 
                 <div className="flex items-center justify-between text-xs font-medium text-[#FAF7EE]/70">
-                  <span>7 hours needed by Sunday</span>
-                  <span className="font-bold text-[#34A853]">72% Achieved</span>
+                  <span>{Math.max(0, stats.totalLessons - stats.completedLessons)} lessons remaining</span>
+                  <span className="font-bold text-[#34A853]">{stats.overallProgressPercentage}% Completed</span>
                 </div>
 
                 <div className="pt-3 border-t border-[#22242B] flex items-center justify-between">

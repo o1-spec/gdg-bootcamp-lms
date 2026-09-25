@@ -111,7 +111,7 @@ export async function getStudentAnnouncements(studentId: string): Promise<FullAn
         author: {
           name: a.author ? `${a.author.firstName} ${a.author.lastName}` : "Cohort Lead",
           role: a.author ? `${a.author.role} • GDG LASU` : "Lead Instructor",
-          avatar: a.author?.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80",
+          avatar: a.author?.avatarUrl || "",
         },
         priority: priorityMap[a.priority] || "NORMAL",
         isPinned: a.priority === "URGENT" || a.priority === "IMPORTANT",

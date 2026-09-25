@@ -56,22 +56,8 @@ export async function POST(request: Request) {
           },
         },
       });
-    } catch {
-      announcement = {
-        id: `ann-${Date.now()}`,
-        title,
-        content,
-        priority,
-        trackId: trackId || null,
-        authorId: user.id,
-        createdAt: new Date(),
-        author: {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-        },
-        track: trackId ? { id: trackId, name: "Target Track", slug: "target-track" } : null,
-      };
+    } catch (dbError) {
+      throw dbError;
     }
 
     return NextResponse.json({ success: true, announcement }, { status: 201 });

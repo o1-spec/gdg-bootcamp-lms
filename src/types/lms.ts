@@ -238,7 +238,7 @@ export interface Track {
   completedLessons: number;
   totalLessons: number;
   currentModule: string;
-  nextLesson: {
+  nextLesson?: {
     id: string;
     title: string;
     durationMinutes: number;

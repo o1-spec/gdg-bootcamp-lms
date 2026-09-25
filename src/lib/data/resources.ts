@@ -174,7 +174,11 @@ export async function getStudentResources(studentId: string): Promise<LibraryRes
         mimeType: r.mimeType || undefined,
         fileSize: r.fileSize ? formatFileSize(r.fileSize) : undefined,
         uploadedBy: r.uploadedBy ? `${r.uploadedBy.firstName} ${r.uploadedBy.lastName} (${r.uploadedBy.role})` : "Mentor",
-        addedAt: "Recently added",
+        addedAt: new Date(r.createdAt).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
         isRequired: r.isRequired,
         accentColor: track?.accent || "#4285F4",
       };

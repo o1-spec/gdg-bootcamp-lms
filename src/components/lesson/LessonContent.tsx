@@ -9,7 +9,14 @@ interface LessonContentProps {
 }
 
 export function LessonContent({ sections }: LessonContentProps) {
-  if (!sections || sections.length === 0) return null;
+  if (!sections || sections.length === 0) {
+    return (
+      <div className="rounded-3xl border border-dashed border-[#E5DFD0] bg-white p-8 text-center space-y-2">
+        <p className="text-sm font-bold text-[#0D0E11]">Lesson notes not added yet</p>
+        <p className="text-xs text-[#5F6368]">The instructor has not published study notes or lecture materials for this lesson yet.</p>
+      </div>
+    );
+  }
 
   const renderCalloutIcon = (type?: string) => {
     switch (type) {

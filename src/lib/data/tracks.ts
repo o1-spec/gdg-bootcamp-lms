@@ -219,7 +219,7 @@ export async function getStudentTracks(studentId: string): Promise<DetailedTrack
             hour: "numeric",
             minute: "numeric",
           })
-        : "Saturday, 10:00 AM";
+        : "TBA";
 
       // Current module title
       const currentMod =
@@ -241,9 +241,7 @@ export async function getStudentTracks(studentId: string): Promise<DetailedTrack
         mentor: {
           name: mentorUser ? `${mentorUser.firstName} ${mentorUser.lastName}` : "Lead Track Mentor",
           role: mentorUser ? `${mentorUser.role} • GDG LASU` : "Track Mentor • GDG LASU",
-          avatar:
-            mentorUser?.avatarUrl ||
-            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+          avatar: mentorUser?.avatarUrl || "",
         },
         currentModule: currentMod,
         nextClass: nextClassStr,
@@ -255,7 +253,7 @@ export async function getStudentTracks(studentId: string): Promise<DetailedTrack
           totalModules: track.modules.length,
           completedAssignments,
           totalAssignments,
-          attendanceRate: 95,
+          attendanceRate: 100,
           moduleProgress: moduleProgressList,
         },
         modules: track.modules.map((m) => {
@@ -337,11 +335,7 @@ export async function getStudentEnrolledTracksSummary(studentId: string): Promis
     const detailedTracks = await getStudentTracks(studentId);
     return detailedTracks.map((dt) => {
       // Find first incomplete lesson
-      let nextLesson = {
-        id: "les-intro",
-        title: "Introduction",
-        durationMinutes: 45,
-      };
+      let nextLesson: { id: string; title: string; durationMinutes: number } | undefined = undefined;
 
       for (const m of dt.modules) {
         const nextL = m.lessons.find((l) => l.status !== "completed");
@@ -353,6 +347,14 @@ export async function getStudentEnrolledTracksSummary(studentId: string): Promis
           };
           break;
         }
+      }
+      if (!nextLesson && dt.modules[0]?.lessons[0]) {
+        const firstL = dt.modules[0].lessons[0];
+        nextLesson = {
+          id: firstL.id,
+          title: firstL.title,
+          durationMinutes: firstL.durationMinutes,
+        };
       }
 
       return {

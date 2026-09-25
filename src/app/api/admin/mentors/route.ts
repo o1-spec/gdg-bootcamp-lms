@@ -76,24 +76,8 @@ export async function POST(request: Request) {
           },
         },
       });
-    } catch {
-      assignment = {
-        id: `asgn-${Date.now()}`,
-        mentorId,
-        trackId,
-        createdAt: new Date(),
-        mentor: {
-          id: mentorId,
-          firstName: "Mentor",
-          lastName: "Lead",
-          email: "mentor@gdglasu.dev",
-        },
-        track: {
-          id: trackId,
-          name: "Assigned Track",
-          slug: "assigned-track",
-        },
-      };
+    } catch (dbError) {
+      throw dbError;
     }
 
     return NextResponse.json({ success: true, assignment }, { status: 201 });

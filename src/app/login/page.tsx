@@ -211,14 +211,16 @@ function LoginForm() {
           </div>
         </div>
 
-        {/* Demo credentials hint box */}
-        <div className="mt-6 rounded-2xl border border-[#E5DFD0] bg-white/70 p-4 text-center">
-          <p className="text-xs font-bold text-[#0D0E11] mb-1">Development Demo Credentials</p>
-          <p className="text-[11px] text-[#5F6368]">
-            Email: <code className="font-mono font-bold text-[#0D0E11]">student@gdglasu.dev</code> • Password:{' '}
-            <code className="font-mono font-bold text-[#0D0E11]">Password123!</code>
-          </p>
-        </div>
+        {/* Demo credentials hint box - Development only */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="mt-6 rounded-2xl border border-[#E5DFD0] bg-white/70 p-4 text-center">
+            <p className="text-xs font-bold text-[#0D0E11] mb-1">Development Demo Credentials</p>
+            <p className="text-[11px] text-[#5F6368]">
+              Email: <code className="font-mono font-bold text-[#0D0E11]">student@gdglasu.dev</code> • Password:{' '}
+              <code className="font-mono font-bold text-[#0D0E11]">Password123!</code>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

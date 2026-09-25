@@ -79,23 +79,26 @@ export function buildStudentProfile(
     linkedinUrl?: string | null;
     onboardingCompleted?: boolean;
   },
-  enrolledTracksCount: number = 0
+  enrolledTracksCount: number = 0,
+  extra?: {
+    cohort?: string;
+    studyStreakDays?: number;
+    totalHoursSpent?: number;
+  }
 ): StudentProfile {
   return {
     id: user.id,
-    name: user.displayName || `${user.firstName} ${user.lastName}`,
+    name: user.displayName || `${user.firstName} ${user.lastName}`.trim(),
     firstName: user.firstName,
     lastName: user.lastName,
     displayName: user.displayName || undefined,
     email: user.email,
-    avatar:
-      user.avatarUrl ||
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    cohort: "Bootcamp 2026 (Cohort 1)",
+    avatar: user.avatarUrl || "",
+    cohort: extra?.cohort || "Bootcamp Cohort",
     role: formatUserRole(user.role),
     enrolledTracksCount,
-    studyStreakDays: 14,
-    totalHoursSpent: 128,
+    studyStreakDays: extra?.studyStreakDays ?? 0,
+    totalHoursSpent: extra?.totalHoursSpent ?? 0,
     bio: user.bio || undefined,
     githubUrl: user.githubUrl || undefined,
     linkedinUrl: user.linkedinUrl || undefined,

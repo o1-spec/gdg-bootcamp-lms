@@ -16,30 +16,15 @@ import { cn } from '@/lib/utils';
 
 export type ScheduleTabFilter = 'upcoming' | 'this_week' | 'past' | 'all';
 
-const fallbackStudent: StudentProfile = {
-  id: '',
-  name: 'Student',
-  firstName: 'Student',
-  lastName: '',
-  email: '',
-  avatar: '',
-  cohort: 'Bootcamp 2026',
-  role: 'Student',
-  enrolledTracksCount: 0,
-  studyStreakDays: 0,
-  totalHoursSpent: 0,
-  onboardingCompleted: true,
-};
-
 interface ScheduleClientProps {
   initialSessions?: BootcampSession[];
-  student?: StudentProfile;
+  student: StudentProfile;
   enrolledTracks?: Track[];
 }
 
 export function ScheduleClient({
   initialSessions,
-  student = fallbackStudent,
+  student,
   enrolledTracks = [],
 }: ScheduleClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -66,10 +51,7 @@ export function ScheduleClient({
 
   const trackOptions = [
     { id: 'all', label: 'All Tracks' },
-    { id: 'backend-development', label: 'Backend Development' },
-    { id: 'frontend-development', label: 'Frontend Development' },
-    { id: 'dsa-interview-prep', label: 'DSA & Interview Prep' },
-    { id: 'ui-ux-design', label: 'UI/UX Design' },
+    ...enrolledTracks.map((t) => ({ id: t.slug, label: t.name })),
   ];
 
   // Filter sessions

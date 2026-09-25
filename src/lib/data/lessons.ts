@@ -105,6 +105,28 @@ export async function getLessonDetails(
     const nextSibling =
       currentIndex < siblingLessons.length - 1 ? siblingLessons[currentIndex + 1] : undefined;
 
+    const videoResource = lesson.resources.find((r) => r.type === "VIDEO");
+    const video = videoResource
+      ? {
+          title: videoResource.title,
+          duration: `${lesson.durationMinutes || 45} mins`,
+          url: videoResource.url,
+        }
+      : undefined;
+
+    const learningObjectives = lesson.description
+      ? [lesson.description]
+      : [];
+
+    const sections = lesson.content
+      ? [
+          {
+            title: lesson.title,
+            content: lesson.content,
+          },
+        ]
+      : [];
+
     return {
       id: lesson.id,
       slug: lesson.slug,
@@ -119,30 +141,9 @@ export async function getLessonDetails(
       type: "Lesson",
       status,
       description: lesson.description || "",
-      learningObjectives: [
-        `Master the core principles of ${lesson.title}`,
-        "Understand industrial best practices and architectural patterns",
-        "Apply hands-on engineering principles to solve practical challenges",
-        "Build foundational understanding for upcoming capstone project deliverables",
-      ],
-      video: {
-        title: `${lesson.title} - Masterclass Recording`,
-        duration: `${lesson.durationMinutes || 40}:00`,
-        url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      },
-      sections: [
-        {
-          title: `1. Overview of ${lesson.title}`,
-          content:
-            lesson.content ||
-            `${lesson.title} forms a foundational pillar in modern backend engineering. Understanding these concepts enables you to architect reliable, fault-tolerant, and performant systems.`,
-          bulletPoints: [
-            "Clear separation of concerns between systems and components",
-            "Predictable, standardized interfaces for consumer applications",
-            "Defensive engineering and schema verification against abnormal edge cases",
-          ],
-        },
-      ],
+      learningObjectives,
+      video,
+      sections,
       resources: lesson.resources.map((r) => ({
         id: r.id,
         title: r.title,

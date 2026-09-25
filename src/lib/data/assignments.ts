@@ -197,13 +197,7 @@ export async function getStudentAssignments(studentId: string): Promise<FullAssi
           "Include a live deployment link if applicable",
           "Submit your link and any notes through this portal",
         ],
-        resources: [
-          {
-            title: `${a.track.name} Starter Template`,
-            type: "github",
-            url: "https://github.com",
-          },
-        ],
+        resources: [],
         submission: {
           status: uiSubStatus,
           githubUrl: submission?.githubUrl || undefined,

@@ -37,7 +37,7 @@ export default async function MentorAttendancePage({ searchParams }: PageProps) 
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
     email: user.email,
-    avatar: user.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+    avatar: user.avatarUrl || '',
     role: user.role === 'MENTOR' ? 'Track Mentor' : user.role === 'ADMIN' ? 'Platform Admin' : 'Super Administrator',
   };
 

@@ -117,18 +117,8 @@ export async function getStudentSchedule(studentId: string): Promise<BootcampSes
         recordingUrl: s.recordingUrl || undefined,
         isLiveNow,
         isPast,
-        topicsCovered: [
-          `Key concepts and applications in ${s.title}`,
-          "Real-world architecture and industry insights",
-          "Interactive Q&A and code walkthrough with mentors",
-        ],
-        attachedResources: [
-          {
-            title: `${s.track.name} Lecture Slides`,
-            type: "slides",
-            url: "#",
-          },
-        ],
+        topicsCovered: s.description ? [s.description] : [],
+        attachedResources: [],
       };
     });
   } catch (error) {

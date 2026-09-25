@@ -42,15 +42,10 @@ export default async function AdminInvitesPage() {
       orderBy: { name: "asc" },
     });
   } catch {
-    // Offline fallback
-    bootcamps = [{ id: "bootcamp-1", name: "GDG LASU Bootcamp 2026" }];
-    cohorts = [{ id: "cohort-1", name: "Cohort 1 (Alpha)", bootcampId: "bootcamp-1" }];
-    tracks = [
-      { id: "track-backend", name: "Backend Development", cohortId: "cohort-1", accent: "#4285F4" },
-      { id: "track-frontend", name: "Frontend Development", cohortId: "cohort-1", accent: "#34A853" },
-      { id: "track-dsa", name: "DSA & Interview Prep", cohortId: "cohort-1", accent: "#EA4335" },
-      { id: "track-uiux", name: "UI/UX Design", cohortId: "cohort-1", accent: "#FBBC04" },
-    ];
+    // DB unavailable — empty arrays let the UI render without fake data
+    bootcamps = [];
+    cohorts = [];
+    tracks = [];
   }
 
   return (
@@ -60,7 +55,7 @@ export default async function AdminInvitesPage() {
         id: user.id,
         name: user.displayName || `${user.firstName} ${user.lastName}`,
         email: user.email,
-        avatar: user.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatar: user.avatarUrl || "",
         role: user.role === Role.SUPER_ADMIN ? "Super Admin" : "Admin",
       }}
       bootcamps={bootcamps}
