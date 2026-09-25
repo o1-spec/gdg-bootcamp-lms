@@ -19,6 +19,7 @@ import {
   LogOut,
   Sparkles,
   ShieldAlert,
+  Settings,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
@@ -262,13 +263,22 @@ export function AdminSidebar({
               <p className="text-[11px] text-[#FBBC04] truncate font-medium">{admin.role}</p>
             </div>
           </div>
-          <button
-            onClick={handleLogout}
-            title="Log out"
-            className="p-2 rounded-xl text-white/50 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors shrink-0"
-          >
-            <LogOut className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-1">
+            <Link
+              href="/settings"
+              title="Settings & Security"
+              className="p-2 rounded-xl text-white/50 hover:text-[#FAF7EE] hover:bg-white/10 transition-colors shrink-0"
+            >
+              <Settings className="w-4 h-4" />
+            </Link>
+            <button
+              onClick={handleLogout}
+              title="Log out"
+              className="p-2 rounded-xl text-white/50 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors shrink-0"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

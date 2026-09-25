@@ -85,25 +85,42 @@ model User {
   passwordHash        String
   role                Role     @default(STUDENT)
   avatarUrl           String?
+  avatarPublicId      String?
   bio                 String?  @db.Text
   githubUrl           String?
   linkedinUrl         String?
+  isActive            Boolean  @default(true)
   onboardingCompleted Boolean  @default(false)
+  notificationPreferences Json?
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  enrollments        Enrollment[]
-  mentorAssignments  MentorAssignment[]
-  createdAssignments Assignment[]       @relation("AssignmentCreator")
-  submissions        Submission[]
-  attendances        Attendance[]       @relation("StudentAttendance")
-  markedAttendances  Attendance[]       @relation("AttendanceMarker")
-  announcements      Announcement[]     @relation("AnnouncementAuthor")
-  lessonProgress     LessonProgress[]
-  uploadedResources  Resource[]         @relation("ResourceUploader")
-  mentorSessions     Session[]          @relation("MentorSessions")
-  createdInvites     Invite[]           @relation("InviteCreator")
-  notifications      Notification[]
+  enrollments         Enrollment[]
+  mentorAssignments   MentorAssignment[]
+  createdAssignments  Assignment[]          @relation("AssignmentCreator")
+  submissions         Submission[]
+  attendances         Attendance[]          @relation("StudentAttendance")
+  markedAttendances   Attendance[]          @relation("AttendanceMarker")
+  announcements       Announcement[]        @relation("AnnouncementAuthor")
+  lessonProgress      LessonProgress[]
+  uploadedResources   Resource[]            @relation("ResourceUploader")
+  mentorSessions      Session[]             @relation("MentorSessions")
+  createdInvites      Invite[]              @relation("InviteCreator")
+  notifications       Notification[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Bootcamp {

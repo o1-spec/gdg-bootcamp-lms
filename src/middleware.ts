@@ -17,6 +17,8 @@ const protectedPaths = [
   "/announcements",
   "/dashboard",
   "/profile",
+  "/settings",
+  "/notifications",
   "/onboarding",
   "/mentor",
   "/admin",

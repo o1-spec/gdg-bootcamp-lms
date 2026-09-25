@@ -102,6 +102,13 @@ export async function POST(request: Request) {
       );
     }
 
+    if (user.isActive === false) {
+      return NextResponse.json(
+        { error: "This account is currently unavailable. Contact an administrator." },
+        { status: 403 }
+      );
+    }
+
     // Create session token and set HTTP-only cookie
     const token = await signSessionToken({
       userId: user.id,

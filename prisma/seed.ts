@@ -30,6 +30,14 @@ async function main() {
   // Hash development password (support both password123 and Password123!)
   const defaultPasswordHash = await bcrypt.hash("password123", 10);
 
+  const defaultPreferences = {
+    assignments: true,
+    sessions: true,
+    resources: true,
+    announcements: true,
+    feedback: true,
+  };
+
   // 1. Create Users
   const student1 = await prisma.user.create({
     data: {
@@ -39,7 +47,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
       onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -51,7 +61,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
       onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -63,7 +75,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
       onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -75,7 +89,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
       onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -87,6 +103,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.MENTOR,
       avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
+      onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -98,6 +117,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.MENTOR,
       avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
+      onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -109,6 +131,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.ADMIN,
       avatarUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
+      onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 
@@ -120,6 +145,9 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.SUPER_ADMIN,
       avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256",
+      isActive: true,
+      onboardingCompleted: true,
+      notificationPreferences: defaultPreferences,
     },
   });
 

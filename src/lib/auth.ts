@@ -23,10 +23,13 @@ export interface SafeUser {
   email: string;
   role: Role;
   avatarUrl: string | null;
+  avatarPublicId: string | null;
   bio: string | null;
   githubUrl: string | null;
   linkedinUrl: string | null;
+  isActive: boolean;
   onboardingCompleted: boolean;
+  notificationPreferences: any;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,10 +42,13 @@ export const safeUserSelect = {
   email: true,
   role: true,
   avatarUrl: true,
+  avatarPublicId: true,
   bio: true,
   githubUrl: true,
   linkedinUrl: true,
+  isActive: true,
   onboardingCompleted: true,
+  notificationPreferences: true,
   createdAt: true,
   updatedAt: true,
 } as const;
@@ -180,7 +186,10 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         where: { id: payload.userId },
         select: safeUserSelect,
       });
-      if (user) return user;
+      if (user) {
+        if (user.isActive === false) return null;
+        return user;
+      }
     } catch {
       // Database connection fallback during offline development
     }
@@ -194,10 +203,13 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         email: payload.email || "mentor@gdglasu.dev",
         role: Role.MENTOR,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatarPublicId: null,
         bio: "Senior Cloud & Distributed Systems Engineer, Mentor at GDG LASU",
         githubUrl: "https://github.com",
         linkedinUrl: "https://linkedin.com",
+        isActive: true,
         onboardingCompleted: true,
+        notificationPreferences: null,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -212,10 +224,13 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         email: payload.email || "blessing@gdglasu.dev",
         role: Role.MENTOR,
         avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+        avatarPublicId: null,
         bio: "Frontend Lead & Design System Advocate",
         githubUrl: "https://github.com",
         linkedinUrl: "https://linkedin.com",
+        isActive: true,
         onboardingCompleted: true,
+        notificationPreferences: null,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -230,10 +245,13 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         email: payload.email || "admin@gdglasu.dev",
         role: Role.ADMIN,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatarPublicId: null,
         bio: "Community Lead & Bootcamp Administrator",
         githubUrl: "https://github.com",
         linkedinUrl: "https://linkedin.com",
+        isActive: true,
         onboardingCompleted: true,
+        notificationPreferences: null,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -248,10 +266,13 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         email: payload.email || "superadmin@gdglasu.dev",
         role: Role.SUPER_ADMIN,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatarPublicId: null,
         bio: "Lead Organizer, GDG on Campus LASU",
         githubUrl: "https://github.com",
         linkedinUrl: "https://linkedin.com",
+        isActive: true,
         onboardingCompleted: true,
+        notificationPreferences: null,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -266,10 +287,13 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         email: payload.email || "student@gdglasu.dev",
         role: Role.STUDENT,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        avatarPublicId: null,
         bio: "Passionate CS undergraduate eager to build scalable web applications",
         githubUrl: "https://github.com",
         linkedinUrl: "https://linkedin.com",
+        isActive: true,
         onboardingCompleted: true,
+        notificationPreferences: null,
         createdAt: new Date(),
         updatedAt: new Date(),
       };

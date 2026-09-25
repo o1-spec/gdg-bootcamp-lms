@@ -24,13 +24,46 @@ export interface CreateNotificationInput {
 // Core primitives
 // ─────────────────────────────────────────────────────────────
 
+/** Map NotificationType to user preference key. Returns null for non-optional system notifications. */
+export function getNotificationPreferenceKey(type: NotificationType): string | null {
+  switch (type) {
+    case NotificationType.ASSIGNMENT_NEW:
+    case NotificationType.SUBMISSION_RECEIVED:
+      return "assignments";
+    case NotificationType.ASSIGNMENT_GRADED:
+      return "feedback";
+    case NotificationType.SESSION_NEW:
+    case NotificationType.SESSION_REMINDER:
+      return "sessions";
+    case NotificationType.RESOURCE_NEW:
+      return "resources";
+    case NotificationType.ANNOUNCEMENT_NEW:
+      return "announcements";
+    default:
+      return null; // Critical system & security notifications always deliver
+  }
+}
+
 /**
  * Create a single notification for one user.
- * Safe to call anywhere on the server — silently swallows DB errors
- * so it never breaks the calling action.
+ * Checks user notification preferences for optional categories.
+ * Safe to call anywhere on the server — silently swallows DB errors.
  */
 export async function createNotification(input: CreateNotificationInput): Promise<void> {
   try {
+    const prefKey = getNotificationPreferenceKey(input.type);
+    if (prefKey) {
+      const user = await prisma.user.findUnique({
+        where: { id: input.userId },
+        select: { notificationPreferences: true },
+      });
+      const prefs = user?.notificationPreferences as Record<string, boolean> | null;
+      if (prefs && prefs[prefKey] === false) {
+        // User opted out of this optional notification category
+        return;
+      }
+    }
+
     await prisma.notification.create({
       data: {
         userId: input.userId,
@@ -52,6 +85,7 @@ export async function createNotification(input: CreateNotificationInput): Promis
 
 /**
  * Create notifications for multiple users at once (fan-out).
+ * Filters recipients by notification preferences in a single batch query.
  * Fires all creates in parallel; individual failures are swallowed.
  */
 export async function createNotificationsForUsers(
@@ -59,8 +93,32 @@ export async function createNotificationsForUsers(
   base: Omit<CreateNotificationInput, "userId">
 ): Promise<void> {
   if (!userIds.length) return;
+
+  const prefKey = getNotificationPreferenceKey(base.type);
+  let recipientIds = userIds;
+
+  if (prefKey) {
+    try {
+      const users = await prisma.user.findMany({
+        where: { id: { in: userIds } },
+        select: { id: true, notificationPreferences: true },
+      });
+      recipientIds = users
+        .filter((u) => {
+          const prefs = u.notificationPreferences as Record<string, boolean> | null;
+          return prefs?.[prefKey] !== false;
+        })
+        .map((u) => u.id);
+    } catch {
+      // Fallback to sending to all userIds if query fails
+      recipientIds = userIds;
+    }
+  }
+
+  if (!recipientIds.length) return;
+
   await Promise.allSettled(
-    userIds.map((userId) =>
+    recipientIds.map((userId) =>
       createNotification({
         ...base,
         userId,

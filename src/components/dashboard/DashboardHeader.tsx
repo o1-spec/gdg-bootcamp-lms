@@ -426,14 +426,14 @@ export function DashboardHeader({
                     </span>
                   )}
                 </Link>
-                <button
-                  type="button"
+                <Link
+                  href="/settings"
                   onClick={() => setProfileMenuOpen(false)}
-                  className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-[#0D0E11] hover:bg-[#FAF7EE] rounded-xl transition-colors cursor-pointer"
+                  className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-[#0D0E11] hover:bg-[#FAF7EE] rounded-xl transition-colors"
                 >
                   <Settings className="h-3.5 w-3.5 text-[#FBBC04]" />
                   <span>Settings</span>
-                </button>
+                </Link>
               </div>
 
               <div className="pt-1 border-t border-[#E5DFD0]">
