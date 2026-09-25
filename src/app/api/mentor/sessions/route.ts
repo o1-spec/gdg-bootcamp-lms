@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser, requireTrackMentorAccess } from "@/lib/auth";
 import { sessionSchema } from "@/lib/validations/mentor";
+import { notifyTrackStudents, notifyTrackMentors } from "@/lib/data/notifications";
+import { NotificationType } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
@@ -43,12 +45,36 @@ export async function POST(request: Request) {
       },
     });
 
+    const sessionDate = startDateTime.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    const sessionTime = startDateTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+    const sessionNotifBase = {
+      type: NotificationType.SESSION_NEW,
+      title: `New Session: ${title}`,
+      message: `"${title}" is scheduled for ${sessionDate} at ${sessionTime} (${mode.toLowerCase()}).`,
+      link: `/schedule`,
+      eventKey: `session-new:${newSession.id}`,
+    };
+
+    // Notify students and other mentors on the track
+    await Promise.all([
+      notifyTrackStudents(trackId, sessionNotifBase),
+      notifyTrackMentors(trackId, {
+        ...sessionNotifBase,
+        type: NotificationType.SESSION_NEW,
+        title: `Session Scheduled: ${title}`,
+        message: `A new session "${title}" has been added to the schedule for ${sessionDate}.`,
+        eventKey: `session-new-mentor:${newSession.id}`,
+      }),
+    ]);
+
     return NextResponse.json({ success: true, session: newSession }, { status: 201 });
-  } catch (error: any) {
-    if (error?.message === "FORBIDDEN_TRACK_ACCESS" || error?.message === "FORBIDDEN") {
+  } catch (error: unknown) {
+    const err = error as { message?: string };
+    if (err?.message === "FORBIDDEN_TRACK_ACCESS" || err?.message === "FORBIDDEN") {
       return NextResponse.json({ error: "Forbidden: You are not assigned to this track" }, { status: 403 });
     }
     console.error("POST /api/mentor/sessions error:", error);
     return NextResponse.json({ error: "Failed to create session" }, { status: 500 });
   }
 }
+

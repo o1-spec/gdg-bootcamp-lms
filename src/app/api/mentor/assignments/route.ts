@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser, requireTrackMentorAccess } from "@/lib/auth";
 import { assignmentSchema } from "@/lib/validations/mentor";
+import { notifyTrackStudents } from "@/lib/data/notifications";
+import { NotificationType } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
@@ -39,12 +41,23 @@ export async function POST(request: Request) {
       },
     });
 
+    // Notify all enrolled students about the new assignment
+    await notifyTrackStudents(trackId, {
+      type: NotificationType.ASSIGNMENT_NEW,
+      title: `New Assignment: ${title}`,
+      message: `A new assignment "${title}" has been posted${dueDate ? ` — due ${new Date(dueDate).toLocaleDateString()}` : ""}.`,
+      link: `/assignments`,
+      eventKey: `assignment-new:${newAssignment.id}`,
+    });
+
     return NextResponse.json({ success: true, assignment: newAssignment }, { status: 201 });
-  } catch (error: any) {
-    if (error?.message === "FORBIDDEN_TRACK_ACCESS" || error?.message === "FORBIDDEN") {
+  } catch (error: unknown) {
+    const err = error as { message?: string };
+    if (err?.message === "FORBIDDEN_TRACK_ACCESS" || err?.message === "FORBIDDEN") {
       return NextResponse.json({ error: "Forbidden: You are not assigned to this track" }, { status: 403 });
     }
     console.error("POST /api/mentor/assignments error:", error);
     return NextResponse.json({ error: "Failed to create assignment" }, { status: 500 });
   }
 }
+

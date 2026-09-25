@@ -39,6 +39,9 @@ export interface LibraryResource {
   trackName: string;
   moduleName: string;
   url: string;
+  publicId?: string;
+  originalFileName?: string;
+  mimeType?: string;
   fileSize?: string;
   duration?: string;
   uploadedBy: string;
@@ -266,7 +269,10 @@ export interface AssignmentSubmission {
   githubUrl?: string;
   liveUrl?: string;
   notes?: string;
+  fileUrl?: string;
+  filePublicId?: string;
   fileName?: string;
+  fileSize?: number;
   submittedAt?: string;
   score?: number;
   maxScore?: number;
@@ -381,6 +387,9 @@ export interface Announcement {
 export interface StudentProfile {
   id: string;
   name: string;
+  firstName?: string;
+  lastName?: string;
+  displayName?: string;
   email: string;
   avatar: string;
   cohort: string;
@@ -388,6 +397,54 @@ export interface StudentProfile {
   enrolledTracksCount: number;
   studyStreakDays: number;
   totalHoursSpent: number;
+  bio?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  onboardingCompleted?: boolean;
+}
+
+export interface BootcampInvite {
+  id: string;
+  code: string;
+  bootcampId: string;
+  bootcampName?: string;
+  cohortId?: string | null;
+  cohortName?: string | null;
+  trackId?: string | null;
+  trackName?: string | null;
+  allowTrackSelection: boolean;
+  maxTrackSelections?: number | null;
+  createdById: string;
+  creatorName?: string;
+  expiresAt?: string | null;
+  maxUses?: number | null;
+  useCount: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface InviteValidationResult {
+  valid: boolean;
+  error?: string;
+  invite?: {
+    code: string;
+    bootcampId: string;
+    bootcampName: string;
+    cohortId?: string | null;
+    cohortName?: string | null;
+    trackId?: string | null;
+    trackName?: string | null;
+    trackSlug?: string | null;
+    allowTrackSelection: boolean;
+    maxTrackSelections?: number | null;
+    availableTracks?: {
+      id: string;
+      name: string;
+      slug: string;
+      description?: string | null;
+      accent?: string | null;
+    }[];
+  };
 }
 
 export interface DashboardStats {

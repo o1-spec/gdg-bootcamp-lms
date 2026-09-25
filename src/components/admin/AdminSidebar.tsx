@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   CalendarDays,
   Megaphone,
+  Ticket,
   X,
   ExternalLink,
   LogOut,
@@ -29,6 +30,7 @@ export type AdminNavTab =
   | 'tracks'
   | 'users'
   | 'enrollments'
+  | 'invites'
   | 'mentors'
   | 'sessions'
   | 'announcements';
@@ -110,6 +112,12 @@ export function AdminSidebar({
       label: 'Enrollments',
       icon: UserPlus,
       href: '/admin/enrollments',
+    },
+    {
+      id: 'invites' as AdminNavTab,
+      label: 'Invite Codes',
+      icon: Ticket,
+      href: '/admin/invites',
     },
     {
       id: 'mentors' as AdminNavTab,

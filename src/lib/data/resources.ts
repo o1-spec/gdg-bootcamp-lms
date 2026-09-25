@@ -3,6 +3,7 @@ import { ResourceType } from "@prisma/client";
 import { safeUserSelect } from "@/lib/auth";
 import { LibraryResource, ResourceType as UIResourceType } from "@/types/lms";
 import { mockLibraryResources } from "@/data/resources";
+import { formatFileSize } from "@/lib/cloudinary-constants";
 
 export interface ResourceFilters {
   trackSlug?: string;
@@ -156,7 +157,7 @@ export async function getStudentResources(studentId: string): Promise<LibraryRes
       return mockLibraryResources;
     }
 
-    return resources.map((r) => {
+    return resources.map((r: any) => {
       const track = r.module?.track || r.lesson?.module?.track;
       const modName = r.module?.title || r.lesson?.module?.title || "Curriculum";
 
@@ -169,7 +170,10 @@ export async function getStudentResources(studentId: string): Promise<LibraryRes
         trackName: track?.name || "General Bootcamp",
         moduleName: modName,
         url: r.url,
-        fileSize: "1.5 MB",
+        publicId: r.publicId || undefined,
+        originalFileName: r.originalFileName || undefined,
+        mimeType: r.mimeType || undefined,
+        fileSize: r.fileSize ? formatFileSize(r.fileSize) : undefined,
         uploadedBy: r.uploadedBy ? `${r.uploadedBy.firstName} ${r.uploadedBy.lastName} (${r.uploadedBy.role})` : "Mentor",
         addedAt: "Recently added",
         isRequired: r.isRequired,

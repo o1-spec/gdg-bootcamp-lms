@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { loginSchema } from '@/lib/validations/auth';
 import { ArrowRight, Lock, Mail, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const inviteCode = searchParams.get('code') || '';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
@@ -54,6 +56,10 @@ export default function LoginPage() {
         destination = '/admin/dashboard';
       } else if (userRole === 'MENTOR') {
         destination = '/mentor/dashboard';
+      } else if (inviteCode) {
+        destination = `/onboarding/join?code=${encodeURIComponent(inviteCode)}`;
+      } else if (data.user?.onboardingCompleted === false) {
+        destination = '/onboarding';
       }
       setTimeout(() => {
         router.push(destination);
@@ -192,7 +198,10 @@ export default function LoginPage() {
           <div className="mt-6 pt-6 border-t border-[#E5DFD0] text-center">
             <p className="text-xs font-semibold text-[#5F6368]">
               Don&apos;t have an LMS account yet?{' '}
-              <Link href="/register" className="font-bold text-[#0D0E11] hover:underline">
+              <Link
+                href={inviteCode ? `/register?code=${encodeURIComponent(inviteCode)}` : '/register'}
+                className="font-bold text-[#0D0E11] hover:underline"
+              >
                 Create an account
               </Link>
             </p>
@@ -209,5 +218,19 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-[#FBBC04]" />
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }

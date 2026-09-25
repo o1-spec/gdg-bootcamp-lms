@@ -10,6 +10,10 @@ export default async function Home() {
     redirect("/login");
   }
 
+  if (user.role === "STUDENT" && user.onboardingCompleted === false) {
+    redirect("/onboarding");
+  }
+
   const initialData = await getStudentDashboardData(user);
 
   return <StudentDashboard initialData={initialData} />;

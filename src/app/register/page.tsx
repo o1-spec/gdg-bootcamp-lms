@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { registerFormSchema } from '@/lib/validations/auth';
 import { ArrowRight, Lock, Mail, User, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const inviteCode = searchParams.get('code') || '';
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -69,7 +71,10 @@ export default function RegisterPage() {
 
       setIsSuccess(true);
       setTimeout(() => {
-        router.push('/');
+        const nextUrl = inviteCode
+          ? `/onboarding/profile?code=${encodeURIComponent(inviteCode)}`
+          : '/onboarding/profile';
+        router.push(nextUrl);
         router.refresh();
       }, 1000);
     } catch {
@@ -270,7 +275,10 @@ export default function RegisterPage() {
           <div className="mt-6 pt-6 border-t border-[#E5DFD0] text-center">
             <p className="text-xs font-semibold text-[#5F6368]">
               Already have an account?{' '}
-              <Link href="/login" className="font-bold text-[#0D0E11] hover:underline">
+              <Link
+                href={inviteCode ? `/login?code=${encodeURIComponent(inviteCode)}` : '/login'}
+                className="font-bold text-[#0D0E11] hover:underline"
+              >
                 Sign in here
               </Link>
             </p>
@@ -278,5 +286,19 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-[#FBBC04]" />
+        </div>
+      }
+    >
+      <RegisterForm />
+    </Suspense>
   );
 }

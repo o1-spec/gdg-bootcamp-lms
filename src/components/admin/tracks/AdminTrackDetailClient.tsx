@@ -28,11 +28,17 @@ import {
   X,
   Loader2,
   UserPlus,
+  Upload,
+  Download,
+  FileCode2,
 } from 'lucide-react';
 import { AdminSidebar, AdminUser } from '../AdminSidebar';
 import { AdminHeader } from '../AdminHeader';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { format } from '@/lib/date';
+import { formatFileSize, MAX_FILE_SIZE_MB } from '@/lib/cloudinary-constants';
+import { ConfirmDialog } from '@/components/mentor/ConfirmDialog';
+import { ResourceType } from '@prisma/client';
 
 interface AdminTrackDetailProps {
   track: any;
@@ -118,6 +124,155 @@ export function AdminTrackDetailClient({
       setModuleError(err.message || 'An error occurred.');
     } finally {
       setIsSavingModule(false);
+    }
+  };
+
+  // Resource state
+  const [resourceList, setResourceList] = useState<any[]>(resources);
+  const [isCreateResourceOpen, setIsCreateResourceOpen] = useState(false);
+  const [deletingResource, setDeletingResource] = useState<any | null>(null);
+
+  const [resSourceMode, setResSourceMode] = useState<'upload' | 'link'>('upload');
+  const [resTitle, setResTitle] = useState('');
+  const [resDescription, setResDescription] = useState('');
+  const [resType, setResType] = useState<ResourceType>(ResourceType.PDF);
+  const [resUrl, setResUrl] = useState('');
+  const [resPublicId, setResPublicId] = useState<string | null>(null);
+  const [resFileName, setResFileName] = useState<string | null>(null);
+  const [resFileSize, setResFileSize] = useState<number | null>(null);
+  const [resMimeType, setResMimeType] = useState<string | null>(null);
+  const [resModuleId, setResModuleId] = useState<string>(track.modules?.[0]?.id || '');
+  const [resLessonId, setResLessonId] = useState<string>('');
+  const [resIsRequired, setResIsRequired] = useState(false);
+
+  const [isUploadingRes, setIsUploadingRes] = useState(false);
+  const [resUploadError, setResUploadError] = useState<string | null>(null);
+  const [isSavingRes, setIsSavingRes] = useState(false);
+  const [resFormError, setResFormError] = useState<string | null>(null);
+
+  const openCreateResourceModal = () => {
+    setResSourceMode('upload');
+    setResTitle('');
+    setResDescription('');
+    setResType(ResourceType.PDF);
+    setResUrl('');
+    setResPublicId(null);
+    setResFileName(null);
+    setResFileSize(null);
+    setResMimeType(null);
+    setResModuleId(track.modules?.[0]?.id || '');
+    setResLessonId('');
+    setResIsRequired(false);
+    setResUploadError(null);
+    setResFormError(null);
+    setIsCreateResourceOpen(true);
+  };
+
+  const handleResourceFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingRes(true);
+    setResUploadError(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('trackId', track.id);
+    if (resModuleId) formData.append('moduleId', resModuleId);
+    if (resLessonId) formData.append('lessonId', resLessonId);
+
+    try {
+      const res = await fetch('/api/upload/resource', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to upload resource');
+
+      setResUrl(data.url);
+      setResPublicId(data.publicId);
+      setResFileName(data.originalFileName);
+      setResFileSize(data.fileSize);
+      setResMimeType(data.mimeType);
+
+      if (!resTitle.trim()) {
+        const clean = data.originalFileName.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
+        setResTitle(clean.charAt(0).toUpperCase() + clean.slice(1));
+      }
+
+      if (data.suggestedType) {
+        setResType(data.suggestedType);
+      }
+    } catch (err: any) {
+      setResUploadError(err.message || 'File upload failed');
+    } finally {
+      setIsUploadingRes(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleSaveResource = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isUploadingRes) return;
+    if (!resModuleId) {
+      setResFormError('Please select a module for this resource');
+      return;
+    }
+    if (!resUrl.trim()) {
+      setResFormError('Please upload a file or enter an external URL');
+      return;
+    }
+
+    setIsSavingRes(true);
+    setResFormError(null);
+
+    try {
+      const res = await fetch('/api/mentor/resources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: resTitle,
+          description: resDescription,
+          type: resType,
+          url: resUrl,
+          publicId: resPublicId,
+          originalFileName: resFileName,
+          fileSize: resFileSize,
+          mimeType: resMimeType,
+          moduleId: resModuleId,
+          lessonId: resLessonId || null,
+          isRequired: resIsRequired,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to create resource');
+
+      setResourceList((prev) => [data.resource, ...prev]);
+      setIsCreateResourceOpen(false);
+      router.refresh();
+    } catch (err: any) {
+      setResFormError(err.message || 'Failed to create resource');
+    } finally {
+      setIsSavingRes(false);
+    }
+  };
+
+  const handleDeleteResource = async () => {
+    if (!deletingResource) return;
+    try {
+      const res = await fetch(`/api/mentor/resources/${deletingResource.id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        setResourceList((prev) => prev.filter((r) => r.id !== deletingResource.id));
+      }
+      setDeletingResource(null);
+      router.refresh();
+    } catch (err) {
+      console.error('Delete error:', err);
+      setDeletingResource(null);
     }
   };
 
@@ -422,37 +577,131 @@ export function AdminTrackDetailClient({
           {/* TAB: RESOURCES */}
           {activeTab === 'resources' && (
             <div className="space-y-4">
-              <h3 className="text-base font-bold text-white">Track Resources & Course Materials</h3>
-              {resources.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-base font-bold text-white">Track Resources & Course Materials</h3>
+                  <p className="text-xs text-white/50">
+                    Uploaded Cloudinary assets and external reference materials for this track.
+                  </p>
+                </div>
+                <button
+                  onClick={openCreateResourceModal}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white transition-colors cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5 text-[#34A853]" />
+                  <span>Add Resource</span>
+                </button>
+              </div>
+
+              {resourceList.length === 0 ? (
+                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10 space-y-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-white/40 flex items-center justify-center mx-auto">
+                    <FolderGit2 className="w-6 h-6" />
+                  </div>
                   <p className="text-xs text-white/40">No uploaded resource links or files for this track yet.</p>
+                  <button
+                    onClick={openCreateResourceModal}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-black text-xs font-bold hover:bg-white/90 cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Upload First Resource</span>
+                  </button>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {resources.map((res) => (
-                    <div
-                      key={res.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-4"
-                    >
-                      <div className="space-y-1 min-w-0">
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/10 text-white/60">
-                          {res.type}
-                        </span>
-                        <h4 className="font-bold text-sm text-white truncate">{res.title}</h4>
-                        {res.description && (
-                          <p className="text-xs text-white/50 line-clamp-2">{res.description}</p>
-                        )}
-                      </div>
-                      <a
-                        href={res.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white shrink-0"
+                  {resourceList.map((res) => {
+                    const isCloudinary = Boolean(res.publicId || res.originalFileName);
+                    const moduleName = res.module?.title || track.modules?.find((m: any) => m.id === res.moduleId)?.title;
+                    const lessonName = res.lesson?.title;
+
+                    return (
+                      <div
+                        key={res.id}
+                        className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between gap-4 group hover:border-white/20 transition-all"
                       >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    </div>
-                  ))}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-white/10 text-white/80">
+                                {res.type}
+                              </span>
+                              {isCloudinary && (
+                                <span className="text-[9px] font-bold px-2 py-0.5 rounded-md bg-[#4285F4]/20 text-[#4285F4] border border-[#4285F4]/30">
+                                  CLOUD ASSET
+                                </span>
+                              )}
+                            </div>
+                            {res.isRequired && (
+                              <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30">
+                                REQUIRED
+                              </span>
+                            )}
+                          </div>
+
+                          <h4 className="font-bold text-sm text-white group-hover:text-[#4285F4] transition-colors">
+                            {res.title}
+                          </h4>
+
+                          {res.description && (
+                            <p className="text-xs text-white/50 line-clamp-2 leading-relaxed">
+                              {res.description}
+                            </p>
+                          )}
+
+                          {isCloudinary && res.originalFileName && (
+                            <div className="flex items-center gap-2 text-[11px] text-white/60 bg-white/[0.02] px-3 py-1.5 rounded-xl border border-white/5">
+                              <FileCode2 className="w-3.5 h-3.5 text-[#34A853]" />
+                              <span className="font-medium text-white/80 truncate">
+                                {res.originalFileName}
+                              </span>
+                              {res.fileSize && (
+                                <span className="text-[10px] text-white/40 shrink-0">
+                                  ({formatFileSize(res.fileSize)})
+                                </span>
+                              )}
+                            </div>
+                          )}
+
+                          <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-white/40">
+                            {moduleName && <span>Module: {moduleName}</span>}
+                            {lessonName && <span>• Lesson: {lessonName}</span>}
+                            {res.uploadedBy && (
+                              <span>• Added by: {res.uploadedBy.firstName || 'Staff'}</span>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                          <a
+                            href={res.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4285F4] hover:underline"
+                          >
+                            {isCloudinary ? (
+                              <>
+                                <Download className="w-3.5 h-3.5" />
+                                <span>Download / View</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>Open Link</span>
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </>
+                            )}
+                          </a>
+
+                          <button
+                            onClick={() => setDeletingResource(res)}
+                            className="p-1.5 rounded-xl hover:bg-[#EA4335]/20 text-white/40 hover:text-[#EA4335] transition-colors cursor-pointer"
+                            title="Delete Resource"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -748,6 +997,251 @@ export function AdminTrackDetailClient({
           </div>
         </div>
       )}
+
+      {/* CREATE RESOURCE MODAL */}
+      {isCreateResourceOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
+          <div className="w-full max-w-lg rounded-3xl bg-[#14151B] border border-white/10 p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto text-white">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#4285F4]">
+                  Track Curriculum
+                </span>
+                <h3 className="text-xl font-black text-white">
+                  Add Track Resource
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsCreateResourceOpen(false)}
+                className="p-2 rounded-xl hover:bg-white/10 text-white/50 hover:text-white cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {resFormError && (
+              <div className="p-3.5 rounded-2xl bg-[#EA4335]/15 border border-[#EA4335]/30 text-xs font-bold text-[#EA4335] flex items-center gap-2">
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                <span>{resFormError}</span>
+              </div>
+            )}
+
+            {/* Toggle Mode */}
+            <div className="grid grid-cols-2 p-1 rounded-2xl bg-white/5 border border-white/10">
+              <button
+                type="button"
+                onClick={() => setResSourceMode('upload')}
+                className={`flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  resSourceMode === 'upload' ? 'bg-white/15 text-white' : 'text-white/50 hover:text-white'
+                }`}
+              >
+                <Upload className="h-3.5 w-3.5 text-[#34A853]" />
+                <span>Upload File</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setResSourceMode('link')}
+                className={`flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  resSourceMode === 'link' ? 'bg-white/15 text-white' : 'text-white/50 hover:text-white'
+                }`}
+              >
+                <ExternalLink className="h-3.5 w-3.5 text-[#4285F4]" />
+                <span>External Link</span>
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveResource} className="space-y-4">
+              {resSourceMode === 'upload' && (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-white/80 flex items-center justify-between">
+                    <span>File Asset</span>
+                    <span className="text-[10px] text-white/40">MAX {MAX_FILE_SIZE_MB}MB</span>
+                  </label>
+
+                  {resFileName ? (
+                    <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <FileCode2 className="h-4 w-4 text-[#34A853]" />
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-white truncate">{resFileName}</p>
+                          {resFileSize && (
+                            <p className="text-[10px] text-white/40">{formatFileSize(resFileSize)}</p>
+                          )}
+                        </div>
+                      </div>
+                      <label className="text-[11px] font-bold text-[#4285F4] hover:underline cursor-pointer ml-3 shrink-0">
+                        Replace
+                        <input
+                          type="file"
+                          className="hidden"
+                          onChange={handleResourceFileUpload}
+                          disabled={isUploadingRes}
+                        />
+                      </label>
+                    </div>
+                  ) : (
+                    <div>
+                      <label
+                        className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${
+                          isUploadingRes
+                            ? 'border-[#4285F4] bg-[#4285F4]/10 pointer-events-none'
+                            : 'border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/30'
+                        }`}
+                      >
+                        {isUploadingRes ? (
+                          <div className="flex flex-col items-center py-2">
+                            <Loader2 className="h-6 w-6 text-[#4285F4] animate-spin mb-2" />
+                            <span className="text-xs font-bold text-white">Uploading to Cloudinary...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="h-6 w-6 text-white/40 mb-1.5" />
+                            <span className="text-xs font-bold text-white">Choose file or drag & drop</span>
+                            <span className="text-[10px] text-white/40 mt-0.5">
+                              PDF, ZIP, Slides, Docs, Images up to {MAX_FILE_SIZE_MB}MB
+                            </span>
+                            <input
+                              type="file"
+                              className="hidden"
+                              onChange={handleResourceFileUpload}
+                              disabled={isUploadingRes}
+                            />
+                          </>
+                        )}
+                      </label>
+                      {resUploadError && (
+                        <p className="text-[11px] text-[#EA4335] font-bold mt-1.5">{resUploadError}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div>
+                <label className="text-xs font-bold text-white/80 block mb-1">Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={resTitle}
+                  onChange={(e) => setResTitle(e.target.value)}
+                  placeholder="e.g. Architecture Blueprint & Schema Guide"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                />
+              </div>
+
+              {resSourceMode === 'link' && (
+                <div>
+                  <label className="text-xs font-bold text-white/80 block mb-1">Resource URL *</label>
+                  <input
+                    type="url"
+                    required
+                    value={resUrl}
+                    onChange={(e) => setResUrl(e.target.value)}
+                    placeholder="https://..."
+                    className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#4285F4]"
+                  />
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-bold text-white/80 block mb-1">Module *</label>
+                  <select
+                    value={resModuleId}
+                    onChange={(e) => {
+                      setResModuleId(e.target.value);
+                      setResLessonId('');
+                    }}
+                    required
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#1D1F27] border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  >
+                    {track.modules?.map((m: any) => (
+                      <option key={m.id} value={m.id}>
+                        {m.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-white/80 block mb-1">Type *</label>
+                  <select
+                    value={resType}
+                    onChange={(e) => setResType(e.target.value as ResourceType)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#1D1F27] border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  >
+                    <option value={ResourceType.PDF}>PDF Document</option>
+                    <option value={ResourceType.DOCUMENT}>Document</option>
+                    <option value={ResourceType.SLIDE}>Slide Deck</option>
+                    <option value={ResourceType.CODE}>Source Code</option>
+                    <option value={ResourceType.GITHUB}>GitHub</option>
+                    <option value={ResourceType.FIGMA}>Figma</option>
+                    <option value={ResourceType.DATASET}>Dataset</option>
+                    <option value={ResourceType.CHEATSHEET}>Cheatsheet</option>
+                    <option value={ResourceType.VIDEO}>Video</option>
+                    <option value={ResourceType.LINK}>External Link</option>
+                    <option value={ResourceType.OTHER}>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-white/80 block mb-1">Description</label>
+                <textarea
+                  rows={2}
+                  value={resDescription}
+                  onChange={(e) => setResDescription(e.target.value)}
+                  placeholder="How students should utilize this material..."
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4] resize-none"
+                />
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/10">
+                <input
+                  type="checkbox"
+                  id="adminReqCheckbox"
+                  checked={resIsRequired}
+                  onChange={(e) => setResIsRequired(e.target.checked)}
+                  className="rounded text-[#4285F4] cursor-pointer"
+                />
+                <label htmlFor="adminReqCheckbox" className="text-xs font-bold text-white cursor-pointer">
+                  Mark as Required Track Material
+                </label>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() => setIsCreateResourceOpen(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-white/60 hover:text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingRes || isUploadingRes}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#4285F4] hover:bg-[#4285F4]/90 text-xs font-bold text-white disabled:opacity-50"
+                >
+                  {isSavingRes && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  <span>Publish Resource</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* CONFIRM DELETE RESOURCE MODAL */}
+      <ConfirmDialog
+        isOpen={Boolean(deletingResource)}
+        title="Remove Track Resource"
+        description={`Are you sure you want to remove "${deletingResource?.title}"? If this is an uploaded Cloudinary asset, the file will be safely deleted from storage.`}
+        confirmText="Delete Resource"
+        cancelText="Cancel"
+        isDestructive={true}
+        onConfirm={handleDeleteResource}
+        onCancel={() => setDeletingResource(null)}
+      />
     </div>
   );
 }

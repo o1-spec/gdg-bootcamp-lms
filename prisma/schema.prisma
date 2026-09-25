@@ -1,6 +1,7 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -63,16 +64,33 @@ enum AnnouncementPriority {
   REMINDER
 }
 
+enum NotificationType {
+  ASSIGNMENT_NEW
+  ASSIGNMENT_GRADED
+  SUBMISSION_RECEIVED
+  SESSION_NEW
+  SESSION_REMINDER
+  RESOURCE_NEW
+  ANNOUNCEMENT_NEW
+  ENROLLMENT_CONFIRMED
+  GENERAL
+}
+
 model User {
-  id           String   @id @default(cuid())
-  firstName    String
-  lastName     String
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(STUDENT)
-  avatarUrl    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  firstName           String
+  lastName            String
+  displayName         String?
+  email               String   @unique
+  passwordHash        String
+  role                Role     @default(STUDENT)
+  avatarUrl           String?
+  bio                 String?  @db.Text
+  githubUrl           String?
+  linkedinUrl         String?
+  onboardingCompleted Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
   enrollments        Enrollment[]
   mentorAssignments  MentorAssignment[]
@@ -84,6 +102,8 @@ model User {
   lessonProgress     LessonProgress[]
   uploadedResources  Resource[]         @relation("ResourceUploader")
   mentorSessions     Session[]          @relation("MentorSessions")
+  createdInvites     Invite[]           @relation("InviteCreator")
+  notifications      Notification[]
 }
 
 model Bootcamp {
@@ -97,6 +117,7 @@ model Bootcamp {
   updatedAt   DateTime  @updatedAt
 
   cohorts Cohort[]
+  invites Invite[]
 }
 
 model Cohort {
@@ -110,7 +131,8 @@ model Cohort {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
-  tracks Track[]
+  tracks  Track[]
+  invites Invite[]
 }
 
 model Track {
@@ -130,6 +152,28 @@ model Track {
   assignments       Assignment[]
   sessions          Session[]
   announcements     Announcement[]
+  invites           Invite[]
+}
+
+model Invite {
+  id                  String    @id @default(cuid())
+  code                String    @unique
+  bootcampId          String
+  bootcamp            Bootcamp  @relation(fields: [bootcampId], references: [id], onDelete: Cascade)
+  cohortId            String?
+  cohort              Cohort?   @relation(fields: [cohortId], references: [id], onDelete: SetNull)
+  trackId             String?
+  track               Track?    @relation(fields: [trackId], references: [id], onDelete: SetNull)
+  allowTrackSelection Boolean   @default(false)
+  maxTrackSelections  Int?      @default(1)
+  createdById         String
+  createdBy           User      @relation("InviteCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  expiresAt           DateTime?
+  maxUses             Int?
+  useCount            Int       @default(0)
+  isActive            Boolean   @default(true)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 }
 
 model Enrollment {
@@ -190,21 +234,24 @@ model Lesson {
 }
 
 model Resource {
-  id           String       @id @default(cuid())
-  title        String
-  description  String?      @db.Text
-  type         ResourceType
-  url          String
-  publicId     String?
-  lessonId     String?
-  lesson       Lesson?      @relation(fields: [lessonId], references: [id], onDelete: SetNull)
-  moduleId     String?
-  module       Module?      @relation(fields: [moduleId], references: [id], onDelete: SetNull)
-  uploadedById String
-  uploadedBy   User         @relation("ResourceUploader", fields: [uploadedById], references: [id])
-  isRequired   Boolean      @default(false)
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id               String       @id @default(cuid())
+  title            String
+  description      String?      @db.Text
+  type             ResourceType
+  url              String
+  publicId         String?
+  originalFileName String?
+  fileSize         Int?
+  mimeType         String?
+  lessonId         String?
+  lesson           Lesson?      @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+  moduleId         String?
+  module           Module?      @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  uploadedById     String
+  uploadedBy       User         @relation("ResourceUploader", fields: [uploadedById], references: [id])
+  isRequired       Boolean      @default(false)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 }
 
 model Assignment {
@@ -236,6 +283,9 @@ model Submission {
   githubUrl    String?
   liveUrl      String?
   fileUrl      String?
+  filePublicId String?
+  fileName     String?
+  fileSize     Int?
   notes        String?          @db.Text
   status       SubmissionStatus @default(DRAFT)
   score        Int?
@@ -307,4 +357,21 @@ model LessonProgress {
   updatedAt   DateTime  @updatedAt
 
   @@unique([lessonId, studentId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  title     String
+  message   String           @db.Text
+  link      String?
+  readAt    DateTime?
+  eventKey  String?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, readAt])
+  @@index([userId, createdAt])
+  @@unique([userId, eventKey])
 }

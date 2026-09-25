@@ -11,6 +11,7 @@ import {
   BookOpen,
   FolderGit2,
   Sparkles,
+  Ticket,
 } from 'lucide-react';
 import { DashboardSidebar, DashboardNavTab } from './DashboardSidebar';
 import { DashboardHeader } from './DashboardHeader';
@@ -306,15 +307,46 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {enrolledTracks.map((track) => (
-                <TrackCard
-                  key={track.id}
-                  track={track}
-                  onResumeLesson={handleResumeLesson}
-                />
-              ))}
-            </div>
+            {enrolledTracks.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {enrolledTracks.map((track) => (
+                  <TrackCard
+                    key={track.id}
+                    track={track}
+                    onResumeLesson={handleResumeLesson}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-8 sm:p-12 text-center space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-2xl bg-[#4285F4]/10 text-[#4285F4] border border-[#4285F4]/20 flex items-center justify-center mx-auto">
+                  <Ticket className="w-7 h-7" />
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-xl font-black text-[#0D0E11]">
+                    You haven&apos;t joined a bootcamp track yet.
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#5F6368] max-w-md mx-auto">
+                    Use an invite code provided by your organizers or contact an admin to unlock your track curriculum and lessons.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                  <Link
+                    href="/onboarding/join"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all"
+                  >
+                    <Ticket className="w-4 h-4 text-[#FBBC04]" />
+                    <span>Enter Invite Code</span>
+                  </Link>
+                  <a
+                    href="mailto:lead@gdglasu.org"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#FAF7EE] hover:bg-[#E5DFD0] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] transition-all"
+                  >
+                    <span>Contact Admin</span>
+                  </a>
+                </div>
+              </div>
+            )}
           </section>
 
           {/* 4. Two-Column Layout: Left (Assignments & Resources), Right (Schedule & Announcements) */}

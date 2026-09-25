@@ -17,6 +17,7 @@ import {
   Database,
   FileSpreadsheet,
   Code2,
+  FileCode2,
 } from 'lucide-react';
 import { LibraryResource, ResourceType } from '@/types/lms';
 import { cn } from '@/lib/utils';
@@ -49,30 +50,86 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
     switch (type) {
       case 'pdf':
       case 'document':
-        return { icon: FileText, label: 'Document / PDF Guide', color: 'text-[#EA4335]', bg: 'bg-[#EA4335]/12 border-[#EA4335]/25' };
+        return {
+          icon: FileText,
+          label: 'Document / PDF Guide',
+          color: 'text-[#EA4335]',
+          bg: 'bg-[#EA4335]/12 border-[#EA4335]/25',
+        };
       case 'video':
-        return { icon: Video, label: 'Recorded Video Session', color: 'text-[#4285F4]', bg: 'bg-[#4285F4]/12 border-[#4285F4]/25' };
+        return {
+          icon: Video,
+          label: 'Recorded Video Session',
+          color: 'text-[#4285F4]',
+          bg: 'bg-[#4285F4]/12 border-[#4285F4]/25',
+        };
       case 'slides':
-        return { icon: Presentation, label: 'Presentation Slides', color: 'text-[#FBBC04]', bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30' };
+        return {
+          icon: Presentation,
+          label: 'Presentation Slides',
+          color: 'text-[#FBBC04]',
+          bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30',
+        };
       case 'github':
       case 'code':
-        return { icon: GitBranch, label: 'GitHub Repository & Code', color: 'text-[#0D0E11]', bg: 'bg-[#0D0E11]/10 border-[#0D0E11]/20' };
+        return {
+          icon: GitBranch,
+          label: 'GitHub Repository & Code',
+          color: 'text-[#0D0E11]',
+          bg: 'bg-[#0D0E11]/10 border-[#0D0E11]/20',
+        };
       case 'figma':
-        return { icon: Palette, label: 'Figma Design System / Prototype', color: 'text-[#FBBC04]', bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30' };
+        return {
+          icon: Palette,
+          label: 'Figma Design System / Prototype',
+          color: 'text-[#FBBC04]',
+          bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30',
+        };
       case 'dataset':
-        return { icon: Database, label: 'Raw Data & Analysis Set', color: 'text-[#4285F4]', bg: 'bg-[#4285F4]/12 border-[#4285F4]/25' };
+        return {
+          icon: Database,
+          label: 'Raw Data & Analysis Set',
+          color: 'text-[#4285F4]',
+          bg: 'bg-[#4285F4]/12 border-[#4285F4]/25',
+        };
       case 'cheatsheet':
-        return { icon: FileSpreadsheet, label: 'Developer Quick Cheatsheet', color: 'text-[#EA4335]', bg: 'bg-[#EA4335]/12 border-[#EA4335]/25' };
+        return {
+          icon: FileSpreadsheet,
+          label: 'Developer Quick Cheatsheet',
+          color: 'text-[#EA4335]',
+          bg: 'bg-[#EA4335]/12 border-[#EA4335]/25',
+        };
       case 'practice':
       case 'exercise':
-        return { icon: Code2, label: 'Hands-on Practice & Exercises', color: 'text-[#34A853]', bg: 'bg-[#34A853]/15 border-[#34A853]/30' };
+        return {
+          icon: Code2,
+          label: 'Hands-on Practice & Exercises',
+          color: 'text-[#34A853]',
+          bg: 'bg-[#34A853]/15 border-[#34A853]/30',
+        };
       default:
-        return { icon: ExternalLink, label: 'Web Documentation', color: 'text-[#34A853]', bg: 'bg-[#34A853]/15 border-[#34A853]/30' };
+        return {
+          icon: ExternalLink,
+          label: 'Web Documentation',
+          color: 'text-[#34A853]',
+          bg: 'bg-[#34A853]/15 border-[#34A853]/30',
+        };
     }
   };
 
   const meta = getResourceMeta(resource.type);
   const IconComp = meta.icon;
+
+  const isPdf =
+    resource.type === 'pdf' ||
+    resource.originalFileName?.toLowerCase().endsWith('.pdf') ||
+    resource.url.toLowerCase().includes('.pdf');
+
+  const isImage =
+    resource.mimeType?.startsWith('image/') ||
+    /\.(png|jpg|jpeg|webp|gif|svg)$/i.test(resource.originalFileName || resource.url);
+
+  const isCloudinary = Boolean(resource.publicId || resource.originalFileName);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
@@ -83,7 +140,7 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
         {/* Top colored accent line */}
         <div
           className="absolute top-0 left-8 right-8 h-1.5 rounded-b-full"
@@ -112,6 +169,12 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
             <IconComp className="h-3.5 w-3.5" />
             <span>{meta.label}</span>
           </div>
+
+          {isCloudinary && (
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#4285F4]/10 text-[#4285F4] border border-[#4285F4]/20">
+              CLOUDINARY ASSET
+            </span>
+          )}
 
           {resource.isRequired ? (
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30">
@@ -145,6 +208,28 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
         <p className="mt-3 text-sm sm:text-base text-[#5F6368] leading-relaxed">
           {resource.description}
         </p>
+
+        {/* Image Preview if image asset */}
+        {isImage && resource.url && (
+          <div className="mt-5 rounded-2xl overflow-hidden border border-[#E5DFD0] bg-white p-2">
+            <div className="relative w-full h-48 sm:h-64 rounded-xl overflow-hidden bg-[#FAF7EE] flex items-center justify-center">
+              <img
+                src={resource.url}
+                alt={resource.title}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Attached filename if Cloudinary upload */}
+        {resource.originalFileName && (
+          <div className="mt-4 flex items-center gap-2 text-xs text-[#0D0E11] bg-white px-4 py-2.5 rounded-2xl border border-[#E5DFD0]">
+            <FileCode2 className="h-4 w-4 text-[#34A853]" />
+            <span className="font-bold">Original Asset:</span>
+            <span className="font-mono text-[#5F6368]">{resource.originalFileName}</span>
+          </div>
+        )}
 
         {/* Metadata Grid */}
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-white border border-[#E5DFD0]">
@@ -207,34 +292,61 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
             Dismiss
           </button>
 
-          <a
-            href={resource.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md"
-          >
-            {resource.type === 'pdf' || resource.type === 'document' || resource.type === 'cheatsheet' ? (
-              <>
-                <Download className="h-4 w-4 text-[#FBBC04]" />
-                <span>Download Document</span>
-              </>
-            ) : resource.type === 'github' || resource.type === 'code' ? (
-              <>
-                <GitBranch className="h-4 w-4 text-[#34A853]" />
-                <span>Inspect Repository</span>
-              </>
-            ) : resource.type === 'video' ? (
-              <>
-                <Video className="h-4 w-4 text-[#4285F4]" />
-                <span>Watch Video Session</span>
-              </>
-            ) : (
-              <>
+          {/* For PDF resources: provide both Open in new tab AND direct download */}
+          {isPdf ? (
+            <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+              <a
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-[#0D0E11] text-[#0D0E11] text-xs font-black hover:bg-white transition-all cursor-pointer"
+              >
                 <ExternalLink className="h-4 w-4 text-[#4285F4]" />
-                <span>Open Resource</span>
-              </>
-            )}
-          </a>
+                <span>Open in Tab</span>
+              </a>
+
+              <a
+                href={resource.url}
+                download={resource.originalFileName || `${resource.title}.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md"
+              >
+                <Download className="h-4 w-4 text-[#FBBC04]" />
+                <span>Download PDF</span>
+              </a>
+            </div>
+          ) : (
+            <a
+              href={resource.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              download={resource.originalFileName}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md"
+            >
+              {isCloudinary ? (
+                <>
+                  <Download className="h-4 w-4 text-[#FBBC04]" />
+                  <span>Download File</span>
+                </>
+              ) : resource.type === 'github' || resource.type === 'code' ? (
+                <>
+                  <GitBranch className="h-4 w-4 text-[#34A853]" />
+                  <span>Inspect Repository</span>
+                </>
+              ) : resource.type === 'video' ? (
+                <>
+                  <Video className="h-4 w-4 text-[#4285F4]" />
+                  <span>Watch Video Session</span>
+                </>
+              ) : (
+                <>
+                  <ExternalLink className="h-4 w-4 text-[#4285F4]" />
+                  <span>Open Resource</span>
+                </>
+              )}
+            </a>
+          )}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { PrismaClient, Role, ResourceType, AssignmentType, SessionMode, AnnouncementPriority, SubmissionStatus, AttendanceStatus } from "@prisma/client";
+import { PrismaClient, Role, ResourceType, AssignmentType, SessionMode, AnnouncementPriority, SubmissionStatus, AttendanceStatus, NotificationType } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -7,6 +7,7 @@ async function main() {
   console.log("🌱 Starting database seeding...");
 
   // Clean existing data in reverse dependency order
+  await prisma.notification.deleteMany();
   await prisma.attendance.deleteMany();
   await prisma.submission.deleteMany();
   await prisma.lessonProgress.deleteMany();
@@ -18,6 +19,7 @@ async function main() {
   await prisma.module.deleteMany();
   await prisma.mentorAssignment.deleteMany();
   await prisma.enrollment.deleteMany();
+  await prisma.invite.deleteMany();
   await prisma.track.deleteMany();
   await prisma.cohort.deleteMany();
   await prisma.bootcamp.deleteMany();
@@ -37,6 +39,7 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256",
+      onboardingCompleted: true,
     },
   });
 
@@ -48,6 +51,7 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=256",
+      onboardingCompleted: true,
     },
   });
 
@@ -59,6 +63,7 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=256",
+      onboardingCompleted: true,
     },
   });
 
@@ -70,6 +75,7 @@ async function main() {
       passwordHash: defaultPasswordHash,
       role: Role.STUDENT,
       avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=256",
+      onboardingCompleted: true,
     },
   });
 
@@ -524,6 +530,64 @@ async function main() {
       completedAt: new Date(),
     },
   });
+
+  // 12. Seed sample In-App Notifications for student1
+  await prisma.notification.createMany({
+    data: [
+      {
+        userId: student1.id,
+        type: NotificationType.ENROLLMENT_CONFIRMED,
+        title: "Enrollment Confirmed!",
+        message: "Welcome aboard! You have officially been enrolled in the Backend Engineering track.",
+        link: "/",
+        eventKey: `enrollment:${student1.id}:seed`,
+        readAt: new Date(Date.now() - 86400000 * 2),
+        createdAt: new Date(Date.now() - 86400000 * 2),
+      },
+      {
+        userId: student1.id,
+        type: NotificationType.ANNOUNCEMENT_NEW,
+        title: "Welcome to GDG LASU Bootcamp 2026!",
+        message: "Orientation begins this Saturday at 10:00 AM. Please verify your track enrollment.",
+        link: "/announcements",
+        eventKey: `announcement:welcome:${student1.id}`,
+        readAt: new Date(Date.now() - 86400000),
+        createdAt: new Date(Date.now() - 86400000),
+      },
+      {
+        userId: student1.id,
+        type: NotificationType.ASSIGNMENT_NEW,
+        title: "New Assignment: Build a REST API with Express & Zod",
+        message: "A new assignment has been posted for the Backend track — due next Sunday.",
+        link: "/assignments",
+        eventKey: `assignment-new:asgn-1:${student1.id}`,
+        readAt: null, // unread
+        createdAt: new Date(Date.now() - 3600000 * 4),
+      },
+      {
+        userId: student1.id,
+        type: NotificationType.SESSION_NEW,
+        title: "Live Session: Node.js Architecture & Express Deep Dive",
+        message: "A live virtual session is scheduled for Saturday at 11:00 AM.",
+        link: "/schedule",
+        eventKey: `session-new:sess-1:${student1.id}`,
+        readAt: null, // unread
+        createdAt: new Date(Date.now() - 3600000 * 2),
+      },
+      {
+        userId: student1.id,
+        type: NotificationType.RESOURCE_NEW,
+        title: "New Resource: Express & TypeScript Boilerplate",
+        message: "A starter GitHub repository has been added to the Backend track resources.",
+        link: "/resources",
+        eventKey: `resource-new:res-1:${student1.id}`,
+        readAt: null, // unread
+        createdAt: new Date(Date.now() - 1800000),
+      },
+    ],
+  });
+
+  console.log("🔔 Seeded Notifications");
 
   console.log("✅ Seed completed successfully!");
 }

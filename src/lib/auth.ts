@@ -19,9 +19,14 @@ export interface SafeUser {
   id: string;
   firstName: string;
   lastName: string;
+  displayName: string | null;
   email: string;
   role: Role;
   avatarUrl: string | null;
+  bio: string | null;
+  githubUrl: string | null;
+  linkedinUrl: string | null;
+  onboardingCompleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -30,9 +35,14 @@ export const safeUserSelect = {
   id: true,
   firstName: true,
   lastName: true,
+  displayName: true,
   email: true,
   role: true,
   avatarUrl: true,
+  bio: true,
+  githubUrl: true,
+  linkedinUrl: true,
+  onboardingCompleted: true,
   createdAt: true,
   updatedAt: true,
 } as const;
@@ -50,12 +60,27 @@ export function formatUserRole(role: string): "Student" | "Mentor/Tutor" | "Admi
  * Construct strongly-typed StudentProfile from SafeUser
  */
 export function buildStudentProfile(
-  user: { id: string; firstName: string; lastName: string; email: string; avatarUrl?: string | null; role: string },
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    displayName?: string | null;
+    email: string;
+    avatarUrl?: string | null;
+    role: string;
+    bio?: string | null;
+    githubUrl?: string | null;
+    linkedinUrl?: string | null;
+    onboardingCompleted?: boolean;
+  },
   enrolledTracksCount: number = 0
 ): StudentProfile {
   return {
     id: user.id,
-    name: `${user.firstName} ${user.lastName}`,
+    name: user.displayName || `${user.firstName} ${user.lastName}`,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    displayName: user.displayName || undefined,
     email: user.email,
     avatar:
       user.avatarUrl ||
@@ -65,6 +90,10 @@ export function buildStudentProfile(
     enrolledTracksCount,
     studyStreakDays: 14,
     totalHoursSpent: 128,
+    bio: user.bio || undefined,
+    githubUrl: user.githubUrl || undefined,
+    linkedinUrl: user.linkedinUrl || undefined,
+    onboardingCompleted: user.onboardingCompleted ?? true,
   };
 }
 
@@ -161,9 +190,14 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         id: payload.userId || "user-mentor-1",
         firstName: "Femi",
         lastName: "Oladipo",
+        displayName: "Femi Oladipo",
         email: payload.email || "mentor@gdglasu.dev",
         role: Role.MENTOR,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        bio: "Senior Cloud & Distributed Systems Engineer, Mentor at GDG LASU",
+        githubUrl: "https://github.com",
+        linkedinUrl: "https://linkedin.com",
+        onboardingCompleted: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -174,9 +208,14 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         id: payload.userId || "user-mentor-2",
         firstName: "Blessing",
         lastName: "Okoro",
+        displayName: "Blessing Okoro",
         email: payload.email || "blessing@gdglasu.dev",
         role: Role.MENTOR,
         avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+        bio: "Frontend Lead & Design System Advocate",
+        githubUrl: "https://github.com",
+        linkedinUrl: "https://linkedin.com",
+        onboardingCompleted: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -187,9 +226,14 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         id: payload.userId || "user-admin-1",
         firstName: "Chioma",
         lastName: "Okonkwo",
+        displayName: "Chioma Okonkwo",
         email: payload.email || "admin@gdglasu.dev",
         role: Role.ADMIN,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        bio: "Community Lead & Bootcamp Administrator",
+        githubUrl: "https://github.com",
+        linkedinUrl: "https://linkedin.com",
+        onboardingCompleted: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -200,9 +244,14 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         id: payload.userId || "user-superadmin-1",
         firstName: "Damilola",
         lastName: "Ade",
+        displayName: "Damilola Ade",
         email: payload.email || "superadmin@gdglasu.dev",
         role: Role.SUPER_ADMIN,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        bio: "Lead Organizer, GDG on Campus LASU",
+        githubUrl: "https://github.com",
+        linkedinUrl: "https://linkedin.com",
+        onboardingCompleted: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -213,9 +262,14 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         id: payload.userId || "user-student-1",
         firstName: "Alex",
         lastName: "Johnson",
+        displayName: "Alex Johnson",
         email: payload.email || "student@gdglasu.dev",
         role: Role.STUDENT,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        bio: "Passionate CS undergraduate eager to build scalable web applications",
+        githubUrl: "https://github.com",
+        linkedinUrl: "https://linkedin.com",
+        onboardingCompleted: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
