@@ -11,9 +11,9 @@ import {
 export const mockStudentProfile: StudentProfile = {
   id: 'std_9082',
   name: 'Alex Rivera',
-  email: 'alex.rivera@bootcamp.dev',
+  email: 'alex.rivera@lasu.edu.ng',
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-  cohort: 'Cohort 2026-Alpha',
+  cohort: 'Bootcamp 3.0 (Alpha Cohort)',
   role: 'Student',
   enrolledTracksCount: 3,
   studyStreakDays: 14,
@@ -34,12 +34,12 @@ export const mockTracks: Track[] = [
     id: 'track-backend',
     name: 'Backend Development',
     slug: 'backend-development',
-    description: 'Master Node.js, NestJS, PostgreSQL, Prisma, Redis concepts, API design, and distributed systems.',
-    cohort: 'Cohort 2026-Alpha',
+    description: 'Master Node.js, NestJS, PostgreSQL, Prisma, System Design, and Cloudflare/GCP deployment.',
+    cohort: 'Bootcamp 3.0',
     instructors: [
       {
         name: 'Sarah Chen',
-        title: 'Lead Backend Architect at Stripe',
+        title: 'Lead Backend Mentor • GDG LASU',
         avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80',
       },
     ],
@@ -53,21 +53,21 @@ export const mockTracks: Track[] = [
       durationMinutes: 45,
     },
     colorTheme: {
-      badge: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
-      border: 'border-emerald-500/30',
-      accent: 'emerald',
+      badge: 'bg-[#4285F4]/10 text-[#4285F4] border-[#4285F4]/30',
+      border: 'border-[#4285F4]',
+      accent: '#4285F4', // Google Blue
     },
   },
   {
     id: 'track-frontend',
     name: 'Frontend Development',
     slug: 'frontend-development',
-    description: 'Modern Next.js 16, React 19, TypeScript, Tailwind CSS, State Management, and Design Systems.',
-    cohort: 'Cohort 2026-Alpha',
+    description: 'Next.js 16, React 19, TypeScript, Tailwind CSS, Accessibility, Design Systems, and Web Vitals.',
+    cohort: 'Bootcamp 3.0',
     instructors: [
       {
         name: 'Maya Lin',
-        title: 'Staff Frontend Engineer at Vercel',
+        title: 'Staff UI Mentor • GDG LASU',
         avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&auto=format&fit=crop&q=80',
       },
     ],
@@ -81,21 +81,21 @@ export const mockTracks: Track[] = [
       durationMinutes: 38,
     },
     colorTheme: {
-      badge: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20',
-      border: 'border-blue-500/30',
-      accent: 'blue',
+      badge: 'bg-[#34A853]/10 text-[#34A853] border-[#34A853]/30',
+      border: 'border-[#34A853]',
+      accent: '#34A853', // Google Green
     },
   },
   {
     id: 'track-dsa',
     name: 'DSA / Interview Preparation',
     slug: 'dsa-interview-prep',
-    description: 'Rigorous data structures, algorithm problem-solving patterns, system design, and behavioral coaching.',
-    cohort: 'Cohort 2026-Alpha',
+    description: 'Rigorous data structures, algorithm problem-solving patterns, system design, and mock interviews.',
+    cohort: 'Bootcamp 3.0',
     instructors: [
       {
         name: 'David Kalu',
-        title: 'Ex-Google Staff Algorithm Specialist',
+        title: 'Algorithms Specialist • GDG LASU',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
       },
     ],
@@ -109,9 +109,9 @@ export const mockTracks: Track[] = [
       durationMinutes: 50,
     },
     colorTheme: {
-      badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
-      border: 'border-amber-500/30',
-      accent: 'amber',
+      badge: 'bg-[#EA4335]/10 text-[#EA4335] border-[#EA4335]/30',
+      border: 'border-[#EA4335]',
+      accent: '#EA4335', // Google Red
     },
   },
 ];
@@ -126,11 +126,11 @@ export const mockUpcomingClasses: UpcomingClass[] = [
       role: 'Lead Backend Mentor',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80',
     },
-    dateTime: 'Today, 6:00 PM EST',
+    dateTime: 'Today, 6:00 PM WAT',
     duration: '90 min',
     isLiveNow: true,
-    meetUrl: 'https://meet.google.com/demo-bootcamp',
-    attendeesCount: 28,
+    meetUrl: 'https://meet.google.com/gdg-lasu-live',
+    attendeesCount: 42,
   },
   {
     id: 'class-2',
@@ -141,26 +141,26 @@ export const mockUpcomingClasses: UpcomingClass[] = [
       role: 'Algorithms Specialist',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
     },
-    dateTime: 'Tomorrow, 4:30 PM EST',
+    dateTime: 'Tomorrow, 4:30 PM WAT',
     duration: '75 min',
     isLiveNow: false,
-    meetUrl: 'https://meet.google.com/demo-bootcamp',
-    attendeesCount: 34,
+    meetUrl: 'https://meet.google.com/gdg-lasu-live',
+    attendeesCount: 38,
   },
   {
     id: 'class-3',
-    title: 'Building Resilient UI Components with React 19 & Tailwind CSS v4',
+    title: 'Building Resilient UI Components with React 19 & Tailwind CSS',
     trackName: 'Frontend Development',
     instructor: {
       name: 'Maya Lin',
       role: 'Staff UI Mentor',
       avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&auto=format&fit=crop&q=80',
     },
-    dateTime: 'Friday, 5:00 PM EST',
+    dateTime: 'Friday, 5:00 PM WAT',
     duration: '60 min',
     isLiveNow: false,
-    meetUrl: 'https://meet.google.com/demo-bootcamp',
-    attendeesCount: 42,
+    meetUrl: 'https://meet.google.com/gdg-lasu-live',
+    attendeesCount: 46,
   },
 ];
 
@@ -232,7 +232,7 @@ export const mockResources: Resource[] = [
     url: '#',
     fileSize: '3.4 MB',
     addedAt: '2 hours ago',
-    description: 'High-resolution printable architectural reference covering lifecycle hooks, scopes, and custom providers.',
+    description: 'High-resolution architectural reference covering lifecycle hooks, scopes, and custom providers.',
   },
   {
     id: 'res-2',
@@ -301,22 +301,22 @@ export const mockResources: Resource[] = [
 export const mockAnnouncements: Announcement[] = [
   {
     id: 'anc-1',
-    title: '🚀 Cohort 2026-Alpha Capstone Project Guidelines Released',
+    title: '🚀 GDG on Campus LASU Bootcamp 3.0 Capstone Brief Released',
     author: {
-      name: 'Elena Rostova',
-      role: 'Head of Curriculum & Cohorts',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&auto=format&fit=crop&q=80',
+      name: 'Oluwaseun Adeleke',
+      role: 'Lead Organizer • GDG on Campus LASU',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
     },
     publishedAt: '2 hours ago',
     trackName: 'All Cohort',
     isPinned: true,
     category: 'Curriculum',
     content:
-      'The multi-disciplinary capstone projects kick off next week! Students across Backend, Frontend, and UI/UX tracks will form teams of 3 to build an enterprise-ready product. Review the guidelines and pitch form.',
+      'The multi-disciplinary capstone projects kick off next week! Students across Backend, Frontend, and UI/UX tracks will form squads to build an enterprise-ready product. Review the guidelines and pitch form.',
   },
   {
     id: 'anc-2',
-    title: '💡 Backend Track Office Hours Rescheduled to Friday 6:00 PM EST',
+    title: '💡 Backend Track Office Hours Rescheduled to Friday 6:00 PM WAT',
     author: {
       name: 'Sarah Chen',
       role: 'Lead Backend Mentor',

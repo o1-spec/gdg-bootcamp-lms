@@ -13,7 +13,6 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import { Resource, ResourceType } from '@/types/lms';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface ResourceItemProps {
@@ -27,72 +26,72 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
       case 'pdf':
         return {
           icon: FileText,
-          label: 'PDF Document',
-          color: 'text-rose-600 dark:text-rose-400',
-          bg: 'bg-rose-500/10 border-rose-500/20',
+          label: 'PDF Cheatsheet',
+          color: 'text-[#EA4335]',
+          bg: 'bg-[#EA4335]/12 border-[#EA4335]/25',
           actionText: 'Download',
           actionIcon: Download,
         };
       case 'figma':
         return {
           icon: Palette,
-          label: 'Figma Design',
-          color: 'text-purple-600 dark:text-purple-400',
-          bg: 'bg-purple-500/10 border-purple-500/20',
+          label: 'Figma Design System',
+          color: 'text-[#FBBC04]',
+          bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30',
           actionText: 'Open Figma',
           actionIcon: ArrowUpRight,
         };
       case 'github':
         return {
           icon: GitBranch,
-          label: 'GitHub Repo',
-          color: 'text-slate-800 dark:text-slate-200',
-          bg: 'bg-slate-500/10 border-slate-500/20',
+          label: 'GitHub Repository',
+          color: 'text-[#0D0E11]',
+          bg: 'bg-[#0D0E11]/10 border-[#0D0E11]/20',
           actionText: 'View Repo',
           actionIcon: ArrowUpRight,
         };
       case 'video':
         return {
           icon: Video,
-          label: 'Video Lesson',
-          color: 'text-blue-600 dark:text-blue-400',
-          bg: 'bg-blue-500/10 border-blue-500/20',
-          actionText: 'Watch',
+          label: 'Video Masterclass',
+          color: 'text-[#4285F4]',
+          bg: 'bg-[#4285F4]/12 border-[#4285F4]/25',
+          actionText: 'Watch Video',
           actionIcon: ArrowUpRight,
         };
       case 'slides':
         return {
           icon: Presentation,
-          label: 'Presentation',
-          color: 'text-amber-600 dark:text-amber-400',
-          bg: 'bg-amber-500/10 border-amber-500/20',
+          label: 'Workshop Slides',
+          color: 'text-[#FBBC04]',
+          bg: 'bg-[#FBBC04]/15 border-[#FBBC04]/30',
           actionText: 'View Slides',
           actionIcon: ArrowUpRight,
         };
       case 'dataset':
         return {
           icon: Database,
-          label: 'Dataset',
-          color: 'text-cyan-600 dark:text-cyan-400',
-          bg: 'bg-cyan-500/10 border-cyan-500/20',
+          label: 'Live Dataset',
+          color: 'text-[#4285F4]',
+          bg: 'bg-[#4285F4]/12 border-[#4285F4]/25',
           actionText: 'Download',
           actionIcon: Download,
         };
       case 'exercise':
         return {
           icon: Code2,
-          label: 'Practice Sandbox',
-          color: 'text-emerald-600 dark:text-emerald-400',
-          bg: 'bg-emerald-500/10 border-emerald-500/20',
+          label: 'Interactive Sandbox',
+          color: 'text-[#34A853]',
+          bg: 'bg-[#34A853]/15 border-[#34A853]/30',
           actionText: 'Practice',
           actionIcon: ArrowUpRight,
         };
       case 'cheatsheet':
         return {
           icon: FileSpreadsheet,
-          label: 'Cheat Sheet',
-          color: 'text-amber-600 dark:text-amber-400',
-          bg: 'bg-amber-500/10 border-amber-500/20',
+          label: 'Architecture Sheet',
+          color: 'text-[#EA4335]',
+          bg: 'bg-[#EA4335]/12 border-[#EA4335]/25',
           actionText: 'Download',
           actionIcon: Download,
         };
@@ -102,10 +101,10 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
       default:
         return {
           icon: ExternalLink,
-          label: 'External Link',
-          color: 'text-teal-600 dark:text-teal-400',
-          bg: 'bg-teal-500/10 border-teal-500/20',
-          actionText: 'Open',
+          label: 'Resource Link',
+          color: 'text-[#34A853]',
+          bg: 'bg-[#34A853]/15 border-[#34A853]/30',
+          actionText: 'Open Resource',
           actionIcon: ArrowUpRight,
         };
     }
@@ -116,11 +115,11 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
   const ActionIcon = meta.actionIcon;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-lg border border-border/70 bg-card hover:bg-muted/30 hover:border-border transition-colors">
-      <div className="flex items-start gap-3">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-3xl border border-[#E5DFD0] bg-white hover:border-gdg-black/30 transition-all duration-200 shadow-xs hover:shadow-md">
+      <div className="flex items-start gap-3.5">
         <div
           className={cn(
-            'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border',
+            'flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border',
             meta.bg,
             meta.color
           )}
@@ -130,53 +129,52 @@ export function ResourceItem({ resource, onOpen }: ResourceItemProps) {
 
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] uppercase font-semibold tracking-wider text-muted-foreground">
+            <span className="text-[10px] font-black uppercase tracking-wider text-[#5F6368]">
               {meta.label}
             </span>
-            <span className="text-muted-foreground/40">•</span>
-            <span className="text-[11px] font-medium text-foreground/80">
+            <span className="text-[#5F6368]/40">•</span>
+            <span className="text-xs font-bold text-gdg-black">
               {resource.trackName}
             </span>
             {resource.fileSize && (
               <>
-                <span className="text-muted-foreground/40">•</span>
-                <span className="text-[11px] text-muted-foreground">
+                <span className="text-[#5F6368]/40">•</span>
+                <span className="text-xs font-medium text-[#5F6368]">
                   {resource.fileSize}
                 </span>
               </>
             )}
             {resource.duration && (
               <>
-                <span className="text-muted-foreground/40">•</span>
-                <span className="text-[11px] text-muted-foreground">
+                <span className="text-[#5F6368]/40">•</span>
+                <span className="text-xs font-medium text-[#5F6368]">
                   {resource.duration}
                 </span>
               </>
             )}
           </div>
 
-          <h4 className="text-xs sm:text-sm font-semibold text-foreground line-clamp-1">
+          <h4 className="text-sm font-black text-gdg-black tracking-tight">
             {resource.title}
           </h4>
 
           {resource.lessonName && (
-            <p className="text-[11px] text-muted-foreground line-clamp-1">
-              Lesson: {resource.lessonName}
+            <p className="text-xs text-[#5F6368] font-normal">
+              Module: {resource.lessonName}
             </p>
           )}
         </div>
       </div>
 
       <div className="flex items-center justify-end shrink-0 pt-1 sm:pt-0">
-        <Button
-          size="sm"
-          variant="outline"
-          className="h-7 text-xs px-2.5 font-medium gap-1 text-foreground"
+        <button
+          type="button"
           onClick={() => onOpen?.(resource)}
+          className="inline-flex items-center gap-1.5 rounded-full border border-gdg-black hover:bg-gdg-black hover:text-gdg-cream text-gdg-black px-4 py-1.5 text-xs font-bold tracking-wide transition-all active:scale-95 cursor-pointer"
         >
           <span>{meta.actionText}</span>
           <ActionIcon className="h-3 w-3" />
-        </Button>
+        </button>
       </div>
     </div>
   );

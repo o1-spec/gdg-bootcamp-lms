@@ -1,6 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
 import { LucideIcon } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 interface StatsCardProps {
@@ -12,8 +12,8 @@ interface StatsCardProps {
     text: string;
     variant: 'positive' | 'neutral' | 'urgent';
   };
-  iconColor?: string;
-  iconBg?: string;
+  accentColor?: string; // hex e.g. #4285F4, #34A853, #EA4335, #FBBC04
+  href?: string;
 }
 
 export function StatsCard({
@@ -22,52 +22,65 @@ export function StatsCard({
   subtext,
   icon: Icon,
   badge,
-  iconColor = 'text-primary',
-  iconBg = 'bg-primary/10',
+  accentColor = '#4285F4',
+  href,
 }: StatsCardProps) {
-  return (
-    <Card className="border border-border/80 bg-card/60 backdrop-blur-xs shadow-xs hover:border-border transition-all duration-200">
-      <CardContent className="p-5">
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {title}
-            </p>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-semibold tracking-tight text-foreground">
-                {value}
+  const content = (
+    <div className="relative overflow-hidden rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-xs hover:shadow-md transition-all duration-200">
+      {/* Subtle Google accent top border strip */}
+      <div
+        className="absolute top-0 left-0 right-0 h-1.5"
+        style={{ backgroundColor: accentColor }}
+      />
+
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-2">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+            {title}
+          </p>
+          <div className="flex items-baseline gap-2.5">
+            <span className="text-3xl sm:text-4xl font-black tracking-tight text-gdg-black">
+              {value}
+            </span>
+            {badge && (
+              <span
+                className={cn(
+                  'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold',
+                  badge.variant === 'positive' && 'bg-gdg-green/15 text-[#1e7e34]',
+                  badge.variant === 'urgent' && 'bg-gdg-red/15 text-gdg-red',
+                  badge.variant === 'neutral' && 'bg-[#E5DFD0] text-gdg-black'
+                )}
+              >
+                {badge.text}
               </span>
-              {badge && (
-                <span
-                  className={cn(
-                    'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border',
-                    badge.variant === 'positive' &&
-                      'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-                    badge.variant === 'neutral' &&
-                      'bg-muted text-muted-foreground border-border',
-                    badge.variant === 'urgent' &&
-                      'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
-                  )}
-                >
-                  {badge.text}
-                </span>
-              )}
-            </div>
-            {subtext && (
-              <p className="text-xs text-muted-foreground/90">{subtext}</p>
             )}
           </div>
-          <div
-            className={cn(
-              'flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border/60',
-              iconBg,
-              iconColor
-            )}
-          >
-            <Icon className="h-5 w-5" />
-          </div>
+          {subtext && (
+            <p className="text-xs font-medium text-[#5F6368]">{subtext}</p>
+          )}
         </div>
-      </CardContent>
-    </Card>
+
+        <div
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border"
+          style={{
+            borderColor: `${accentColor}40`,
+            backgroundColor: `${accentColor}12`,
+            color: accentColor,
+          }}
+        >
+          <Icon className="h-5 w-5" />
+        </div>
+      </div>
+    </div>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="block group">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }

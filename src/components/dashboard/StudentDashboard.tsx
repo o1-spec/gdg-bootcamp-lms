@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import {
   Layers,
   CheckCircle2,
   Clock,
   TrendingUp,
-  Flame,
   ArrowRight,
   BookOpen,
   FolderGit2,
@@ -20,8 +20,6 @@ import { UpcomingClassCard } from './UpcomingClassCard';
 import { AssignmentCard } from './AssignmentCard';
 import { ResourceItem } from './ResourceItem';
 import { AnnouncementCard } from './AnnouncementCard';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   mockStudentProfile,
   mockDashboardStats,
@@ -32,6 +30,7 @@ import {
   mockAnnouncements,
 } from '@/data/mockData';
 import { UpcomingClass, Assignment, Resource, ResourceType } from '@/types/lms';
+import { cn } from '@/lib/utils';
 
 export function StudentDashboard() {
   const [currentTab, setCurrentTab] = useState<DashboardNavTab>('dashboard');
@@ -80,7 +79,7 @@ export function StudentDashboard() {
   const handleResumeLesson = (trackId: string, lessonId: string) => {
     const track = mockTracks.find((t) => t.id === trackId);
     setActiveAlert(
-      `Launching lesson [${lessonId}]: "${track?.nextLesson.title}" (${track?.name}). Video player and interactive sandbox initializing...`
+      `Launching lesson [${lessonId}]: "${track?.nextLesson.title}" (${track?.name}). Video classroom initializing...`
     );
     setTimeout(() => setActiveAlert(null), 5000);
   };
@@ -94,7 +93,7 @@ export function StudentDashboard() {
 
   const handleSubmitAssignment = (asg: Assignment) => {
     setActiveAlert(
-      `Opening assignment submission portal for: "${asg.title}" (${asg.trackName}).`
+      `Opening submission challenge portal for: "${asg.title}" (${asg.trackName}).`
     );
     setTimeout(() => setActiveAlert(null), 5000);
   };
@@ -105,8 +104,8 @@ export function StudentDashboard() {
   };
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground antialiased selection:bg-primary/20">
-      {/* Sidebar Navigation */}
+    <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
+      {/* Sidebar Navigation: Near-black with cream text */}
       <DashboardSidebar
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
@@ -127,17 +126,36 @@ export function StudentDashboard() {
           onSearchChange={setSearchQuery}
         />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl w-full mx-auto">
-          {/* Interactive toast alert banner if active */}
+        {/* GDG LASU Signature Ticker Ribbon */}
+        <div className="w-full bg-[#FBBC04] text-[#0D0E11] py-2 px-6 overflow-hidden border-b border-[#0D0E11]/10">
+          <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
+            <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
+              <span>BUILD ✦</span>
+              <span>INNOVATE ✦</span>
+              <span>DESIGN ✦</span>
+              <span>SHIP ✦</span>
+              <span>LEARN ✦</span>
+              <span>CONNECT ✦</span>
+              <span>GROW ✦</span>
+              <span className="hidden sm:inline">BUILD ✦ INNOVATE ✦ SHIP</span>
+            </div>
+            <span className="hidden lg:inline text-[11px] font-bold tracking-normal opacity-90 pl-4">
+              GDG on Campus LASU Career Bootcamp 3.0
+            </span>
+          </div>
+        </div>
+
+        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-10 max-w-7xl w-full mx-auto">
+          {/* Interactive alert toast */}
           {activeAlert && (
-            <div className="flex items-center justify-between rounded-lg border border-primary/20 bg-primary/10 px-4 py-3 text-xs sm:text-sm text-foreground shadow-xs animate-in fade-in slide-in-from-top-2">
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary shrink-0" />
-                <span>{activeAlert}</span>
+            <div className="flex items-center justify-between rounded-2xl border border-[#0D0E11] bg-[#0D0E11] text-[#FAF7EE] px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
+              <div className="flex items-center gap-3">
+                <Sparkles className="h-4 w-4 text-[#FBBC04] shrink-0" />
+                <span className="font-semibold">{activeAlert}</span>
               </div>
               <button
                 type="button"
-                className="text-xs font-semibold text-primary hover:underline ml-4"
+                className="text-xs font-black text-[#FBBC04] hover:underline ml-4 cursor-pointer"
                 onClick={() => setActiveAlert(null)}
               >
                 Dismiss
@@ -145,120 +163,133 @@ export function StudentDashboard() {
             </div>
           )}
 
-          {/* 1. Welcome Section */}
-          <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-linear-to-r from-card via-card to-muted/40 p-6 sm:p-8 shadow-xs">
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="space-y-2 max-w-2xl">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-400">
-                    <Flame className="h-3.5 w-3.5 text-amber-500" />
-                    {mockStudentProfile.studyStreakDays} Day Streak
+          {/* 1. Welcome Section: High-contrast GDG LASU dark card */}
+          <section className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-8 sm:p-10 lg:p-12 shadow-sm">
+            {/* Top right Google accent geometric glow */}
+            <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-[#4285F4]/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[#FBBC04]/10 blur-3xl" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="space-y-4 max-w-2xl">
+                {/* Google 4-color dots + cohort tag */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex items-center -space-x-1">
+                    <span className="h-3 w-3 rounded-full bg-[#4285F4] ring-2 ring-[#0D0E11]" />
+                    <span className="h-3 w-3 rounded-full bg-[#EA4335] ring-2 ring-[#0D0E11]" />
+                    <span className="h-3 w-3 rounded-full bg-[#FBBC04] ring-2 ring-[#0D0E11]" />
+                    <span className="h-3 w-3 rounded-full bg-[#34A853] ring-2 ring-[#0D0E11]" />
+                  </div>
+                  <span className="text-xs font-bold text-[#FAF7EE]/70 uppercase tracking-wider">
+                    {mockStudentProfile.cohort}
                   </span>
-                  <span className="text-xs text-muted-foreground font-medium">
-                    • {mockStudentProfile.cohort}
+                  <span className="rounded-full bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30 px-3 py-0.5 text-xs font-black">
+                    🔥 {mockStudentProfile.studyStreakDays} Day Streak
                   </span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                  Welcome back, {mockStudentProfile.name.split(' ')[0]} 👋
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
+                  Your tech journey starts here, {mockStudentProfile.name.split(' ')[0]}.
                 </h2>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  You are making strong progress across your 3 enrolled tracks. You completed{' '}
-                  <span className="font-semibold text-foreground">12 lessons</span> this week,
-                  and your overall completion is at{' '}
-                  <span className="font-semibold text-foreground">
-                    {mockDashboardStats.overallProgressPercentage}%
-                  </span>
-                  .
+
+                <p className="text-sm sm:text-base text-[#FAF7EE]/80 leading-relaxed font-normal">
+                  Connect with mentors, build impactful fullstack products with Google technologies, and ship verifiable capstone projects at Lagos State University.
                 </p>
+
+                <div className="flex items-center gap-2 pt-2 text-xs font-bold text-[#FAF7EE]/60">
+                  <span className="h-2 w-2 rounded-full bg-[#34A853]" />
+                  <span>
+                    You completed <strong className="text-[#FAF7EE]">12 lessons</strong> this week • Overall progress is at{' '}
+                    <strong className="text-[#34A853]">{mockDashboardStats.overallProgressPercentage}%</strong>
+                  </span>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 shrink-0">
-                <Button
-                  onClick={() =>
-                    handleResumeLesson(mockTracks[0].id, mockTracks[0].nextLesson.id)
-                  }
-                  className="gap-2 shadow-xs font-medium"
+              {/* Action Buttons: Solid cream pill + Outlined cream pill */}
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+                <Link
+                  href="/tracks/backend-development"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-7 py-3.5 text-xs font-black tracking-wide shadow-md transition-transform active:scale-95 cursor-pointer"
                 >
                   <BookOpen className="h-4 w-4" />
                   <span>Resume Next Lesson</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  variant="outline"
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+
+                <button
+                  type="button"
                   onClick={() => setCurrentTab('resources')}
-                  className="gap-2 font-medium"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#FAF7EE]/30 text-[#FAF7EE] hover:bg-[#FAF7EE]/10 px-7 py-3.5 text-xs font-bold tracking-wide transition-all active:scale-95 cursor-pointer"
                 >
-                  <FolderGit2 className="h-4 w-4 text-muted-foreground" />
-                  <span>Browse Resources</span>
-                </Button>
+                  <FolderGit2 className="h-4 w-4 text-[#FBBC04]" />
+                  <span>Browse Repository</span>
+                </button>
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* 2. Overview Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <StatsCard
-              title="Enrolled Tracks"
-              value={mockDashboardStats.enrolledTracks}
-              subtext="Backend, Frontend & DSA"
-              icon={Layers}
-              badge={{ text: 'Active', variant: 'positive' }}
-              iconColor="text-blue-600 dark:text-blue-400"
-              iconBg="bg-blue-500/10"
-            />
-            <StatsCard
-              title="Completed Lessons"
-              value={`${mockDashboardStats.completedLessons}/${mockDashboardStats.totalLessons}`}
-              subtext="+12 completed this week"
-              icon={CheckCircle2}
-              badge={{ text: '+14%', variant: 'positive' }}
-              iconColor="text-emerald-600 dark:text-emerald-400"
-              iconBg="bg-emerald-500/10"
-            />
-            <StatsCard
-              title="Pending Assignments"
-              value={mockDashboardStats.pendingAssignments}
-              subtext="1 due in next 48 hours"
-              icon={Clock}
-              badge={{ text: 'Action Needed', variant: 'urgent' }}
-              iconColor="text-amber-600 dark:text-amber-400"
-              iconBg="bg-amber-500/10"
-            />
-            <StatsCard
-              title="Overall Progress"
-              value={`${mockDashboardStats.overallProgressPercentage}%`}
-              subtext={`${mockDashboardStats.attendanceRate}% live class attendance`}
-              icon={TrendingUp}
-              badge={{ text: 'On Track', variant: 'positive' }}
-              iconColor="text-purple-600 dark:text-purple-400"
-              iconBg="bg-purple-500/10"
-            />
-          </div>
-
-          {/* 3. Continue Learning: Enrolled Tracks */}
+          {/* 2. Overview Stats Cards with Google-inspired accent strips */}
           <section className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <StatsCard
+                title="Enrolled Tracks"
+                value={mockDashboardStats.enrolledTracks}
+                subtext="Backend, Frontend & DSA"
+                icon={Layers}
+                badge={{ text: 'Active', variant: 'positive' }}
+                accentColor="#4285F4" // Google Blue
+                href="/tracks"
+              />
+              <StatsCard
+                title="Completed Lessons"
+                value={`${mockDashboardStats.completedLessons}/${mockDashboardStats.totalLessons}`}
+                subtext="+12 completed this week"
+                icon={CheckCircle2}
+                badge={{ text: '+14% Week', variant: 'positive' }}
+                accentColor="#34A853" // Google Green
+                href="/progress"
+              />
+              <StatsCard
+                title="Pending Assignments"
+                value={mockDashboardStats.pendingAssignments}
+                subtext="1 due in next 48 hours"
+                icon={Clock}
+                badge={{ text: 'Action Needed', variant: 'urgent' }}
+                accentColor="#EA4335" // Google Red
+                href="/assignments"
+              />
+              <StatsCard
+                title="Overall Progress"
+                value={`${mockDashboardStats.overallProgressPercentage}%`}
+                subtext={`${mockDashboardStats.attendanceRate}% live class attendance`}
+                icon={TrendingUp}
+                badge={{ text: 'On Track', variant: 'positive' }}
+                accentColor="#FBBC04" // Google Yellow
+                href="/progress"
+              />
+            </div>
+          </section>
+
+          {/* 3. Continue Learning: Signature GDG LASU Dark Track Cards */}
+          <section className="space-y-5">
+            <div className="flex items-end justify-between">
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
+                <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                  Learning Pathways
+                </p>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight mt-1">
                   Continue Learning
                 </h3>
-                <p className="text-xs text-muted-foreground">
-                  Pick up right where you left off in your enrolled tracks
-                </p>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-xs text-primary gap-1"
-                onClick={() => setCurrentTab('my-tracks')}
+              <Link
+                href="/tracks"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors cursor-pointer"
               >
                 <span>View all tracks</span>
-                <ArrowRight className="h-3 w-3" />
-              </Button>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {mockTracks.map((track) => (
                 <TrackCard
                   key={track.id}
@@ -272,37 +303,53 @@ export function StudentDashboard() {
           {/* 4. Two-Column Layout: Left (Assignments & Resources), Right (Schedule & Announcements) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Left Column (7 cols): Assignments & Resources */}
-            <div className="lg:col-span-7 space-y-8">
+            <div className="lg:col-span-7 space-y-10">
               {/* Upcoming Assignments */}
-              <section className="space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <section className="space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
-                      Upcoming Assignments
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      Hands-on projects and coding assessments
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                      Sprint Tasks
                     </p>
+                    <Link href="/assignments" className="group inline-flex items-center gap-2">
+                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                        Upcoming Assignments
+                      </h3>
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                    </Link>
                   </div>
 
-                  <div className="flex items-center gap-1.5 self-start sm:self-auto">
-                    {(['all', 'pending', 'submitted'] as const).map((filter) => (
-                      <button
-                        key={filter}
-                        type="button"
-                        onClick={() => setAssignmentFilter(filter)}
-                        className={`px-2.5 py-1 text-xs rounded-md font-medium transition-colors cursor-pointer ${assignmentFilter === filter
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted/70 text-muted-foreground hover:text-foreground'
-                          }`}
-                      >
-                        {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                      </button>
-                    ))}
+                  <div className="flex items-center gap-3">
+                    {/* Filter pills */}
+                    <div className="flex items-center gap-1.5 p-1 rounded-full bg-white border border-[#E5DFD0]">
+                      {(['all', 'pending', 'submitted'] as const).map((filter) => (
+                        <button
+                          key={filter}
+                          type="button"
+                          onClick={() => setAssignmentFilter(filter)}
+                          className={cn(
+                            'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
+                            assignmentFilter === filter
+                              ? 'bg-[#0D0E11] text-[#FAF7EE]'
+                              : 'text-[#5F6368] hover:text-[#0D0E11]'
+                          )}
+                        >
+                          {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+
+                    <Link
+                      href="/assignments"
+                      className="hidden sm:inline-flex items-center gap-1 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors"
+                    >
+                      <span>View all</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {filteredAssignments.length > 0 ? (
                     filteredAssignments.map((assignment) => (
                       <AssignmentCard
@@ -312,71 +359,82 @@ export function StudentDashboard() {
                       />
                     ))
                   ) : (
-                    <Card className="border border-dashed border-border p-6 text-center text-xs text-muted-foreground">
+                    <div className="rounded-3xl border border-dashed border-[#E5DFD0] p-8 text-center text-xs font-semibold text-[#5F6368] bg-white">
                       No assignments found matching this filter.
-                    </Card>
+                    </div>
                   )}
                 </div>
               </section>
 
               {/* Recent Learning Resources */}
-              <section className="space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <section className="space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
-                      Recent Resources
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      Curated slides, cheatsheets, repos, and study notes
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                      Curated Knowledge
                     </p>
+                    <Link href="/resources" className="group inline-flex items-center gap-2">
+                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                        Recent Resources
+                      </h3>
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                    </Link>
                   </div>
 
-                  {/* Resource quick filters */}
+                  {/* Resource quick filter pills */}
                   <div className="flex flex-wrap items-center gap-1.5">
                     <button
                       type="button"
                       onClick={() => setResourceFilter('all')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'all'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground hover:text-foreground'
-                        }`}
+                      className={cn(
+                        'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
+                        resourceFilter === 'all'
+                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
+                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                      )}
                     >
                       All
                     </button>
                     <button
                       type="button"
                       onClick={() => setResourceFilter('pdf')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'pdf'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground hover:text-foreground'
-                        }`}
+                      className={cn(
+                        'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
+                        resourceFilter === 'pdf'
+                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
+                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                      )}
                     >
                       PDFs
                     </button>
                     <button
                       type="button"
                       onClick={() => setResourceFilter('code-all')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'code-all'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground hover:text-foreground'
-                        }`}
+                      className={cn(
+                        'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
+                        resourceFilter === 'code-all'
+                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
+                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                      )}
                     >
                       Code & Sandbox
                     </button>
                     <button
                       type="button"
                       onClick={() => setResourceFilter('figma')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'figma'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground hover:text-foreground'
-                        }`}
+                      className={cn(
+                        'px-3 py-1 text-xs rounded-full font-bold transition-all cursor-pointer',
+                        resourceFilter === 'figma'
+                          ? 'bg-[#0D0E11] text-[#FAF7EE]'
+                          : 'bg-white border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11]'
+                      )}
                     >
                       Figma
                     </button>
                   </div>
                 </div>
 
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   {filteredResources.slice(0, 5).map((resource) => (
                     <ResourceItem
                       key={resource.id}
@@ -386,44 +444,44 @@ export function StudentDashboard() {
                   ))}
                 </div>
 
-                <div className="pt-1">
-                  <Button
-                    variant="outline"
-                    className="w-full text-xs font-medium h-9 gap-1.5"
-                    onClick={() => setCurrentTab('resources')}
+                <div className="pt-2">
+                  <Link
+                    href="/resources"
+                    className="w-full py-3 rounded-full border border-[#0D0E11] text-xs font-black text-[#0D0E11] hover:bg-[#0D0E11] hover:text-[#FAF7EE] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <span>View All Learning Resources Repository</span>
                     <ArrowRight className="h-3.5 w-3.5" />
-                  </Button>
+                  </Link>
                 </div>
               </section>
             </div>
 
             {/* Right Column (5 cols): Upcoming Classes & Announcements */}
-            <div className="lg:col-span-5 space-y-8">
+            <div className="lg:col-span-5 space-y-10">
               {/* Upcoming Classes */}
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
+              <section className="space-y-5">
+                <div className="flex items-end justify-between">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
-                      Upcoming Classes
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      Live workshops & mentor sessions
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                      Live Sessions
                     </p>
+                    <Link href="/schedule" className="group inline-flex items-center gap-2">
+                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                        Upcoming Classes
+                      </h3>
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                    </Link>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-xs text-primary gap-1"
-                    onClick={() => setCurrentTab('schedule')}
+                  <Link
+                    href="/schedule"
+                    className="inline-flex items-center gap-1 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors cursor-pointer"
                   >
-                    <span>Calendar</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </Button>
+                    <span>Full Schedule</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {mockUpcomingClasses.map((classItem) => (
                     <UpcomingClassCard
                       key={classItem.id}
@@ -435,28 +493,29 @@ export function StudentDashboard() {
               </section>
 
               {/* Announcements Section */}
-              <section className="space-y-4">
-                <div className="flex items-center justify-between">
+              <section className="space-y-5">
+                <div className="flex items-end justify-between">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
-                      Cohort Announcements
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      Official updates from mentors & admin
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#5F6368]">
+                      Cohort News
                     </p>
+                    <Link href="/announcements" className="group inline-flex items-center gap-2">
+                      <h3 className="text-xl sm:text-2xl font-black text-[#0D0E11] tracking-tight mt-1 group-hover:text-[#4285F4] transition-colors">
+                        Announcements
+                      </h3>
+                      <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#4285F4]" />
+                    </Link>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-xs text-primary gap-1"
-                    onClick={() => setCurrentTab('announcements')}
+                  <Link
+                    href="/announcements"
+                    className="inline-flex items-center gap-1 text-xs font-black text-[#0D0E11] hover:text-[#4285F4] transition-colors cursor-pointer"
                   >
                     <span>All news</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </Button>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {mockAnnouncements.map((announcement) => (
                     <AnnouncementCard
                       key={announcement.id}
@@ -469,45 +528,47 @@ export function StudentDashboard() {
                 </div>
               </section>
 
-              {/* Weekly Goal & Study Hours Summary Card */}
-              <Card className="border border-border/80 bg-muted/30 shadow-xs">
-                <CardContent className="p-5 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Weekly Study Target
-                    </span>
-                    <span className="text-xs font-bold text-foreground">
-                      18 / 25 Hours
-                    </span>
-                  </div>
+              {/* Weekly Goal & Study Sprint Card */}
+              <div className="rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-7 shadow-sm space-y-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#FAF7EE]/60">
+                    Weekly Study Sprint
+                  </span>
+                  <span className="text-sm font-black text-[#FAF7EE]">
+                    18 / 25 Hours
+                  </span>
+                </div>
 
-                  <div className="h-2 w-full bg-border rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary rounded-full transition-all"
-                      style={{ width: '72%' }}
-                    />
-                  </div>
+                <div className="h-2.5 w-full bg-[#22242B] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#FBBC04] rounded-full transition-all duration-300"
+                    style={{ width: '72%' }}
+                  />
+                </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span>7 hours needed by Sunday</span>
-                    <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                      72% Completed
-                    </span>
-                  </div>
+                <div className="flex items-center justify-between text-xs font-medium text-[#FAF7EE]/70">
+                  <span>7 hours needed by Sunday</span>
+                  <span className="font-bold text-[#34A853]">72% Achieved</span>
+                </div>
 
-                  <div className="pt-2 border-t border-border/60 flex items-center justify-between">
-                    <div className="text-xs">
-                      <span className="text-muted-foreground">Total logged: </span>
-                      <span className="font-semibold text-foreground">
-                        {mockStudentProfile.totalHoursSpent} hrs
-                      </span>
-                    </div>
-                    <span className="text-xs text-primary font-medium flex items-center gap-1 cursor-pointer hover:underline">
-                      Log hours <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                <div className="pt-3 border-t border-[#22242B] flex items-center justify-between">
+                  <Link
+                    href="/attendance"
+                    className="text-xs text-[#FAF7EE]/80 hover:text-white flex items-center gap-1 font-bold transition-colors"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-[#34A853]" />
+                    <span>{mockDashboardStats.attendanceRate}% Attendance Record</span>
+                  </Link>
+
+                  <Link
+                    href="/progress"
+                    className="text-xs text-[#FBBC04] font-black flex items-center gap-1 cursor-pointer hover:underline"
+                  >
+                    <span>View Analytics</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </main>

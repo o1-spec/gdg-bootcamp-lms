@@ -9,8 +9,11 @@ export type ResourceType =
   | 'article'
   | 'figma'
   | 'dataset'
+  | 'document'
+  | 'cheatsheet'
+  | 'practice'
   | 'exercise'
-  | 'cheatsheet';
+  | 'other';
 
 export interface Resource {
   id: string;
@@ -27,6 +30,23 @@ export interface Resource {
   description?: string;
 }
 
+export interface LibraryResource {
+  id: string;
+  title: string;
+  description: string;
+  type: ResourceType;
+  trackId: string;
+  trackName: string;
+  moduleName: string;
+  url: string;
+  fileSize?: string;
+  duration?: string;
+  uploadedBy: string;
+  addedAt: string;
+  isRequired: boolean;
+  accentColor: string;
+}
+
 export type TrackCategory =
   | 'Frontend Development'
   | 'Backend Development'
@@ -37,12 +57,87 @@ export type TrackCategory =
   | 'Cloud / DevOps'
   | 'DSA / Interview Preparation';
 
+export type LessonStatus = 'completed' | 'current' | 'locked';
+
 export interface Lesson {
   id: string;
   title: string;
   durationMinutes: number;
   isCompleted: boolean;
   order: number;
+}
+
+export interface DetailedLesson {
+  id: string;
+  title: string;
+  durationMinutes: number;
+  status: LessonStatus;
+  order: number;
+  type?: 'lecture' | 'exercise' | 'project' | 'quiz';
+}
+
+export interface LessonResourceItem {
+  id: string;
+  title: string;
+  type: ResourceType;
+  url: string;
+  isRequired: boolean;
+  fileSize?: string;
+  duration?: string;
+  description?: string;
+}
+
+export interface LessonContentSection {
+  title: string;
+  content: string;
+  bulletPoints?: string[];
+  codeSnippet?: {
+    language: string;
+    code: string;
+  };
+  callout?: {
+    type: 'note' | 'tip' | 'warning' | 'google';
+    text: string;
+  };
+  table?: {
+    headers: string[];
+    rows: string[][];
+  };
+}
+
+export interface FullLesson {
+  id: string;
+  slug: string;
+  title: string;
+  trackId: string;
+  trackName: string;
+  trackAccentColor: string;
+  moduleId: string;
+  moduleName: string;
+  moduleOrder: number;
+  durationMinutes: number;
+  type: 'Lesson' | 'Exercise' | 'Workshop' | 'Project';
+  status: LessonStatus;
+  description: string;
+  learningObjectives: string[];
+  video?: {
+    title: string;
+    duration: string;
+    url: string;
+    thumbnail?: string;
+  };
+  sections: LessonContentSection[];
+  resources: LessonResourceItem[];
+  prevLesson?: {
+    id: string;
+    slug: string;
+    title: string;
+  };
+  nextLesson?: {
+    id: string;
+    slug: string;
+    title: string;
+  };
 }
 
 export interface Module {
@@ -52,6 +147,77 @@ export interface Module {
   totalLessons: number;
   completedLessons: number;
   order: number;
+}
+
+export interface DetailedModule {
+  id: string;
+  order: number;
+  title: string;
+  description: string;
+  totalLessons: number;
+  completedLessons: number;
+  status: 'completed' | 'in_progress' | 'upcoming';
+  lessons: DetailedLesson[];
+}
+
+export interface DetailedResource {
+  id: string;
+  title: string;
+  type: ResourceType;
+  moduleTitle: string;
+  url: string;
+  isRequired: boolean;
+  fileSize?: string;
+  duration?: string;
+  description?: string;
+}
+
+export interface DetailedAssignment {
+  id: string;
+  title: string;
+  moduleTitle: string;
+  dueDate: string;
+  status: 'in_progress' | 'not_started' | 'submitted';
+  points: number;
+  description?: string;
+}
+
+export interface DetailedTrackProgress {
+  overallPercentage: number;
+  completedLessons: number;
+  totalLessons: number;
+  completedModules: number;
+  totalModules: number;
+  completedAssignments: number;
+  totalAssignments: number;
+  attendanceRate: number;
+  moduleProgress: {
+    moduleOrder: number;
+    moduleTitle: string;
+    percentage: number;
+  }[];
+}
+
+export interface DetailedTrack {
+  id: string;
+  slug: string;
+  name: TrackCategory;
+  shortDescription: string;
+  fullDescription: string;
+  accentColor: string; // e.g. #4285F4 (blue), #34A853 (green), #EA4335 (red), #FBBC04 (yellow)
+  cohort: string;
+  duration: string;
+  mentor: {
+    name: string;
+    role: string;
+    avatar: string;
+  };
+  currentModule: string;
+  nextClass: string;
+  progress: DetailedTrackProgress;
+  modules: DetailedModule[];
+  resources: DetailedResource[];
+  assignments: DetailedAssignment[];
 }
 
 export interface Track {
@@ -82,6 +248,89 @@ export interface Track {
 }
 
 export type AssignmentStatus = 'pending' | 'due_soon' | 'submitted' | 'graded';
+
+export type ExtendedAssignmentStatus =
+  | 'not_started'
+  | 'in_progress'
+  | 'submitted'
+  | 'reviewed'
+  | 'completed'
+  | 'overdue';
+
+export type AssignmentType = 'Project' | 'Exercise' | 'Practice' | 'Challenge';
+
+export type SubmissionStatus = 'NOT_STARTED' | 'DRAFT' | 'SUBMITTED' | 'REVIEWED';
+
+export interface AssignmentSubmission {
+  status: SubmissionStatus;
+  githubUrl?: string;
+  liveUrl?: string;
+  notes?: string;
+  fileName?: string;
+  submittedAt?: string;
+  score?: number;
+  maxScore?: number;
+  mentorFeedback?: string;
+  mentorName?: string;
+}
+
+export interface FullAssignment {
+  id: string;
+  title: string;
+  trackId: string;
+  trackName: TrackCategory;
+  trackAccentColor: string;
+  moduleName: string;
+  type: AssignmentType;
+  status: ExtendedAssignmentStatus;
+  dueDate: string;
+  dueTime?: string;
+  daysRemaining: number;
+  points: number;
+  shortDescription: string;
+  fullDescription: string;
+  objectives: string[];
+  expectedOutcome: string;
+  requirements: string[];
+  submissionInstructions: string[];
+  resources: {
+    title: string;
+    type: ResourceType;
+    url: string;
+  }[];
+  submission: AssignmentSubmission;
+}
+
+export type SessionMode = 'Virtual' | 'In-Person' | 'Hybrid';
+
+export interface BootcampSession {
+  id: string;
+  title: string;
+  trackId: string;
+  trackName: TrackCategory;
+  trackAccentColor: string;
+  topic: string;
+  dayOfWeek: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+  date: string;
+  timeRange: string;
+  mentor: {
+    name: string;
+    role: string;
+    avatar?: string;
+  };
+  mode: SessionMode;
+  venueOrLink: string;
+  meetUrl?: string;
+  isLiveNow?: boolean;
+  isPast?: boolean;
+  recordingUrl?: string;
+  topicsCovered: string[];
+  attachedResources: {
+    title: string;
+    type: ResourceType;
+    url: string;
+  }[];
+}
 
 export interface Assignment {
   id: string;
@@ -148,4 +397,99 @@ export interface DashboardStats {
   pendingAssignments: number;
   overallProgressPercentage: number;
   attendanceRate: number;
+}
+
+// Attendance Types
+export type AttendanceStatus = 'present' | 'absent' | 'excused';
+
+export interface AttendanceRecord {
+  id: string;
+  date: string;
+  trackId: string;
+  trackName: TrackCategory;
+  trackAccentColor: string;
+  sessionTitle: string;
+  mentorName: string;
+  status: AttendanceStatus;
+  durationMinutes?: number;
+  note?: string;
+}
+
+export interface AttendanceSummaryData {
+  attendanceRate: number;
+  totalSessions: number;
+  presentCount: number;
+  absentCount: number;
+  excusedCount: number;
+}
+
+// Announcements Types
+export type AnnouncementPriority = 'NORMAL' | 'IMPORTANT' | 'URGENT' | 'REMINDER';
+
+export interface FullAnnouncement {
+  id: string;
+  title: string;
+  content: string;
+  trackId?: string;
+  trackName: string;
+  trackAccentColor?: string;
+  postedDate: string;
+  author: {
+    name: string;
+    role: string;
+    avatar?: string;
+  };
+  priority: AnnouncementPriority;
+  attachments?: {
+    title: string;
+    type: ResourceType;
+    url: string;
+  }[];
+  isPinned?: boolean;
+}
+
+// Progress Types
+export interface ModuleProgressItem {
+  id: string;
+  moduleOrder: number;
+  title: string;
+  percentage: number;
+  completedLessons: number;
+  totalLessons: number;
+  status: 'completed' | 'in_progress' | 'upcoming';
+}
+
+export interface TrackProgressSummary {
+  trackId: string;
+  trackName: TrackCategory;
+  trackAccentColor: string;
+  overallPercentage: number;
+  completedLessons: number;
+  totalLessons: number;
+  completedModules: number;
+  totalModules: number;
+  completedAssignments: number;
+  totalAssignments: number;
+  nextLessonHref: string;
+  modules: ModuleProgressItem[];
+}
+
+export interface OverallBootcampProgress {
+  overallPercentage: number;
+  tracksEnrolled: number;
+  completedLessons: number;
+  totalLessons: number;
+  completedModules: number;
+  totalModules: number;
+  completedAssignments: number;
+  totalAssignments: number;
+  attendanceRate: number;
+  weeklyActivity: {
+    lessonsCompletedThisWeek: number;
+    assignmentsSubmittedThisWeek: number;
+    sessionsAttendedThisWeek: number;
+    hoursSpentThisWeek: number;
+  };
+  trackSummaries: TrackProgressSummary[];
+  attendanceSummary: AttendanceSummaryData;
 }
