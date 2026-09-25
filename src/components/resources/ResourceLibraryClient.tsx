@@ -14,9 +14,22 @@ import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { ResourceCard } from '@/components/resources/ResourceCard';
 import { ResourceFilters } from '@/components/resources/ResourceFilters';
 import { ResourceDetails } from '@/components/resources/ResourceDetails';
-import { mockLibraryResources } from '@/data/resources';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 import { LibraryResource, StudentProfile, Track } from '@/types/lms';
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface ResourceLibraryClientProps {
   initialResources?: LibraryResource[];
@@ -26,8 +39,8 @@ interface ResourceLibraryClientProps {
 
 export function ResourceLibraryClient({
   initialResources,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: ResourceLibraryClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,7 +48,7 @@ export function ResourceLibraryClient({
   const [selectedType, setSelectedType] = useState('all');
   const [selectedRequirement, setSelectedRequirement] = useState<'all' | 'required' | 'optional'>('all');
 
-  const allResources = initialResources && initialResources.length > 0 ? initialResources : mockLibraryResources;
+  const allResources = initialResources || [];
 
   // Resource details inspection modal state
   const [activeResource, setActiveResource] = useState<LibraryResource | null>(null);
@@ -111,8 +124,8 @@ export function ResourceLibraryClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">
@@ -170,7 +183,7 @@ export function ResourceLibraryClient({
                       Total Assets
                     </span>
                     <span className="text-lg font-black text-[#0D0E11]">
-                      {mockLibraryResources.length}
+                      {allResources.length}
                     </span>
                   </div>
                 </div>

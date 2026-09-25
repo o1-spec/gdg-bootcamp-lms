@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 import { ResourceType } from "@prisma/client";
 import { safeUserSelect } from "@/lib/auth";
 import { LibraryResource, ResourceType as UIResourceType } from "@/types/lms";
-import { mockLibraryResources } from "@/data/resources";
 import { formatFileSize } from "@/lib/cloudinary-constants";
 
 export interface ResourceFilters {
@@ -154,7 +153,7 @@ export async function getStudentResources(studentId: string): Promise<LibraryRes
     });
 
     if (!resources || resources.length === 0) {
-      return mockLibraryResources;
+      return [];
     }
 
     return resources.map((r: any) => {
@@ -180,7 +179,8 @@ export async function getStudentResources(studentId: string): Promise<LibraryRes
         accentColor: track?.accent || "#4285F4",
       };
     });
-  } catch {
-    return mockLibraryResources;
+  } catch (error) {
+    console.error("[Resources] Error fetching student resources:", error);
+    return [];
   }
 }

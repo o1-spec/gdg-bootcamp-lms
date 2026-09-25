@@ -8,9 +8,48 @@ import { ProgressHero } from '@/components/progress/ProgressHero';
 import { TrackProgressCard } from '@/components/progress/TrackProgressCard';
 import { ActivitySummary } from '@/components/progress/ActivitySummary';
 import { AttendanceSummaryCard } from '@/components/progress/AttendanceSummaryCard';
-import { mockOverallProgress } from '@/data/progress';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 import { OverallBootcampProgress, StudentProfile, Track } from '@/types/lms';
+
+const defaultProgress: OverallBootcampProgress = {
+  overallPercentage: 0,
+  tracksEnrolled: 0,
+  completedLessons: 0,
+  totalLessons: 0,
+  completedModules: 0,
+  totalModules: 0,
+  completedAssignments: 0,
+  totalAssignments: 0,
+  attendanceRate: 100,
+  weeklyActivity: {
+    lessonsCompletedThisWeek: 0,
+    assignmentsSubmittedThisWeek: 0,
+    sessionsAttendedThisWeek: 0,
+    hoursSpentThisWeek: 0,
+  },
+  attendanceSummary: {
+    attendanceRate: 100,
+    totalSessions: 0,
+    presentCount: 0,
+    absentCount: 0,
+    excusedCount: 0,
+  },
+  trackSummaries: [],
+};
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface ProgressClientProps {
   initialProgress?: OverallBootcampProgress;
@@ -20,11 +59,11 @@ interface ProgressClientProps {
 
 export function ProgressClient({
   initialProgress,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: ProgressClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const progress = initialProgress || mockOverallProgress;
+  const progress = initialProgress || defaultProgress;
 
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
@@ -35,8 +74,8 @@ export function ProgressClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={Math.max(0, progress.totalAssignments - progress.completedAssignments)}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">

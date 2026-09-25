@@ -90,7 +90,6 @@ export function DashboardHeader({
   // ── Fetch notifications ──────────────────────────────────────
   const fetchNotifications = useCallback(async () => {
     try {
-      setNotifLoading(true);
       const res = await fetch('/api/notifications');
       if (!res.ok) return;
       const data = await res.json();
@@ -98,23 +97,39 @@ export function DashboardHeader({
       setUnreadCount(data.unreadCount ?? 0);
     } catch {
       // Silently ignore
-    } finally {
-      setNotifLoading(false);
     }
   }, []);
 
   // Fetch on mount + every 60s
   useEffect(() => {
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 60_000);
-    return () => clearInterval(interval);
-  }, [fetchNotifications]);
+    let active = true;
+
+    const loadNotifications = () => {
+      fetch('/api/notifications')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (!active || !data) return;
+          setNotifications(data.notifications ?? []);
+          setUnreadCount(data.unreadCount ?? 0);
+        })
+        .catch(() => {});
+    };
+
+    loadNotifications();
+    const interval = setInterval(loadNotifications, 60_000);
+    return () => {
+      active = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   // Fetch fresh when bell is opened
   const handleBellClick = useCallback(() => {
     const next = !notificationsOpen;
     setNotificationsOpen(next);
-    if (next) fetchNotifications();
+    if (next) {
+      fetchNotifications();
+    }
   }, [notificationsOpen, fetchNotifications]);
 
   // ── Mark single notification read ────────────────────────────

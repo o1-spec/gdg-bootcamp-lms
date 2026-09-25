@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import { AttendanceRecord, AttendanceSummaryData, AttendanceStatus as UIAttendanceStatus, TrackCategory } from "@/types/lms";
-import { mockAttendanceRecords, mockAttendanceSummary } from "@/data/attendance";
 
 export interface StudentAttendanceResult {
   summary: AttendanceSummaryData;
@@ -30,8 +29,14 @@ export async function getStudentAttendance(studentId: string): Promise<StudentAt
 
     if (!records || records.length === 0) {
       return {
-        summary: mockAttendanceSummary,
-        records: mockAttendanceRecords,
+        summary: {
+          attendanceRate: 100,
+          totalSessions: 0,
+          presentCount: 0,
+          absentCount: 0,
+          excusedCount: 0,
+        },
+        records: [],
       };
     }
 
@@ -91,10 +96,17 @@ export async function getStudentAttendance(studentId: string): Promise<StudentAt
       },
       records: formattedRecords,
     };
-  } catch {
+  } catch (error) {
+    console.error("[Attendance] Error fetching student attendance:", error);
     return {
-      summary: mockAttendanceSummary,
-      records: mockAttendanceRecords,
+      summary: {
+        attendanceRate: 100,
+        totalSessions: 0,
+        presentCount: 0,
+        absentCount: 0,
+        excusedCount: 0,
+      },
+      records: [],
     };
   }
 }

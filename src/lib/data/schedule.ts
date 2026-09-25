@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 import { SessionMode } from "@prisma/client";
 import { safeUserSelect } from "@/lib/auth";
 import { BootcampSession, SessionMode as UISessionMode, TrackCategory } from "@/types/lms";
-import { mockBootcampSessions } from "@/data/schedule";
 
 export interface SessionFilters {
   trackSlug?: string;
@@ -78,7 +77,7 @@ export async function getStudentSchedule(studentId: string): Promise<BootcampSes
     });
 
     if (!sessions || sessions.length === 0) {
-      return mockBootcampSessions;
+      return [];
     }
 
     const now = new Date();
@@ -132,7 +131,8 @@ export async function getStudentSchedule(studentId: string): Promise<BootcampSes
         ],
       };
     });
-  } catch {
-    return mockBootcampSessions;
+  } catch (error) {
+    console.error("[Schedule] Error fetching student schedule:", error);
+    return [];
   }
 }

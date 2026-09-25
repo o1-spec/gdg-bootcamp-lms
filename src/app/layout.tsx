@@ -13,8 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bootcamp LMS - Engineering & Multi-Track Accelerator",
-  description: "Multi-track learning management system for engineering and tech cohorts",
+  title: {
+    default: "GDG LASU Bootcamp LMS",
+    template: "%s | GDG LASU Bootcamp",
+  },
+  description: "Official Learning Management System for Google Developer Groups on Campus - Lagos State University Bootcamp.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

@@ -20,80 +20,18 @@ export async function POST(request: Request) {
 
     const { email, password } = result.data;
 
-    let user: any = null;
-    let isPasswordValid = false;
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
 
-    try {
-      user = await prisma.user.findUnique({
-        where: { email },
-      });
-      if (user) {
-        isPasswordValid = await verifyPassword(password, user.passwordHash);
-      }
-    } catch {
-      // Database connection fallback during development offline
-      if (email === "mentor@gdglasu.dev" && password === "password123") {
-        user = {
-          id: "user-mentor-1",
-          firstName: "Femi",
-          lastName: "Oladipo",
-          email: "mentor@gdglasu.dev",
-          role: "MENTOR",
-          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        isPasswordValid = true;
-      } else if (email === "blessing@gdglasu.dev" && password === "password123") {
-        user = {
-          id: "user-mentor-2",
-          firstName: "Blessing",
-          lastName: "Okoro",
-          email: "blessing@gdglasu.dev",
-          role: "MENTOR",
-          avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        isPasswordValid = true;
-      } else if (email === "admin@gdglasu.dev" && password === "password123") {
-        user = {
-          id: "user-admin-1",
-          firstName: "Chioma",
-          lastName: "Okonkwo",
-          email: "admin@gdglasu.dev",
-          role: "ADMIN",
-          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        isPasswordValid = true;
-      } else if (email === "superadmin@gdglasu.dev" && password === "password123") {
-        user = {
-          id: "user-superadmin-1",
-          firstName: "Damilola",
-          lastName: "Ade",
-          email: "superadmin@gdglasu.dev",
-          role: "SUPER_ADMIN",
-          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        isPasswordValid = true;
-      } else if (email === "student@gdglasu.dev" && password === "password123") {
-        user = {
-          id: "user-student-1",
-          firstName: "Alex",
-          lastName: "Johnson",
-          email: "student@gdglasu.dev",
-          role: "STUDENT",
-          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        isPasswordValid = true;
-      }
+    if (!user) {
+      return NextResponse.json(
+        { error: "Invalid email or password" },
+        { status: 401 }
+      );
     }
+
+    const isPasswordValid = await verifyPassword(password, user.passwordHash);
 
     if (!user || !isPasswordValid) {
       return NextResponse.json(

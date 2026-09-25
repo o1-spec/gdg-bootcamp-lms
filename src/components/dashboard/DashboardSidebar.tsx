@@ -48,8 +48,8 @@ export function DashboardSidebar({
   enrolledTracks,
   isMobileOpen,
   onMobileClose,
-  pendingAssignmentsCount = 3,
-  liveClassesCount = 1,
+  pendingAssignmentsCount = 0,
+  liveClassesCount = 0,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();

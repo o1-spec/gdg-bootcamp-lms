@@ -20,7 +20,21 @@ import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { SubmissionForm } from '@/components/assignments/SubmissionForm';
 import { AssignmentStatusBadge } from '@/components/assignments/AssignmentStatusBadge';
 import { FullAssignment, AssignmentSubmission, ExtendedAssignmentStatus, StudentProfile, Track } from '@/types/lms';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface AssignmentDetailClientProps {
   assignment: FullAssignment;
@@ -30,8 +44,8 @@ interface AssignmentDetailClientProps {
 
 export function AssignmentDetailClient({
   assignment: initialAssignment,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: AssignmentDetailClientProps) {
   const [assignment, setAssignment] = useState<FullAssignment>(initialAssignment);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -67,8 +81,8 @@ export function AssignmentDetailClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">

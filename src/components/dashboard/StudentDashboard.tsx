@@ -21,18 +21,33 @@ import { UpcomingClassCard } from './UpcomingClassCard';
 import { AssignmentCard } from './AssignmentCard';
 import { ResourceItem } from './ResourceItem';
 import { AnnouncementCard } from './AnnouncementCard';
-import {
-  mockStudentProfile,
-  mockDashboardStats,
-  mockTracks,
-  mockUpcomingClasses,
-  mockAssignments,
-  mockResources,
-  mockAnnouncements,
-} from '@/data/mockData';
-import { UpcomingClass, Assignment, Resource, ResourceType } from '@/types/lms';
+import { UpcomingClass, Assignment, Resource, ResourceType, StudentProfile, DashboardStats } from '@/types/lms';
 import { StudentDashboardData } from '@/lib/data/dashboard';
 import { cn } from '@/lib/utils';
+
+const defaultStats: DashboardStats = {
+  enrolledTracks: 0,
+  completedLessons: 0,
+  totalLessons: 0,
+  pendingAssignments: 0,
+  overallProgressPercentage: 0,
+  attendanceRate: 100,
+};
+
+const defaultStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface StudentDashboardProps {
   initialData?: StudentDashboardData;
@@ -46,13 +61,13 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
   const [assignmentFilter, setAssignmentFilter] = useState<'all' | 'pending' | 'submitted'>('all');
   const [activeAlert, setActiveAlert] = useState<string | null>(null);
 
-  const student = initialData?.student || mockStudentProfile;
-  const enrolledTracks = initialData?.enrolledTracks || mockTracks;
-  const stats = initialData?.stats || mockDashboardStats;
-  const upcomingClasses = initialData?.upcomingClasses || mockUpcomingClasses;
-  const assignmentsList = initialData?.assignments || mockAssignments;
-  const resourcesList = initialData?.resources || mockResources;
-  const announcementsList = initialData?.announcements || mockAnnouncements;
+  const student = initialData?.student || defaultStudent;
+  const enrolledTracks = initialData?.enrolledTracks || [];
+  const stats = initialData?.stats || defaultStats;
+  const upcomingClasses = initialData?.upcomingClasses || [];
+  const assignmentsList = initialData?.assignments || [];
+  const resourcesList = initialData?.resources || [];
+  const announcementsList = initialData?.announcements || [];
 
   const firstName = student.name.split(' ')[0] || 'Student';
   const currentHour = new Date().getHours();
@@ -95,9 +110,9 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
   }, [assignmentsList, searchQuery, assignmentFilter]);
 
   const handleResumeLesson = (trackId: string, lessonId: string) => {
-    const track = mockTracks.find((t) => t.id === trackId);
+    const track = enrolledTracks.find((t) => t.id === trackId || t.slug === trackId);
     setActiveAlert(
-      `Launching lesson [${lessonId}]: "${track?.nextLesson.title}" (${track?.name}). Video classroom initializing...`
+      `Launching lesson [${lessonId}]: "${track?.nextLesson?.title || 'Lesson'}" (${track?.name || 'Track'}). Video classroom initializing...`
     );
     setTimeout(() => setActiveAlert(null), 5000);
   };
@@ -606,7 +621,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                     className="text-xs text-[#FAF7EE]/80 hover:text-white flex items-center gap-1 font-bold transition-colors"
                   >
                     <span className="h-2 w-2 rounded-full bg-[#34A853]" />
-                    <span>{mockDashboardStats.attendanceRate}% Attendance Record</span>
+                    <span>{stats.attendanceRate}% Attendance Record</span>
                   </Link>
 
                   <Link

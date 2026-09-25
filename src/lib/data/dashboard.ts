@@ -8,15 +8,6 @@ import {
   Announcement,
   TrackCategory,
 } from "@/types/lms";
-import {
-  mockStudentProfile,
-  mockDashboardStats,
-  mockTracks,
-  mockUpcomingClasses,
-  mockAssignments,
-  mockResources,
-  mockAnnouncements,
-} from "@/data/mockData";
 import { SafeUser, buildStudentProfile } from "@/lib/auth";
 import { getStudentEnrolledTracksSummary } from "./tracks";
 import { getStudentAssignments } from "./assignments";
@@ -78,7 +69,7 @@ export async function getStudentDashboardData(user: SafeUser): Promise<StudentDa
         duration: "120 mins",
         isLiveNow: s.isLiveNow,
         meetUrl: s.meetUrl || "#",
-        attendeesCount: 42,
+        attendeesCount: 0,
       }));
 
     const dashboardAssignments: Assignment[] = assignmentsData.slice(0, 4).map((a) => {
@@ -136,24 +127,28 @@ export async function getStudentDashboardData(user: SafeUser): Promise<StudentDa
       student,
       enrolledTracks,
       stats,
-      upcomingClasses: upcomingClasses.length > 0 ? upcomingClasses : mockUpcomingClasses,
-      assignments: dashboardAssignments.length > 0 ? dashboardAssignments : mockAssignments,
-      resources: dashboardResources.length > 0 ? dashboardResources : mockResources,
-      announcements: dashboardAnnouncements.length > 0 ? dashboardAnnouncements : mockAnnouncements,
+      upcomingClasses,
+      assignments: dashboardAssignments,
+      resources: dashboardResources,
+      announcements: dashboardAnnouncements,
     };
-  } catch {
+  } catch (error) {
+    console.error("[Dashboard] Error fetching student dashboard data:", error);
     return {
-      student: {
-        ...mockStudentProfile,
-        name: `${user.firstName} ${user.lastName}`,
-        email: user.email,
+      student: buildStudentProfile(user, 0),
+      enrolledTracks: [],
+      stats: {
+        enrolledTracks: 0,
+        completedLessons: 0,
+        totalLessons: 0,
+        pendingAssignments: 0,
+        overallProgressPercentage: 0,
+        attendanceRate: 100,
       },
-      enrolledTracks: mockTracks,
-      stats: mockDashboardStats,
-      upcomingClasses: mockUpcomingClasses,
-      assignments: mockAssignments,
-      resources: mockResources,
-      announcements: mockAnnouncements,
+      upcomingClasses: [],
+      assignments: [],
+      resources: [],
+      announcements: [],
     };
   }
 }

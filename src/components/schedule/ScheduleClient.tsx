@@ -11,12 +11,25 @@ import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { ScheduleCard } from '@/components/schedule/ScheduleCard';
 import { SessionDetails } from '@/components/schedule/SessionDetails';
-import { mockBootcampSessions } from '@/data/schedule';
-import { mockStudentProfile, mockDashboardStats, mockTracks } from '@/data/mockData';
 import { BootcampSession, StudentProfile, Track } from '@/types/lms';
 import { cn } from '@/lib/utils';
 
 export type ScheduleTabFilter = 'upcoming' | 'this_week' | 'past' | 'all';
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface ScheduleClientProps {
   initialSessions?: BootcampSession[];
@@ -26,16 +39,15 @@ interface ScheduleClientProps {
 
 export function ScheduleClient({
   initialSessions,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: ScheduleClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState<ScheduleTabFilter>('upcoming');
   const [selectedTrack, setSelectedTrack] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const allSessions =
-    initialSessions && initialSessions.length > 0 ? initialSessions : mockBootcampSessions;
+  const allSessions = initialSessions || [];
 
   // Session details modal state
   const [activeSession, setActiveSession] = useState<BootcampSession | null>(null);
@@ -113,7 +125,7 @@ export function ScheduleClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
+        pendingAssignmentsCount={0}
         liveClassesCount={allSessions.filter((c) => c.isLiveNow).length}
       />
 

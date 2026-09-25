@@ -2,110 +2,6 @@ import prisma from "@/lib/prisma";
 import { BootcampInvite, InviteValidationResult } from "@/types/lms";
 
 /**
- * In-memory fallback invites store for offline development
- */
-let mockInvites: BootcampInvite[] = [
-  {
-    id: "inv-backend-2026",
-    code: "BACKEND26",
-    bootcampId: "bootcamp-1",
-    bootcampName: "GDG LASU Bootcamp 2026",
-    cohortId: "cohort-1",
-    cohortName: "Cohort 1 (Alpha)",
-    trackId: "track-backend",
-    trackName: "Backend Development",
-    allowTrackSelection: false,
-    maxTrackSelections: 1,
-    createdById: "user-admin-1",
-    creatorName: "Chioma Okonkwo",
-    expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-    maxUses: 100,
-    useCount: 12,
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "inv-frontend-2026",
-    code: "FRONTEND26",
-    bootcampId: "bootcamp-1",
-    bootcampName: "GDG LASU Bootcamp 2026",
-    cohortId: "cohort-1",
-    cohortName: "Cohort 1 (Alpha)",
-    trackId: "track-frontend",
-    trackName: "Frontend Development",
-    allowTrackSelection: false,
-    maxTrackSelections: 1,
-    createdById: "user-admin-1",
-    creatorName: "Chioma Okonkwo",
-    expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-    maxUses: 100,
-    useCount: 24,
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "inv-general-2026",
-    code: "GDGLASU26",
-    bootcampId: "bootcamp-1",
-    bootcampName: "GDG LASU Bootcamp 2026",
-    cohortId: "cohort-1",
-    cohortName: "Cohort 1 (Alpha)",
-    trackId: null,
-    trackName: null,
-    allowTrackSelection: true,
-    maxTrackSelections: 2,
-    createdById: "user-admin-1",
-    creatorName: "Chioma Okonkwo",
-    expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
-    maxUses: 500,
-    useCount: 68,
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "inv-expired-demo",
-    code: "EXPIRED26",
-    bootcampId: "bootcamp-1",
-    bootcampName: "GDG LASU Bootcamp 2026",
-    cohortId: "cohort-1",
-    cohortName: "Cohort 1 (Alpha)",
-    trackId: "track-backend",
-    trackName: "Backend Development",
-    allowTrackSelection: false,
-    maxTrackSelections: 1,
-    createdById: "user-admin-1",
-    creatorName: "Chioma Okonkwo",
-    expiresAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // Yesterday
-    maxUses: 50,
-    useCount: 15,
-    isActive: true,
-    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: "inv-full-demo",
-    code: "FULL26",
-    bootcampId: "bootcamp-1",
-    bootcampName: "GDG LASU Bootcamp 2026",
-    cohortId: "cohort-1",
-    cohortName: "Cohort 1 (Alpha)",
-    trackId: "track-backend",
-    trackName: "Backend Development",
-    allowTrackSelection: false,
-    maxTrackSelections: 1,
-    createdById: "user-admin-1",
-    creatorName: "Chioma Okonkwo",
-    expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    maxUses: 5,
-    useCount: 5, // reached maxUses
-    isActive: true,
-    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-];
-
-// Offline development tracking of user enrollments
-const mockUserEnrollments: Record<string, Set<string>> = {};
-
-/**
  * Generate a random readable uppercase alphanumeric invite code
  */
 export function generateInviteCode(prefix?: string): string {
@@ -197,72 +93,9 @@ export async function validateInviteCode(rawCode: string): Promise<InviteValidat
         })),
       },
     };
-  } catch {
-    // In-memory fallback during offline development
-    const mock = mockInvites.find((i) => i.code.toUpperCase() === code);
-    if (!mock) {
-      return { valid: false, error: "Invite code not found." };
-    }
-
-    if (!mock.isActive) {
-      return { valid: false, error: "This invite is no longer active." };
-    }
-
-    if (mock.expiresAt && new Date(mock.expiresAt) < new Date()) {
-      return { valid: false, error: "This invite has expired." };
-    }
-
-    if (mock.maxUses !== null && mock.maxUses !== undefined && mock.useCount >= mock.maxUses) {
-      return { valid: false, error: "This invite has reached its usage limit." };
-    }
-
-    const mockTracks = [
-      {
-        id: "track-backend",
-        name: "Backend Development",
-        slug: "backend-development",
-        description: "Node.js, PostgreSQL, Cloud Architecture, and APIs.",
-        accent: "#4285F4",
-      },
-      {
-        id: "track-frontend",
-        name: "Frontend Development",
-        slug: "frontend-development",
-        description: "React, Next.js, TypeScript, and modern UI engineering.",
-        accent: "#34A853",
-      },
-      {
-        id: "track-dsa",
-        name: "DSA & Interview Prep",
-        slug: "dsa-interview-prep",
-        description: "Algorithms, problem-solving, and technical interviews.",
-        accent: "#EA4335",
-      },
-      {
-        id: "track-uiux",
-        name: "UI/UX Design",
-        slug: "ui-ux-design",
-        description: "Figma design systems, accessibility, and user research.",
-        accent: "#FBBC04",
-      },
-    ];
-
-    return {
-      valid: true,
-      invite: {
-        code: mock.code,
-        bootcampId: mock.bootcampId,
-        bootcampName: mock.bootcampName || "GDG LASU Bootcamp 2026",
-        cohortId: mock.cohortId,
-        cohortName: mock.cohortName || "Cohort 1 (Alpha)",
-        trackId: mock.trackId,
-        trackName: mock.trackName,
-        trackSlug: mock.trackId ? mock.trackId.replace("track-", "") : null,
-        allowTrackSelection: mock.allowTrackSelection,
-        maxTrackSelections: mock.maxTrackSelections || 1,
-        availableTracks: mockTracks,
-      },
-    };
+  } catch (error) {
+    console.error("[Invites] Error validating invite code:", error);
+    return { valid: false, error: "Failed to validate invite code. Please try again." };
   }
 }
 
@@ -375,34 +208,9 @@ export async function processEnrollmentWithInvite(
       enrolledTrackNames: enrolledTrackNames.length > 0 ? enrolledTrackNames : [invite.trackName || "Bootcamp Track"],
       bootcampName: invite.bootcampName,
     };
-  } catch (_err) {
-    // Offline development fallback
-    const userSet = mockUserEnrollments[userId] || new Set();
-    const alreadyEnrolledAll = targetTrackIds.length > 0 && targetTrackIds.every((id) => userSet.has(id));
-    if (userSet.size > 0 && alreadyEnrolledAll) {
-      return {
-        success: false,
-        alreadyEnrolled: true,
-        error: "You're already enrolled in this track.",
-      };
-    }
-    targetTrackIds.forEach((id) => userSet.add(id));
-    mockUserEnrollments[userId] = userSet;
-
-    const mock = mockInvites.find((i) => i.code === invite.code);
-    if (mock) {
-      mock.useCount += 1;
-    }
-
-    const enrolledTrackNames = (invite.availableTracks || [])
-      .filter((t) => targetTrackIds.includes(t.id))
-      .map((t) => t.name);
-
-    return {
-      success: true,
-      enrolledTrackNames: enrolledTrackNames.length > 0 ? enrolledTrackNames : [invite.trackName || "Bootcamp Track"],
-      bootcampName: invite.bootcampName,
-    };
+  } catch (error) {
+    console.error("[Invites] Error processing enrollment:", error);
+    return { success: false, error: "Failed to process enrollment. Please try again." };
   }
 }
 
@@ -457,20 +265,9 @@ export async function getAdminInvites(
         }
         return true;
       });
-  } catch {
-    const now = new Date();
-    return mockInvites.filter((inv) => {
-      if (filter === "active") {
-        return inv.isActive && (!inv.expiresAt || new Date(inv.expiresAt) > now);
-      }
-      if (filter === "expired") {
-        return inv.expiresAt ? new Date(inv.expiresAt) <= now : false;
-      }
-      if (filter === "inactive") {
-        return !inv.isActive;
-      }
-      return true;
-    });
+  } catch (error) {
+    console.error("[Invites] Error fetching admin invites:", error);
+    return [];
   }
 }
 
@@ -494,71 +291,46 @@ export async function createAdminInvite(
     ? data.code.trim().toUpperCase()
     : generateInviteCode(data.trackId ? "TRK" : "GDG");
 
-  try {
-    const created = await prisma.invite.create({
-      data: {
-        code,
-        bootcampId: data.bootcampId,
-        cohortId: data.cohortId || null,
-        trackId: data.trackId || null,
-        allowTrackSelection: data.allowTrackSelection ?? false,
-        maxTrackSelections: data.maxTrackSelections || 1,
-        createdById,
-        expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
-        maxUses: data.maxUses ?? null,
-        isActive: true,
-      },
-      include: {
-        bootcamp: { select: { name: true } },
-        cohort: { select: { name: true } },
-        track: { select: { name: true } },
-        createdBy: { select: { firstName: true, lastName: true } },
-      },
-    });
-
-    return {
-      id: created.id,
-      code: created.code,
-      bootcampId: created.bootcampId,
-      bootcampName: created.bootcamp.name,
-      cohortId: created.cohortId,
-      cohortName: created.cohort?.name || null,
-      trackId: created.trackId,
-      trackName: created.track?.name || null,
-      allowTrackSelection: created.allowTrackSelection,
-      maxTrackSelections: created.maxTrackSelections,
-      createdById: created.createdById,
-      creatorName: `${created.createdBy.firstName} ${created.createdBy.lastName}`,
-      expiresAt: created.expiresAt ? created.expiresAt.toISOString() : null,
-      maxUses: created.maxUses,
-      useCount: created.useCount,
-      isActive: created.isActive,
-      createdAt: created.createdAt.toISOString(),
-    };
-  } catch (_err) {
-    // Offline dev fallback
-    const newMock: BootcampInvite = {
-      id: `inv-${Date.now()}`,
+  const created = await prisma.invite.create({
+    data: {
       code,
       bootcampId: data.bootcampId,
-      bootcampName: "GDG LASU Bootcamp 2026",
       cohortId: data.cohortId || null,
-      cohortName: "Cohort 1 (Alpha)",
       trackId: data.trackId || null,
-      trackName: data.trackId ? "Custom Track" : null,
       allowTrackSelection: data.allowTrackSelection ?? false,
       maxTrackSelections: data.maxTrackSelections || 1,
       createdById,
-      creatorName: "Chioma Okonkwo",
-      expiresAt: data.expiresAt || null,
-      maxUses: data.maxUses || null,
-      useCount: 0,
+      expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
+      maxUses: data.maxUses ?? null,
       isActive: true,
-      createdAt: new Date().toISOString(),
-    };
-    mockInvites.unshift(newMock);
-    return newMock;
-  }
+    },
+    include: {
+      bootcamp: { select: { name: true } },
+      cohort: { select: { name: true } },
+      track: { select: { name: true } },
+      createdBy: { select: { firstName: true, lastName: true } },
+    },
+  });
+
+  return {
+    id: created.id,
+    code: created.code,
+    bootcampId: created.bootcampId,
+    bootcampName: created.bootcamp.name,
+    cohortId: created.cohortId,
+    cohortName: created.cohort?.name || null,
+    trackId: created.trackId,
+    trackName: created.track?.name || null,
+    allowTrackSelection: created.allowTrackSelection,
+    maxTrackSelections: created.maxTrackSelections,
+    createdById: created.createdById,
+    creatorName: `${created.createdBy.firstName} ${created.createdBy.lastName}`,
+    expiresAt: created.expiresAt ? created.expiresAt.toISOString() : null,
+    maxUses: created.maxUses,
+    useCount: created.useCount,
+    isActive: created.isActive,
+    createdAt: created.createdAt.toISOString(),
+  };
 }
 
 /**
@@ -571,12 +343,8 @@ export async function toggleInviteStatus(id: string, isActive: boolean): Promise
       data: { isActive },
     });
     return true;
-  } catch {
-    const found = mockInvites.find((i) => i.id === id);
-    if (found) {
-      found.isActive = isActive;
-      return true;
-    }
+  } catch (error) {
+    console.error("[Invites] Error toggling invite status:", error);
     return false;
   }
 }
@@ -590,8 +358,8 @@ export async function deleteInviteRecord(id: string): Promise<boolean> {
       where: { id },
     });
     return true;
-  } catch {
-    mockInvites = mockInvites.filter((i) => i.id !== id);
-    return true;
+  } catch (error) {
+    console.error("[Invites] Error deleting invite record:", error);
+    return false;
   }
 }

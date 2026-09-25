@@ -15,9 +15,22 @@ import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { AssignmentCard } from '@/components/assignments/AssignmentCard';
 import { AssignmentFilters, AssignmentStatusFilter } from '@/components/assignments/AssignmentFilters';
-import { mockFullAssignments } from '@/data/assignments';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 import { FullAssignment, StudentProfile, Track } from '@/types/lms';
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface AssignmentsClientProps {
   initialAssignments?: FullAssignment[];
@@ -27,16 +40,15 @@ interface AssignmentsClientProps {
 
 export function AssignmentsClient({
   initialAssignments,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: AssignmentsClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<AssignmentStatusFilter>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
 
-  const allAssignments =
-    initialAssignments && initialAssignments.length > 0 ? initialAssignments : mockFullAssignments;
+  const allAssignments = initialAssignments || [];
 
   const handleResetFilters = () => {
     setSearchQuery('');
@@ -101,8 +113,8 @@ export function AssignmentsClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">

@@ -31,42 +31,33 @@ export async function POST(request: Request, context: RouteContext) {
     const { id: assignmentId } = await context.params;
 
     // Verify assignment exists
-    let assignment: any = null;
-    try {
-      assignment = await prisma.assignment.findUnique({
-        where: { id: assignmentId },
-        select: {
-          id: true,
-          trackId: true,
-        },
-      });
-    } catch {
-      assignment = { id: assignmentId, trackId: "track-1" };
-    }
+    const assignment = await prisma.assignment.findUnique({
+      where: { id: assignmentId },
+      select: {
+        id: true,
+        trackId: true,
+      },
+    });
 
     if (!assignment) {
       return NextResponse.json({ error: "Assignment not found" }, { status: 404 });
     }
 
     // Verify student is enrolled in the assignment's track
-    try {
-      const enrollment = await prisma.enrollment.findUnique({
-        where: {
-          userId_trackId: {
-            userId: user.id,
-            trackId: assignment.trackId,
-          },
+    const enrollment = await prisma.enrollment.findUnique({
+      where: {
+        userId_trackId: {
+          userId: user.id,
+          trackId: assignment.trackId,
         },
-      });
+      },
+    });
 
-      if (!enrollment || !enrollment.isActive) {
-        return NextResponse.json(
-          { error: "Forbidden: You are not enrolled in this track" },
-          { status: 403 }
-        );
-      }
-    } catch {
-      // Offline fallback
+    if (!enrollment || !enrollment.isActive) {
+      return NextResponse.json(
+        { error: "Forbidden: You are not enrolled in this track" },
+        { status: 403 }
+      );
     }
 
     const body = await request.json();
@@ -89,58 +80,34 @@ export async function POST(request: Request, context: RouteContext) {
     const submittedAt = isSubmitting ? new Date() : undefined;
 
     // Check existing submission for old file cleanup
-    let existingSubmission: any = null;
-    try {
-      existingSubmission = await prisma.submission.findUnique({
-        where: {
-          assignmentId_studentId: {
-            assignmentId,
-            studentId: user.id,
-          },
-        },
-      });
-    } catch {
-      // Offline fallback
-    }
-
-    let submission;
-    try {
-      submission = await prisma.submission.upsert({
-        where: {
-          assignmentId_studentId: {
-            assignmentId,
-            studentId: user.id,
-          },
-        },
-        update: {
-          githubUrl: githubUrl || null,
-          liveUrl: liveUrl || null,
-          notes: notes || null,
-          fileUrl: fileUrl || null,
-          filePublicId: filePublicId || null,
-          fileName: fileName || null,
-          fileSize: fileSize !== undefined && fileSize !== null ? Number(fileSize) : null,
-          status,
-          ...(submittedAt ? { submittedAt } : {}),
-        },
-        create: {
+    const existingSubmission = await prisma.submission.findUnique({
+      where: {
+        assignmentId_studentId: {
           assignmentId,
           studentId: user.id,
-          githubUrl: githubUrl || null,
-          liveUrl: liveUrl || null,
-          notes: notes || null,
-          fileUrl: fileUrl || null,
-          filePublicId: filePublicId || null,
-          fileName: fileName || null,
-          fileSize: fileSize !== undefined && fileSize !== null ? Number(fileSize) : null,
-          status,
-          submittedAt: isSubmitting ? new Date() : null,
         },
-      });
-    } catch {
-      // Offline fallback
-      submission = {
-        id: `sub-${Date.now()}`,
+      },
+    });
+
+    const submission = await prisma.submission.upsert({
+      where: {
+        assignmentId_studentId: {
+          assignmentId,
+          studentId: user.id,
+        },
+      },
+      update: {
+        githubUrl: githubUrl || null,
+        liveUrl: liveUrl || null,
+        notes: notes || null,
+        fileUrl: fileUrl || null,
+        filePublicId: filePublicId || null,
+        fileName: fileName || null,
+        fileSize: fileSize !== undefined && fileSize !== null ? Number(fileSize) : null,
+        status,
+        ...(submittedAt ? { submittedAt } : {}),
+      },
+      create: {
         assignmentId,
         studentId: user.id,
         githubUrl: githubUrl || null,
@@ -149,13 +116,11 @@ export async function POST(request: Request, context: RouteContext) {
         fileUrl: fileUrl || null,
         filePublicId: filePublicId || null,
         fileName: fileName || null,
-        fileSize: fileSize || null,
+        fileSize: fileSize !== undefined && fileSize !== null ? Number(fileSize) : null,
         status,
         submittedAt: isSubmitting ? new Date() : null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-    }
+      },
+    });
 
     // Requirement 28: If student replaced file, delete old Cloudinary asset AFTER successful update
     if (
@@ -218,25 +183,20 @@ export async function DELETE(request: Request, context: RouteContext) {
 
     const { id: assignmentId } = await context.params;
 
-    let existingSubmission: any = null;
-    try {
-      existingSubmission = await prisma.submission.findUnique({
-        where: {
-          assignmentId_studentId: {
-            assignmentId,
-            studentId: user.id,
-          },
+    const existingSubmission = await prisma.submission.findUnique({
+      where: {
+        assignmentId_studentId: {
+          assignmentId,
+          studentId: user.id,
         },
-      });
-    } catch {
-      existingSubmission = null;
-    }
+      },
+    });
 
     if (!existingSubmission) {
       return NextResponse.json({ error: "Submission not found" }, { status: 404 });
     }
 
-    // Only allow removing file if in DRAFT or if student owns it
+    // Only allow removing file if student owns it
     if (existingSubmission.filePublicId) {
       try {
         await deleteFromCloudinary(existingSubmission.filePublicId);
@@ -245,24 +205,20 @@ export async function DELETE(request: Request, context: RouteContext) {
       }
     }
 
-    try {
-      await prisma.submission.update({
-        where: {
-          assignmentId_studentId: {
-            assignmentId,
-            studentId: user.id,
-          },
+    await prisma.submission.update({
+      where: {
+        assignmentId_studentId: {
+          assignmentId,
+          studentId: user.id,
         },
-        data: {
-          fileUrl: null,
-          filePublicId: null,
-          fileName: null,
-          fileSize: null,
-        },
-      });
-    } catch {
-      // Offline fallback
-    }
+      },
+      data: {
+        fileUrl: null,
+        filePublicId: null,
+        fileName: null,
+        fileSize: null,
+      },
+    });
 
     return NextResponse.json({ success: true, message: "Attachment removed successfully" });
   } catch (error) {

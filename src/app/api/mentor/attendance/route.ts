@@ -9,6 +9,9 @@ export async function POST(request: Request) {
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    if (user.role !== "MENTOR" && user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
+      return NextResponse.json({ error: "Forbidden: Mentor access required" }, { status: 403 });
+    }
 
     const body = await request.json();
     const result = markAttendanceSchema.safeParse(body);

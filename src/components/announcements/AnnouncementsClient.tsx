@@ -15,9 +15,22 @@ import {
   AnnouncementFilterCategory,
 } from '@/components/announcements/AnnouncementFilters';
 import { AnnouncementDetails } from '@/components/announcements/AnnouncementDetails';
-import { mockAnnouncementsList } from '@/data/announcements';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 import { FullAnnouncement, StudentProfile, Track } from '@/types/lms';
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface AnnouncementsClientProps {
   initialAnnouncements?: FullAnnouncement[];
@@ -27,18 +40,15 @@ interface AnnouncementsClientProps {
 
 export function AnnouncementsClient({
   initialAnnouncements,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: AnnouncementsClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<AnnouncementFilterCategory>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
 
-  const allAnnouncements =
-    initialAnnouncements && initialAnnouncements.length > 0
-      ? initialAnnouncements
-      : mockAnnouncementsList;
+  const allAnnouncements = initialAnnouncements || [];
 
   // Modal inspection state
   const [activeAnnouncement, setActiveAnnouncement] = useState<FullAnnouncement | null>(null);
@@ -105,8 +115,8 @@ export function AnnouncementsClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">
@@ -162,7 +172,7 @@ export function AnnouncementsClient({
                       Active Bulletins
                     </span>
                     <span className="text-sm font-black text-[#0D0E11]">
-                      {mockAnnouncementsList.length} Announcements
+                      {allAnnouncements.length} Announcements
                     </span>
                   </div>
                 </div>

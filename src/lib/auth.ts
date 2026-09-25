@@ -186,120 +186,13 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         where: { id: payload.userId },
         select: safeUserSelect,
       });
-      if (user) {
-        if (user.isActive === false) return null;
+      if (user && user.isActive !== false) {
         return user;
       }
+      return null;
     } catch {
-      // Database connection fallback during offline development
+      return null;
     }
-
-    if (payload.userId === "user-mentor-1" || payload.email === "mentor@gdglasu.dev") {
-      return {
-        id: payload.userId || "user-mentor-1",
-        firstName: "Femi",
-        lastName: "Oladipo",
-        displayName: "Femi Oladipo",
-        email: payload.email || "mentor@gdglasu.dev",
-        role: Role.MENTOR,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        avatarPublicId: null,
-        bio: "Senior Cloud & Distributed Systems Engineer, Mentor at GDG LASU",
-        githubUrl: "https://github.com",
-        linkedinUrl: "https://linkedin.com",
-        isActive: true,
-        onboardingCompleted: true,
-        notificationPreferences: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-    }
-
-    if (payload.userId === "user-mentor-2" || payload.email === "blessing@gdglasu.dev") {
-      return {
-        id: payload.userId || "user-mentor-2",
-        firstName: "Blessing",
-        lastName: "Okoro",
-        displayName: "Blessing Okoro",
-        email: payload.email || "blessing@gdglasu.dev",
-        role: Role.MENTOR,
-        avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
-        avatarPublicId: null,
-        bio: "Frontend Lead & Design System Advocate",
-        githubUrl: "https://github.com",
-        linkedinUrl: "https://linkedin.com",
-        isActive: true,
-        onboardingCompleted: true,
-        notificationPreferences: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-    }
-
-    if (payload.userId === "user-admin-1" || payload.email === "admin@gdglasu.dev") {
-      return {
-        id: payload.userId || "user-admin-1",
-        firstName: "Chioma",
-        lastName: "Okonkwo",
-        displayName: "Chioma Okonkwo",
-        email: payload.email || "admin@gdglasu.dev",
-        role: Role.ADMIN,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        avatarPublicId: null,
-        bio: "Community Lead & Bootcamp Administrator",
-        githubUrl: "https://github.com",
-        linkedinUrl: "https://linkedin.com",
-        isActive: true,
-        onboardingCompleted: true,
-        notificationPreferences: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-    }
-
-    if (payload.userId === "user-superadmin-1" || payload.email === "superadmin@gdglasu.dev") {
-      return {
-        id: payload.userId || "user-superadmin-1",
-        firstName: "Damilola",
-        lastName: "Ade",
-        displayName: "Damilola Ade",
-        email: payload.email || "superadmin@gdglasu.dev",
-        role: Role.SUPER_ADMIN,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        avatarPublicId: null,
-        bio: "Lead Organizer, GDG on Campus LASU",
-        githubUrl: "https://github.com",
-        linkedinUrl: "https://linkedin.com",
-        isActive: true,
-        onboardingCompleted: true,
-        notificationPreferences: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-    }
-
-    if (payload.userId === "user-student-1" || payload.email === "student@gdglasu.dev") {
-      return {
-        id: payload.userId || "user-student-1",
-        firstName: "Alex",
-        lastName: "Johnson",
-        displayName: "Alex Johnson",
-        email: payload.email || "student@gdglasu.dev",
-        role: Role.STUDENT,
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-        avatarPublicId: null,
-        bio: "Passionate CS undergraduate eager to build scalable web applications",
-        githubUrl: "https://github.com",
-        linkedinUrl: "https://linkedin.com",
-        isActive: true,
-        onboardingCompleted: true,
-        notificationPreferences: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-    }
-
-    return null;
   } catch {
     return null;
   }

@@ -1,7 +1,32 @@
 import prisma from "@/lib/prisma";
 import { OverallBootcampProgress, TrackCategory } from "@/types/lms";
-import { mockOverallProgress } from "@/data/progress";
 import { getStudentAttendance } from "./attendance";
+
+const emptyProgress: OverallBootcampProgress = {
+  overallPercentage: 0,
+  tracksEnrolled: 0,
+  completedLessons: 0,
+  totalLessons: 0,
+  completedModules: 0,
+  totalModules: 0,
+  completedAssignments: 0,
+  totalAssignments: 0,
+  attendanceRate: 100,
+  weeklyActivity: {
+    lessonsCompletedThisWeek: 0,
+    assignmentsSubmittedThisWeek: 0,
+    sessionsAttendedThisWeek: 0,
+    hoursSpentThisWeek: 0,
+  },
+  attendanceSummary: {
+    attendanceRate: 100,
+    totalSessions: 0,
+    presentCount: 0,
+    absentCount: 0,
+    excusedCount: 0,
+  },
+  trackSummaries: [],
+};
 
 export async function getStudentProgress(studentId: string): Promise<OverallBootcampProgress> {
   try {
@@ -40,7 +65,7 @@ export async function getStudentProgress(studentId: string): Promise<OverallBoot
     });
 
     if (!enrollments || enrollments.length === 0) {
-      return mockOverallProgress;
+      return emptyProgress;
     }
 
     const { summary: attendanceSummary } = await getStudentAttendance(studentId);
@@ -101,12 +126,11 @@ export async function getStudentProgress(studentId: string): Promise<OverallBoot
       totalModulesAll += track.modules.length;
       completedModulesAll += tCompletedModules;
 
-      const tTotalAssignments = track.assignments.length;
-      const tCompletedAssignments = track.assignments.filter((a) =>
+      const trackAssignments = track.assignments;
+      totalAssignmentsAll += trackAssignments.length;
+      const tCompletedAssignments = trackAssignments.filter((a) =>
         a.submissions.some((s) => s.status === "SUBMITTED" || s.status === "REVIEWED")
       ).length;
-
-      totalAssignmentsAll += tTotalAssignments;
       completedAssignmentsAll += tCompletedAssignments;
 
       const trackPercentage =
@@ -116,13 +140,14 @@ export async function getStudentProgress(studentId: string): Promise<OverallBoot
         trackId: track.slug,
         trackName: track.name as TrackCategory,
         trackAccentColor: track.accent || "#4285F4",
+        percentage: trackPercentage,
         overallPercentage: trackPercentage,
         completedLessons: tCompletedLessons,
         totalLessons: tTotalLessons,
         completedModules: tCompletedModules,
         totalModules: track.modules.length,
-        completedAssignments: tCompletedAssignments,
-        totalAssignments: tTotalAssignments,
+        completedAssignments: 0,
+        totalAssignments: 0,
         nextLessonHref,
         modules,
       };
@@ -142,15 +167,16 @@ export async function getStudentProgress(studentId: string): Promise<OverallBoot
       totalAssignments: totalAssignmentsAll,
       attendanceRate: attendanceSummary.attendanceRate,
       weeklyActivity: {
-        lessonsCompletedThisWeek: 4,
-        assignmentsSubmittedThisWeek: 1,
-        sessionsAttendedThisWeek: 2,
-        hoursSpentThisWeek: 12,
+        lessonsCompletedThisWeek: 0,
+        assignmentsSubmittedThisWeek: 0,
+        sessionsAttendedThisWeek: 0,
+        hoursSpentThisWeek: 0,
       },
       attendanceSummary,
       trackSummaries,
     };
-  } catch {
-    return mockOverallProgress;
+  } catch (error) {
+    console.error("[Progress] Error fetching student progress:", error);
+    return emptyProgress;
   }
 }

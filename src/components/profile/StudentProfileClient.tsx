@@ -17,7 +17,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { StudentProfile, Track } from '@/types/lms';
-import { mockTracks } from '@/data/mockData';
 
 interface EnrolledTrackItem {
   id: string;
@@ -111,30 +110,24 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
 
   const initials = `${formData.firstName.slice(0, 1)}${formData.lastName.slice(0, 1)}`.toUpperCase() || 'ST';
 
-  const sidebarTracks: Track[] = enrolledTracks.length > 0
-    ? enrolledTracks.map((et) => {
-        const match = mockTracks.find((m) => m.id === et.id || m.slug === et.slug);
-        if (match) return match;
-        return {
-          id: et.id,
-          name: (et.name as Track['name']) || 'Frontend Development',
-          slug: et.slug,
-          description: '',
-          cohort: et.cohortName || 'Bootcamp 2026',
-          instructors: [],
-          progressPercentage: 0,
-          completedLessons: 0,
-          totalLessons: 12,
-          currentModule: 'Orientation',
-          nextLesson: { id: 'l1', title: 'Welcome', durationMinutes: 30 },
-          colorTheme: {
-            badge: 'bg-[#4285F4]/10 text-[#4285F4]',
-            border: 'border-[#4285F4]/30',
-            accent: et.accent || '#4285F4',
-          },
-        };
-      })
-    : [];
+  const sidebarTracks: Track[] = enrolledTracks.map((et) => ({
+    id: et.id,
+    name: (et.name as Track['name']) || 'Frontend Development',
+    slug: et.slug,
+    description: '',
+    cohort: et.cohortName || 'Bootcamp 2026',
+    instructors: [],
+    progressPercentage: 0,
+    completedLessons: 0,
+    totalLessons: 12,
+    currentModule: 'Curriculum',
+    nextLesson: { id: 'l1', title: 'Lessons', durationMinutes: 30 },
+    colorTheme: {
+      badge: 'bg-[#4285F4]/10 text-[#4285F4]',
+      border: 'border-[#4285F4]/30',
+      accent: et.accent || '#4285F4',
+    },
+  }));
 
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">

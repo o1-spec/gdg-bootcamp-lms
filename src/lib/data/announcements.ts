@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 import { AnnouncementPriority } from "@prisma/client";
 import { safeUserSelect } from "@/lib/auth";
 import { FullAnnouncement, AnnouncementPriority as UIAnnouncementPriority } from "@/types/lms";
-import { mockAnnouncementsList } from "@/data/announcements";
 
 export interface AnnouncementFilters {
   trackSlug?: string;
@@ -83,7 +82,7 @@ export async function getStudentAnnouncements(studentId: string): Promise<FullAn
     });
 
     if (!announcements || announcements.length === 0) {
-      return mockAnnouncementsList;
+      return [];
     }
 
     return announcements.map((a) => {
@@ -119,7 +118,8 @@ export async function getStudentAnnouncements(studentId: string): Promise<FullAn
         attachments: [],
       };
     });
-  } catch {
-    return mockAnnouncementsList;
+  } catch (error) {
+    console.error("[Announcements] Error fetching student announcements:", error);
+    return [];
   }
 }

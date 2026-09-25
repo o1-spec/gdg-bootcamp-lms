@@ -37,17 +37,17 @@ export async function POST(request: Request) {
     }
 
     // Verify assignment exists and student is enrolled in the assignment's track
-    try {
-      const assignment = await prisma.assignment.findUnique({
-        where: { id: assignmentId },
-        select: { id: true, trackId: true },
-      });
+    const assignment = await prisma.assignment.findUnique({
+      where: { id: assignmentId },
+      select: { id: true, trackId: true },
+    });
 
-      if (!assignment) {
-        return NextResponse.json({ error: "Assignment not found" }, { status: 404 });
-      }
+    if (!assignment) {
+      return NextResponse.json({ error: "Assignment not found" }, { status: 404 });
+    }
 
-      // If user is a student, check track enrollment
+    // If user is a student, check track enrollment
+    if (user.role === "STUDENT") {
       const enrollment = await prisma.enrollment.findUnique({
         where: {
           userId_trackId: {
@@ -63,8 +63,6 @@ export async function POST(request: Request) {
           { status: 403 }
         );
       }
-    } catch {
-      // Fallback for offline dev
     }
 
     // Convert file to buffer

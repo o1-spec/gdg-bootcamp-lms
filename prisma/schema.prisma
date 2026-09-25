@@ -77,37 +77,40 @@ enum NotificationType {
 }
 
 model User {
-  id                  String   @id @default(cuid())
-  firstName           String
-  lastName            String
-  displayName         String?
-  email               String   @unique
-  passwordHash        String
-  role                Role     @default(STUDENT)
-  avatarUrl           String?
-  avatarPublicId      String?
-  bio                 String?  @db.Text
-  githubUrl           String?
-  linkedinUrl         String?
-  isActive            Boolean  @default(true)
-  onboardingCompleted Boolean  @default(false)
+  id                      String   @id @default(cuid())
+  firstName               String
+  lastName                String
+  displayName             String?
+  email                   String   @unique
+  passwordHash            String
+  role                    Role     @default(STUDENT)
+  avatarUrl               String?
+  avatarPublicId          String?
+  bio                     String?  @db.Text
+  githubUrl               String?
+  linkedinUrl             String?
+  isActive                Boolean  @default(true)
+  onboardingCompleted     Boolean  @default(false)
   notificationPreferences Json?
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
 
   enrollments         Enrollment[]
   mentorAssignments   MentorAssignment[]
-  createdAssignments  Assignment[]          @relation("AssignmentCreator")
+  createdAssignments  Assignment[]         @relation("AssignmentCreator")
   submissions         Submission[]
-  attendances         Attendance[]          @relation("StudentAttendance")
-  markedAttendances   Attendance[]          @relation("AttendanceMarker")
-  announcements       Announcement[]        @relation("AnnouncementAuthor")
+  attendances         Attendance[]         @relation("StudentAttendance")
+  markedAttendances   Attendance[]         @relation("AttendanceMarker")
+  announcements       Announcement[]       @relation("AnnouncementAuthor")
   lessonProgress      LessonProgress[]
-  uploadedResources   Resource[]            @relation("ResourceUploader")
-  mentorSessions      Session[]             @relation("MentorSessions")
-  createdInvites      Invite[]              @relation("InviteCreator")
+  uploadedResources   Resource[]           @relation("ResourceUploader")
+  mentorSessions      Session[]            @relation("MentorSessions")
+  createdInvites      Invite[]             @relation("InviteCreator")
   notifications       Notification[]
   passwordResetTokens PasswordResetToken[]
+
+  @@index([role])
+  @@index([isActive])
 }
 
 model PasswordResetToken {
@@ -150,6 +153,8 @@ model Cohort {
 
   tracks  Track[]
   invites Invite[]
+
+  @@index([bootcampId])
 }
 
 model Track {
@@ -170,6 +175,8 @@ model Track {
   sessions          Session[]
   announcements     Announcement[]
   invites           Invite[]
+
+  @@index([cohortId])
 }
 
 model Invite {
@@ -184,25 +191,32 @@ model Invite {
   allowTrackSelection Boolean   @default(false)
   maxTrackSelections  Int?      @default(1)
   createdById         String
-  createdBy           User      @relation("InviteCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  createdBy           User      @relation("InviteCreator", fields: [createdById], references: [id], onDelete: Restrict)
   expiresAt           DateTime?
   maxUses             Int?
   useCount            Int       @default(0)
   isActive            Boolean   @default(true)
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
+
+  @@index([isActive])
+  @@index([bootcampId])
+  @@index([cohortId])
+  @@index([trackId])
 }
 
 model Enrollment {
   id         String   @id @default(cuid())
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Restrict)
   trackId    String
-  track      Track    @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  track      Track    @relation(fields: [trackId], references: [id], onDelete: Restrict)
   enrolledAt DateTime @default(now())
   isActive   Boolean  @default(true)
 
   @@unique([userId, trackId])
+  @@index([trackId])
+  @@index([userId])
 }
 
 model MentorAssignment {
@@ -214,6 +228,7 @@ model MentorAssignment {
   assignedAt DateTime @default(now())
 
   @@unique([mentorId, trackId])
+  @@index([trackId])
 }
 
 model Module {
@@ -230,6 +245,8 @@ model Module {
   lessons     Lesson[]
   resources   Resource[]
   assignments Assignment[]
+
+  @@index([trackId])
 }
 
 model Lesson {
@@ -248,6 +265,10 @@ model Lesson {
 
   resources Resource[]
   progress  LessonProgress[]
+
+  @@index([moduleId])
+  @@index([moduleId, isPublished])
+  @@index([isPublished])
 }
 
 model Resource {
@@ -265,10 +286,14 @@ model Resource {
   moduleId         String?
   module           Module?      @relation(fields: [moduleId], references: [id], onDelete: SetNull)
   uploadedById     String
-  uploadedBy       User         @relation("ResourceUploader", fields: [uploadedById], references: [id])
+  uploadedBy       User         @relation("ResourceUploader", fields: [uploadedById], references: [id], onDelete: Restrict)
   isRequired       Boolean      @default(false)
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
+
+  @@index([moduleId])
+  @@index([lessonId])
+  @@index([uploadedById])
 }
 
 model Assignment {
@@ -284,19 +309,23 @@ model Assignment {
   points       Int?
   type         AssignmentType
   createdById  String
-  createdBy    User           @relation("AssignmentCreator", fields: [createdById], references: [id])
+  createdBy    User           @relation("AssignmentCreator", fields: [createdById], references: [id], onDelete: Restrict)
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 
   submissions Submission[]
+
+  @@index([trackId])
+  @@index([moduleId])
+  @@index([dueDate])
 }
 
 model Submission {
   id           String           @id @default(cuid())
   assignmentId String
-  assignment   Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  assignment   Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Restrict)
   studentId    String
-  student      User             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  student      User             @relation(fields: [studentId], references: [id], onDelete: Restrict)
   githubUrl    String?
   liveUrl      String?
   fileUrl      String?
@@ -313,6 +342,9 @@ model Submission {
   updatedAt    DateTime         @updatedAt
 
   @@unique([assignmentId, studentId])
+  @@index([studentId])
+  @@index([status])
+  @@index([assignmentId, status])
 }
 
 model Session {
@@ -333,20 +365,27 @@ model Session {
   updatedAt    DateTime    @updatedAt
 
   attendances Attendance[]
+
+  @@index([trackId])
+  @@index([trackId, startTime])
+  @@index([startTime])
 }
 
 model Attendance {
   id         String           @id @default(cuid())
   sessionId  String
-  session    Session          @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  session    Session          @relation(fields: [sessionId], references: [id], onDelete: Restrict)
   studentId  String
-  student    User             @relation("StudentAttendance", fields: [studentId], references: [id], onDelete: Cascade)
+  student    User             @relation("StudentAttendance", fields: [studentId], references: [id], onDelete: Restrict)
   status     AttendanceStatus
   markedAt   DateTime         @default(now())
   markedById String?
   markedBy   User?            @relation("AttendanceMarker", fields: [markedById], references: [id], onDelete: SetNull)
 
   @@unique([sessionId, studentId])
+  @@index([studentId])
+  @@index([sessionId])
+  @@index([sessionId, status])
 }
 
 model Announcement {
@@ -357,23 +396,27 @@ model Announcement {
   trackId   String?
   track     Track?               @relation(fields: [trackId], references: [id], onDelete: SetNull)
   authorId  String
-  author    User                 @relation("AnnouncementAuthor", fields: [authorId], references: [id])
+  author    User                 @relation("AnnouncementAuthor", fields: [authorId], references: [id], onDelete: Restrict)
   createdAt DateTime             @default(now())
   updatedAt DateTime             @updatedAt
+
+  @@index([trackId, createdAt])
+  @@index([createdAt])
 }
 
 model LessonProgress {
   id          String    @id @default(cuid())
   lessonId    String
-  lesson      Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lesson      Lesson    @relation(fields: [lessonId], references: [id], onDelete: Restrict)
   studentId   String
-  student     User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  student     User      @relation(fields: [studentId], references: [id], onDelete: Restrict)
   completed   Boolean   @default(false)
   completedAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   @@unique([lessonId, studentId])
+  @@index([studentId])
 }
 
 model Notification {
@@ -388,7 +431,7 @@ model Notification {
   eventKey  String?
   createdAt DateTime         @default(now())
 
+  @@unique([userId, eventKey])
   @@index([userId, readAt])
   @@index([userId, createdAt])
-  @@unique([userId, eventKey])
 }

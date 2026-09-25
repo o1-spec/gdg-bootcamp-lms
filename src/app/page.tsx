@@ -10,6 +10,14 @@ export default async function Home() {
     redirect("/login");
   }
 
+  if (user.role === "MENTOR") {
+    redirect("/mentor");
+  }
+
+  if (user.role === "ADMIN" || user.role === "SUPER_ADMIN") {
+    redirect("/admin");
+  }
+
   if (user.role === "STUDENT" && user.onboardingCompleted === false) {
     redirect("/onboarding");
   }

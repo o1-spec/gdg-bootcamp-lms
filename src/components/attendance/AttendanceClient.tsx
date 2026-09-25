@@ -14,10 +14,31 @@ import {
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { AttendanceTable } from '@/components/attendance/AttendanceTable';
-import { mockAttendanceRecords, mockAttendanceSummary } from '@/data/attendance';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 import { AttendanceRecord, AttendanceStatus, AttendanceSummaryData, StudentProfile, Track } from '@/types/lms';
 import { cn } from '@/lib/utils';
+
+const defaultSummary: AttendanceSummaryData = {
+  attendanceRate: 100,
+  totalSessions: 0,
+  presentCount: 0,
+  absentCount: 0,
+  excusedCount: 0,
+};
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface AttendanceClientProps {
   initialSummary?: AttendanceSummaryData;
@@ -29,17 +50,16 @@ interface AttendanceClientProps {
 export function AttendanceClient({
   initialSummary,
   initialRecords,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: AttendanceClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<'all' | AttendanceStatus>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const summary = initialSummary || mockAttendanceSummary;
-  const allRecords =
-    initialRecords && initialRecords.length > 0 ? initialRecords : mockAttendanceRecords;
+  const summary = initialSummary || defaultSummary;
+  const allRecords = initialRecords || [];
 
   const trackOptions = [
     { id: 'all', label: 'All Tracks' },
@@ -98,8 +118,8 @@ export function AttendanceClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">
@@ -273,7 +293,7 @@ export function AttendanceClient({
               <div className="flex items-center gap-3 pt-2 lg:pt-0 text-xs font-medium text-[#5F6368]">
                 <span>
                   Showing <strong>{filteredRecords.length}</strong> of{' '}
-                  {mockAttendanceRecords.length} records
+                  {allRecords.length} records
                 </span>
                 {(selectedStatus !== 'all' || selectedTrack !== 'all' || searchQuery) && (
                   <button

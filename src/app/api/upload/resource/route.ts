@@ -121,24 +121,20 @@ export async function POST(request: Request) {
         );
       }
 
-      try {
-        const assignment = await prisma.mentorAssignment.findUnique({
-          where: {
-            mentorId_trackId: {
-              mentorId: user.id,
-              trackId: resolvedTrackId,
-            },
+      const assignment = await prisma.mentorAssignment.findUnique({
+        where: {
+          mentorId_trackId: {
+            mentorId: user.id,
+            trackId: resolvedTrackId,
           },
-        });
+        },
+      });
 
-        if (!assignment) {
-          return NextResponse.json(
-            { error: "Forbidden: You are not assigned to mentor this track" },
-            { status: 403 }
-          );
-        }
-      } catch {
-        // If DB is offline, allow dev fallback for mentor
+      if (!assignment) {
+        return NextResponse.json(
+          { error: "Forbidden: You are not assigned to mentor this track" },
+          { status: 403 }
+        );
       }
     }
 

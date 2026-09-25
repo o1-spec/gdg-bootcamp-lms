@@ -7,7 +7,6 @@ import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { EnrolledTrackCard } from '@/components/tracks/EnrolledTrackCard';
 import { DetailedTrack, StudentProfile, Track } from '@/types/lms';
-import { mockDashboardStats, mockUpcomingClasses } from '@/data/mockData';
 
 interface TracksClientProps {
   tracks: DetailedTrack[];
@@ -37,8 +36,8 @@ export function TracksClient({ tracks, student, enrolledTracksSummary }: TracksC
         enrolledTracks={enrolledTracksSummary}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">

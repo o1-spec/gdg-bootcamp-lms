@@ -1,8 +1,6 @@
 import prisma from "@/lib/prisma";
 import { safeUserSelect } from "@/lib/auth";
 import { DetailedTrack, Track, TrackCategory, ResourceType } from "@/types/lms";
-import { mockDetailedTracks } from "@/data/tracks";
-import { mockTracks } from "@/data/mockData";
 
 export async function getAllTracks() {
   try {
@@ -31,29 +29,9 @@ export async function getAllTracks() {
         name: "asc",
       },
     });
-  } catch {
-    return Object.values(mockDetailedTracks).map((t) => ({
-      id: t.id,
-      name: t.name,
-      slug: t.slug,
-      description: t.shortDescription,
-      accent: t.accentColor,
-      cohortId: "cohort-1",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      cohort: {
-        id: "cohort-1",
-        name: t.cohort,
-        bootcamp: {
-          id: "bootcamp-1",
-          name: "GDG LASU Bootcamp 2026",
-        },
-      },
-      _count: {
-        modules: t.modules.length,
-        enrollments: 1,
-      },
-    }));
+  } catch (error) {
+    console.error("[Tracks] Error fetching all tracks:", error);
+    return [];
   }
 }
 
@@ -334,9 +312,9 @@ export async function getStudentTracks(studentId: string): Promise<DetailedTrack
         }),
       };
     });
-  } catch {
-    // Graceful fallback to mock tracks if DB is not reached
-    return Object.values(mockDetailedTracks);
+  } catch (error) {
+    console.error("[Tracks] Error fetching student tracks:", error);
+    return [];
   }
 }
 
@@ -348,15 +326,7 @@ export async function getStudentTrackBySlug(
   studentId: string
 ): Promise<DetailedTrack | null> {
   const tracks = await getStudentTracks(studentId);
-  const track = tracks.find((t) => t.slug === slug);
-  if (track) return track;
-
-  // Fallback to mock track if slug matches
-  if (mockDetailedTracks[slug]) {
-    return mockDetailedTracks[slug];
-  }
-
-  return null;
+  return tracks.find((t) => t.slug === slug) || null;
 }
 
 /**
@@ -410,7 +380,8 @@ export async function getStudentEnrolledTracksSummary(studentId: string): Promis
         },
       };
     });
-  } catch {
-    return mockTracks;
+  } catch (error) {
+    console.error("[Tracks] Error fetching student enrolled tracks summary:", error);
+    return [];
   }
 }

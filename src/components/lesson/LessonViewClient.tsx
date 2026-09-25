@@ -11,8 +11,22 @@ import { LessonContent } from './LessonContent';
 import { LessonResources } from './LessonResources';
 import { LessonNavigation } from './LessonNavigation';
 import { LessonSidebar } from './LessonSidebar';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 import { Sparkles } from 'lucide-react';
+
+const fallbackStudent: StudentProfile = {
+  id: '',
+  name: 'Student',
+  firstName: 'Student',
+  lastName: '',
+  email: '',
+  avatar: '',
+  cohort: 'Bootcamp 2026',
+  role: 'Student',
+  enrolledTracksCount: 0,
+  studyStreakDays: 0,
+  totalHoursSpent: 0,
+  onboardingCompleted: true,
+};
 
 interface LessonViewClientProps {
   lesson: FullLesson;
@@ -31,8 +45,8 @@ interface LessonViewClientProps {
 export function LessonViewClient({
   lesson,
   moduleLessons,
-  student = mockStudentProfile,
-  enrolledTracks = mockTracks,
+  student = fallbackStudent,
+  enrolledTracks = [],
 }: LessonViewClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(lesson.status === 'completed');
@@ -82,8 +96,8 @@ export function LessonViewClient({
         enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={0}
+        liveClassesCount={0}
       />
 
       <div className="flex flex-1 flex-col min-w-0">

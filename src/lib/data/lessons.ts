@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import { FullLesson, LessonStatus, ResourceType } from "@/types/lms";
-import { mockLessons } from "@/data/lessons";
 
 export async function getLessonsByModuleId(moduleId: string) {
   try {
@@ -92,9 +91,6 @@ export async function getLessonDetails(
     });
 
     if (!lesson) {
-      if (mockLessons[lessonSlugOrId]) {
-        return mockLessons[lessonSlugOrId];
-      }
       return null;
     }
 
@@ -170,7 +166,8 @@ export async function getLessonDetails(
           }
         : undefined,
     };
-  } catch {
-    return mockLessons[lessonSlugOrId] || null;
+  } catch (error) {
+    console.error("[Lessons] Error fetching lesson details:", error);
+    return null;
   }
 }

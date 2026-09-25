@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 import { AssignmentType } from "@prisma/client";
 import { safeUserSelect } from "@/lib/auth";
 import { FullAssignment, ExtendedAssignmentStatus, SubmissionStatus as UISubmissionStatus, AssignmentType as UIAssignmentType, TrackCategory } from "@/types/lms";
-import { mockFullAssignments } from "@/data/assignments";
 
 export interface AssignmentFilters {
   trackSlug?: string;
@@ -135,7 +134,7 @@ export async function getStudentAssignments(studentId: string): Promise<FullAssi
     });
 
     if (!assignments || assignments.length === 0) {
-      return mockFullAssignments;
+      return [];
     }
 
     const now = new Date();
@@ -218,8 +217,9 @@ export async function getStudentAssignments(studentId: string): Promise<FullAssi
         },
       };
     });
-  } catch {
-    return mockFullAssignments;
+  } catch (error) {
+    console.error("[Assignments] Error fetching student assignments:", error);
+    return [];
   }
 }
 
@@ -231,11 +231,9 @@ export async function getStudentAssignmentDetails(
   studentId: string
 ): Promise<FullAssignment | null> {
   const allAssignments = await getStudentAssignments(studentId);
-  const found = allAssignments.find(
-    (a) => a.id === assignmentIdOrSlug || a.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") === assignmentIdOrSlug
+  return (
+    allAssignments.find(
+      (a) => a.id === assignmentIdOrSlug || a.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") === assignmentIdOrSlug
+    ) || null
   );
-  if (found) return found;
-
-  const mock = mockFullAssignments.find((a) => a.id === assignmentIdOrSlug);
-  return mock || null;
 }
