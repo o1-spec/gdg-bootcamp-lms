@@ -5,6 +5,8 @@ import {
   getUnreadCountForUser,
 } from "@/lib/data/notifications";
 
+export const dynamic = "force-dynamic";
+
 /**
  * GET /api/notifications
  * Returns the current user's notifications + unread count.

@@ -4,6 +4,11 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
+  if (process.env.NODE_ENV === "production" && process.env.FORCE_SEED !== "true") {
+    console.error("❌ Refusing to run dev seed script in production environment to prevent data loss. If you really intend to seed in production, set FORCE_SEED=true.");
+    process.exit(1);
+  }
+
   console.log("🌱 Starting database seeding...");
 
   // Clean existing data in reverse dependency order
