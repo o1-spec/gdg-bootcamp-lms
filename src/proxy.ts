@@ -46,7 +46,7 @@ export async function proxy(request: NextRequest) {
 
   // If user is accessing login or register while already authenticated, redirect based on role
   if (isAuthenticated && (pathname === "/login" || pathname === "/register")) {
-    let destination = "/";
+    let destination = "/dashboard";
     if (userRole === "ADMIN" || userRole === "SUPER_ADMIN") {
       destination = "/admin/dashboard";
     } else if (userRole === "MENTOR") {
@@ -55,18 +55,14 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(destination, request.url));
   }
 
-  // Check if current route is protected or root dashboard
-  const isProtected =
-    pathname === "/" ||
-    protectedPaths.some(
-      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-    );
+  // Check if current route is protected (Note: "/" is public landing page)
+  const isProtected = protectedPaths.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
 
   if (isProtected && !isAuthenticated) {
     const loginUrl = new URL("/login", request.url);
-    if (pathname !== "/") {
-      loginUrl.searchParams.set("from", pathname);
-    }
+    loginUrl.searchParams.set("from", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
@@ -81,7 +77,7 @@ export async function proxy(request: NextRequest) {
     if (!isAdmin) {
       // Forbidden: redirect mentors to mentor dashboard, students to student dashboard
       return NextResponse.redirect(
-        new URL(userRole === "MENTOR" ? "/mentor/dashboard" : "/", request.url),
+        new URL(userRole === "MENTOR" ? "/mentor/dashboard" : "/dashboard", request.url),
       );
     }
   }
@@ -99,7 +95,7 @@ export async function proxy(request: NextRequest) {
       userRole === "SUPER_ADMIN";
     if (!isStaff) {
       // Forbidden: redirect student to their student dashboard
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }
 

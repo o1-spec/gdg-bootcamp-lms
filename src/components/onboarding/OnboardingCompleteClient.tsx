@@ -29,7 +29,7 @@ export function OnboardingCompleteClient() {
         {/* Welcome Celebration Card */}
         <div className="rounded-3xl border border-gdg-border bg-white p-6 sm:p-10 shadow-sm space-y-8 text-center relative overflow-hidden">
           {/* Top Google Colors Accent Ribbon */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-gdg-blue via-gdg-red via-gdg-yellow to-gdg-green" />
+          <div className="absolute top-0 left-0 right-0 h-2 bg-linear-to-r from-gdg-blue via-gdg-red to-gdg-green" />
 
           <div className="space-y-3 pt-2">
             <div className="w-16 h-16 rounded-full bg-gdg-green/15 border-2 border-gdg-green/30 text-gdg-green flex items-center justify-center mx-auto shadow-sm animate-in zoom-in">
@@ -112,7 +112,7 @@ export function OnboardingCompleteClient() {
           {/* CTA Action */}
           <div className="pt-2">
             <Link
-              href="/"
+              href="/dashboard"
               className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gdg-black hover:bg-gdg-dark-border text-sm font-black text-gdg-cream shadow-md transition-all cursor-pointer group"
             >
               <span>Go to Your Student Dashboard</span>

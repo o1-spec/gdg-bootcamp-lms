@@ -25,7 +25,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
     id: "dashboard",
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/",
+    href: "/dashboard",
     roles: [Role.STUDENT, Role.MENTOR, Role.ADMIN, Role.SUPER_ADMIN],
   },
   {
