@@ -30,7 +30,7 @@ export function ProgressHero({ progress }: ProgressHeroProps) {
           </h2>
 
           <p className="text-xs sm:text-sm text-[#FAF7EE]/70 font-normal leading-relaxed">
-            Your cumulative completion across all enrolled tracks is on schedule. Complete your active API sprint to hit the 70% cohort benchmark.
+            Your cumulative completion across all enrolled tracks. Keep completing lessons and submitting assignments to push your progress higher.
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function ProgressHero({ progress }: ProgressHeroProps) {
             </div>
             <div className="flex items-center gap-1.5 text-xs text-[#34A853] font-bold pt-1">
               <TrendingUp className="h-3.5 w-3.5" />
-              <span>Ahead of cohort average</span>
+              <span>Keep going</span>
             </div>
           </div>
         </div>

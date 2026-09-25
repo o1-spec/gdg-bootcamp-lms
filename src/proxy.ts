@@ -3,7 +3,10 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const AUTH_COOKIE_NAME = "bootcamp_lms_session";
-const JWT_SECRET = process.env.AUTH_SECRET || "fallback-secret-for-development-min-32-chars-long";
+// AUTH_SECRET must be set in production — see .env.example
+const JWT_SECRET =
+  process.env.AUTH_SECRET ||
+  "fallback-secret-for-development-only-never-use-in-production";
 const secretKey = new TextEncoder().encode(JWT_SECRET);
 
 // Protected path prefixes for students, mentors, and admins
@@ -24,7 +27,7 @@ const protectedPaths = [
   "/admin",
 ];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
 
@@ -55,7 +58,9 @@ export async function middleware(request: NextRequest) {
   // Check if current route is protected or root dashboard
   const isProtected =
     pathname === "/" ||
-    protectedPaths.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+    protectedPaths.some(
+      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+    );
 
   if (isProtected && !isAuthenticated) {
     const loginUrl = new URL("/login", request.url);
@@ -76,7 +81,7 @@ export async function middleware(request: NextRequest) {
     if (!isAdmin) {
       // Forbidden: redirect mentors to mentor dashboard, students to student dashboard
       return NextResponse.redirect(
-        new URL(userRole === "MENTOR" ? "/mentor/dashboard" : "/", request.url)
+        new URL(userRole === "MENTOR" ? "/mentor/dashboard" : "/", request.url),
       );
     }
   }
@@ -88,7 +93,10 @@ export async function middleware(request: NextRequest) {
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
     }
-    const isStaff = userRole === "MENTOR" || userRole === "ADMIN" || userRole === "SUPER_ADMIN";
+    const isStaff =
+      userRole === "MENTOR" ||
+      userRole === "ADMIN" ||
+      userRole === "SUPER_ADMIN";
     if (!isStaff) {
       // Forbidden: redirect student to their student dashboard
       return NextResponse.redirect(new URL("/", request.url));

@@ -81,13 +81,18 @@ export async function uploadToCloudinary(
   const resourceType = isImage ? "image" : isPdf ? "auto" : "raw";
 
   if (!isCloudinaryConfigured()) {
-    // Graceful offline development simulation if user hasn't added Cloudinary API credentials yet
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "Cloudinary credentials are not configured. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET environment variables."
+      );
+    }
+    // Development-only: simulate upload so local dev works without Cloudinary credentials
     console.warn(
-      "[Cloudinary] Credentials not configured. Simulating offline successful upload for development."
+      "[Cloudinary] Credentials not configured. Simulating offline upload for development only — do NOT use in production."
     );
     const mockId = `${folder}/${Date.now()}_${sanitized}`.replace(/\/+/g, "/");
     return {
-      secureUrl: `https://res.cloudinary.com/gdglasu/raw/upload/v1/${mockId}`,
+      secureUrl: `https://res.cloudinary.com/dev-placeholder/raw/upload/v1/${mockId}`,
       publicId: mockId,
       originalFileName: sanitized,
       fileSize: buffer.length,
@@ -133,7 +138,11 @@ export async function deleteFromCloudinary(publicId: string): Promise<boolean> {
   if (!publicId) return true;
 
   if (!isCloudinaryConfigured()) {
-    console.log(`[Cloudinary Mock] Deleting asset ${publicId} (offline mode)`);
+    if (process.env.NODE_ENV === "production") {
+      console.error(`[Cloudinary] Cannot delete ${publicId}: credentials not configured.`);
+      return false;
+    }
+    console.log(`[Cloudinary] Offline mode — skipping delete of ${publicId}`);
     return true;
   }
 

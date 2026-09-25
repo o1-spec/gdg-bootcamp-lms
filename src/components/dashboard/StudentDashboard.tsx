@@ -215,15 +215,9 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                   <span className="text-xs font-bold text-[#FAF7EE]/70 uppercase tracking-wider">
                     {student.cohort}
                   </span>
-                  {student.studyStreakDays > 0 ? (
-                    <span className="rounded-full bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30 px-3 py-0.5 text-xs font-black">
-                      🔥 {student.studyStreakDays} Day Streak
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30 px-3 py-0.5 text-xs font-bold">
-                      Active Student
-                    </span>
-                  )}
+                  <span className="rounded-full bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30 px-3 py-0.5 text-xs font-bold">
+                    Active Student
+                  </span>
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">

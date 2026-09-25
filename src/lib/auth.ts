@@ -6,7 +6,16 @@ import prisma from "@/lib/prisma";
 import { StudentProfile } from "@/types/lms";
 
 export const AUTH_COOKIE_NAME = "bootcamp_lms_session";
-const JWT_SECRET = process.env.AUTH_SECRET || "fallback-secret-for-development-min-32-chars-long";
+
+if (!process.env.AUTH_SECRET && process.env.NODE_ENV === "production") {
+  throw new Error(
+    "AUTH_SECRET environment variable is not set. This is required in production to sign JWT session cookies securely."
+  );
+}
+
+const JWT_SECRET =
+  process.env.AUTH_SECRET ||
+  "fallback-secret-for-development-only-never-use-in-production";
 const secretKey = new TextEncoder().encode(JWT_SECRET);
 
 export interface TokenPayload {

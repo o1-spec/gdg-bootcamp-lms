@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Calendar, CheckCircle2, FileCheck, Video, Clock } from 'lucide-react';
+import { Calendar, CheckCircle2, FileCheck, Video } from 'lucide-react';
 import { OverallBootcampProgress } from '@/types/lms';
 
 interface ActivitySummaryProps {
@@ -25,11 +25,11 @@ export function ActivitySummary({ activity }: ActivitySummaryProps) {
         </div>
 
         <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#FAF7EE] text-[#5F6368] border border-[#E5DFD0] self-start sm:self-auto">
-          Sep 21 – Sep 27, 2026
+          This Week
         </span>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Metric 1: Lessons completed */}
         <div className="p-4 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] space-y-2">
           <div className="flex items-center justify-between">
@@ -84,23 +84,6 @@ export function ActivitySummary({ activity }: ActivitySummaryProps) {
           </div>
         </div>
 
-        {/* Metric 4: Hours spent */}
-        <div className="p-4 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#5F6368] uppercase tracking-wider">
-              Time Invested
-            </span>
-            <Clock className="h-4 w-4 text-[#FBBC04]" />
-          </div>
-          <div>
-            <span className="text-3xl font-black text-[#0D0E11]">
-              {activity.hoursSpentThisWeek}h
-            </span>
-            <span className="text-xs font-medium text-[#5F6368] block mt-0.5">
-              Deep study hours logged
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
