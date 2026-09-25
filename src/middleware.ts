@@ -6,7 +6,7 @@ const AUTH_COOKIE_NAME = "bootcamp_lms_session";
 const JWT_SECRET = process.env.AUTH_SECRET || "fallback-secret-for-development-min-32-chars-long";
 const secretKey = new TextEncoder().encode(JWT_SECRET);
 
-// Protected path prefixes for students and mentors
+// Protected path prefixes for students, mentors, and admins
 const protectedPaths = [
   "/tracks",
   "/resources",
@@ -17,6 +17,7 @@ const protectedPaths = [
   "/announcements",
   "/dashboard",
   "/mentor",
+  "/admin",
 ];
 
 export async function middleware(request: NextRequest) {
@@ -36,10 +37,15 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // If user is accessing login or register while already authenticated, redirect
+  // If user is accessing login or register while already authenticated, redirect based on role
   if (isAuthenticated && (pathname === "/login" || pathname === "/register")) {
-    const isStaff = userRole === "MENTOR" || userRole === "ADMIN" || userRole === "SUPER_ADMIN";
-    return NextResponse.redirect(new URL(isStaff ? "/mentor/dashboard" : "/", request.url));
+    let destination = "/";
+    if (userRole === "ADMIN" || userRole === "SUPER_ADMIN") {
+      destination = "/admin/dashboard";
+    } else if (userRole === "MENTOR") {
+      destination = "/mentor/dashboard";
+    }
+    return NextResponse.redirect(new URL(destination, request.url));
   }
 
   // Check if current route is protected or root dashboard
@@ -53,6 +59,22 @@ export async function middleware(request: NextRequest) {
       loginUrl.searchParams.set("from", pathname);
     }
     return NextResponse.redirect(loginUrl);
+  }
+
+  // Restrict /admin routes: ONLY ADMIN and SUPER_ADMIN can access
+  if (pathname.startsWith("/admin")) {
+    if (!isAuthenticated) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("from", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    const isAdmin = userRole === "ADMIN" || userRole === "SUPER_ADMIN";
+    if (!isAdmin) {
+      // Forbidden: redirect mentors to mentor dashboard, students to student dashboard
+      return NextResponse.redirect(
+        new URL(userRole === "MENTOR" ? "/mentor/dashboard" : "/", request.url)
+      );
+    }
   }
 
   // Restrict /mentor routes: only MENTOR, ADMIN, SUPER_ADMIN can access

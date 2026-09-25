@@ -224,6 +224,20 @@ export async function requireRole(allowedRoles: Role[]): Promise<SafeUser> {
 }
 
 /**
+ * Require the authenticated user to be an ADMIN or SUPER_ADMIN.
+ */
+export async function requireAdmin(): Promise<SafeUser> {
+  return await requireRole([Role.ADMIN, Role.SUPER_ADMIN]);
+}
+
+/**
+ * Require the authenticated user to be a SUPER_ADMIN.
+ */
+export async function requireSuperAdmin(): Promise<SafeUser> {
+  return await requireRole([Role.SUPER_ADMIN]);
+}
+
+/**
  * Require the user to be an assigned mentor for the track, or an ADMIN / SUPER_ADMIN.
  * Accepts either track CUID or track slug.
  */

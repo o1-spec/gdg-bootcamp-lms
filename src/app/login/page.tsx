@@ -49,10 +49,12 @@ export default function LoginPage() {
 
       setIsSuccess(true);
       const userRole = data.user?.role;
-      const destination =
-        userRole === 'MENTOR' || userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'
-          ? '/mentor/dashboard'
-          : '/';
+      let destination = '/';
+      if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
+        destination = '/admin/dashboard';
+      } else if (userRole === 'MENTOR') {
+        destination = '/mentor/dashboard';
+      }
       setTimeout(() => {
         router.push(destination);
         router.refresh();
