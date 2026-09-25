@@ -52,6 +52,7 @@ export function ScheduleClient({
   // Session details modal state
   const [activeSession, setActiveSession] = useState<BootcampSession | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
 
   const handleOpenDetails = (ses: BootcampSession) => {
     setActiveSession(ses);
@@ -328,11 +329,14 @@ export function ScheduleClient({
 
             <button
               type="button"
-              onClick={() => alert('Calendar synced to Google Calendar format!')}
+              onClick={() => {
+                setSubscribed(true);
+                setTimeout(() => setSubscribed(false), 3500);
+              }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md shrink-0"
             >
               <CalendarDays className="h-4 w-4 text-[#FBBC04]" />
-              <span>Subscribe to Google Calendar</span>
+              <span>{subscribed ? 'Calendar Subscribed' : 'Subscribe to Google Calendar'}</span>
             </button>
           </div>
         </main>

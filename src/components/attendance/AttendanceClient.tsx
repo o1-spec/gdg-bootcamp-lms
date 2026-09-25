@@ -57,6 +57,7 @@ export function AttendanceClient({
   const [selectedStatus, setSelectedStatus] = useState<'all' | AttendanceStatus>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [appealSubmitted, setAppealSubmitted] = useState(false);
 
   const summary = initialSummary || defaultSummary;
   const allRecords = initialRecords || [];
@@ -355,10 +356,13 @@ export function AttendanceClient({
 
             <button
               type="button"
-              onClick={() => alert('Absence appeal form submitted to track mentor!')}
+              onClick={() => {
+                setAppealSubmitted(true);
+                setTimeout(() => setAppealSubmitted(false), 3500);
+              }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md shrink-0"
             >
-              <span>Submit Absence Excuse</span>
+              <span>{appealSubmitted ? 'Absence Excuse Submitted' : 'Submit Absence Excuse'}</span>
             </button>
           </div>
         </main>

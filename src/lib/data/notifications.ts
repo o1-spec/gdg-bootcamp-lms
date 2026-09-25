@@ -6,23 +6,14 @@
 import prisma from "@/lib/prisma";
 import { NotificationType } from "@prisma/client";
 
-// ─────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────
-
 export interface CreateNotificationInput {
   userId: string;
   type: NotificationType;
   title: string;
   message: string;
   link?: string;
-  /** Optional deduplication key — skips insert if (userId, eventKey) already exists */
   eventKey?: string;
 }
-
-// ─────────────────────────────────────────────────────────────
-// Core primitives
-// ─────────────────────────────────────────────────────────────
 
 /** Map NotificationType to user preference key. Returns null for non-optional system notifications. */
 export function getNotificationPreferenceKey(type: NotificationType): string | null {
@@ -128,11 +119,6 @@ export async function createNotificationsForUsers(
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Track-scoped helpers
-// ─────────────────────────────────────────────────────────────
-
-/** Notify all active students enrolled in a track */
 export async function notifyTrackStudents(
   trackId: string,
   base: Omit<CreateNotificationInput, "userId">
@@ -149,7 +135,6 @@ export async function notifyTrackStudents(
   }
 }
 
-/** Notify all mentors assigned to a track */
 export async function notifyTrackMentors(
   trackId: string,
   base: Omit<CreateNotificationInput, "userId">
@@ -165,10 +150,6 @@ export async function notifyTrackMentors(
     console.warn("[notifications] notifyTrackMentors failed:", err);
   }
 }
-
-// ─────────────────────────────────────────────────────────────
-// Query helpers (used by API routes)
-// ─────────────────────────────────────────────────────────────
 
 export async function getNotificationsForUser(userId: string, limit = 50) {
   return prisma.notification.findMany({
