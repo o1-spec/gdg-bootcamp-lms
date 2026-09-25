@@ -110,9 +110,9 @@ export function AssignmentDetailClient({
           </div>
         </div>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-5xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-5xl w-full mx-auto">
           {/* Back button & Breadcrumbs */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <Link
               href="/assignments"
               className="inline-flex items-center gap-2 text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] transition-colors"
@@ -140,7 +140,7 @@ export function AssignmentDetailClient({
           </div>
 
           {/* Section A: Header Banner */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-xs relative overflow-hidden space-y-6">
+          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 shadow-xs relative overflow-hidden space-y-6">
             <div
               className="absolute top-0 left-0 right-0 h-2"
               style={{ backgroundColor: assignment.trackAccentColor }}
@@ -169,8 +169,8 @@ export function AssignmentDetailClient({
               </div>
 
               {/* Due Date & Points Card */}
-              <div className="flex flex-row lg:flex-col items-center lg:items-end justify-between gap-4 p-4 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] shrink-0">
-                <div className="space-y-1 lg:text-right">
+              <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end justify-between gap-3 sm:gap-4 p-4 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] shrink-0">
+                <div className="space-y-1 sm:text-left lg:text-right">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] flex items-center lg:justify-end gap-1">
                     <Calendar className="h-3.5 w-3.5 text-[#4285F4]" />
                     Deadline
@@ -185,7 +185,7 @@ export function AssignmentDetailClient({
                   )}
                 </div>
 
-                <div className="space-y-1 lg:text-right pt-0 lg:pt-2 lg:border-t lg:border-[#E5DFD0]">
+                <div className="space-y-1 sm:text-left lg:text-right pt-2 sm:pt-0 lg:pt-2 border-t sm:border-t-0 sm:border-l sm:pl-4 lg:border-l-0 lg:pl-0 lg:border-t border-[#E5DFD0]">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368] flex items-center lg:justify-end gap-1">
                     <Trophy className="h-3.5 w-3.5 text-[#FBBC04]" />
                     Points Value
@@ -199,7 +199,7 @@ export function AssignmentDetailClient({
           </div>
 
           {/* Section B: Assignment Overview */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 space-y-6 shadow-xs">
+          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 space-y-6 shadow-xs">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <BookOpen className="h-4 w-4 text-[#4285F4]" />
@@ -247,7 +247,7 @@ export function AssignmentDetailClient({
           </div>
 
           {/* Section C: Requirements Checklist */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 space-y-5 shadow-xs">
+          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 space-y-5 shadow-xs">
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">

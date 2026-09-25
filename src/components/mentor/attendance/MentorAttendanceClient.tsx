@@ -195,9 +195,9 @@ export function MentorAttendanceClient({
           </div>
         )}
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#34A853]" />
@@ -205,10 +205,10 @@ export function MentorAttendanceClient({
                   Cohort Attendance &amp; Class Participation
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#0D0E11]">
+              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[#0D0E11]">
                 Attendance Ledger
               </h1>
-              <p className="text-base text-[#5F6368] max-w-2xl font-medium">
+              <p className="text-xs sm:text-sm text-[#5F6368] max-w-2xl font-medium">
                 Record real-time attendance for live workshops, lectures, and office hours across your assigned tracks.
               </p>
             </div>
@@ -216,7 +216,7 @@ export function MentorAttendanceClient({
             <button
               onClick={handleSaveAttendance}
               disabled={isSaving || !activeSession || students.length === 0}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm self-start md:self-auto"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm cursor-pointer"
             >
               <Save className="h-4 w-4 text-[#34A853]" />
               <span>{isSaving ? 'Saving Attendance...' : 'Save Attendance to Database'}</span>
@@ -304,20 +304,20 @@ export function MentorAttendanceClient({
                 </div>
 
                 {/* Session Rate Card */}
-                <div className="grid grid-cols-4 gap-3">
-                  <div className="p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center min-w-[70px]">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center">
                     <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Total</span>
                     <span className="text-xl font-black text-[#0D0E11] font-mono">{totalStudents}</span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-[#34A853]/10 border border-[#34A853]/30 text-center min-w-[70px]">
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-[#34A853]/10 border border-[#34A853]/30 text-center">
                     <span className="text-[10px] font-bold uppercase text-[#34A853] block">Present</span>
                     <span className="text-xl font-black text-[#34A853] font-mono">{presentCount}</span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 text-center min-w-[70px]">
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/30 text-center">
                     <span className="text-[10px] font-bold uppercase text-[#EA4335] block">Absent</span>
                     <span className="text-xl font-black text-[#EA4335] font-mono">{absentCount}</span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center min-w-[70px]">
+                  <div className="p-3 sm:p-3.5 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-center">
                     <span className="text-[10px] font-bold uppercase text-[#5F6368] block">Rate</span>
                     <span className="text-xl font-black text-[#0D0E11] font-mono">{attendanceRate}%</span>
                   </div>
@@ -341,22 +341,101 @@ export function MentorAttendanceClient({
                   <span className="text-xs font-bold text-[#5F6368] mr-1">Bulk Actions:</span>
                   <button
                     onClick={() => handleMarkAll('PRESENT')}
-                    className="px-3.5 py-1.5 rounded-xl bg-[#34A853]/10 hover:bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30 text-xs font-bold transition-colors"
+                    className="px-3.5 py-1.5 rounded-xl bg-[#34A853]/10 hover:bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30 text-xs font-bold transition-colors cursor-pointer"
                   >
                     Mark All Present
                   </button>
                   <button
                     onClick={() => handleMarkAll('ABSENT')}
-                    className="px-3.5 py-1.5 rounded-xl bg-[#EA4335]/10 hover:bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30 text-xs font-bold transition-colors"
+                    className="px-3.5 py-1.5 rounded-xl bg-[#EA4335]/10 hover:bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30 text-xs font-bold transition-colors cursor-pointer"
                   >
                     Mark All Absent
                   </button>
                 </div>
               </div>
 
-              {/* Student Attendance Ledger Table */}
+              {/* Student Attendance Ledger - Mobile Cards (< md) & Desktop Table (>= md) */}
               <div className="rounded-3xl bg-white border border-[#E5DFD0] shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
+                {/* Mobile Card List */}
+                <div className="md:hidden divide-y divide-[#E5DFD0]">
+                  {filteredStudents.length === 0 ? (
+                    <div className="p-8 text-center text-xs text-[#5F6368]">No students found matching search.</div>
+                  ) : (
+                    filteredStudents.map((st) => (
+                      <div key={st.studentId} className="p-4 space-y-3">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={st.avatar}
+                            alt={st.name}
+                            className="w-10 h-10 rounded-full object-cover border border-[#E5DFD0] shrink-0"
+                          />
+                          <div className="min-w-0">
+                            <span className="font-bold text-[#0D0E11] block text-xs truncate">
+                              {st.name}
+                            </span>
+                            <span className="text-[#5F6368] text-[11px] truncate block">{st.email}</span>
+                          </div>
+                        </div>
+
+                        {/* Status Buttons Grid */}
+                        <div className="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0]">
+                          <button
+                            onClick={() => handleStudentStatusChange(st.studentId, 'PRESENT')}
+                            className={cn(
+                              'flex items-center justify-center gap-1 py-2 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all',
+                              st.status === 'PRESENT'
+                                ? 'bg-[#34A853] text-white shadow-xs'
+                                : 'text-[#5F6368] hover:text-[#0D0E11]'
+                            )}
+                          >
+                            <Check className="h-3 w-3 shrink-0" />
+                            <span>Present</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleStudentStatusChange(st.studentId, 'ABSENT')}
+                            className={cn(
+                              'flex items-center justify-center gap-1 py-2 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all',
+                              st.status === 'ABSENT'
+                                ? 'bg-[#EA4335] text-white shadow-xs'
+                                : 'text-[#5F6368] hover:text-[#0D0E11]'
+                            )}
+                          >
+                            <XCircle className="h-3 w-3 shrink-0" />
+                            <span>Absent</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleStudentStatusChange(st.studentId, 'EXCUSED')}
+                            className={cn(
+                              'flex items-center justify-center gap-1 py-2 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all',
+                              st.status === 'EXCUSED'
+                                ? 'bg-[#FBBC04] text-[#0D0E11] shadow-xs'
+                                : 'text-[#5F6368] hover:text-[#0D0E11]'
+                            )}
+                          >
+                            <Clock className="h-3 w-3 shrink-0" />
+                            <span>Excused</span>
+                          </button>
+                        </div>
+
+                        {/* Note Input */}
+                        <div>
+                          <input
+                            type="text"
+                            value={st.notes}
+                            onChange={(e) => handleStudentNoteChange(st.studentId, e.target.value)}
+                            placeholder="Add participation notes..."
+                            className="w-full px-3 py-2 rounded-xl border border-[#E5DFD0] focus:border-[#0D0E11] bg-[#FAF7EE] focus:bg-white text-xs outline-none transition-all placeholder:text-[#5F6368]"
+                          />
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                {/* Desktop Table View */}
+                <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead className="bg-[#FAF7EE] border-b border-[#E5DFD0] text-[#5F6368] uppercase font-bold text-[10px] tracking-wider">
                       <tr>
@@ -390,7 +469,7 @@ export function MentorAttendanceClient({
                               <button
                                 onClick={() => handleStudentStatusChange(st.studentId, 'PRESENT')}
                                 className={cn(
-                                  'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all',
+                                  'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer',
                                   st.status === 'PRESENT'
                                     ? 'bg-[#34A853] text-white shadow-xs'
                                     : 'text-[#5F6368] hover:text-[#0D0E11]'
@@ -403,7 +482,7 @@ export function MentorAttendanceClient({
                               <button
                                 onClick={() => handleStudentStatusChange(st.studentId, 'ABSENT')}
                                 className={cn(
-                                  'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all',
+                                  'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer',
                                   st.status === 'ABSENT'
                                     ? 'bg-[#EA4335] text-white shadow-xs'
                                     : 'text-[#5F6368] hover:text-[#0D0E11]'
@@ -416,7 +495,7 @@ export function MentorAttendanceClient({
                               <button
                                 onClick={() => handleStudentStatusChange(st.studentId, 'EXCUSED')}
                                 className={cn(
-                                  'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all',
+                                  'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer',
                                   st.status === 'EXCUSED'
                                     ? 'bg-[#FBBC04] text-[#0D0E11] shadow-xs'
                                     : 'text-[#5F6368] hover:text-[#0D0E11]'

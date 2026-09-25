@@ -140,7 +140,7 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-5 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
         {/* Top colored accent line */}
         <div
           className="absolute top-0 left-8 right-8 h-1.5 rounded-b-full"
@@ -200,7 +200,7 @@ export function ResourceDetails({ resource, isOpen, onClose }: ResourceDetailsPr
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight leading-tight">
+        <h2 className="text-xl sm:text-3xl font-black text-[#0D0E11] tracking-tight leading-tight">
           {resource.title}
         </h2>
 

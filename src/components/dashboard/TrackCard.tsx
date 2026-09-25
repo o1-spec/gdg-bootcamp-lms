@@ -27,7 +27,7 @@ export function TrackCard({ track }: TrackCardProps) {
       : Terminal;
 
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-7 shadow-sm hover:border-[#383A42] transition-all duration-200">
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-5 sm:p-7 shadow-sm hover:border-[#383A42] transition-all duration-200">
       {/* Signature top accent border stroke */}
       <div
         className="absolute top-0 left-0 right-0 h-1.5"
@@ -126,7 +126,7 @@ export function TrackCard({ track }: TrackCardProps) {
       </div>
 
       {/* Mentor and Resume Button */}
-      <div className="flex items-center justify-between pt-5 mt-5 border-t border-[#22242B]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-5 mt-5 border-t border-[#22242B]">
         {leadInstructor && (
           <div className="flex items-center gap-2.5">
             <Avatar className="h-8 w-8 border border-[#22242B]">
@@ -151,7 +151,7 @@ export function TrackCard({ track }: TrackCardProps) {
 
         <Link
           href={`/tracks/${track.slug}`}
-          className="inline-flex items-center gap-1.5 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-4 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer ml-auto"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-4 py-2 text-xs font-black tracking-wide shadow-xs transition-transform active:scale-95 cursor-pointer w-full sm:w-auto sm:ml-auto"
         >
           <span>Continue Learning</span>
           <ArrowRight className="h-3.5 w-3.5" />

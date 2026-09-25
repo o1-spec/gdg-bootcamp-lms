@@ -205,7 +205,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Users & Students"
           subtitle="Directory, role authorizations, profiles, and enrollments"
@@ -222,7 +222,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Controls Bar: Search & Role Filters */}
           <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="relative w-full sm:w-80">
@@ -260,7 +260,133 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
 
           {/* Users Table / List */}
           <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
-            <div className="overflow-x-auto">
+            {/* Mobile Card List (< md) */}
+            <div className="md:hidden divide-y divide-white/5">
+              {filteredUsers.length === 0 ? (
+                <div className="py-12 text-center text-white/40 text-xs">
+                  No users match your search and filter criteria.
+                </div>
+              ) : (
+                filteredUsers.map((u) => {
+                  const isTargetSuper = u.role === Role.SUPER_ADMIN;
+                  const canEditThisUser = isSuperAdmin || !isTargetSuper;
+
+                  return (
+                    <div key={u.id} className="p-4 space-y-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <Avatar className="w-10 h-10 border border-white/10 shrink-0">
+                            <AvatarImage src={u.avatarUrl || ''} alt={u.name} />
+                            <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
+                              {u.firstName[0]}
+                              {u.lastName[0]}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="min-w-0">
+                            <div className="font-bold text-white text-xs flex items-center gap-1.5">
+                              <span className="truncate">{u.name}</span>
+                              {u.id === admin.id && (
+                                <span className="text-[9px] uppercase px-1.5 py-0.5 rounded-full bg-white/10 text-white/60 font-mono">
+                                  You
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-white/40 truncate">{u.email}</p>
+                          </div>
+                        </div>
+
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider shrink-0 ${
+                            u.role === Role.SUPER_ADMIN
+                              ? 'bg-[#EA4335]/20 text-[#EA4335] border border-[#EA4335]/30'
+                              : u.role === Role.ADMIN
+                              ? 'bg-[#4285F4]/20 text-[#4285F4] border border-[#4285F4]/30'
+                              : u.role === Role.MENTOR
+                              ? 'bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30'
+                              : 'bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30'
+                          }`}
+                        >
+                          {u.role}
+                        </span>
+                      </div>
+
+                      {/* Track Affiliations & Joined Date */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-white/5 text-[11px]">
+                        <div className="flex flex-wrap gap-1">
+                          {u.role === Role.STUDENT && (
+                            u.enrolledTracks && u.enrolledTracks.length > 0 ? (
+                              u.enrolledTracks.map((t) => (
+                                <span
+                                  key={t.id}
+                                  className="px-2 py-0.5 rounded-md text-[10px] font-mono"
+                                  style={{ backgroundColor: `${t.accent || '#4285F4'}20`, color: t.accent || '#4285F4' }}
+                                >
+                                  {t.name}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-white/30 italic text-[11px]">Unenrolled</span>
+                            )
+                          )}
+                          {u.role === Role.MENTOR && (
+                            u.assignedTracks && u.assignedTracks.length > 0 ? (
+                              u.assignedTracks.map((t) => (
+                                <span
+                                  key={t.id}
+                                  className="px-2 py-0.5 rounded-md text-[10px] font-mono"
+                                  style={{ backgroundColor: `${t.accent || '#FBBC04'}20`, color: t.accent || '#FBBC04' }}
+                                >
+                                  {t.name}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-white/30 italic text-[11px]">No track assigned</span>
+                            )
+                          )}
+                          {(u.role === Role.ADMIN || u.role === Role.SUPER_ADMIN) && (
+                            <span className="text-[10px] text-white/40 font-mono">
+                              Full Scope
+                            </span>
+                          )}
+                        </div>
+
+                        <span className="text-white/40 text-[11px] font-mono">
+                          {format(new Date(u.createdAt), 'MMM d, yyyy')}
+                        </span>
+                      </div>
+
+                      {/* Mobile Actions */}
+                      <div className="flex items-center gap-2 pt-2 border-t border-white/5">
+                        <button
+                          onClick={() => setSelectedUser(u)}
+                          className="flex-1 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Dossier</span>
+                        </button>
+                        {canEditThisUser ? (
+                          <button
+                            onClick={() => openEditModal(u)}
+                            className="flex-1 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                            <span>Edit</span>
+                          </button>
+                        ) : (
+                          <div className="flex-1 py-2 rounded-xl bg-white/5 text-white/20 text-xs font-semibold flex items-center justify-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5" />
+                            <span>Protected</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
@@ -550,7 +676,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
       {/* CREATE USER MODAL (Requirement 10) */}
       {isCreateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Create Platform User</h3>
@@ -572,7 +698,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
             )}
 
             <form onSubmit={handleCreateUser} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
                     First Name <span className="text-[#EA4335]">*</span>
@@ -653,18 +779,18 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 )}
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isCreating}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
                 >
                   {isCreating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Create User</span>
@@ -678,7 +804,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
       {/* EDIT USER MODAL (Requirement 11) */}
       {editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Edit User Profile</h3>
@@ -700,7 +826,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
             )}
 
             <form onSubmit={handleUpdateUser} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
                     First Name
@@ -756,18 +882,18 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isUpdating}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
                 >
                   {isUpdating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Save Changes</span>

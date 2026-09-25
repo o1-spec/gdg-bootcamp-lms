@@ -21,22 +21,22 @@ export function AdminHeader({
   actions,
 }: AdminHeaderProps) {
   return (
-    <header className="sticky top-0 z-20 bg-[#0D0E11]/90 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-4 transition-all">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-20 bg-[#0D0E11]/90 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-8 py-3.5 transition-all">
+      <div className="flex items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
           <button
             onClick={onOpenMobileMenu}
-            className="md:hidden p-2 -ml-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            className="lg:hidden p-2 -ml-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors shrink-0 cursor-pointer"
             aria-label="Open navigation menu"
           >
             <Menu className="w-5 h-5" />
           </button>
-          <div>
-            <h1 className="text-xl sm:text-2xl font-black text-[#FAF7EE] tracking-tight flex items-center gap-2">
+          <div className="min-w-0">
+            <h1 className="text-lg sm:text-2xl font-black text-[#FAF7EE] tracking-tight flex items-center gap-2 truncate">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-xs sm:text-sm text-white/50 font-medium line-clamp-1">{subtitle}</p>
+              <p className="text-xs sm:text-sm text-white/50 font-medium truncate">{subtitle}</p>
             )}
           </div>
         </div>

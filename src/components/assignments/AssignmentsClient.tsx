@@ -144,9 +144,9 @@ export function AssignmentsClient({
           </div>
         </div>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header Banner */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#EA4335]" />
@@ -154,7 +154,7 @@ export function AssignmentsClient({
                   Sprint Deliverables & Portfolio Checks
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-[#0D0E11] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0D0E11] tracking-tight">
                 Assignments
               </h1>
               <p className="text-sm text-[#5F6368] font-medium max-w-xl">

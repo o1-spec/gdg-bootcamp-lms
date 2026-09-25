@@ -10,7 +10,7 @@ interface ProgressHeroProps {
 
 export function ProgressHero({ progress }: ProgressHeroProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-8 lg:p-10 shadow-sm space-y-8">
+    <div className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-5 sm:p-8 lg:p-10 shadow-sm space-y-8">
       {/* Background Subtle Gradient Glows */}
       <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-[#4285F4]/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[#FBBC04]/10 blur-3xl" />
@@ -35,16 +35,16 @@ export function ProgressHero({ progress }: ProgressHeroProps) {
         </div>
 
         {/* Large Percentage Metric */}
-        <div className="flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 shrink-0">
+        <div className="flex items-center gap-6 p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 shrink-0">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-[#FAF7EE]/60 block">
               Overall Completion
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-5xl sm:text-6xl font-black text-[#FAF7EE] tracking-tight">
+              <span className="text-4xl sm:text-6xl font-black text-[#FAF7EE] tracking-tight">
                 {progress.overallPercentage}
               </span>
-              <span className="text-2xl font-black text-[#FBBC04]">%</span>
+              <span className="text-xl sm:text-2xl font-black text-[#FBBC04]">%</span>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-[#34A853] font-bold pt-1">
               <TrendingUp className="h-3.5 w-3.5" />
@@ -56,7 +56,7 @@ export function ProgressHero({ progress }: ProgressHeroProps) {
 
       {/* Main Multi-color Segmented Progress Bar */}
       <div className="space-y-2 relative z-10">
-        <div className="flex items-center justify-between text-xs font-bold text-[#FAF7EE]/70">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs font-bold text-[#FAF7EE]/70">
           <span>Bootcamp Milestone Progress</span>
           <span>{progress.completedLessons} of {progress.totalLessons} Lessons Mastered</span>
         </div>

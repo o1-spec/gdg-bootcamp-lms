@@ -223,7 +223,7 @@ export function AdminEnrollmentsClient({
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Student Enrollments"
           subtitle="Track admissions, bulk enrollment checklist, and active rosters"
@@ -249,7 +249,7 @@ export function AdminEnrollmentsClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Controls: Search & Track Filter */}
           <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="relative w-full sm:w-80">
@@ -271,7 +271,7 @@ export function AdminEnrollmentsClient({
               <select
                 value={selectedTrackFilter}
                 onChange={(e) => setSelectedTrackFilter(e.target.value)}
-                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4] max-w-full"
               >
                 <option value="all" className="bg-[#0D0E11]">All Tracks</option>
                 {tracks.map((t) => (
@@ -283,9 +283,81 @@ export function AdminEnrollmentsClient({
             </div>
           </div>
 
-          {/* Enrollments Table */}
+          {/* Enrollments List / Table */}
           <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
-            <div className="overflow-x-auto">
+            {/* Mobile Card List (< md) */}
+            <div className="md:hidden divide-y divide-white/5">
+              {filteredEnrollments.length === 0 ? (
+                <div className="py-12 text-center text-white/40 text-xs">
+                  No enrollments found matching current criteria.
+                </div>
+              ) : (
+                filteredEnrollments.map((enr) => (
+                  <div key={enr.id} className="p-4 space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <Avatar className="w-10 h-10 border border-white/10 shrink-0">
+                          <AvatarImage src={enr.studentAvatar || ''} alt={enr.studentName} />
+                          <AvatarFallback className="bg-[#4285F4] text-white font-bold text-xs">
+                            {enr.studentName[0]}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <p className="font-bold text-white text-xs truncate">{enr.studentName}</p>
+                          <p className="text-[11px] text-white/40 truncate">{enr.studentEmail}</p>
+                        </div>
+                      </div>
+
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase shrink-0 ${
+                          enr.isActive
+                            ? 'bg-[#34A853]/20 text-[#34A853] border border-[#34A853]/30'
+                            : 'bg-white/10 text-white/40 border border-white/10'
+                        }`}
+                      >
+                        {enr.isActive ? 'Active' : 'Deactivated'}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-white/5 text-[11px]">
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold"
+                          style={{
+                            backgroundColor: `${enr.trackAccent}20`,
+                            color: enr.trackAccent,
+                          }}
+                        >
+                          {enr.trackName}
+                        </span>
+                        <span className="text-[10px] text-white/40 font-mono">({enr.cohortName})</span>
+                      </div>
+
+                      <span className="text-white/40 text-[11px] font-mono">
+                        {format(new Date(enr.enrolledAt), 'MMM d, yyyy')}
+                      </span>
+                    </div>
+
+                    <div className="pt-2 border-t border-white/5">
+                      <button
+                        onClick={() => setDeactivateTarget(enr)}
+                        className={`w-full py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                          enr.isActive
+                            ? 'bg-red-500/10 hover:bg-red-500/20 text-[#EA4335] border border-red-500/20'
+                            : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-[#34A853] border border-emerald-500/20'
+                        }`}
+                      >
+                        <Power className="w-3.5 h-3.5" />
+                        <span>{enr.isActive ? 'Deactivate Enrollment' : 'Reactivate Enrollment'}</span>
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
@@ -355,7 +427,7 @@ export function AdminEnrollmentsClient({
                         <td className="py-4 px-6 text-right">
                           <button
                             onClick={() => setDeactivateTarget(enr)}
-                            className={`p-1.5 rounded-lg transition-colors ${
+                            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
                               enr.isActive
                                 ? 'text-white/40 hover:text-[#EA4335] hover:bg-[#EA4335]/10'
                                 : 'text-white/40 hover:text-[#34A853] hover:bg-[#34A853]/10'
@@ -378,7 +450,7 @@ export function AdminEnrollmentsClient({
       {/* SINGLE ENROLLMENT MODAL */}
       {isSingleOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-3xl bg-[#0D0E11] border border-white/15 p-6 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-md rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Enroll Student</h3>
@@ -434,18 +506,18 @@ export function AdminEnrollmentsClient({
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsSingleOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSingleSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
                 >
                   {isSingleSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Enroll Student</span>
@@ -459,7 +531,7 @@ export function AdminEnrollmentsClient({
       {/* BULK ENROLLMENT MODAL (Requirement 13) */}
       {isBulkOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-xl rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] flex flex-col justify-between">
+          <div className="w-full max-w-xl rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -518,7 +590,7 @@ export function AdminEnrollmentsClient({
                   <button
                     type="button"
                     onClick={handleSelectAllBulk}
-                    className="text-[#4285F4] hover:underline"
+                    className="text-[#4285F4] hover:underline cursor-pointer"
                   >
                     Select Eligible
                   </button>
@@ -526,7 +598,7 @@ export function AdminEnrollmentsClient({
                   <button
                     type="button"
                     onClick={handleDeselectAllBulk}
-                    className="text-white/40 hover:text-white"
+                    className="text-white/40 hover:text-white cursor-pointer"
                   >
                     Clear All
                   </button>
@@ -572,18 +644,18 @@ export function AdminEnrollmentsClient({
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+            <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
               <button
                 type="button"
                 onClick={() => setIsBulkOpen(false)}
-                className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
               >
                 Cancel
               </button>
               <button
                 onClick={handleBulkEnroll}
                 disabled={isBulkSaving || selectedStudentIds.length === 0}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50 transition-all cursor-pointer"
               >
                 {isBulkSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 <span>Enroll Selected ({selectedStudentIds.length})</span>

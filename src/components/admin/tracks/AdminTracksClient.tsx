@@ -173,7 +173,7 @@ export function AdminTracksClient({
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Curriculum Tracks"
           subtitle="Manage all specialized engineering and product tracks across cohorts"
@@ -190,18 +190,18 @@ export function AdminTracksClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Filter Bar */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div className="flex items-center gap-2 w-full sm:w-auto">
-              <span className="text-xs text-white/40 flex items-center gap-1.5 px-2">
-                <Filter className="w-3.5 h-3.5" />
+              <span className="text-xs text-white/40 flex items-center gap-1.5 px-1 shrink-0">
+                <Filter className="w-3.5 h-3.5 shrink-0" />
                 <span>Cohort:</span>
               </span>
               <select
                 value={selectedCohortFilter}
                 onChange={(e) => setSelectedCohortFilter(e.target.value)}
-                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="flex-1 sm:flex-initial min-w-[140px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
               >
                 <option value="all" className="bg-[#0D0E11]">All Cohorts</option>
                 {cohorts.map((c) => (
@@ -212,7 +212,7 @@ export function AdminTracksClient({
               </select>
             </div>
 
-            <div className="text-xs text-white/50">
+            <div className="text-xs text-white/50 text-right sm:text-left">
               Showing <strong className="text-white">{filteredTracks.length}</strong> of{' '}
               {tracks.length} tracks
             </div>
@@ -295,7 +295,7 @@ export function AdminTracksClient({
 
                   {/* Stats Grid & Action */}
                   <div className="space-y-4 pt-4 border-t border-white/5">
-                    <div className="grid grid-cols-4 gap-2 text-center text-xs">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
                       <div className="p-2 rounded-xl bg-white/[0.02]">
                         <span className="block font-black text-white">{track.studentCount}</span>
                         <span className="text-[9px] text-white/40">Students</span>
@@ -332,7 +332,7 @@ export function AdminTracksClient({
       {/* Create / Edit Track Modal */}
       {(isCreateOpen || editingTrack) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">
@@ -425,7 +425,7 @@ export function AdminTracksClient({
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
                   Accent Color
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   {['#4285F4', '#34A853', '#FBBC04', '#EA4335', '#A142F4', '#24C1E0'].map((color) => (
                     <button
                       key={color}
@@ -446,21 +446,21 @@ export function AdminTracksClient({
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => {
                     setIsCreateOpen(false);
                     setEditingTrack(null);
                   }}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{editingTrack ? 'Save Changes' : 'Create Track'}</span>

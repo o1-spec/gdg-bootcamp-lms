@@ -67,7 +67,7 @@ export function AppSidebar({
       {/* Mobile Backdrop */}
       {isMobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden"
           onClick={onMobileClose}
           aria-hidden="true"
         />
@@ -76,7 +76,7 @@ export function AppSidebar({
       {/* Sidebar Container */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-[#0D0E11] text-[#FAF7EE] border-r border-[#22242B] transition-transform duration-300 ease-in-out md:static md:translate-x-0 shrink-0 select-none',
+          'fixed inset-y-0 left-0 z-50 flex w-[280px] sm:w-72 max-w-[85vw] flex-col bg-[#0D0E11] text-[#FAF7EE] border-r border-[#22242B] transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shrink-0 select-none',
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
@@ -109,7 +109,7 @@ export function AppSidebar({
           <button
             type="button"
             onClick={onMobileClose}
-            className="rounded-xl p-1.5 text-[#FAF7EE]/60 hover:bg-[#1A1C23] hover:text-[#FAF7EE] md:hidden transition-colors"
+            className="rounded-xl p-1.5 text-[#FAF7EE]/60 hover:bg-[#1A1C23] hover:text-[#FAF7EE] lg:hidden transition-colors"
             aria-label="Close sidebar"
           >
             <X className="h-5 w-5" />

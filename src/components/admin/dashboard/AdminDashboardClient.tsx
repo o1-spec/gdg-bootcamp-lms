@@ -124,7 +124,7 @@ export function AdminDashboardClient({
         totalStudentsCount={metrics.totalStudentsCount}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Command Dashboard"
           subtitle="GDG on Campus LASU Bootcamp Administration Overview"
@@ -150,7 +150,7 @@ export function AdminDashboardClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Top 8 Metric Cards Grid */}
           <section>
             <div className="flex items-center justify-between mb-4">
@@ -158,26 +158,26 @@ export function AdminDashboardClient({
                 Platform Statistics
               </h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               {statCards.map((card, i) => {
                 const Icon = card.icon;
                 return (
                   <Link
                     key={i}
                     href={card.href}
-                    className="group relative p-5 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 flex flex-col justify-between"
+                    className="group relative p-4 sm:p-5 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 flex flex-col justify-between"
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div
-                        className="w-10 h-10 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
+                        className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
                         style={{ backgroundColor: `${card.color}15`, color: card.color }}
                       >
-                        <Icon className="w-5 h-5" />
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                       <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
                     </div>
                     <div>
-                      <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                      <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
                         {card.value}
                       </div>
                       <div className="text-xs font-medium text-white/50 group-hover:text-white/70 transition-colors mt-0.5">
@@ -191,9 +191,9 @@ export function AdminDashboardClient({
           </section>
 
           {/* Dual Column: Active Cohorts & Upcoming Sessions */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Active Cohorts */}
-            <section className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Active Cohorts</h3>
@@ -259,7 +259,7 @@ export function AdminDashboardClient({
             </section>
 
             {/* Upcoming Sessions */}
-            <section className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Upcoming Sessions</h3>
@@ -399,7 +399,7 @@ export function AdminDashboardClient({
           {/* Dual Column: Recent Enrollments & Recent Announcements */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Recent Enrollments */}
-            <section className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Recent Enrollments</h3>
@@ -463,7 +463,7 @@ export function AdminDashboardClient({
             </section>
 
             {/* Recent Announcements */}
-            <section className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Platform Broadcasts</h3>

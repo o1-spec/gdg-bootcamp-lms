@@ -95,7 +95,7 @@ export function OnboardingCompleteClient() {
           </div>
 
           {/* Next Live Session Alert */}
-          <div className="p-4 rounded-2xl bg-[#4285F4]/10 border border-[#4285F4]/20 flex items-center justify-between text-left gap-3">
+          <div className="p-4 rounded-2xl bg-[#4285F4]/10 border border-[#4285F4]/20 flex flex-col sm:flex-row sm:items-center justify-between text-left gap-2 sm:gap-3">
             <div className="space-y-0.5">
               <span className="text-[10px] font-black uppercase tracking-wider text-[#4285F4]">
                 Next Live Cohort Session
@@ -104,7 +104,7 @@ export function OnboardingCompleteClient() {
                 Orientation & Track Kickoff · Friday @ 5:00 PM (WAT)
               </p>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white text-[#4285F4] border border-[#4285F4]/30 shrink-0">
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white text-[#4285F4] border border-[#4285F4]/30 shrink-0 self-start sm:self-auto">
               Virtual / Google Meet
             </span>
           </div>

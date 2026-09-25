@@ -178,7 +178,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
           </div>
         </div>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-10 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 max-w-7xl w-full mx-auto">
           {/* Interactive alert toast */}
           {activeAlert && (
             <div className="flex items-center justify-between rounded-2xl border border-[#0D0E11] bg-[#0D0E11] text-[#FAF7EE] px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">
@@ -197,7 +197,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
           )}
 
           {/* 1. Welcome Section: High-contrast GDG LASU dark card */}
-          <section className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-8 sm:p-10 lg:p-12 shadow-sm">
+          <section className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-5 sm:p-8 lg:p-12 shadow-sm">
             {/* Top right Google accent geometric glow */}
             <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-[#4285F4]/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[#FBBC04]/10 blur-3xl" />
@@ -220,7 +220,7 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                   </span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
                   {timeGreeting}, {firstName}
                 </h2>
 

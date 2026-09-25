@@ -91,26 +91,26 @@ export function MentorHeader({
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-[#E5DFD0] bg-[#FAF7EE]/90 px-6 sm:px-8 backdrop-blur-md">
+    <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-[#E5DFD0] bg-[#FAF7EE]/90 px-4 sm:px-6 lg:px-8 backdrop-blur-md">
       {/* Left Area: Mobile Trigger + Breadcrumbs */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4 min-w-0">
         <button
           type="button"
           onClick={onOpenMobileMenu}
-          className="rounded-xl border border-[#E5DFD0] bg-white p-2 text-[#0D0E11] hover:bg-[#FAF7EE] lg:hidden cursor-pointer"
+          className="rounded-xl border border-[#E5DFD0] bg-white p-2 text-[#0D0E11] hover:bg-[#FAF7EE] lg:hidden cursor-pointer shrink-0"
           aria-label="Open menu"
         >
           <Menu className="h-5 w-5" />
         </button>
 
-        <div className="hidden sm:flex flex-col">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#FBBC04]" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#5F6368]">
+        <div className="flex flex-col min-w-0">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#FBBC04] shrink-0" />
+            <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#5F6368] truncate">
               GDG on Campus LASU
             </span>
           </div>
-          <h2 className="text-sm font-black text-[#0D0E11] tracking-tight">
+          <h2 className="text-xs sm:text-sm font-black text-[#0D0E11] tracking-tight truncate">
             {headerInfo.title}
           </h2>
         </div>

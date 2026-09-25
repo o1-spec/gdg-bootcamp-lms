@@ -126,7 +126,7 @@ export function LessonViewClient({
           </div>
         </div>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Toast Notification */}
           {activeAlert && (
             <div className="flex items-center justify-between rounded-2xl border border-[#0D0E11] bg-[#0D0E11] text-[#FAF7EE] px-5 py-4 text-xs sm:text-sm shadow-md animate-in fade-in slide-in-from-top-2">

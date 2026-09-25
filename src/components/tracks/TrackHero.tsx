@@ -11,7 +11,7 @@ interface TrackHeroProps {
 
 export function TrackHero({ track, onResumeLesson }: TrackHeroProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-10 shadow-sm">
+    <div className="relative overflow-hidden rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-5 sm:p-8 lg:p-10 shadow-sm">
       {/* Google accent blur shapes */}
       <div
         className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full blur-3xl opacity-20"
@@ -55,7 +55,7 @@ export function TrackHero({ track, onResumeLesson }: TrackHeroProps) {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
             {track.name}
           </h1>
 
@@ -65,7 +65,7 @@ export function TrackHero({ track, onResumeLesson }: TrackHeroProps) {
         </div>
 
         {/* Highlight Stats Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
           {/* Progress */}
           <div className="rounded-2xl border border-[#22242B] bg-[#15161A] p-4 space-y-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#FAF7EE]/50">
@@ -145,10 +145,10 @@ export function TrackHero({ track, onResumeLesson }: TrackHeroProps) {
         </div>
 
         {/* Action Button */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-[#22242B]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-[#22242B]">
           <div className="flex items-center gap-2 text-xs font-medium text-[#FAF7EE]/70">
-            <Sparkles className="h-4 w-4 text-[#FBBC04]" />
-            <span>
+            <Sparkles className="h-4 w-4 text-[#FBBC04] shrink-0" />
+            <span className="truncate">
               Next up: Module 4 • Lesson 3 ({track.currentModule})
             </span>
           </div>
@@ -156,7 +156,7 @@ export function TrackHero({ track, onResumeLesson }: TrackHeroProps) {
           <button
             type="button"
             onClick={onResumeLesson}
-            className="inline-flex items-center gap-2 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-7 py-3 text-xs font-black tracking-wide shadow-md transition-transform active:scale-95 cursor-pointer ml-auto"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAF7EE] text-[#0D0E11] hover:bg-white px-7 py-3 text-xs font-black tracking-wide shadow-md transition-transform active:scale-95 cursor-pointer w-full sm:w-auto sm:ml-auto"
           >
             <BookOpen className="h-4 w-4" />
             <span>Resume Current Lesson</span>

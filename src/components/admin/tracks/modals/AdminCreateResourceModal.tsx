@@ -282,7 +282,7 @@ export function AdminCreateResourceModal({
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-bold text-white/80 block mb-1">Module *</label>
               <select
@@ -348,18 +348,18 @@ export function AdminCreateResourceModal({
             </label>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-3 border-t border-white/10">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-white/60 hover:text-white"
+              className="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-bold text-white/60 hover:text-white text-center"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSavingRes || isUploadingRes}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#4285F4] hover:bg-[#4285F4]/90 text-xs font-bold text-white disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 rounded-xl bg-[#4285F4] hover:bg-[#4285F4]/90 text-xs font-bold text-white disabled:opacity-50"
             >
               {isSavingRes && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
               <span>Publish Resource</span>

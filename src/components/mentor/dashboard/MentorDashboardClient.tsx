@@ -131,7 +131,7 @@ export function MentorDashboardClient({
           </div>
         </div>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-10 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 max-w-7xl w-full mx-auto">
           {/* Welcome Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
             <div className="space-y-2">
@@ -152,7 +152,7 @@ export function MentorDashboardClient({
             <div className="flex items-center gap-3">
               <Link
                 href="/mentor/tracks"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] text-white text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] text-white text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md"
               >
                 <span>Manage Tracks</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -161,8 +161,8 @@ export function MentorDashboardClient({
           </div>
 
           {/* 6 Metric Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
-            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 shadow-xs space-y-1">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            <div className="rounded-3xl border border-[#E5DFD0] bg-white p-4 sm:p-5 shadow-xs space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold text-[#5F6368] uppercase tracking-wider">Tracks</span>
                 <Layers className="h-4 w-4 text-[#4285F4]" />
@@ -597,19 +597,19 @@ export function MentorDashboardClient({
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-3">
                 <button
                   type="button"
                   onClick={() => setActiveReviewSub(null)}
                   disabled={isSubmittingReview}
-                  className="px-5 py-2.5 rounded-full border border-[#E5DFD0] text-xs font-bold text-[#5F6368] hover:bg-[#FAF7EE]"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-[#E5DFD0] text-xs font-bold text-[#5F6368] hover:bg-[#FAF7EE] text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmittingReview}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-md disabled:opacity-50"
                 >
                   {isSubmittingReview ? <span>Saving Review...</span> : <span>Save Review</span>}
                 </button>

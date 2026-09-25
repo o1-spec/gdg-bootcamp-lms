@@ -46,27 +46,27 @@ export function ConfirmDialog({
         onClick={() => !isLoading && handleClose()}
       />
 
-      <div className="relative w-full max-w-md rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-2xl z-10 space-y-6 animate-in fade-in zoom-in-95">
-        <div className="flex items-start gap-4">
-          <div className="p-3 rounded-2xl bg-[#EA4335]/10 text-[#EA4335] shrink-0 border border-[#EA4335]/20">
-            <AlertTriangle className="h-6 w-6" />
+      <div className="relative w-full max-w-md rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 shadow-2xl z-10 space-y-6 animate-in fade-in zoom-in-95 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-start gap-3.5 sm:gap-4">
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-[#EA4335]/10 text-[#EA4335] shrink-0 border border-[#EA4335]/20">
+            <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
-          <div className="space-y-1">
-            <h3 className="text-lg font-black text-[#0D0E11] tracking-tight">
+          <div className="space-y-1 min-w-0">
+            <h3 className="text-base sm:text-lg font-black text-[#0D0E11] tracking-tight break-words">
               {title}
             </h3>
-            <p className="text-xs text-[#5F6368] leading-relaxed">
+            <p className="text-xs text-[#5F6368] leading-relaxed break-words">
               {description}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-2">
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-2">
           <button
             type="button"
             disabled={isLoading}
             onClick={handleClose}
-            className="px-4 py-2.5 rounded-xl border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] hover:bg-[#FAF7EE] transition-colors disabled:opacity-50 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] hover:bg-[#FAF7EE] transition-colors disabled:opacity-50 cursor-pointer text-center"
           >
             {cancelText}
           </button>
@@ -74,7 +74,7 @@ export function ConfirmDialog({
             type="button"
             disabled={isLoading}
             onClick={onConfirm}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer ${
+            className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer text-center ${
               isDestructive
                 ? 'bg-[#EA4335] hover:bg-[#D93025] text-white shadow-[#EA4335]/20'
                 : 'bg-[#0D0E11] hover:bg-[#202124] text-white'

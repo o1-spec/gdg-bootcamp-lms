@@ -239,7 +239,7 @@ export function SubmissionForm({
   // If submitted or reviewed and not actively editing:
   if (!isEditing && (submission.status === 'SUBMITTED' || submission.status === 'REVIEWED')) {
     return (
-      <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 space-y-6 shadow-xs">
+      <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 space-y-6 shadow-xs">
         {toastMessage && (
           <div
             className={`flex items-center gap-2 p-3.5 rounded-2xl text-xs font-bold animate-in fade-in ${
@@ -433,7 +433,7 @@ export function SubmissionForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 space-y-6 shadow-xs"
+      className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 space-y-6 shadow-xs"
     >
       {toastMessage && (
         <div

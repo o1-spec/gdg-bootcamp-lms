@@ -74,7 +74,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7EE] flex flex-col justify-center py-12 sm:px-6 lg:px-8 selection:bg-[#FBBC04]/30">
+    <div className="min-h-screen bg-[#FAF7EE] flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 selection:bg-[#FBBC04]/30">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* GDG LASU Brand header */}
         <div className="flex justify-center mb-6">
@@ -96,7 +96,7 @@ function LoginForm() {
           </Link>
         </div>
 
-        <h2 className="text-center text-3xl font-black tracking-tight text-[#0D0E11]">
+        <h2 className="text-center text-2xl sm:text-3xl font-black tracking-tight text-[#0D0E11]">
           Sign in to your account
         </h2>
         <p className="mt-2 text-center text-xs font-semibold text-[#5F6368]">
@@ -104,8 +104,8 @@ function LoginForm() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="bg-white py-8 px-6 sm:px-10 rounded-3xl border border-[#E5DFD0] shadow-sm">
+      <div className="mt-6 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-6 px-4 sm:py-8 sm:px-10 rounded-2xl sm:rounded-3xl border border-[#E5DFD0] shadow-sm">
           {isSuccess && (
             <div className="mb-6 rounded-2xl bg-[#34A853]/10 border border-[#34A853]/30 p-4 flex items-center gap-3 text-xs font-bold text-[#0F9D58] animate-in fade-in">
               <CheckCircle2 className="h-5 w-5 shrink-0" />

@@ -138,9 +138,9 @@ export function ScheduleClient({
           </div>
         </div>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header Banner */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#FBBC04]" />
@@ -148,7 +148,7 @@ export function ScheduleClient({
                   Cohort Calendar & Live Workshops
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-[#0D0E11] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0D0E11] tracking-tight">
                 Schedule
               </h1>
               <p className="text-sm text-[#5F6368] font-medium max-w-xl">
@@ -175,10 +175,10 @@ export function ScheduleClient({
           </div>
 
           {/* Filter Bar: Tabs & Track Selector */}
-          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-xs space-y-5">
+          <div className="rounded-3xl border border-[#E5DFD0] bg-white p-4 sm:p-6 shadow-xs space-y-5">
             {/* View Tabs */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="inline-flex items-center p-1 rounded-full bg-[#FAF7EE] border border-[#E5DFD0]">
+              <div className="inline-flex items-center p-1 rounded-full bg-[#FAF7EE] border border-[#E5DFD0] overflow-x-auto max-w-full no-scrollbar">
                 {(
                   [
                     { id: 'upcoming', label: 'Upcoming' },
@@ -192,7 +192,7 @@ export function ScheduleClient({
                     type="button"
                     onClick={() => setSelectedTab(tab.id)}
                     className={cn(
-                      'px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
+                      'px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
                       selectedTab === tab.id
                         ? 'bg-[#0D0E11] text-[#FAF7EE]'
                         : 'text-[#5F6368] hover:text-[#0D0E11]'

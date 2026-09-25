@@ -141,7 +141,7 @@ export function AdminMentorsClient({
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Mentor Faculty & Workload"
           subtitle="Assign track instructors, balance instructional capacity, and manage leads"
@@ -158,9 +158,9 @@ export function AdminMentorsClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Header Summary */}
-          <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-black text-white">Active Mentor Roster</h2>
               <p className="text-xs text-white/50">
@@ -187,13 +187,13 @@ export function AdminMentorsClient({
               {mentors.map((mentor) => (
                 <div
                   key={mentor.id}
-                  className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
+                  className="p-5 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
                 >
                   <div className="space-y-4">
                     {/* Mentor Header */}
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3.5 min-w-0">
-                        <Avatar className="w-12 h-12 border border-white/15">
+                        <Avatar className="w-12 h-12 border border-white/15 shrink-0">
                           <AvatarImage src={mentor.avatar} alt={mentor.name} />
                           <AvatarFallback className="bg-[#FBBC04] text-black font-bold text-sm">
                             {mentor.name[0]}
@@ -207,7 +207,7 @@ export function AdminMentorsClient({
 
                       <button
                         onClick={() => openAssignModal(mentor.id)}
-                        className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                        className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors shrink-0"
                         title="Assign to Track"
                       >
                         <Plus className="w-4 h-4 text-[#4285F4]" />
@@ -256,7 +256,7 @@ export function AdminMentorsClient({
                                 <p className="text-[10px] text-white/40">{assignment.cohortName}</p>
                               </div>
 
-                              <div className="flex items-center gap-3 shrink-0">
+                              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                                 <span className="text-[10px] text-white/50 font-mono">
                                   {assignment.studentCount} students
                                 </span>
@@ -290,7 +290,7 @@ export function AdminMentorsClient({
       {/* ASSIGN MENTOR MODAL (Requirement 15) */}
       {isAssignOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-3xl bg-[#0D0E11] border border-white/15 p-6 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-md rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Assign Mentor to Track</h3>
@@ -346,18 +346,18 @@ export function AdminMentorsClient({
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsAssignOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isAssigning}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isAssigning && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Assign Mentor</span>

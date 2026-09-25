@@ -33,7 +33,7 @@ export function LessonHeader({ lesson, isCompleted }: LessonHeaderProps) {
 
       {/* Main Title & Description */}
       <div className="space-y-2">
-        <h1 className="text-3xl sm:text-5xl font-black text-[#0D0E11] tracking-tight">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0D0E11] tracking-tight">
           {lesson.title}
         </h1>
         <p className="text-sm sm:text-base text-[#5F6368] leading-relaxed max-w-3xl font-normal">

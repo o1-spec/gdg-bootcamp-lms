@@ -423,7 +423,7 @@ export function MentorTrackDetailClient({
           </div>
         )}
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Back Button & Track Title Banner */}
           <div className="space-y-6">
             <Link
@@ -434,7 +434,7 @@ export function MentorTrackDetailClient({
               <span>Back to All Assigned Tracks</span>
             </Link>
 
-            <div className="p-8 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="p-5 sm:p-8 rounded-3xl bg-white border border-[#E5DFD0] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div
                 className="absolute top-0 left-0 bottom-0 w-2.5"
                 style={{ backgroundColor: track.accent || '#4285F4' }}
@@ -447,10 +447,10 @@ export function MentorTrackDetailClient({
                   </span>
                   <span className="text-xs text-[#5F6368] font-bold">Track ID: {track.slug}</span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-black text-[#0D0E11]">
+                <h1 className="text-2xl sm:text-4xl font-black text-[#0D0E11]">
                   {track.name}
                 </h1>
-                <p className="text-sm text-[#5F6368] max-w-2xl font-medium">
+                <p className="text-xs sm:text-sm text-[#5F6368] max-w-2xl font-medium">
                   {track.description}
                 </p>
               </div>

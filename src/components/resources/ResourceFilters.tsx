@@ -56,7 +56,7 @@ export function ResourceFilters({
     selectedRequirement !== 'all';
 
   return (
-    <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-xs space-y-5">
+    <div className="rounded-3xl border border-[#E5DFD0] bg-white p-4 sm:p-6 shadow-xs space-y-5">
       {/* Search Input */}
       <div className="relative w-full">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5F6368]" />

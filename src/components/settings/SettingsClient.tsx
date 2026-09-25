@@ -136,9 +136,9 @@ export function SettingsClient({
         </div>
 
         {/* Tab Navigation & Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8 items-start">
           {/* Sidebar Tabs */}
-          <div className="lg:col-span-1 space-y-1 bg-white p-2 rounded-2xl border border-[#E5DFD0] shadow-2xs">
+          <div className="lg:col-span-1 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-1 gap-1.5 bg-white p-2 rounded-2xl border border-[#E5DFD0] shadow-2xs">
             {[
               { id: 'profile', label: 'Profile', icon: User, desc: 'Name, bio & links' },
               { id: 'account', label: 'Account', icon: Layers, desc: 'Email & enrollments' },
@@ -152,7 +152,7 @@ export function SettingsClient({
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
                   className={cn(
-                    'w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all',
+                    'w-full flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl text-left transition-all cursor-pointer',
                     isActive
                       ? 'bg-[#0D0E11] text-[#FAF7EE] shadow-2xs'
                       : 'text-[#5F6368] hover:text-[#0D0E11] hover:bg-[#FAF7EE]'
@@ -164,11 +164,11 @@ export function SettingsClient({
                       isActive ? 'text-[#FAF7EE]' : 'text-[#5F6368]'
                     )}
                   />
-                  <div>
-                    <span className="block text-xs font-black tracking-tight">{tab.label}</span>
+                  <div className="min-w-0">
+                    <span className="block text-xs font-black tracking-tight truncate">{tab.label}</span>
                     <span
                       className={cn(
-                        'block text-[11px] font-medium leading-snug',
+                        'hidden sm:block text-[11px] font-medium leading-snug truncate',
                         isActive ? 'text-[#FAF7EE]/70' : 'text-[#5F6368]'
                       )}
                     >

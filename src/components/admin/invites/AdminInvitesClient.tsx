@@ -243,7 +243,7 @@ export function AdminInvitesClient({
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Invite Codes & Access"
           subtitle="Manage bootcamp join codes, track access limits, and shareable join links."
@@ -260,7 +260,7 @@ export function AdminInvitesClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Toast Notification */}
           {toastMessage && (
             <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl bg-white text-[#0D0E11] text-xs font-bold shadow-2xl border border-white/20 animate-in fade-in slide-in-from-bottom-2">
@@ -324,7 +324,130 @@ export function AdminInvitesClient({
           {/* Invites Table / Cards */}
           {displayedInvites.length > 0 ? (
             <div className="rounded-3xl border border-white/10 bg-[#14151B] overflow-hidden">
-              <div className="overflow-x-auto">
+              {/* Mobile Card List (< md) */}
+              <div className="md:hidden divide-y divide-white/5">
+                {displayedInvites.map((inv) => {
+                  const isExpired = inv.expiresAt ? new Date(inv.expiresAt) <= now : false;
+                  const hasMax = inv.maxUses !== null && inv.maxUses !== undefined;
+                  const isFull = hasMax && inv.useCount >= (inv.maxUses || 0);
+
+                  return (
+                    <div key={inv.id} className="p-4 space-y-3">
+                      {/* Code, Copy Buttons, and Status */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-mono font-black text-xs text-white px-2.5 py-1 rounded-xl bg-white/10 border border-white/15 tracking-wider">
+                            {inv.code}
+                          </span>
+                          <button
+                            onClick={() => handleCopyCode(inv.code)}
+                            title="Copy Code"
+                            className="p-1.5 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                          >
+                            {copiedCode === inv.code ? (
+                              <Check className="w-3.5 h-3.5 text-[#34A853]" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                          <button
+                            onClick={() => handleCopyLink(inv.code)}
+                            title="Copy Shareable Join Link"
+                            className="p-1.5 rounded-lg text-white/50 hover:text-[#4285F4] hover:bg-white/10 transition-colors cursor-pointer"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        {!inv.isActive ? (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white/50 border border-white/10">
+                            Inactive
+                          </span>
+                        ) : isExpired ? (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EA4335]/15 text-[#EA4335] border border-[#EA4335]/30">
+                            Expired
+                          </span>
+                        ) : isFull ? (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FBBC04]/15 text-[#FBBC04] border border-[#FBBC04]/30">
+                            Full
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#34A853]/15 text-[#34A853] border border-[#34A853]/30">
+                            Active
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Bootcamp, Cohort & Track */}
+                      <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/5 space-y-1.5 text-xs">
+                        <div className="font-bold text-white">{inv.bootcampName}</div>
+                        <div className="text-[11px] text-white/50">{inv.cohortName || 'All Cohorts'}</div>
+                        <div className="pt-1">
+                          {inv.allowTrackSelection ? (
+                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FBBC04]/15 text-[#FBBC04] border border-[#FBBC04]/30">
+                              <Sparkles className="w-3 h-3" />
+                              <span>Multi-Track (Max {inv.maxTrackSelections || 1})</span>
+                            </span>
+                          ) : inv.trackName ? (
+                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#4285F4]/15 text-[#4285F4] border border-[#4285F4]/30">
+                              <Layers className="w-3 h-3" />
+                              <span>{inv.trackName}</span>
+                            </span>
+                          ) : (
+                            <span className="text-white/40 italic text-[11px]">All Cohort Tracks</span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Usage & Expiration */}
+                      <div className="flex items-center justify-between gap-2 text-xs pt-1 border-t border-white/5 text-[11px]">
+                        <div>
+                          <span className="text-white/40">Uses: </span>
+                          <span className="font-bold text-white font-mono">
+                            {inv.useCount} {hasMax ? `/ ${inv.maxUses}` : ''}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-white/40">Expires: </span>
+                          <span className={`font-mono ${isExpired ? 'text-[#EA4335] font-bold' : 'text-white/60'}`}>
+                            {inv.expiresAt ? new Date(inv.expiresAt).toLocaleDateString() : 'Never'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Mobile Actions */}
+                      <div className="flex items-center gap-2 pt-2 border-t border-white/5">
+                        <button
+                          onClick={() => handleToggleStatus(inv)}
+                          className="flex-1 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                          {inv.isActive ? (
+                            <>
+                              <ToggleRight className="w-3.5 h-3.5 text-[#34A853]" />
+                              <span>Deactivate</span>
+                            </>
+                          ) : (
+                            <>
+                              <ToggleLeft className="w-3.5 h-3.5 text-white/40" />
+                              <span>Activate</span>
+                            </>
+                          )}
+                        </button>
+                        <button
+                          onClick={() => handleDelete(inv.id)}
+                          className="py-1.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-[#EA4335] text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                          title="Delete Invite"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Desktop Table View (>= md) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-white/5 text-white/50 text-[10px] uppercase font-bold tracking-wider border-b border-white/10">
                     <tr>
@@ -353,7 +476,7 @@ export function AdminInvitesClient({
                               <button
                                 onClick={() => handleCopyCode(inv.code)}
                                 title="Copy Code"
-                                className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
+                                className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                               >
                                 {copiedCode === inv.code ? (
                                   <Check className="w-3.5 h-3.5 text-[#34A853]" />
@@ -364,7 +487,7 @@ export function AdminInvitesClient({
                               <button
                                 onClick={() => handleCopyLink(inv.code)}
                                 title="Copy Shareable Join Link"
-                                className="p-1.5 rounded-lg text-white/40 hover:text-[#4285F4] hover:bg-white/10 transition-colors"
+                                className="p-1.5 rounded-lg text-white/40 hover:text-[#4285F4] hover:bg-white/10 transition-colors cursor-pointer"
                               >
                                 <ExternalLink className="w-3.5 h-3.5" />
                               </button>
@@ -449,7 +572,7 @@ export function AdminInvitesClient({
                               <button
                                 onClick={() => handleToggleStatus(inv)}
                                 title={inv.isActive ? 'Deactivate Invite' : 'Reactivate Invite'}
-                                className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                                className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                               >
                                 {inv.isActive ? (
                                   <ToggleRight className="w-4 h-4 text-[#34A853]" />
@@ -460,7 +583,7 @@ export function AdminInvitesClient({
                               <button
                                 onClick={() => handleDelete(inv.id)}
                                 title="Delete Invite"
-                                className="p-2 rounded-xl text-white/50 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors"
+                                className="p-2 rounded-xl text-white/50 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors cursor-pointer"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -650,18 +773,18 @@ export function AdminInvitesClient({
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-white/60 hover:text-white"
+                  className="w-full sm:w-auto min-h-[44px] px-4 py-2.5 rounded-2xl text-xs font-bold text-white/60 hover:text-white hover:bg-white/10 transition-colors text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isCreating}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#4285F4] hover:bg-[#4285F4]/90 text-xs font-bold text-white shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                  className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#4285F4] hover:bg-[#4285F4]/90 text-xs font-bold text-white shadow-sm transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isCreating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Publish Invite</span>

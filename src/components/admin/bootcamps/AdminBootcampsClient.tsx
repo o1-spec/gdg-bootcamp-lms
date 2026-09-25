@@ -170,7 +170,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Bootcamp Programs"
           subtitle="Manage master learning programs and editions"
@@ -187,16 +187,16 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header Summary */}
-          <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-black text-white">Programs Directory</h2>
               <p className="text-xs text-white/50">
                 Top-level bootcamp containers containing cohorts, tracks, and student cohorts.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <span className="px-3 py-1 rounded-xl bg-white/5 border border-white/10 text-xs text-white/70">
                 Total: <strong className="text-white">{bootcamps.length}</strong>
               </span>
@@ -294,7 +294,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
 
                   {/* Summary Stats & CTA */}
                   <div className="space-y-4 pt-4 border-t border-white/5">
-                    <div className="grid grid-cols-4 gap-2 text-center text-xs">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
                       <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {bootcamp.cohortCount}
@@ -339,7 +339,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
       {/* Create / Edit Bootcamp Modal */}
       {(isCreateOpen || editingBootcamp) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">
@@ -397,7 +397,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
                     Start Date
@@ -435,21 +435,21 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => {
                     setIsCreateOpen(false);
                     setEditingBootcamp(null);
                   }}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 transition-colors text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white transition-all disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white transition-all disabled:opacity-50"
                 >
                   {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{editingBootcamp ? 'Save Changes' : 'Create Bootcamp'}</span>

@@ -83,7 +83,7 @@ export function AnnouncementDetails({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 space-y-6">
+      <div className="relative w-full max-w-2xl rounded-3xl border border-[#E5DFD0] bg-[#FAF7EE] p-5 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 space-y-6 max-h-[90vh] overflow-y-auto">
         {/* Top colored accent line */}
         {announcement.trackAccentColor && (
           <div
@@ -118,12 +118,12 @@ export function AnnouncementDetails({
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl font-black text-[#0D0E11] tracking-tight leading-tight">
+        <h2 className="text-xl sm:text-3xl font-black text-[#0D0E11] tracking-tight leading-tight">
           {announcement.title}
         </h2>
 
         {/* Content Body */}
-        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#E5DFD0]">
+        <div className="p-4 sm:p-6 rounded-2xl bg-white border border-[#E5DFD0]">
           <p className="text-sm sm:text-base text-[#0D0E11] leading-relaxed whitespace-pre-line">
             {announcement.content}
           </p>
@@ -174,7 +174,7 @@ export function AnnouncementDetails({
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black transition-all cursor-pointer shadow-xs text-center"
           >
             Dismiss
           </button>

@@ -148,7 +148,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
           onOpenMobileMenu={() => setIsMobileOpen(true)}
         />
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-5xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-5xl w-full mx-auto">
           {/* Header Banner */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#E5DFD0]">
             <div>
@@ -169,7 +169,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-50"
             >
               {isSaving ? (
                 <>
@@ -204,7 +204,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
             {/* Left Column: Profile Card & Enrolled Tracks */}
             <div className="space-y-6">
               {/* Profile Overview Card */}
-              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-sm space-y-4 text-center">
+              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-6 shadow-sm space-y-4 text-center">
                 <Avatar className="w-24 h-24 rounded-3xl border-2 border-[#0D0E11] mx-auto shadow-md">
                   <AvatarImage src={formData.avatarUrl} alt={formData.displayName} />
                   <AvatarFallback className="bg-[#0D0E11] text-[#FAF7EE] font-black text-2xl">
@@ -261,7 +261,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
               </div>
 
               {/* Enrolled Tracks (Readonly - Student cannot edit arbitary enrollments) */}
-              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-6 shadow-sm space-y-4">
+              <div className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-6 shadow-sm space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Layers className="w-4 h-4 text-[#4285F4]" />
@@ -293,7 +293,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                             </span>
                           </div>
                           {trk.cohortName && (
-                            <span className="text-[10px] text-[#5F6368] pl-3.5 block">
+                            <span className="text-[10px] text-[#5F6368] pl-3.5 block truncate">
                               {trk.cohortName}
                             </span>
                           )}
@@ -319,7 +319,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
 
             {/* Right Column: Editable Profile Form */}
             <div className="lg:col-span-2">
-              <form onSubmit={handleSave} className="rounded-3xl border border-[#E5DFD0] bg-white p-6 sm:p-8 shadow-sm space-y-6">
+              <form onSubmit={handleSave} className="rounded-3xl border border-[#E5DFD0] bg-white p-5 sm:p-8 shadow-sm space-y-6">
                 <div>
                   <h3 className="text-base font-black text-[#0D0E11]">Personal Details</h3>
                   <p className="text-xs text-[#5F6368]">Update your personal information and contact links.</p>
@@ -438,7 +438,7 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                   <button
                     type="submit"
                     disabled={isSaving}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] hover:bg-[#22242B] text-xs font-black text-[#FAF7EE] shadow-sm transition-all cursor-pointer disabled:opacity-50"
                   >
                     {isSaving ? (
                       <>

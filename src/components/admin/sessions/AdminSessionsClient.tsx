@@ -253,7 +253,7 @@ export function AdminSessionsClient({
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Sessions & Attendance"
           subtitle="Manage schedule across all tracks, virtual links, and attendance roll calls"
@@ -270,13 +270,13 @@ export function AdminSessionsClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* View Mode Toggle & Metrics Banner */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white/[0.02] border border-white/10">
-            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/5 border border-white/10">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white/[0.02] border border-white/10">
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/5 border border-white/10 w-full sm:w-auto overflow-x-auto scrollbar-none">
               <button
                 onClick={() => setViewMode('sessions')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`flex-1 sm:flex-initial text-center whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   viewMode === 'sessions'
                     ? 'bg-white/15 text-white shadow-sm'
                     : 'text-white/50 hover:text-white'
@@ -286,7 +286,7 @@ export function AdminSessionsClient({
               </button>
               <button
                 onClick={() => setViewMode('attendance')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`flex-1 sm:flex-initial text-center whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   viewMode === 'attendance'
                     ? 'bg-white/15 text-white shadow-sm'
                     : 'text-white/50 hover:text-white'
@@ -296,7 +296,7 @@ export function AdminSessionsClient({
               </button>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-white/60">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/60">
               <span>Overall Rate: <strong className="text-[#34A853]">{overallRate}%</strong></span>
               <span>•</span>
               <span>Total Recorded: <strong className="text-white">{totalAttendances}</strong></span>
@@ -307,17 +307,17 @@ export function AdminSessionsClient({
           {viewMode === 'sessions' && (
             <div className="space-y-6">
               {/* Filters */}
-              <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex flex-wrap items-center gap-2">
+              <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                   <span className="text-xs text-white/40 flex items-center gap-1.5 px-1">
-                    <Filter className="w-3.5 h-3.5" />
+                    <Filter className="w-3.5 h-3.5 shrink-0" />
                     <span>Filter:</span>
                   </span>
 
                   <select
                     value={trackFilter}
                     onChange={(e) => setTrackFilter(e.target.value)}
-                    className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
                   >
                     <option value="all" className="bg-[#0D0E11]">All Tracks</option>
                     {tracks.map((t) => (
@@ -330,7 +330,7 @@ export function AdminSessionsClient({
                   <select
                     value={mentorFilter}
                     onChange={(e) => setMentorFilter(e.target.value)}
-                    className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
                   >
                     <option value="all" className="bg-[#0D0E11]">All Mentors</option>
                     {mentors.map((m) => (
@@ -343,7 +343,7 @@ export function AdminSessionsClient({
                   <select
                     value={timeFilter}
                     onChange={(e) => setTimeFilter(e.target.value as any)}
-                    className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                    className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
                   >
                     <option value="all" className="bg-[#0D0E11]">All Dates</option>
                     <option value="upcoming" className="bg-[#0D0E11]">Upcoming Only</option>
@@ -514,14 +514,78 @@ export function AdminSessionsClient({
                 </div>
               </div>
 
-              {/* Attendance Table by Session */}
+              {/* Attendance Breakdown: Mobile Cards + Desktop Table */}
               <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
                 <div className="p-4 border-b border-white/10 bg-white/[0.02] flex items-center justify-between">
                   <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">
                     Session Attendance Breakdown
                   </h3>
                 </div>
-                <div className="overflow-x-auto">
+
+                {/* Mobile Cards (md:hidden) */}
+                <div className="md:hidden divide-y divide-white/5">
+                  {sessions.length === 0 ? (
+                    <div className="p-6 text-center text-xs text-white/40">No attendance data available.</div>
+                  ) : (
+                    sessions.map((s) => {
+                      const total = s.attendance.total;
+                      const rate =
+                        total > 0
+                          ? Math.round(((s.attendance.present + s.attendance.excused) / total) * 100)
+                          : 0;
+
+                      return (
+                        <div key={s.id} className="p-4 space-y-3">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <p className="font-bold text-white text-sm break-words">{s.title}</p>
+                              <div className="flex flex-wrap items-center gap-2 mt-1">
+                                <span
+                                  className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium"
+                                  style={{
+                                    backgroundColor: `${s.trackAccent}20`,
+                                    color: s.trackAccent,
+                                  }}
+                                >
+                                  {s.trackName}
+                                </span>
+                                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-md bg-white/10 text-white/60">
+                                  {s.mode}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="text-right shrink-0">
+                              <span className="text-xs text-white/40 block font-mono">
+                                {format(new Date(s.startTime), 'MMM d')}
+                              </span>
+                              <span className="text-sm font-black text-white">
+                                {total > 0 ? `${rate}%` : '-'}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center text-xs">
+                            <div className="p-2 rounded-xl bg-white/[0.03]">
+                              <span className="block text-[10px] text-white/40 uppercase">Present</span>
+                              <span className="font-bold text-[#34A853]">{s.attendance.present}</span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white/[0.03]">
+                              <span className="block text-[10px] text-white/40 uppercase">Absent</span>
+                              <span className="font-bold text-[#EA4335]">{s.attendance.absent}</span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white/[0.03]">
+                              <span className="block text-[10px] text-white/40 uppercase">Excused</span>
+                              <span className="font-bold text-[#FBBC04]">{s.attendance.excused}</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                {/* Desktop Table (hidden md:block) */}
+                <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
                       <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
@@ -595,7 +659,7 @@ export function AdminSessionsClient({
       {/* CREATE / EDIT SESSION MODAL */}
       {(isCreateOpen || editingSession) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">
@@ -671,7 +735,7 @@ export function AdminSessionsClient({
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">Date</label>
                   <input
@@ -704,7 +768,7 @@ export function AdminSessionsClient({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">Mode</label>
                   <select
@@ -755,21 +819,21 @@ export function AdminSessionsClient({
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => {
                     setIsCreateOpen(false);
                     setEditingSession(null);
                   }}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{editingSession ? 'Save Changes' : 'Schedule Session'}</span>

@@ -126,20 +126,21 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title={bootcamp.name}
           subtitle="Program Details, Cohorts & Metrics"
           admin={admin}
           onOpenMobileMenu={() => setIsMobileOpen(true)}
           actions={
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setIsEditOpen(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition-all"
               >
                 <Edit2 className="w-3.5 h-3.5 text-[#FBBC04]" />
-                <span>Edit Bootcamp</span>
+                <span className="hidden xs:inline">Edit Bootcamp</span>
+                <span className="xs:hidden">Edit</span>
               </button>
               <button
                 onClick={() => setIsCreateCohortOpen(true)}
@@ -152,7 +153,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Back button */}
           <Link
             href="/admin/bootcamps"
@@ -163,7 +164,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
           </Link>
 
           {/* Program Overview Banner */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
@@ -176,7 +177,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                     {bootcamp.isActive ? 'Active Master Program' : 'Archived Program'}
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-white">{bootcamp.name}</h2>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white break-words">{bootcamp.name}</h2>
                 {bootcamp.description && (
                   <p className="text-sm text-white/60 max-w-2xl">{bootcamp.description}</p>
                 )}
@@ -197,7 +198,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
             </div>
 
             {/* Quick Metrics */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-white/5">
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <CalendarRange className="w-4 h-4 text-[#FBBC04]" />
@@ -261,18 +262,18 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                 {bootcamp.cohorts.map((cohort: any) => (
                   <div
                     key={cohort.id}
-                    className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all space-y-5"
+                    className="p-5 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all space-y-5"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
                         <span
-                          className={`w-2.5 h-2.5 rounded-full ${
+                          className={`w-2.5 h-2.5 rounded-full shrink-0 ${
                             cohort.isActive ? 'bg-[#34A853]' : 'bg-white/30'
                           }`}
                         />
-                        <h4 className="font-bold text-base text-white">{cohort.name}</h4>
+                        <h4 className="font-bold text-base text-white truncate">{cohort.name}</h4>
                       </div>
-                      <span className="text-xs text-white/40 font-mono">
+                      <span className="text-xs text-white/40 font-mono shrink-0">
                         {format(new Date(cohort.startDate), 'MMM d, yyyy')}
                       </span>
                     </div>
@@ -290,11 +291,11 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                             <Link
                               key={t.id}
                               href={`/admin/tracks/${t.id}`}
-                              className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.05] transition-all flex items-center justify-between gap-3 text-xs"
+                              className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.05] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-3 text-xs"
                               style={{ borderLeftColor: t.accent || '#4285F4', borderLeftWidth: '3px' }}
                             >
-                              <span className="font-bold text-white">{t.name}</span>
-                              <div className="flex items-center gap-3 text-white/50 text-[11px]">
+                              <span className="font-bold text-white break-words">{t.name}</span>
+                              <div className="flex items-center gap-2 sm:gap-3 text-white/50 text-[11px]">
                                 <span>{t.studentCount} students</span>
                                 <span>•</span>
                                 <span>{t.mentorCount} mentors</span>
@@ -323,7 +324,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
       {/* Edit Bootcamp Modal */}
       {isEditOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Edit Bootcamp Program</h3>
@@ -370,7 +371,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
                     Start Date
@@ -408,18 +409,18 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsEditOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingBootcamp}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSavingBootcamp && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Save Changes</span>
@@ -433,7 +434,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
       {/* Create Cohort Modal */}
       {isCreateCohortOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Create New Cohort</h3>
@@ -469,7 +470,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
                     Start Date <span className="text-[#EA4335]">*</span>
@@ -508,18 +509,18 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsCreateCohortOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingCohort}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSavingCohort && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Create Cohort</span>

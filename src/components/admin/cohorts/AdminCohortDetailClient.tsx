@@ -163,7 +163,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title={cohort.name}
           subtitle={`Under ${cohort.bootcamp?.name || 'Bootcamp'}`}
@@ -196,7 +196,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Back link */}
           <Link
             href="/admin/cohorts"
@@ -207,7 +207,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
           </Link>
 
           {/* Cohort Overview Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
@@ -220,7 +220,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                     {cohort.isActive ? 'Active Cohort Session' : 'Inactive Cohort'}
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-white">{cohort.name}</h2>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white break-words">{cohort.name}</h2>
                 <p className="text-xs text-white/60 font-mono mt-1">
                   Master Program:{' '}
                   <Link
@@ -233,7 +233,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               </div>
 
               <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 text-xs text-white/60">
-                <Calendar className="w-4 h-4 text-[#FBBC04]" />
+                <Calendar className="w-4 h-4 text-[#FBBC04] shrink-0" />
                 <span>
                   {format(new Date(cohort.startDate), 'MMM d, yyyy')}
                   {cohort.endDate && ` - ${format(new Date(cohort.endDate), 'MMM d, yyyy')}`}
@@ -242,7 +242,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
             </div>
 
             {/* Metric counters */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-white/5">
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <Layers className="w-4 h-4 text-[#4285F4]" />
@@ -275,7 +275,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 border-b border-white/10 pb-2 overflow-x-auto scrollbar-none">
             {[
               { id: 'tracks', label: `Tracks (${cohort.tracks.length})` },
               { id: 'students', label: `Students (${allStudents.length})` },
@@ -285,7 +285,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
+                className={`whitespace-nowrap px-3 sm:px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
                   activeTab === tab.id
                     ? 'bg-white/15 text-white border border-white/10'
                     : 'text-white/50 hover:text-white hover:bg-white/5'
@@ -399,10 +399,10 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   {allStudents.map((student) => (
                     <div
                       key={student.id}
-                      className="py-3.5 flex items-center justify-between gap-4 first:pt-0 last:pb-0"
+                      className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 first:pt-0 last:pb-0"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <Avatar className="w-9 h-9 border border-white/10">
+                        <Avatar className="w-9 h-9 border border-white/10 shrink-0">
                           <AvatarImage src={student.avatarUrl} alt={student.firstName} />
                           <AvatarFallback className="bg-[#4285F4] text-white text-xs font-bold">
                             {student.firstName[0]}
@@ -417,7 +417,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                         </div>
                       </div>
 
-                      <div className="flex flex-wrap gap-1.5 justify-end">
+                      <div className="flex flex-wrap gap-1.5 justify-start sm:justify-end">
                         {student.enrolledTracks.map((t: any) => (
                           <span
                             key={t.trackId}
@@ -458,10 +458,10 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   {allMentors.map((mentor) => (
                     <div
                       key={mentor.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-4"
+                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <Avatar className="w-10 h-10 border border-white/10">
+                        <Avatar className="w-10 h-10 border border-white/10 shrink-0">
                           <AvatarImage src={mentor.avatarUrl} alt={mentor.firstName} />
                           <AvatarFallback className="bg-[#FBBC04] text-black font-bold text-xs">
                             {mentor.firstName[0]}
@@ -476,7 +476,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                         </div>
                       </div>
 
-                      <div className="flex flex-col items-end gap-1">
+                      <div className="flex flex-wrap sm:flex-col items-start sm:items-end gap-1">
                         {mentor.assignedTracks.map((t: any) => (
                           <span
                             key={t.trackId}
@@ -517,10 +517,10 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   {allSessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-4"
+                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-3 sm:gap-4"
                     >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
+                      <div className="space-y-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
                           <span
                             className="text-[10px] font-mono px-2 py-0.5 rounded-md font-semibold"
                             style={{
@@ -534,7 +534,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                             {session.mode}
                           </span>
                         </div>
-                        <h4 className="font-bold text-sm text-white">{session.title}</h4>
+                        <h4 className="font-bold text-sm text-white break-words">{session.title}</h4>
                         <p className="text-xs text-white/50">
                           {format(new Date(session.startTime), 'EEE, MMM d • h:mm a')}
                         </p>
@@ -563,7 +563,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
       {/* Create Track Modal */}
       {isCreateTrackOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">Create Curriculum Track</h3>
@@ -630,7 +630,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
                   Theme Accent Color
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   {['#4285F4', '#34A853', '#FBBC04', '#EA4335', '#A142F4', '#24C1E0'].map((color) => (
                     <button
                       key={color}
@@ -651,18 +651,18 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setIsCreateTrackOpen(false)}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingTrack}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSavingTrack && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Create Track</span>

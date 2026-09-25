@@ -200,9 +200,9 @@ export function MentorSubmissionsClient({
           </div>
         )}
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5DFD0] pb-6 sm:pb-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#EA4335]" />
@@ -210,10 +210,10 @@ export function MentorSubmissionsClient({
                   Code Assessment &amp; Grading Queue
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#0D0E11]">
+              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-[#0D0E11]">
                 Student Submissions
               </h1>
-              <p className="text-base text-[#5F6368] max-w-2xl font-medium">
+              <p className="text-xs sm:text-sm text-[#5F6368] max-w-2xl font-medium">
                 Review submitted repositories, inspect live deployed applications, provide architectural critique, and assign numerical grades.
               </p>
             </div>
@@ -246,7 +246,7 @@ export function MentorSubmissionsClient({
 
             <div className="flex items-center gap-3 flex-wrap">
               {/* Status Tabs */}
-              <div className="flex items-center gap-1 p-1 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0]">
+              <div className="flex items-center gap-1 p-1 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] overflow-x-auto no-scrollbar max-w-full">
                 {[
                   { id: 'all', label: 'All' },
                   { id: 'SUBMITTED', label: `Pending (${pendingCount})` },
@@ -257,7 +257,7 @@ export function MentorSubmissionsClient({
                     key={tab.id}
                     onClick={() => setStatusFilter(tab.id as any)}
                     className={cn(
-                      'px-3 py-1.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap',
+                      'px-3 py-1.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap cursor-pointer',
                       statusFilter === tab.id
                         ? 'bg-[#0D0E11] text-[#FAF7EE]'
                         : 'text-[#5F6368] hover:text-[#0D0E11]'
@@ -272,7 +272,7 @@ export function MentorSubmissionsClient({
               <select
                 value={trackFilter}
                 onChange={(e) => setTrackFilter(e.target.value)}
-                className="px-3 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none"
+                className="px-3 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none max-w-full"
               >
                 <option value="all">All Tracks</option>
                 {tracks.map((t) => (
@@ -286,7 +286,7 @@ export function MentorSubmissionsClient({
               <select
                 value={assignmentFilter}
                 onChange={(e) => setAssignmentFilter(e.target.value)}
-                className="px-3 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none max-w-[200px] truncate"
+                className="px-3 py-2 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] text-xs font-bold text-[#0D0E11] outline-none max-w-full truncate"
               >
                 <option value="all">All Assignments</option>
                 {assignments.map((a) => (
@@ -313,7 +313,139 @@ export function MentorSubmissionsClient({
             </div>
           ) : (
             <div className="rounded-3xl bg-white border border-[#E5DFD0] shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
+              {/* Mobile Card List (< md) */}
+              <div className="md:hidden divide-y divide-[#E5DFD0]">
+                {filteredSubmissions.map((sub) => {
+                  const isReviewed = sub.status === 'REVIEWED';
+                  const isLate =
+                    sub.submittedAt &&
+                    sub.assignmentDueDate &&
+                    new Date(sub.submittedAt) > new Date(sub.assignmentDueDate);
+
+                  return (
+                    <div key={sub.id} className="p-4 space-y-3">
+                      {/* Top Header: Student & Status */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <img
+                            src={sub.studentAvatar}
+                            alt={sub.studentName}
+                            className="w-10 h-10 rounded-full object-cover border border-[#E5DFD0] shrink-0"
+                          />
+                          <div className="min-w-0">
+                            <span className="font-bold text-[#0D0E11] block text-xs truncate">
+                              {sub.studentName}
+                            </span>
+                            <span className="text-[#5F6368] text-[11px] truncate block">
+                              {sub.studentEmail}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-1 shrink-0">
+                          <span
+                            className={cn(
+                              'px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider',
+                              isReviewed
+                                ? 'bg-[#34A853]/10 text-[#34A853] border border-[#34A853]/30'
+                                : 'bg-[#EA4335]/10 text-[#EA4335] border border-[#EA4335]/30'
+                            )}
+                          >
+                            {sub.status}
+                          </span>
+                          {isLate && (
+                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-black uppercase bg-[#FBBC04]/20 text-[#0D0E11] border border-[#FBBC04]/40">
+                              Late
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Assignment Info */}
+                      <div className="p-3 rounded-2xl bg-[#FAF7EE] border border-[#E5DFD0] space-y-1">
+                        <span className="font-bold text-xs text-[#0D0E11] block">
+                          {sub.assignmentTitle}
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className="w-2 h-2 rounded-full shrink-0"
+                            style={{ backgroundColor: sub.trackAccent }}
+                          />
+                          <span className="text-[11px] text-[#5F6368] font-medium truncate">
+                            {sub.trackName}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Meta: Score, Deliverables, Time */}
+                      <div className="flex items-center justify-between gap-2 text-xs">
+                        <div className="flex items-center gap-1.5">
+                          {sub.githubUrl && (
+                            <a
+                              href={sub.githubUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="p-1.5 rounded-lg bg-[#FAF7EE] hover:bg-[#E5DFD0] text-[#0D0E11] transition-colors"
+                              title="GitHub Repository"
+                            >
+                              <FolderGit2 className="h-4 w-4" />
+                            </a>
+                          )}
+                          {sub.liveUrl && (
+                            <a
+                              href={sub.liveUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="p-1.5 rounded-lg bg-[#4285F4]/10 hover:bg-[#4285F4]/20 text-[#4285F4] transition-colors"
+                              title="Live Demo"
+                            >
+                              <Globe className="h-4 w-4" />
+                            </a>
+                          )}
+                          {sub.fileUrl && (
+                            <a
+                              href={sub.fileUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="p-1.5 rounded-lg bg-[#FAF7EE] hover:bg-[#E5DFD0] text-[#5F6368] transition-colors"
+                              title="Attachment"
+                            >
+                              <FileText className="h-4 w-4" />
+                            </a>
+                          )}
+                        </div>
+
+                        <div className="text-right">
+                          <span className="text-[10px] text-[#5F6368] block">Score</span>
+                          {sub.score !== null ? (
+                            <span className="font-mono font-bold text-xs text-[#0D0E11]">
+                              {sub.score} / {sub.assignmentPoints}
+                            </span>
+                          ) : (
+                            <span className="text-[#5F6368] font-mono text-xs">Unscored</span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Review Action Button */}
+                      <button
+                        onClick={() => openReviewModal(sub)}
+                        className={cn(
+                          'w-full py-2.5 rounded-xl text-xs font-bold transition-colors text-center cursor-pointer',
+                          isReviewed
+                            ? 'border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11] hover:bg-white'
+                            : 'bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#22242B] shadow-xs'
+                        )}
+                      >
+                        {isReviewed ? 'Edit Grade' : 'Grade Submission'}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Desktop Table View (>= md) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-[#FAF7EE] border-b border-[#E5DFD0] text-[#5F6368] uppercase font-bold text-[10px] tracking-wider">
                     <tr>
@@ -454,7 +586,7 @@ export function MentorSubmissionsClient({
                             <button
                               onClick={() => openReviewModal(sub)}
                               className={cn(
-                                'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors',
+                                'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer',
                                 isReviewed
                                   ? 'border border-[#E5DFD0] text-[#5F6368] hover:text-[#0D0E11] hover:bg-white'
                                   : 'bg-[#0D0E11] text-[#FAF7EE] hover:bg-[#22242B] shadow-xs'
@@ -477,7 +609,7 @@ export function MentorSubmissionsClient({
       {/* REVIEW SUBMISSION MODAL / DRAWER */}
       {reviewingSubmission && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
-          <div className="w-full max-w-xl rounded-3xl bg-white border border-[#E5DFD0] p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-xl rounded-3xl bg-white border border-[#E5DFD0] p-5 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <img
@@ -588,18 +720,18 @@ export function MentorSubmissionsClient({
                 />
               </div>
 
-              <div className="pt-4 flex items-center justify-end gap-3">
+              <div className="pt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setReviewingSubmission(null)}
-                  className="px-5 py-2.5 rounded-2xl border border-[#E5DFD0] text-xs font-bold text-[#5F6368] hover:text-[#0D0E11]"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-2xl border border-[#E5DFD0] text-xs font-bold text-[#5F6368] hover:text-[#0D0E11] text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmittingReview}
-                  className="px-6 py-2.5 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-2xl bg-[#0D0E11] text-[#FAF7EE] text-xs font-bold hover:bg-[#22242B] disabled:opacity-50 transition-colors shadow-sm cursor-pointer"
                 >
                   {isSubmittingReview ? 'Submitting Review...' : 'Save Review'}
                 </button>

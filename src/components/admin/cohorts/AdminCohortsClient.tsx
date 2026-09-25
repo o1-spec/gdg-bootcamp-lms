@@ -197,7 +197,7 @@ export function AdminCohortsClient({
         onMobileClose={() => setIsMobileOpen(false)}
       />
 
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Cohorts Management"
           subtitle="Manage student batches, tracks, schedules, and active learning cycles"
@@ -214,18 +214,18 @@ export function AdminCohortsClient({
           }
         />
 
-        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Filter Bar */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-              <span className="text-xs text-white/40 flex items-center gap-1.5 px-2">
-                <Filter className="w-3.5 h-3.5" />
+              <span className="text-xs text-white/40 flex items-center gap-1.5 px-1">
+                <Filter className="w-3.5 h-3.5 shrink-0" />
                 <span>Filter:</span>
               </span>
               <select
                 value={selectedBootcampFilter}
                 onChange={(e) => setSelectedBootcampFilter(e.target.value)}
-                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="flex-1 sm:flex-initial min-w-[130px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
               >
                 <option value="all" className="bg-[#0D0E11]">All Bootcamps</option>
                 {bootcamps.map((b) => (
@@ -238,7 +238,7 @@ export function AdminCohortsClient({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as any)}
-                className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
               >
                 <option value="all" className="bg-[#0D0E11]">All Statuses</option>
                 <option value="active" className="bg-[#0D0E11]">Active Only</option>
@@ -246,7 +246,7 @@ export function AdminCohortsClient({
               </select>
             </div>
 
-            <div className="text-xs text-white/50 self-end sm:self-center">
+            <div className="text-xs text-white/50 text-right sm:text-left">
               Showing <strong className="text-white">{filteredCohorts.length}</strong> of{' '}
               {cohorts.length} cohorts
             </div>
@@ -393,7 +393,7 @@ export function AdminCohortsClient({
       {/* Create / Edit Cohort Modal */}
       {(isCreateOpen || editingCohort) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-5 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-black text-white">
@@ -456,7 +456,7 @@ export function AdminCohortsClient({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 mb-1.5">
                     Start Date <span className="text-[#EA4335]">*</span>
@@ -495,21 +495,21 @@ export function AdminCohortsClient({
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => {
                     setIsCreateOpen(false);
                     setEditingCohort(null);
                   }}
-                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
                 >
                   {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{editingCohort ? 'Save Changes' : 'Create Cohort'}</span>

@@ -193,25 +193,25 @@ export function DashboardHeader({
   const previewNotifs = notifications.slice(0, 5);
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-[#E5DFD0] bg-[#FAF7EE]/95 px-6 sm:px-8 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-[#E5DFD0] bg-[#FAF7EE]/95 px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
       {/* Left: Mobile hamburger & bold page heading */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4 min-w-0">
         <button
           type="button"
           onClick={onOpenMobileMenu}
-          className="rounded-full p-2 text-[#0D0E11] hover:bg-[#E5DFD0] lg:hidden cursor-pointer"
+          className="rounded-full p-2 text-[#0D0E11] hover:bg-[#E5DFD0] lg:hidden cursor-pointer shrink-0"
           aria-label="Toggle navigation menu"
         >
           <Menu className="h-5 w-5" />
         </button>
 
-        <div>
+        <div className="min-w-0">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[#5F6368] hidden sm:inline">
               Bootcamp 3.0
             </span>
             <span className="text-[#5F6368]/40 hidden sm:inline">•</span>
-            <h1 className="text-lg sm:text-2xl font-black text-[#0D0E11] tracking-tight">
+            <h1 className="text-base sm:text-2xl font-black text-[#0D0E11] tracking-tight truncate">
               {breadcrumb.page}
             </h1>
           </div>
@@ -239,7 +239,7 @@ export function DashboardHeader({
       </div>
 
       {/* Right: GDG badge, Bell, Avatar */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         {/* Google 4-color dots badge */}
         <div className="hidden xl:flex items-center gap-2 rounded-full border border-[#E5DFD0] bg-white px-3 py-1.5 shadow-2xs">
           <div className="flex items-center -space-x-1">
@@ -272,7 +272,7 @@ export function DashboardHeader({
           </button>
 
           {notificationsOpen && (
-            <div className="absolute right-0 mt-3 w-80 sm:w-96 rounded-2xl border border-[#E5DFD0] bg-white p-4 shadow-xl z-50 text-[#0D0E11] animate-in fade-in-0 zoom-in-95">
+            <div className="fixed inset-x-3 top-20 sm:absolute sm:inset-x-auto sm:right-0 mt-2 sm:mt-3 w-auto sm:w-96 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-[#E5DFD0] bg-white p-4 shadow-xl z-50 text-[#0D0E11] animate-in fade-in-0 zoom-in-95">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-[#E5DFD0] pb-3">
                 <div>
