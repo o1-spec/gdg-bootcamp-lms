@@ -17,13 +17,28 @@ import {
 import { AnnouncementDetails } from '@/components/announcements/AnnouncementDetails';
 import { mockAnnouncementsList } from '@/data/announcements';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
-import { FullAnnouncement } from '@/types/lms';
+import { FullAnnouncement, StudentProfile, Track } from '@/types/lms';
 
-export function AnnouncementsClient() {
+interface AnnouncementsClientProps {
+  initialAnnouncements?: FullAnnouncement[];
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
+}
+
+export function AnnouncementsClient({
+  initialAnnouncements,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: AnnouncementsClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<AnnouncementFilterCategory>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
+
+  const allAnnouncements =
+    initialAnnouncements && initialAnnouncements.length > 0
+      ? initialAnnouncements
+      : mockAnnouncementsList;
 
   // Modal inspection state
   const [activeAnnouncement, setActiveAnnouncement] = useState<FullAnnouncement | null>(null);
@@ -47,7 +62,7 @@ export function AnnouncementsClient() {
 
   // Filtered announcements
   const filteredAnnouncements = useMemo(() => {
-    return mockAnnouncementsList.filter((anc) => {
+    return allAnnouncements.filter((anc) => {
       // Search filter
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
@@ -79,15 +94,15 @@ export function AnnouncementsClient() {
 
       return true;
     });
-  }, [searchQuery, selectedTrack, selectedCategory]);
+  }, [allAnnouncements, searchQuery, selectedTrack, selectedCategory]);
 
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="announcements"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -97,7 +112,7 @@ export function AnnouncementsClient() {
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="announcements"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
         />

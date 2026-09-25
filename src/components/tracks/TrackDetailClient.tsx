@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { TrackDetailView } from '@/components/tracks/TrackDetailView';
-import { DetailedTrack } from '@/types/lms';
+import { DetailedTrack, StudentProfile, Track } from '@/types/lms';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 
 interface TrackDetailClientProps {
   track: DetailedTrack;
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
 }
 
-export function TrackDetailClient({ track }: TrackDetailClientProps) {
+export function TrackDetailClient({ track, student = mockStudentProfile, enrolledTracks = mockTracks }: TrackDetailClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
@@ -19,8 +21,8 @@ export function TrackDetailClient({ track }: TrackDetailClientProps) {
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="my-tracks"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -30,7 +32,7 @@ export function TrackDetailClient({ track }: TrackDetailClientProps) {
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="my-tracks"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
         />
 
@@ -48,7 +50,7 @@ export function TrackDetailClient({ track }: TrackDetailClientProps) {
               <span className="hidden sm:inline">BUILD ✦ INNOVATE ✦ SHIP</span>
             </div>
             <span className="hidden lg:inline text-[11px] font-bold tracking-normal opacity-90 pl-4">
-              GDG on Campus LASU Career Bootcamp 3.0
+              GDG on Campus LASU Career Bootcamp 2026
             </span>
           </div>
         </div>

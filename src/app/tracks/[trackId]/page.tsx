@@ -1,5 +1,6 @@
-import { notFound } from 'next/navigation';
-import { mockDetailedTracks } from '@/data/tracks';
+import { notFound, redirect } from 'next/navigation';
+import { getCurrentUser, buildStudentProfile } from '@/lib/auth';
+import { getStudentTrackBySlug, getStudentEnrolledTracksSummary } from '@/lib/data/tracks';
 import { TrackDetailClient } from '@/components/tracks/TrackDetailClient';
 
 interface PageProps {
@@ -8,22 +9,23 @@ interface PageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return [
-    { trackId: 'backend-development' },
-    { trackId: 'frontend-development' },
-    { trackId: 'dsa-interview-prep' },
-  ];
-}
-
 export default async function TrackDetailPage({ params }: PageProps) {
-  const { trackId } = await params;
+  const user = await getCurrentUser();
+  if (!user) {
+    redirect('/login');
+  }
 
-  const track = mockDetailedTracks[trackId] || mockDetailedTracks['backend-development'];
+  const { trackId } = await params;
+  const [track, enrolledTracks] = await Promise.all([
+    getStudentTrackBySlug(trackId, user.id),
+    getStudentEnrolledTracksSummary(user.id),
+  ]);
 
   if (!track) {
     notFound();
   }
 
-  return <TrackDetailClient track={track} />;
+  const student = buildStudentProfile(user, enrolledTracks.length);
+
+  return <TrackDetailClient track={track} student={student} enrolledTracks={enrolledTracks} />;
 }

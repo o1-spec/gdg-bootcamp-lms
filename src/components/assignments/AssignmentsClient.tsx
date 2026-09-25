@@ -17,12 +17,26 @@ import { AssignmentCard } from '@/components/assignments/AssignmentCard';
 import { AssignmentFilters, AssignmentStatusFilter } from '@/components/assignments/AssignmentFilters';
 import { mockFullAssignments } from '@/data/assignments';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
+import { FullAssignment, StudentProfile, Track } from '@/types/lms';
 
-export function AssignmentsClient() {
+interface AssignmentsClientProps {
+  initialAssignments?: FullAssignment[];
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
+}
+
+export function AssignmentsClient({
+  initialAssignments,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: AssignmentsClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<AssignmentStatusFilter>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
+
+  const allAssignments =
+    initialAssignments && initialAssignments.length > 0 ? initialAssignments : mockFullAssignments;
 
   const handleResetFilters = () => {
     setSearchQuery('');
@@ -32,21 +46,21 @@ export function AssignmentsClient() {
 
   // Stats calculation
   const stats = useMemo(() => {
-    const total = mockFullAssignments.length;
-    const completed = mockFullAssignments.filter(
+    const total = allAssignments.length;
+    const completed = allAssignments.filter(
       (a) => a.status === 'completed' || a.status === 'reviewed'
     ).length;
-    const inProgress = mockFullAssignments.filter((a) => a.status === 'in_progress').length;
-    const dueSoon = mockFullAssignments.filter(
+    const inProgress = allAssignments.filter((a) => a.status === 'in_progress').length;
+    const dueSoon = allAssignments.filter(
       (a) => a.daysRemaining <= 3 && a.status !== 'completed' && a.status !== 'reviewed'
     ).length;
 
     return { total, completed, inProgress, dueSoon };
-  }, []);
+  }, [allAssignments]);
 
   // Filtered assignments
   const filteredAssignments = useMemo(() => {
-    return mockFullAssignments.filter((asg) => {
+    return allAssignments.filter((asg) => {
       // Search matching
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
@@ -76,15 +90,15 @@ export function AssignmentsClient() {
 
       return true;
     });
-  }, [searchQuery, selectedTrack, selectedStatus]);
+  }, [allAssignments, searchQuery, selectedTrack, selectedStatus]);
 
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="assignments"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -94,7 +108,7 @@ export function AssignmentsClient() {
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="assignments"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
         />

@@ -1,0 +1,310 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  STUDENT
+  MENTOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum ResourceType {
+  VIDEO
+  PDF
+  SLIDE
+  DOCUMENT
+  ARTICLE
+  LINK
+  CODE
+  GITHUB
+  FIGMA
+  DATASET
+  CHEATSHEET
+  PRACTICE
+  OTHER
+}
+
+enum AssignmentType {
+  PROJECT
+  EXERCISE
+  PRACTICE
+  QUIZ
+  OTHER
+}
+
+enum SubmissionStatus {
+  DRAFT
+  SUBMITTED
+  REVIEWED
+}
+
+enum SessionMode {
+  VIRTUAL
+  PHYSICAL
+  HYBRID
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  EXCUSED
+}
+
+enum AnnouncementPriority {
+  NORMAL
+  IMPORTANT
+  URGENT
+  REMINDER
+}
+
+model User {
+  id           String   @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(STUDENT)
+  avatarUrl    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  enrollments        Enrollment[]
+  mentorAssignments  MentorAssignment[]
+  createdAssignments Assignment[]       @relation("AssignmentCreator")
+  submissions        Submission[]
+  attendances        Attendance[]       @relation("StudentAttendance")
+  markedAttendances  Attendance[]       @relation("AttendanceMarker")
+  announcements      Announcement[]     @relation("AnnouncementAuthor")
+  lessonProgress     LessonProgress[]
+  uploadedResources  Resource[]         @relation("ResourceUploader")
+  mentorSessions     Session[]          @relation("MentorSessions")
+}
+
+model Bootcamp {
+  id          String    @id @default(cuid())
+  name        String
+  description String?   @db.Text
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  cohorts Cohort[]
+}
+
+model Cohort {
+  id         String    @id @default(cuid())
+  name       String
+  bootcampId String
+  bootcamp   Bootcamp  @relation(fields: [bootcampId], references: [id], onDelete: Cascade)
+  startDate  DateTime
+  endDate    DateTime?
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  tracks Track[]
+}
+
+model Track {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  accent      String?
+  cohortId    String
+  cohort      Cohort   @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enrollments       Enrollment[]
+  mentorAssignments MentorAssignment[]
+  modules           Module[]
+  assignments       Assignment[]
+  sessions          Session[]
+  announcements     Announcement[]
+}
+
+model Enrollment {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trackId    String
+  track      Track    @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  enrolledAt DateTime @default(now())
+  isActive   Boolean  @default(true)
+
+  @@unique([userId, trackId])
+}
+
+model MentorAssignment {
+  id         String   @id @default(cuid())
+  mentorId   String
+  mentor     User     @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  trackId    String
+  track      Track    @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  assignedAt DateTime @default(now())
+
+  @@unique([mentorId, trackId])
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  trackId     String
+  track       Track    @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  title       String
+  slug        String
+  description String?  @db.Text
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  lessons     Lesson[]
+  resources   Resource[]
+  assignments Assignment[]
+}
+
+model Lesson {
+  id              String   @id @default(cuid())
+  moduleId        String
+  module          Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title           String
+  slug            String
+  description     String?  @db.Text
+  content         String?  @db.Text
+  durationMinutes Int?
+  order           Int
+  isPublished     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  resources Resource[]
+  progress  LessonProgress[]
+}
+
+model Resource {
+  id           String       @id @default(cuid())
+  title        String
+  description  String?      @db.Text
+  type         ResourceType
+  url          String
+  publicId     String?
+  lessonId     String?
+  lesson       Lesson?      @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+  moduleId     String?
+  module       Module?      @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  uploadedById String
+  uploadedBy   User         @relation("ResourceUploader", fields: [uploadedById], references: [id])
+  isRequired   Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model Assignment {
+  id           String         @id @default(cuid())
+  trackId      String
+  track        Track          @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  moduleId     String?
+  module       Module?        @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  title        String
+  description  String         @db.Text
+  instructions String?        @db.Text
+  dueDate      DateTime?
+  points       Int?
+  type         AssignmentType
+  createdById  String
+  createdBy    User           @relation("AssignmentCreator", fields: [createdById], references: [id])
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  submissions Submission[]
+}
+
+model Submission {
+  id           String           @id @default(cuid())
+  assignmentId String
+  assignment   Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  studentId    String
+  student      User             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  githubUrl    String?
+  liveUrl      String?
+  fileUrl      String?
+  notes        String?          @db.Text
+  status       SubmissionStatus @default(DRAFT)
+  score        Int?
+  feedback     String?          @db.Text
+  submittedAt  DateTime?
+  reviewedAt   DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@unique([assignmentId, studentId])
+}
+
+model Session {
+  id           String      @id @default(cuid())
+  trackId      String
+  track        Track       @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?     @db.Text
+  startTime    DateTime
+  endTime      DateTime
+  mode         SessionMode
+  meetingUrl   String?
+  location     String?
+  mentorId     String?
+  mentor       User?       @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: SetNull)
+  recordingUrl String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  attendances Attendance[]
+}
+
+model Attendance {
+  id         String           @id @default(cuid())
+  sessionId  String
+  session    Session          @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  studentId  String
+  student    User             @relation("StudentAttendance", fields: [studentId], references: [id], onDelete: Cascade)
+  status     AttendanceStatus
+  markedAt   DateTime         @default(now())
+  markedById String?
+  markedBy   User?            @relation("AttendanceMarker", fields: [markedById], references: [id], onDelete: SetNull)
+
+  @@unique([sessionId, studentId])
+}
+
+model Announcement {
+  id        String               @id @default(cuid())
+  title     String
+  content   String               @db.Text
+  priority  AnnouncementPriority @default(NORMAL)
+  trackId   String?
+  track     Track?               @relation(fields: [trackId], references: [id], onDelete: SetNull)
+  authorId  String
+  author    User                 @relation("AnnouncementAuthor", fields: [authorId], references: [id])
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  lessonId    String
+  lesson      Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  studentId   String
+  student     User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([lessonId, studentId])
+}

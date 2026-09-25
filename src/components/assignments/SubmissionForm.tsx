@@ -14,16 +14,19 @@ import {
   Sparkles,
   Save,
   Send,
+  Loader2,
 } from 'lucide-react';
 import { AssignmentSubmission } from '@/types/lms';
 
 interface SubmissionFormProps {
+  assignmentId?: string;
   initialSubmission: AssignmentSubmission;
   maxPoints: number;
   onUpdateSubmission: (submission: AssignmentSubmission) => void;
 }
 
 export function SubmissionForm({
+  assignmentId,
   initialSubmission,
   maxPoints,
   onUpdateSubmission,
@@ -37,43 +40,94 @@ export function SubmissionForm({
   const [notes, setNotes] = useState(initialSubmission.notes || '');
   const [fileName, setFileName] = useState(initialSubmission.fileName || '');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSaveDraft = (e: React.FormEvent) => {
+  const handleSaveDraft = async (e: React.FormEvent) => {
     e.preventDefault();
-    const updated: AssignmentSubmission = {
-      ...submission,
-      status: 'DRAFT',
-      githubUrl,
-      liveUrl,
-      notes,
-      fileName,
-    };
-    setSubmission(updated);
-    onUpdateSubmission(updated);
-    setToastMessage('Draft saved successfully!');
-    setTimeout(() => setToastMessage(null), 3500);
+    setIsLoading(true);
+
+    try {
+      if (assignmentId) {
+        await fetch(`/api/assignments/${assignmentId}/submissions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            githubUrl,
+            liveUrl,
+            notes,
+            fileUrl: fileName ? `https://storage.mock/${fileName}` : '',
+            action: 'draft',
+          }),
+        });
+      }
+
+      const updated: AssignmentSubmission = {
+        ...submission,
+        status: 'DRAFT',
+        githubUrl,
+        liveUrl,
+        notes,
+        fileName,
+      };
+      setSubmission(updated);
+      onUpdateSubmission(updated);
+      setToastMessage('Draft saved successfully!');
+    } catch {
+      setToastMessage('Unable to sync draft with server. Local draft updated.');
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => setToastMessage(null), 3500);
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!githubUrl.trim()) {
-      alert('Please provide a GitHub repository link for your project submission.');
+      setToastMessage('Please provide a valid GitHub repository URL.');
+      setTimeout(() => setToastMessage(null), 3500);
       return;
     }
-    const updated: AssignmentSubmission = {
-      ...submission,
-      status: 'SUBMITTED',
-      githubUrl,
-      liveUrl,
-      notes,
-      fileName,
-      submittedAt: 'Just now (September 27, 2026)',
-    };
-    setSubmission(updated);
-    setIsEditing(false);
-    onUpdateSubmission(updated);
-    setToastMessage('Assignment submitted successfully! Mentor review is pending.');
-    setTimeout(() => setToastMessage(null), 4000);
+
+    setIsLoading(true);
+
+    try {
+      if (assignmentId) {
+        await fetch(`/api/assignments/${assignmentId}/submissions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            githubUrl,
+            liveUrl,
+            notes,
+            fileUrl: fileName ? `https://storage.mock/${fileName}` : '',
+            action: 'submit',
+          }),
+        });
+      }
+
+      const updated: AssignmentSubmission = {
+        ...submission,
+        status: 'SUBMITTED',
+        githubUrl,
+        liveUrl,
+        notes,
+        fileName,
+        submittedAt: new Date().toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        }),
+      };
+      setSubmission(updated);
+      setIsEditing(false);
+      onUpdateSubmission(updated);
+      setToastMessage('Assignment submitted successfully! Mentor review is pending.');
+    } catch {
+      setToastMessage('Failed to submit assignment. Please try again.');
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => setToastMessage(null), 4000);
+    }
   };
 
   const handleMockFileDrop = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -337,18 +391,20 @@ export function SubmissionForm({
       <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-3 border-t border-[#E5DFD0]">
         <button
           type="button"
+          disabled={isLoading}
           onClick={handleSaveDraft}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full border border-[#0D0E11] text-xs font-black text-[#0D0E11] hover:bg-[#FAF7EE] transition-all cursor-pointer"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full border border-[#0D0E11] text-xs font-black text-[#0D0E11] hover:bg-[#FAF7EE] transition-all cursor-pointer disabled:opacity-50"
         >
-          <Save className="h-3.5 w-3.5" />
+          {isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
           <span>Save Draft</span>
         </button>
 
         <button
           type="submit"
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md"
+          disabled={isLoading}
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-[#0D0E11] text-[#FAF7EE] text-xs font-black hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md disabled:opacity-50"
         >
-          <Send className="h-3.5 w-3.5 text-[#34A853]" />
+          {isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin text-[#34A853]" /> : <Send className="h-3.5 w-3.5 text-[#34A853]" />}
           <span>Submit Assignment</span>
         </button>
       </div>

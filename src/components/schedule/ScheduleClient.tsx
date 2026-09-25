@@ -12,17 +12,30 @@ import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { ScheduleCard } from '@/components/schedule/ScheduleCard';
 import { SessionDetails } from '@/components/schedule/SessionDetails';
 import { mockBootcampSessions } from '@/data/schedule';
-import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
-import { BootcampSession } from '@/types/lms';
+import { mockStudentProfile, mockDashboardStats, mockTracks } from '@/data/mockData';
+import { BootcampSession, StudentProfile, Track } from '@/types/lms';
 import { cn } from '@/lib/utils';
 
 export type ScheduleTabFilter = 'upcoming' | 'this_week' | 'past' | 'all';
 
-export function ScheduleClient() {
+interface ScheduleClientProps {
+  initialSessions?: BootcampSession[];
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
+}
+
+export function ScheduleClient({
+  initialSessions,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: ScheduleClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState<ScheduleTabFilter>('upcoming');
   const [selectedTrack, setSelectedTrack] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const allSessions =
+    initialSessions && initialSessions.length > 0 ? initialSessions : mockBootcampSessions;
 
   // Session details modal state
   const [activeSession, setActiveSession] = useState<BootcampSession | null>(null);
@@ -48,7 +61,7 @@ export function ScheduleClient() {
 
   // Filter sessions
   const filteredSessions = useMemo(() => {
-    return mockBootcampSessions.filter((ses) => {
+    return allSessions.filter((ses) => {
       // Tab filter
       if (selectedTab === 'upcoming' && ses.isPast) return false;
       if (selectedTab === 'past' && !ses.isPast) return false;
@@ -76,7 +89,7 @@ export function ScheduleClient() {
 
       return true;
     });
-  }, [selectedTab, selectedTrack, searchQuery]);
+  }, [allSessions, selectedTab, selectedTrack, searchQuery]);
 
   // Group filtered sessions by day of week
   const groupedSessions = useMemo(() => {
@@ -96,18 +109,18 @@ export function ScheduleClient() {
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="schedule"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        liveClassesCount={allSessions.filter((c) => c.isLiveNow).length}
       />
 
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="schedule"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
         />

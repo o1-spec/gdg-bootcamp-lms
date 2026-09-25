@@ -30,9 +30,14 @@ import {
   mockAnnouncements,
 } from '@/data/mockData';
 import { UpcomingClass, Assignment, Resource, ResourceType } from '@/types/lms';
+import { StudentDashboardData } from '@/lib/data/dashboard';
 import { cn } from '@/lib/utils';
 
-export function StudentDashboard() {
+interface StudentDashboardProps {
+  initialData?: StudentDashboardData;
+}
+
+export function StudentDashboard({ initialData }: StudentDashboardProps) {
   const [currentTab, setCurrentTab] = useState<DashboardNavTab>('dashboard');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,9 +45,21 @@ export function StudentDashboard() {
   const [assignmentFilter, setAssignmentFilter] = useState<'all' | 'pending' | 'submitted'>('all');
   const [activeAlert, setActiveAlert] = useState<string | null>(null);
 
+  const student = initialData?.student || mockStudentProfile;
+  const enrolledTracks = initialData?.enrolledTracks || mockTracks;
+  const stats = initialData?.stats || mockDashboardStats;
+  const upcomingClasses = initialData?.upcomingClasses || mockUpcomingClasses;
+  const assignmentsList = initialData?.assignments || mockAssignments;
+  const resourcesList = initialData?.resources || mockResources;
+  const announcementsList = initialData?.announcements || mockAnnouncements;
+
+  const firstName = student.name.split(' ')[0] || 'Student';
+  const currentHour = new Date().getHours();
+  const timeGreeting = currentHour < 12 ? 'Good morning' : currentHour < 18 ? 'Good afternoon' : 'Good evening';
+
   // Filtered resources
   const filteredResources = useMemo(() => {
-    return mockResources.filter((res) => {
+    return resourcesList.filter((res) => {
       const matchesSearch =
         searchQuery === '' ||
         res.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -57,11 +74,11 @@ export function StudentDashboard() {
       }
       return res.type === resourceFilter;
     });
-  }, [searchQuery, resourceFilter]);
+  }, [resourcesList, searchQuery, resourceFilter]);
 
   // Filtered assignments
   const filteredAssignments = useMemo(() => {
-    return mockAssignments.filter((asg) => {
+    return assignmentsList.filter((asg) => {
       const matchesSearch =
         searchQuery === '' ||
         asg.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -74,7 +91,7 @@ export function StudentDashboard() {
       if (assignmentFilter === 'pending') return asg.status === 'pending' || asg.status === 'due_soon';
       return true;
     });
-  }, [searchQuery, assignmentFilter]);
+  }, [assignmentsList, searchQuery, assignmentFilter]);
 
   const handleResumeLesson = (trackId: string, lessonId: string) => {
     const track = mockTracks.find((t) => t.id === trackId);
@@ -109,19 +126,19 @@ export function StudentDashboard() {
       <DashboardSidebar
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
-        pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
-        liveClassesCount={mockUpcomingClasses.filter((c) => c.isLiveNow).length}
+        pendingAssignmentsCount={stats.pendingAssignments}
+        liveClassesCount={upcomingClasses.filter((c) => c.isLiveNow).length}
       />
 
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab={currentTab}
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
         />
@@ -140,7 +157,7 @@ export function StudentDashboard() {
               <span className="hidden sm:inline">BUILD ✦ INNOVATE ✦ SHIP</span>
             </div>
             <span className="hidden lg:inline text-[11px] font-bold tracking-normal opacity-90 pl-4">
-              GDG on Campus LASU Career Bootcamp 3.0
+              GDG on Campus LASU Career Bootcamp 2026
             </span>
           </div>
         </div>
@@ -180,15 +197,15 @@ export function StudentDashboard() {
                     <span className="h-3 w-3 rounded-full bg-[#34A853] ring-2 ring-[#0D0E11]" />
                   </div>
                   <span className="text-xs font-bold text-[#FAF7EE]/70 uppercase tracking-wider">
-                    {mockStudentProfile.cohort}
+                    {student.cohort}
                   </span>
                   <span className="rounded-full bg-[#FBBC04]/20 text-[#FBBC04] border border-[#FBBC04]/30 px-3 py-0.5 text-xs font-black">
-                    🔥 {mockStudentProfile.studyStreakDays} Day Streak
+                    🔥 {student.studyStreakDays} Day Streak
                   </span>
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FAF7EE] leading-tight">
-                  Your tech journey starts here, {mockStudentProfile.name.split(' ')[0]}.
+                  {timeGreeting}, {firstName}
                 </h2>
 
                 <p className="text-sm sm:text-base text-[#FAF7EE]/80 leading-relaxed font-normal">
@@ -198,8 +215,8 @@ export function StudentDashboard() {
                 <div className="flex items-center gap-2 pt-2 text-xs font-bold text-[#FAF7EE]/60">
                   <span className="h-2 w-2 rounded-full bg-[#34A853]" />
                   <span>
-                    You completed <strong className="text-[#FAF7EE]">12 lessons</strong> this week • Overall progress is at{' '}
-                    <strong className="text-[#34A853]">{mockDashboardStats.overallProgressPercentage}%</strong>
+                    You completed <strong className="text-[#FAF7EE]">{stats.completedLessons} lessons</strong> • Overall progress is at{' '}
+                    <strong className="text-[#34A853]">{stats.overallProgressPercentage}%</strong>
                   </span>
                 </div>
               </div>
@@ -232,8 +249,8 @@ export function StudentDashboard() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <StatsCard
                 title="Enrolled Tracks"
-                value={mockDashboardStats.enrolledTracks}
-                subtext="Backend, Frontend & DSA"
+                value={stats.enrolledTracks}
+                subtext={enrolledTracks.map(t => t.name.split(' ')[0]).join(', ')}
                 icon={Layers}
                 badge={{ text: 'Active', variant: 'positive' }}
                 accentColor="#4285F4" // Google Blue
@@ -241,8 +258,8 @@ export function StudentDashboard() {
               />
               <StatsCard
                 title="Completed Lessons"
-                value={`${mockDashboardStats.completedLessons}/${mockDashboardStats.totalLessons}`}
-                subtext="+12 completed this week"
+                value={`${stats.completedLessons}/${stats.totalLessons}`}
+                subtext="Real curriculum progress"
                 icon={CheckCircle2}
                 badge={{ text: '+14% Week', variant: 'positive' }}
                 accentColor="#34A853" // Google Green
@@ -250,17 +267,17 @@ export function StudentDashboard() {
               />
               <StatsCard
                 title="Pending Assignments"
-                value={mockDashboardStats.pendingAssignments}
-                subtext="1 due in next 48 hours"
+                value={stats.pendingAssignments}
+                subtext={`${stats.pendingAssignments} action required`}
                 icon={Clock}
-                badge={{ text: 'Action Needed', variant: 'urgent' }}
+                badge={{ text: stats.pendingAssignments > 0 ? 'Action Needed' : 'Completed', variant: stats.pendingAssignments > 0 ? 'urgent' : 'positive' }}
                 accentColor="#EA4335" // Google Red
                 href="/assignments"
               />
               <StatsCard
                 title="Overall Progress"
-                value={`${mockDashboardStats.overallProgressPercentage}%`}
-                subtext={`${mockDashboardStats.attendanceRate}% live class attendance`}
+                value={`${stats.overallProgressPercentage}%`}
+                subtext={`${stats.attendanceRate}% live class attendance`}
                 icon={TrendingUp}
                 badge={{ text: 'On Track', variant: 'positive' }}
                 accentColor="#FBBC04" // Google Yellow
@@ -290,7 +307,7 @@ export function StudentDashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {mockTracks.map((track) => (
+              {enrolledTracks.map((track) => (
                 <TrackCard
                   key={track.id}
                   track={track}
@@ -482,7 +499,7 @@ export function StudentDashboard() {
                 </div>
 
                 <div className="space-y-4">
-                  {mockUpcomingClasses.map((classItem) => (
+                  {upcomingClasses.map((classItem) => (
                     <UpcomingClassCard
                       key={classItem.id}
                       upcomingClass={classItem}
@@ -516,7 +533,7 @@ export function StudentDashboard() {
                 </div>
 
                 <div className="space-y-4">
-                  {mockAnnouncements.map((announcement) => (
+                  {announcementsList.map((announcement) => (
                     <AnnouncementCard
                       key={announcement.id}
                       announcement={announcement}

@@ -16,14 +16,30 @@ import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { AttendanceTable } from '@/components/attendance/AttendanceTable';
 import { mockAttendanceRecords, mockAttendanceSummary } from '@/data/attendance';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
-import { AttendanceStatus } from '@/types/lms';
+import { AttendanceRecord, AttendanceStatus, AttendanceSummaryData, StudentProfile, Track } from '@/types/lms';
 import { cn } from '@/lib/utils';
 
-export function AttendanceClient() {
+interface AttendanceClientProps {
+  initialSummary?: AttendanceSummaryData;
+  initialRecords?: AttendanceRecord[];
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
+}
+
+export function AttendanceClient({
+  initialSummary,
+  initialRecords,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: AttendanceClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<'all' | AttendanceStatus>('all');
   const [selectedTrack, setSelectedTrack] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const summary = initialSummary || mockAttendanceSummary;
+  const allRecords =
+    initialRecords && initialRecords.length > 0 ? initialRecords : mockAttendanceRecords;
 
   const trackOptions = [
     { id: 'all', label: 'All Tracks' },
@@ -41,7 +57,7 @@ export function AttendanceClient() {
   ];
 
   const filteredRecords = useMemo(() => {
-    return mockAttendanceRecords.filter((rec) => {
+    return allRecords.filter((rec) => {
       // Status filter
       if (selectedStatus !== 'all' && rec.status !== selectedStatus) {
         return false;
@@ -65,7 +81,7 @@ export function AttendanceClient() {
 
       return true;
     });
-  }, [selectedStatus, selectedTrack, searchQuery]);
+  }, [allRecords, selectedStatus, selectedTrack, searchQuery]);
 
   const handleResetFilters = () => {
     setSelectedStatus('all');
@@ -78,8 +94,8 @@ export function AttendanceClient() {
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="attendance"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -89,7 +105,7 @@ export function AttendanceClient() {
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="attendance"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
         />
@@ -136,7 +152,7 @@ export function AttendanceClient() {
                 Overall Rate
               </span>
               <span className="text-2xl sm:text-3xl font-black text-[#1e7e34]">
-                {mockAttendanceSummary.attendanceRate}%
+                {summary.attendanceRate}%
               </span>
             </div>
           </div>
@@ -151,7 +167,7 @@ export function AttendanceClient() {
                 <UserCheck className="h-4 w-4 text-[#34A853]" />
               </div>
               <p className="text-2xl font-black text-[#1e7e34]">
-                {mockAttendanceSummary.attendanceRate}%
+                {summary.attendanceRate}%
               </p>
               <span className="text-[11px] text-[#5F6368]">
                 Target: &gt;80%
@@ -166,7 +182,7 @@ export function AttendanceClient() {
                 <CheckCircle2 className="h-4 w-4 text-[#34A853]" />
               </div>
               <p className="text-2xl font-black text-[#0D0E11]">
-                {mockAttendanceSummary.presentCount}
+                {summary.presentCount}
               </p>
               <span className="text-[11px] text-[#5F6368]">
                 Sessions attended
@@ -181,7 +197,7 @@ export function AttendanceClient() {
                 <XCircle className="h-4 w-4 text-[#EA4335]" />
               </div>
               <p className="text-2xl font-black text-[#EA4335]">
-                {mockAttendanceSummary.absentCount}
+                {summary.absentCount}
               </p>
               <span className="text-[11px] text-[#5F6368]">
                 Unexcused absences
@@ -196,7 +212,7 @@ export function AttendanceClient() {
                 <AlertCircle className="h-4 w-4 text-[#FBBC04]" />
               </div>
               <p className="text-2xl font-black text-[#0D0E11]">
-                {mockAttendanceSummary.excusedCount}
+                {summary.excusedCount}
               </p>
               <span className="text-[11px] text-[#5F6368]">
                 Authorized leave

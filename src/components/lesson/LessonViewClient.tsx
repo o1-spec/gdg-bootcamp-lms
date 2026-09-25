@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FullLesson, LessonResourceItem } from '@/types/lms';
+import { FullLesson, LessonResourceItem, StudentProfile, Track } from '@/types/lms';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { LessonHeader } from './LessonHeader';
@@ -24,24 +24,47 @@ interface LessonViewClientProps {
     isCompleted: boolean;
     isCurrent: boolean;
   }[];
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
 }
 
 export function LessonViewClient({
   lesson,
   moduleLessons,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
 }: LessonViewClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(lesson.status === 'completed');
   const [activeAlert, setActiveAlert] = useState<string | null>(null);
 
-  const handleToggleComplete = () => {
-    const nextState = !isCompleted;
-    setIsCompleted(nextState);
-    setActiveAlert(
-      nextState
-        ? `Great job! "${lesson.title}" marked as completed. Progress updated.`
-        : `Marked "${lesson.title}" as incomplete.`
-    );
+  const handleToggleComplete = async () => {
+    const previousState = isCompleted;
+    setIsCompleted(!previousState);
+
+    try {
+      const res = await fetch(`/api/lessons/${lesson.id}/progress`, {
+        method: 'POST',
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setIsCompleted(previousState);
+        setActiveAlert('Failed to update progress on the server.');
+        return;
+      }
+
+      setIsCompleted(data.completed);
+      setActiveAlert(
+        data.completed
+          ? `Great job! "${lesson.title}" marked as completed. Progress updated.`
+          : `Marked "${lesson.title}" as incomplete.`
+      );
+    } catch {
+      setIsCompleted(previousState);
+      setActiveAlert('Unable to connect to progress service.');
+    }
+
     setTimeout(() => setActiveAlert(null), 4000);
   };
 
@@ -55,8 +78,8 @@ export function LessonViewClient({
       {/* App Sidebar */}
       <DashboardSidebar
         currentTab="my-tracks"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -66,7 +89,7 @@ export function LessonViewClient({
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="my-tracks"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
         />
 
@@ -84,7 +107,7 @@ export function LessonViewClient({
               <span className="hidden sm:inline">BUILD ✦ INNOVATE ✦ SHIP</span>
             </div>
             <span className="hidden lg:inline text-[11px] font-bold tracking-normal opacity-90 pl-4">
-              GDG on Campus LASU Career Bootcamp 3.0
+              GDG on Campus LASU Career Bootcamp 2026
             </span>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   Layers,
@@ -14,6 +14,7 @@ import {
   Megaphone,
   X,
   ExternalLink,
+  LogOut,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { StudentProfile, Track } from '@/types/lms';
@@ -51,6 +52,18 @@ export function DashboardSidebar({
   liveClassesCount = 1,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (e) {
+      console.error('Logout error:', e);
+    } finally {
+      router.push('/login');
+      router.refresh();
+    }
+  };
 
   // Determine active tab based on route if on separate pages
   const activeTab: DashboardNavTab =
@@ -359,10 +372,19 @@ export function DashboardSidebar({
                   {student.role}
                 </span>
                 <span className="text-[10px] text-[#FAF7EE]/50 truncate">
-                  Bootcamp 3.0
+                  Bootcamp 2026
                 </span>
               </div>
             </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="p-1.5 rounded-xl text-[#FAF7EE]/50 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors cursor-pointer"
+              title="Sign out"
+              aria-label="Sign out"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </aside>

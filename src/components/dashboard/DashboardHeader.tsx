@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Bell,
   Menu,
@@ -14,6 +15,7 @@ import {
   Settings,
   LogOut,
   HelpCircle,
+  Loader2,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { StudentProfile } from '@/types/lms';
@@ -33,10 +35,24 @@ export function DashboardHeader({
   onOpenMobileMenu,
   onSearchChange,
 }: DashboardHeaderProps) {
+  const router = useRouter();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(3);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      router.push('/login');
+      router.refresh();
+    }
+  };
 
   const notifRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -315,10 +331,16 @@ export function DashboardHeader({
               <div className="pt-1 border-t border-[#E5DFD0]">
                 <button
                   type="button"
-                  className="flex w-full items-center gap-2 px-3 py-2 text-xs font-bold text-[#EA4335] hover:bg-[#EA4335]/10 rounded-xl transition-colors"
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
+                  className="flex w-full items-center gap-2 px-3 py-2 text-xs font-bold text-[#EA4335] hover:bg-[#EA4335]/10 rounded-xl transition-colors disabled:opacity-60 cursor-pointer"
                 >
-                  <LogOut className="h-3.5 w-3.5" />
-                  <span>Sign out</span>
+                  {isLoggingOut ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : (
+                    <LogOut className="h-3.5 w-3.5" />
+                  )}
+                  <span>{isLoggingOut ? 'Signing out...' : 'Sign out'}</span>
                 </button>
               </div>
             </div>

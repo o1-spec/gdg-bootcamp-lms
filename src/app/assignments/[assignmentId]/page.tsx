@@ -1,6 +1,8 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { Metadata } from 'next';
-import { mockFullAssignments, getAssignmentById } from '@/data/assignments';
+import { getCurrentUser, buildStudentProfile } from '@/lib/auth';
+import { getStudentAssignmentDetails } from '@/lib/data/assignments';
+import { getStudentEnrolledTracksSummary } from '@/lib/data/tracks';
 import { AssignmentDetailClient } from '@/components/assignments/AssignmentDetailClient';
 
 interface PageProps {
@@ -9,30 +11,38 @@ interface PageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return mockFullAssignments.map((a) => ({
-    assignmentId: a.id,
-  }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { assignmentId } = await params;
-  const assignment = getAssignmentById(assignmentId);
   return {
-    title: assignment
-      ? `${assignment.title} | Bootcamp LMS`
-      : 'Assignment Detail | Bootcamp LMS',
-    description: assignment?.shortDescription || 'View and submit bootcamp assignments',
+    title: `${assignmentId} | Assignments | Bootcamp LMS`,
+    description: 'View and submit bootcamp assignments',
   };
 }
 
 export default async function AssignmentDetailPage({ params }: PageProps) {
+  const user = await getCurrentUser();
+  if (!user) {
+    redirect('/login');
+  }
+
   const { assignmentId } = await params;
-  const assignment = getAssignmentById(assignmentId);
+
+  const [assignment, enrolledTracks] = await Promise.all([
+    getStudentAssignmentDetails(assignmentId, user.id),
+    getStudentEnrolledTracksSummary(user.id),
+  ]);
 
   if (!assignment) {
     notFound();
   }
 
-  return <AssignmentDetailClient assignment={assignment} />;
+  const student = buildStudentProfile(user, enrolledTracks.length);
+
+  return (
+    <AssignmentDetailClient
+      assignment={assignment}
+      student={student}
+      enrolledTracks={enrolledTracks}
+    />
+  );
 }

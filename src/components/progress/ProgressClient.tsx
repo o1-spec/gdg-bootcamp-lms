@@ -10,17 +10,29 @@ import { ActivitySummary } from '@/components/progress/ActivitySummary';
 import { AttendanceSummaryCard } from '@/components/progress/AttendanceSummaryCard';
 import { mockOverallProgress } from '@/data/progress';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
+import { OverallBootcampProgress, StudentProfile, Track } from '@/types/lms';
 
-export function ProgressClient() {
+interface ProgressClientProps {
+  initialProgress?: OverallBootcampProgress;
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
+}
+
+export function ProgressClient({
+  initialProgress,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: ProgressClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const progress = initialProgress || mockOverallProgress;
 
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="progress"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -30,7 +42,7 @@ export function ProgressClient() {
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="progress"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
         />
 
@@ -88,7 +100,7 @@ export function ProgressClient() {
           </div>
 
           {/* 1. Overall Progress Hero */}
-          <ProgressHero progress={mockOverallProgress} />
+          <ProgressHero progress={progress} />
 
           {/* 2. Track-by-Track Detailed Progress */}
           <div className="space-y-4">
@@ -102,7 +114,7 @@ export function ProgressClient() {
             </div>
 
             <div className="space-y-6">
-              {mockOverallProgress.trackSummaries.map((trackSummary) => (
+              {progress.trackSummaries.map((trackSummary) => (
                 <TrackProgressCard
                   key={trackSummary.trackId}
                   trackProgress={trackSummary}
@@ -112,10 +124,10 @@ export function ProgressClient() {
           </div>
 
           {/* 3. Lightweight Weekly Activity Summary */}
-          <ActivitySummary activity={mockOverallProgress.weeklyActivity} />
+          <ActivitySummary activity={progress.weeklyActivity} />
 
           {/* 4. Attendance Summary */}
-          <AttendanceSummaryCard summary={mockOverallProgress.attendanceSummary} />
+          <AttendanceSummaryCard summary={progress.attendanceSummary} />
 
           {/* Graduation Capstone Readiness Callout */}
           <div className="rounded-3xl border border-[#22242B] bg-[#0D0E11] text-[#FAF7EE] p-6 sm:p-8 relative overflow-hidden">

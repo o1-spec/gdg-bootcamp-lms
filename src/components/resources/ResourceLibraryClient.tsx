@@ -16,14 +16,26 @@ import { ResourceFilters } from '@/components/resources/ResourceFilters';
 import { ResourceDetails } from '@/components/resources/ResourceDetails';
 import { mockLibraryResources } from '@/data/resources';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
-import { LibraryResource } from '@/types/lms';
+import { LibraryResource, StudentProfile, Track } from '@/types/lms';
 
-export function ResourceLibraryClient() {
+interface ResourceLibraryClientProps {
+  initialResources?: LibraryResource[];
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
+}
+
+export function ResourceLibraryClient({
+  initialResources,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: ResourceLibraryClientProps) {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTrack, setSelectedTrack] = useState('all');
   const [selectedType, setSelectedType] = useState('all');
   const [selectedRequirement, setSelectedRequirement] = useState<'all' | 'required' | 'optional'>('all');
+
+  const allResources = initialResources && initialResources.length > 0 ? initialResources : mockLibraryResources;
 
   // Resource details inspection modal state
   const [activeResource, setActiveResource] = useState<LibraryResource | null>(null);
@@ -49,7 +61,7 @@ export function ResourceLibraryClient() {
 
   // Filtered resources matching criteria
   const filteredResources = useMemo(() => {
-    return mockLibraryResources.filter((res) => {
+    return allResources.filter((res) => {
       // Search matching title, description, track, module
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
@@ -86,17 +98,17 @@ export function ResourceLibraryClient() {
 
       return true;
     });
-  }, [searchQuery, selectedTrack, selectedType, selectedRequirement]);
+  }, [allResources, searchQuery, selectedTrack, selectedType, selectedRequirement]);
 
-  const requiredCount = mockLibraryResources.filter((r) => r.isRequired).length;
+  const requiredCount = allResources.filter((r) => r.isRequired).length;
 
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased selection:bg-[#FBBC04]/30">
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="resources"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -106,7 +118,7 @@ export function ResourceLibraryClient() {
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="resources"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
         />

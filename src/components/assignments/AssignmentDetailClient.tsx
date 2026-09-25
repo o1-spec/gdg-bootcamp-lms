@@ -17,16 +17,22 @@ import {
 } from 'lucide-react';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
-import { AssignmentStatusBadge } from '@/components/assignments/AssignmentStatusBadge';
 import { SubmissionForm } from '@/components/assignments/SubmissionForm';
-import { FullAssignment, AssignmentSubmission, ExtendedAssignmentStatus } from '@/types/lms';
+import { AssignmentStatusBadge } from '@/components/assignments/AssignmentStatusBadge';
+import { FullAssignment, AssignmentSubmission, ExtendedAssignmentStatus, StudentProfile, Track } from '@/types/lms';
 import { mockStudentProfile, mockDashboardStats, mockUpcomingClasses, mockTracks } from '@/data/mockData';
 
 interface AssignmentDetailClientProps {
   assignment: FullAssignment;
+  student?: StudentProfile;
+  enrolledTracks?: Track[];
 }
 
-export function AssignmentDetailClient({ assignment: initialAssignment }: AssignmentDetailClientProps) {
+export function AssignmentDetailClient({
+  assignment: initialAssignment,
+  student = mockStudentProfile,
+  enrolledTracks = mockTracks,
+}: AssignmentDetailClientProps) {
   const [assignment, setAssignment] = useState<FullAssignment>(initialAssignment);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [checkedRequirements, setCheckedRequirements] = useState<Record<number, boolean>>({});
@@ -57,8 +63,8 @@ export function AssignmentDetailClient({ assignment: initialAssignment }: Assign
       {/* Sidebar */}
       <DashboardSidebar
         currentTab="assignments"
-        student={mockStudentProfile}
-        enrolledTracks={mockTracks}
+        student={student}
+        enrolledTracks={enrolledTracks}
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={() => setIsMobileSidebarOpen(false)}
         pendingAssignmentsCount={mockDashboardStats.pendingAssignments}
@@ -68,7 +74,7 @@ export function AssignmentDetailClient({ assignment: initialAssignment }: Assign
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
           currentTab="assignments"
-          student={mockStudentProfile}
+          student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
         />
 
@@ -343,6 +349,7 @@ export function AssignmentDetailClient({ assignment: initialAssignment }: Assign
           {/* Section F: Student Submission Form Area */}
           <div id="submission-area">
             <SubmissionForm
+              assignmentId={assignment.id}
               initialSubmission={assignment.submission}
               maxPoints={assignment.points}
               onUpdateSubmission={handleUpdateSubmission}
