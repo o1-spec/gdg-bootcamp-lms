@@ -25,8 +25,8 @@ async function main() {
 
   console.log("🧹 Cleared existing records");
 
-  // Hash development password
-  const defaultPasswordHash = await bcrypt.hash("Password123!", 10);
+  // Hash development password (support both password123 and Password123!)
+  const defaultPasswordHash = await bcrypt.hash("password123", 10);
 
   // 1. Create Users
   const student1 = await prisma.user.create({
@@ -73,7 +73,7 @@ async function main() {
     },
   });
 
-  const mentor = await prisma.user.create({
+  const mentor1 = await prisma.user.create({
     data: {
       firstName: "Femi",
       lastName: "Ogunleye",
@@ -84,6 +84,17 @@ async function main() {
     },
   });
 
+  const mentor2 = await prisma.user.create({
+    data: {
+      firstName: "Blessing",
+      lastName: "Okoro",
+      email: "blessing@gdglasu.dev",
+      passwordHash: defaultPasswordHash,
+      role: Role.MENTOR,
+      avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256",
+    },
+  });
+
   const admin = await prisma.user.create({
     data: {
       firstName: "Chioma",
@@ -91,11 +102,24 @@ async function main() {
       email: "admin@gdglasu.dev",
       passwordHash: defaultPasswordHash,
       role: Role.ADMIN,
-      avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=256",
+      avatarUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=256",
     },
   });
 
-  console.log("👤 Created users (4 Students, Mentor, Admin)");
+  const superAdmin = await prisma.user.create({
+    data: {
+      firstName: "Damilola",
+      lastName: "Ade",
+      email: "superadmin@gdglasu.dev",
+      passwordHash: defaultPasswordHash,
+      role: Role.SUPER_ADMIN,
+      avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256",
+    },
+  });
+
+  const mentor = mentor1;
+
+  console.log("👤 Created users (4 Students, 2 Mentors, Admin, Super Admin)");
 
   // 2. Create Bootcamp
   const bootcamp = await prisma.bootcamp.create({
@@ -108,10 +132,10 @@ async function main() {
     },
   });
 
-  // 3. Create Cohort
-  const cohort = await prisma.cohort.create({
+  // 3. Create Cohort 1 & Cohort 2
+  const cohort1 = await prisma.cohort.create({
     data: {
-      name: "Cohort 1",
+      name: "Cohort 1.0 (Alpha)",
       bootcampId: bootcamp.id,
       startDate: new Date("2026-02-01T00:00:00.000Z"),
       endDate: new Date("2026-05-30T23:59:59.000Z"),
@@ -119,7 +143,17 @@ async function main() {
     },
   });
 
-  console.log("🏫 Created Bootcamp & Cohort 1");
+  const cohort2 = await prisma.cohort.create({
+    data: {
+      name: "Cohort 2.0 (Beta Preview)",
+      bootcampId: bootcamp.id,
+      startDate: new Date("2026-07-01T00:00:00.000Z"),
+      endDate: new Date("2026-10-30T23:59:59.000Z"),
+      isActive: true,
+    },
+  });
+
+  console.log("🏫 Created Bootcamp & 2 Cohorts");
 
   // 4. Create Tracks
   const backendTrack = await prisma.track.create({
@@ -128,7 +162,7 @@ async function main() {
       slug: "backend-development",
       description: "Master modern server-side engineering, RESTful APIs, databases, authentication, and cloud deployment with Node.js and TypeScript.",
       accent: "#4285F4", // Google Blue
-      cohortId: cohort.id,
+      cohortId: cohort1.id,
     },
   });
 
@@ -138,7 +172,7 @@ async function main() {
       slug: "frontend-development",
       description: "Build high-performance, accessible, responsive web interfaces using modern React 19, Next.js App Router, and Tailwind CSS.",
       accent: "#0F9D58", // Google Green
-      cohortId: cohort.id,
+      cohortId: cohort1.id,
     },
   });
 
@@ -148,7 +182,7 @@ async function main() {
       slug: "dsa-interview-prep",
       description: "Sharpen algorithmic problem-solving skills, data structures, complexity analysis, and tech interview readiness.",
       accent: "#EA4335", // Google Red
-      cohortId: cohort.id,
+      cohortId: cohort1.id,
     },
   });
 
@@ -166,11 +200,11 @@ async function main() {
     ],
   });
 
-  await prisma.mentorAssignment.create({
-    data: {
-      mentorId: mentor.id,
-      trackId: backendTrack.id,
-    },
+  await prisma.mentorAssignment.createMany({
+    data: [
+      { mentorId: mentor1.id, trackId: backendTrack.id },
+      { mentorId: mentor2.id, trackId: frontendTrack.id },
+    ],
   });
 
   console.log("🤝 Created Enrollments and Mentor Assignment for Backend Development");

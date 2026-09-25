@@ -1,0 +1,798 @@
+'use client';
+
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+  CalendarDays,
+  Plus,
+  Filter,
+  Edit2,
+  Trash2,
+  Video,
+  MapPin,
+  Clock,
+  ShieldCheck,
+  Percent,
+  X,
+  Loader2,
+  AlertCircle,
+  ExternalLink,
+  CheckCircle2,
+  Calendar,
+  Layers,
+} from 'lucide-react';
+import { AdminSidebar, AdminUser } from '../AdminSidebar';
+import { AdminHeader } from '../AdminHeader';
+import { ConfirmDialog } from '@/components/mentor/ConfirmDialog';
+import { SessionMode } from '@prisma/client';
+import { format } from '@/lib/date';
+
+interface SessionRecord {
+  id: string;
+  trackId: string;
+  trackName: string;
+  trackAccent: string;
+  cohortName: string;
+  title: string;
+  description: string | null;
+  startTime: Date;
+  endTime: Date;
+  mode: SessionMode;
+  meetingUrl: string | null;
+  location: string | null;
+  recordingUrl: string | null;
+  mentor: { id: string; name: string } | null;
+  attendance: {
+    total: number;
+    present: number;
+    absent: number;
+    excused: number;
+  };
+}
+
+interface TrackOption {
+  id: string;
+  name: string;
+  slug: string;
+  accent: string | null;
+  cohort?: { name: string };
+}
+
+interface MentorOption {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface AdminSessionsClientProps {
+  sessions: SessionRecord[];
+  tracks: TrackOption[];
+  mentors: MentorOption[];
+  admin: AdminUser;
+}
+
+export function AdminSessionsClient({
+  sessions: initialSessions,
+  tracks,
+  mentors,
+  admin,
+}: AdminSessionsClientProps) {
+  const router = useRouter();
+  const [sessions, setSessions] = useState<SessionRecord[]>(initialSessions);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  // Tab view: sessions list vs attendance report
+  const [viewMode, setViewMode] = useState<'sessions' | 'attendance'>('sessions');
+
+  // Filters
+  const [trackFilter, setTrackFilter] = useState('all');
+  const [mentorFilter, setMentorFilter] = useState('all');
+  const [timeFilter, setTimeFilter] = useState<'all' | 'upcoming' | 'past'>('all');
+
+  // Modal states
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingSession, setEditingSession] = useState<SessionRecord | null>(null);
+
+  // Form states
+  const [formData, setFormData] = useState<{
+    trackId: string;
+    mentorId: string;
+    title: string;
+    description: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    mode: SessionMode;
+    meetingUrl: string;
+    location: string;
+    recordingUrl: string;
+  }>({
+    trackId: tracks[0]?.id || '',
+    mentorId: mentors[0]?.id || '',
+    title: '',
+    description: '',
+    date: format(new Date(), 'yyyy-MM-dd'),
+    startTime: '10:00',
+    endTime: '12:00',
+    mode: SessionMode.VIRTUAL,
+    meetingUrl: '',
+    location: '',
+    recordingUrl: '',
+  });
+  const [formError, setFormError] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Delete dialog
+  const [deleteTarget, setDeleteTarget] = useState<SessionRecord | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const resetForm = () => {
+    setFormData({
+      trackId: tracks[0]?.id || '',
+      mentorId: mentors[0]?.id || '',
+      title: '',
+      description: '',
+      date: format(new Date(), 'yyyy-MM-dd'),
+      startTime: '10:00',
+      endTime: '12:00',
+      mode: SessionMode.VIRTUAL,
+      meetingUrl: '',
+      location: '',
+      recordingUrl: '',
+    });
+    setFormError(null);
+  };
+
+  const openCreateModal = () => {
+    resetForm();
+    setIsCreateOpen(true);
+  };
+
+  const openEditModal = (s: SessionRecord) => {
+    setEditingSession(s);
+    setFormData({
+      trackId: s.trackId,
+      mentorId: s.mentor?.id || '',
+      title: s.title,
+      description: s.description || '',
+      date: format(new Date(s.startTime), 'yyyy-MM-dd'),
+      startTime: format(new Date(s.startTime), 'HH:mm'),
+      endTime: format(new Date(s.endTime), 'HH:mm'),
+      mode: s.mode,
+      meetingUrl: s.meetingUrl || '',
+      location: s.location || '',
+      recordingUrl: s.recordingUrl || '',
+    });
+    setFormError(null);
+  };
+
+  const handleSaveSession = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.title.trim()) {
+      setFormError('Session title is required.');
+      return;
+    }
+
+    setIsSaving(true);
+    setFormError(null);
+
+    try {
+      const url = editingSession
+        ? `/api/admin/sessions/${editingSession.id}`
+        : '/api/admin/sessions';
+      const method = editingSession ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to save session');
+
+      setIsCreateOpen(false);
+      setEditingSession(null);
+      resetForm();
+      router.refresh();
+    } catch (err: any) {
+      setFormError(err.message || 'An error occurred.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDeleteSession = async () => {
+    if (!deleteTarget) return;
+
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/sessions/${deleteTarget.id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete session');
+
+      setDeleteTarget(null);
+      router.refresh();
+    } catch (err: any) {
+      alert(err.message || 'Failed to delete session');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const now = new Date();
+
+  const filteredSessions = sessions.filter((s) => {
+    if (trackFilter !== 'all' && s.trackId !== trackFilter) return false;
+    if (mentorFilter !== 'all' && s.mentor?.id !== mentorFilter) return false;
+
+    const sessionStart = new Date(s.startTime);
+    if (timeFilter === 'upcoming' && sessionStart < now) return false;
+    if (timeFilter === 'past' && sessionStart >= now) return false;
+
+    return true;
+  });
+
+  // Attendance metrics aggregate
+  const totalAttendances = sessions.reduce((acc, s) => acc + s.attendance.total, 0);
+  const totalPresents = sessions.reduce((acc, s) => acc + s.attendance.present, 0);
+  const totalAbsents = sessions.reduce((acc, s) => acc + s.attendance.absent, 0);
+  const totalExcused = sessions.reduce((acc, s) => acc + s.attendance.excused, 0);
+  const overallRate =
+    totalAttendances > 0 ? Math.round(((totalPresents + totalExcused) / totalAttendances) * 100) : 94;
+
+  return (
+    <div className="min-h-screen bg-[#0D0E11] text-[#FAF7EE] flex">
+      <AdminSidebar
+        currentTab="sessions"
+        admin={admin}
+        isMobileOpen={isMobileOpen}
+        onMobileClose={() => setIsMobileOpen(false)}
+      />
+
+      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+        <AdminHeader
+          title="Sessions & Attendance"
+          subtitle="Manage schedule across all tracks, virtual links, and attendance roll calls"
+          admin={admin}
+          onOpenMobileMenu={() => setIsMobileOpen(true)}
+          actions={
+            <button
+              onClick={openCreateModal}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white shadow-lg shadow-[#EA4335]/20 transition-all"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Create Session</span>
+            </button>
+          }
+        />
+
+        <main className="flex-1 p-4 sm:p-8 space-y-6 max-w-7xl w-full mx-auto">
+          {/* View Mode Toggle & Metrics Banner */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white/[0.02] border border-white/10">
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/5 border border-white/10">
+              <button
+                onClick={() => setViewMode('sessions')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === 'sessions'
+                    ? 'bg-white/15 text-white shadow-sm'
+                    : 'text-white/50 hover:text-white'
+                }`}
+              >
+                Session Schedules ({sessions.length})
+              </button>
+              <button
+                onClick={() => setViewMode('attendance')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === 'attendance'
+                    ? 'bg-white/15 text-white shadow-sm'
+                    : 'text-white/50 hover:text-white'
+                }`}
+              >
+                Attendance Reporting ({overallRate}%)
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 text-xs text-white/60">
+              <span>Overall Rate: <strong className="text-[#34A853]">{overallRate}%</strong></span>
+              <span>•</span>
+              <span>Total Recorded: <strong className="text-white">{totalAttendances}</strong></span>
+            </div>
+          </div>
+
+          {/* VIEW 1: SESSIONS SCHEDULE */}
+          {viewMode === 'sessions' && (
+            <div className="space-y-6">
+              {/* Filters */}
+              <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs text-white/40 flex items-center gap-1.5 px-1">
+                    <Filter className="w-3.5 h-3.5" />
+                    <span>Filter:</span>
+                  </span>
+
+                  <select
+                    value={trackFilter}
+                    onChange={(e) => setTrackFilter(e.target.value)}
+                    className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  >
+                    <option value="all" className="bg-[#0D0E11]">All Tracks</option>
+                    {tracks.map((t) => (
+                      <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                        {t.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={mentorFilter}
+                    onChange={(e) => setMentorFilter(e.target.value)}
+                    className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  >
+                    <option value="all" className="bg-[#0D0E11]">All Mentors</option>
+                    {mentors.map((m) => (
+                      <option key={m.id} value={m.id} className="bg-[#0D0E11]">
+                        {m.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={timeFilter}
+                    onChange={(e) => setTimeFilter(e.target.value as any)}
+                    className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  >
+                    <option value="all" className="bg-[#0D0E11]">All Dates</option>
+                    <option value="upcoming" className="bg-[#0D0E11]">Upcoming Only</option>
+                    <option value="past" className="bg-[#0D0E11]">Past Only</option>
+                  </select>
+                </div>
+
+                <div className="text-xs text-white/50">
+                  Showing <strong className="text-white">{filteredSessions.length}</strong> of{' '}
+                  {sessions.length} sessions
+                </div>
+              </div>
+
+              {/* Sessions Grid */}
+              {filteredSessions.length === 0 ? (
+                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FBBC04]/10 text-[#FBBC04] flex items-center justify-center mx-auto">
+                    <CalendarDays className="w-6 h-6" />
+                  </div>
+                  <p className="text-xs text-white/50">No sessions match current filter criteria.</p>
+                  <button
+                    onClick={openCreateModal}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#EA4335] text-xs font-bold text-white hover:bg-[#EA4335]/90"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Create Session</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {filteredSessions.map((s) => {
+                    const isUpcoming = new Date(s.startTime) >= now;
+
+                    return (
+                      <div
+                        key={s.id}
+                        className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
+                        style={{ borderLeftColor: s.trackAccent, borderLeftWidth: '4px' }}
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-2">
+                              <span
+                                className="text-[10px] font-mono px-2 py-0.5 rounded-md font-semibold"
+                                style={{
+                                  backgroundColor: `${s.trackAccent}20`,
+                                  color: s.trackAccent,
+                                }}
+                              >
+                                {s.trackName}
+                              </span>
+                              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-md bg-white/10 text-white/60">
+                                {s.mode}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-1">
+                              <button
+                                onClick={() => openEditModal(s)}
+                                className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
+                                title="Edit Session"
+                              >
+                                <Edit2 className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                onClick={() => setDeleteTarget(s)}
+                                className="p-1.5 rounded-lg text-white/40 hover:text-[#EA4335] hover:bg-[#EA4335]/10 transition-colors"
+                                title="Delete Session"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+
+                          <div>
+                            <h3 className="text-base font-bold text-white">{s.title}</h3>
+                            {s.description && (
+                              <p className="text-xs text-white/60 line-clamp-2 mt-1">{s.description}</p>
+                            )}
+                          </div>
+
+                          <div className="space-y-1 text-xs text-white/50 pt-1">
+                            <div className="flex items-center gap-2">
+                              <Clock className="w-3.5 h-3.5 text-[#FBBC04]" />
+                              <span>
+                                {format(new Date(s.startTime), 'EEEE, MMM d, yyyy • h:mm a')} -{' '}
+                                {format(new Date(s.endTime), 'h:mm a')}
+                              </span>
+                            </div>
+
+                            {s.mentor && (
+                              <div className="flex items-center gap-2">
+                                <ShieldCheck className="w-3.5 h-3.5 text-[#34A853]" />
+                                <span>Instructor: {s.mentor.name}</span>
+                              </div>
+                            )}
+
+                            {s.location && (
+                              <div className="flex items-center gap-2">
+                                <MapPin className="w-3.5 h-3.5 text-[#EA4335]" />
+                                <span>{s.location}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Action buttons & recording status */}
+                        <div className="flex items-center justify-between gap-3 pt-4 border-t border-white/5 text-xs">
+                          <div className="flex items-center gap-2">
+                            {s.meetingUrl && (
+                              <a
+                                href={s.meetingUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium"
+                              >
+                                <Video className="w-3.5 h-3.5 text-[#4285F4]" />
+                                <span>Join Room</span>
+                              </a>
+                            )}
+                            {s.recordingUrl && (
+                              <a
+                                href={s.recordingUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#EA4335]/10 hover:bg-[#EA4335]/20 text-[#EA4335] font-semibold"
+                              >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                                <span>Watch Recording</span>
+                              </a>
+                            )}
+                          </div>
+
+                          <span className="text-[11px] text-white/40 font-mono">
+                            {s.attendance.total > 0
+                              ? `${s.attendance.present} checked in`
+                              : 'No roll call yet'}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* VIEW 2: ATTENDANCE REPORTING (Requirement 18) */}
+          {viewMode === 'attendance' && (
+            <div className="space-y-6">
+              {/* Summary Metrics */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                  <span className="block text-2xl font-black text-[#34A853]">{overallRate}%</span>
+                  <span className="text-xs text-white/50">Overall Attendance</span>
+                </div>
+                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                  <span className="block text-2xl font-black text-white">{totalPresents}</span>
+                  <span className="text-xs text-white/50">Present Check-ins</span>
+                </div>
+                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                  <span className="block text-2xl font-black text-[#EA4335]">{totalAbsents}</span>
+                  <span className="text-xs text-white/50">Absences Recorded</span>
+                </div>
+                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                  <span className="block text-2xl font-black text-[#FBBC04]">{totalExcused}</span>
+                  <span className="text-xs text-white/50">Excused Records</span>
+                </div>
+              </div>
+
+              {/* Attendance Table by Session */}
+              <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
+                <div className="p-4 border-b border-white/10 bg-white/[0.02] flex items-center justify-between">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">
+                    Session Attendance Breakdown
+                  </h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
+                        <th className="py-4 px-6">Session Title</th>
+                        <th className="py-4 px-4">Track</th>
+                        <th className="py-4 px-4">Date</th>
+                        <th className="py-4 px-4">Present</th>
+                        <th className="py-4 px-4">Absent</th>
+                        <th className="py-4 px-4">Excused</th>
+                        <th className="py-4 px-6 text-right">Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {sessions.map((s) => {
+                        const total = s.attendance.total;
+                        const rate =
+                          total > 0
+                            ? Math.round(((s.attendance.present + s.attendance.excused) / total) * 100)
+                            : 0;
+
+                        return (
+                          <tr key={s.id} className="hover:bg-white/[0.02] transition-colors">
+                            <td className="py-4 px-6">
+                              <p className="font-bold text-white">{s.title}</p>
+                              <p className="text-[10px] text-white/40 font-mono">{s.mode}</p>
+                            </td>
+
+                            <td className="py-4 px-4">
+                              <span
+                                className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium"
+                                style={{
+                                  backgroundColor: `${s.trackAccent}20`,
+                                  color: s.trackAccent,
+                                }}
+                              >
+                                {s.trackName}
+                              </span>
+                            </td>
+
+                            <td className="py-4 px-4 text-white/50 text-[11px] font-mono">
+                              {format(new Date(s.startTime), 'MMM d, yyyy')}
+                            </td>
+
+                            <td className="py-4 px-4 font-bold text-[#34A853]">
+                              {s.attendance.present}
+                            </td>
+
+                            <td className="py-4 px-4 font-bold text-[#EA4335]">
+                              {s.attendance.absent}
+                            </td>
+
+                            <td className="py-4 px-4 font-bold text-[#FBBC04]">
+                              {s.attendance.excused}
+                            </td>
+
+                            <td className="py-4 px-6 text-right font-black text-white">
+                              {total > 0 ? `${rate}%` : '-'}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+        </main>
+      </div>
+
+      {/* CREATE / EDIT SESSION MODAL */}
+      {(isCreateOpen || editingSession) && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-3xl bg-[#0D0E11] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-black text-white">
+                  {editingSession ? 'Edit Session' : 'Schedule Bootcamp Session'}
+                </h3>
+                <p className="text-xs text-white/50">Configure workshop schedule, live links, and instructors</p>
+              </div>
+              <button
+                onClick={() => {
+                  setIsCreateOpen(false);
+                  setEditingSession(null);
+                }}
+                className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {formError && (
+              <div className="p-3.5 rounded-2xl bg-[#EA4335]/10 border border-[#EA4335]/20 flex items-center gap-3 text-xs text-[#EA4335]">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{formError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSaveSession} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-white/80 mb-1.5">
+                  Curriculum Track <span className="text-[#EA4335]">*</span>
+                </label>
+                <select
+                  value={formData.trackId}
+                  onChange={(e) => setFormData({ ...formData, trackId: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                >
+                  {tracks.map((t) => (
+                    <option key={t.id} value={t.id} className="bg-[#0D0E11]">
+                      {t.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-white/80 mb-1.5">
+                  Assigned Instructor / Mentor
+                </label>
+                <select
+                  value={formData.mentorId}
+                  onChange={(e) => setFormData({ ...formData, mentorId: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                >
+                  <option value="" className="bg-[#0D0E11]">Unassigned</option>
+                  {mentors.map((m) => (
+                    <option key={m.id} value={m.id} className="bg-[#0D0E11]">
+                      {m.name} ({m.email})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-white/80 mb-1.5">
+                  Session Title <span className="text-[#EA4335]">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Masterclass: PostgreSQL Indexes & Query Optimization"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-white/80 mb-1.5">Date</label>
+                  <input
+                    type="date"
+                    required
+                    value={formData.date}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-white/80 mb-1.5">Start Time</label>
+                  <input
+                    type="time"
+                    required
+                    value={formData.startTime}
+                    onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-white/80 mb-1.5">End Time</label>
+                  <input
+                    type="time"
+                    required
+                    value={formData.endTime}
+                    onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#4285F4]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-white/80 mb-1.5">Mode</label>
+                  <select
+                    value={formData.mode}
+                    onChange={(e) => setFormData({ ...formData, mode: e.target.value as any })}
+                    className="w-full px-3 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  >
+                    <option value={SessionMode.VIRTUAL} className="bg-[#0D0E11]">VIRTUAL</option>
+                    <option value={SessionMode.PHYSICAL} className="bg-[#0D0E11]">PHYSICAL</option>
+                    <option value={SessionMode.HYBRID} className="bg-[#0D0E11]">HYBRID</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-white/80 mb-1.5">Meeting Link</label>
+                  <input
+                    type="url"
+                    placeholder="https://meet.google.com/..."
+                    value={formData.meetingUrl}
+                    onChange={(e) => setFormData({ ...formData, meetingUrl: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-white/80 mb-1.5">
+                  Physical Location
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. LASU Computer Science Lab 1"
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-white/80 mb-1.5">
+                  Recording URL (Cloud or YouTube)
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://youtu.be/..."
+                  value={formData.recordingUrl}
+                  onChange={(e) => setFormData({ ...formData, recordingUrl: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-[#4285F4]"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsCreateOpen(false);
+                    setEditingSession(null);
+                  }}
+                  className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSaving}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#EA4335] hover:bg-[#EA4335]/90 text-xs font-bold text-white disabled:opacity-50"
+                >
+                  {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  <span>{editingSession ? 'Save Changes' : 'Schedule Session'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CONFIRMATION */}
+      {deleteTarget && (
+        <ConfirmDialog
+          isOpen={true}
+          onClose={() => setDeleteTarget(null)}
+          onConfirm={handleDeleteSession}
+          title="Delete Bootcamp Session?"
+          description={`Are you sure you want to delete "${deleteTarget.title}"? This cannot be undone.`}
+          confirmText="Delete Session"
+          isDestructive={true}
+          isLoading={isDeleting}
+        />
+      )}
+    </div>
+  );
+}

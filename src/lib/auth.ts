@@ -169,6 +169,19 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
       };
     }
 
+    if (payload.userId === "user-mentor-2" || payload.email === "blessing@gdglasu.dev") {
+      return {
+        id: payload.userId || "user-mentor-2",
+        firstName: "Blessing",
+        lastName: "Okoro",
+        email: payload.email || "blessing@gdglasu.dev",
+        role: Role.MENTOR,
+        avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    }
+
     if (payload.userId === "user-admin-1" || payload.email === "admin@gdglasu.dev") {
       return {
         id: payload.userId || "user-admin-1",
@@ -176,6 +189,19 @@ export async function getCurrentUser(): Promise<SafeUser | null> {
         lastName: "Okonkwo",
         email: payload.email || "admin@gdglasu.dev",
         role: Role.ADMIN,
+        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    }
+
+    if (payload.userId === "user-superadmin-1" || payload.email === "superadmin@gdglasu.dev") {
+      return {
+        id: payload.userId || "user-superadmin-1",
+        firstName: "Damilola",
+        lastName: "Ade",
+        email: payload.email || "superadmin@gdglasu.dev",
+        role: Role.SUPER_ADMIN,
         avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
         createdAt: new Date(),
         updatedAt: new Date(),

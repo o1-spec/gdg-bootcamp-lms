@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { updateBootcampSchema } from "@/lib/validations/admin";
+import { updateCohortSchema } from "@/lib/validations/admin";
 import { Role } from "@prisma/client";
 
 interface RouteParams {
@@ -17,7 +17,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     const { id } = await params;
     const body = await request.json();
-    const result = updateBootcampSchema.safeParse(body);
+    const result = updateCohortSchema.safeParse(body);
     if (!result.success) {
       return NextResponse.json(
         { error: "Validation failed", details: result.error.flatten().fieldErrors },
@@ -27,23 +27,23 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     const data: any = {};
     if (result.data.name !== undefined) data.name = result.data.name;
-    if (result.data.description !== undefined) data.description = result.data.description || null;
-    if (result.data.startDate !== undefined) data.startDate = result.data.startDate ? new Date(result.data.startDate) : null;
+    if (result.data.bootcampId !== undefined) data.bootcampId = result.data.bootcampId;
+    if (result.data.startDate !== undefined) data.startDate = new Date(result.data.startDate);
     if (result.data.endDate !== undefined) data.endDate = result.data.endDate ? new Date(result.data.endDate) : null;
     if (result.data.isActive !== undefined) data.isActive = result.data.isActive;
 
     let updated;
     try {
-      updated = await prisma.bootcamp.update({
+      updated = await prisma.cohort.update({
         where: { id },
         data,
       });
     } catch {
       updated = {
         id,
-        name: data.name || "GDG LASU Bootcamp",
-        description: data.description || null,
-        startDate: data.startDate || null,
+        name: data.name || "Cohort",
+        bootcampId: data.bootcampId || "bootcamp-1",
+        startDate: data.startDate || new Date(),
         endDate: data.endDate || null,
         isActive: data.isActive !== undefined ? data.isActive : true,
         createdAt: new Date(),
@@ -51,14 +51,14 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       };
     }
 
-    return NextResponse.json({ success: true, bootcamp: updated });
+    return NextResponse.json({ success: true, cohort: updated });
   } catch (error) {
-    console.error("PATCH /api/admin/bootcamps/[id] error:", error);
-    return NextResponse.json({ error: "Failed to update bootcamp" }, { status: 500 });
+    console.error("PATCH /api/admin/cohorts/[id] error:", error);
+    return NextResponse.json({ error: "Failed to update cohort" }, { status: 500 });
   }
 }
 
-// Safe deletion: prefer deactivate to prevent cascade deletion of student records
+// Safe deactivation
 export async function DELETE(request: Request, { params }: RouteParams) {
   try {
     const user = await getCurrentUser();
@@ -69,7 +69,7 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     const { id } = await params;
     let deactivated;
     try {
-      deactivated = await prisma.bootcamp.update({
+      deactivated = await prisma.cohort.update({
         where: { id },
         data: { isActive: false },
       });
@@ -77,9 +77,9 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       deactivated = { id, isActive: false };
     }
 
-    return NextResponse.json({ success: true, message: "Bootcamp deactivated successfully", bootcamp: deactivated });
+    return NextResponse.json({ success: true, message: "Cohort deactivated successfully", cohort: deactivated });
   } catch (error) {
-    console.error("DELETE /api/admin/bootcamps/[id] error:", error);
-    return NextResponse.json({ error: "Failed to deactivate bootcamp" }, { status: 500 });
+    console.error("DELETE /api/admin/cohorts/[id] error:", error);
+    return NextResponse.json({ error: "Failed to deactivate cohort" }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { bootcampSchema } from "@/lib/validations/admin";
+import { cohortSchema } from "@/lib/validations/admin";
 import { Role } from "@prisma/client";
 
 export async function POST(request: Request) {
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const result = bootcampSchema.safeParse(body);
+    const result = cohortSchema.safeParse(body);
     if (!result.success) {
       return NextResponse.json(
         { error: "Validation failed", details: result.error.flatten().fieldErrors },
@@ -20,26 +20,30 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, description, startDate, endDate, isActive } = result.data;
+    const { bootcampId, name, startDate, endDate, isActive } = result.data;
 
-    let bootcamp;
+    let cohort;
     try {
-      bootcamp = await prisma.bootcamp.create({
+      const bootcamp = await prisma.bootcamp.findUnique({ where: { id: bootcampId } });
+      if (!bootcamp) {
+        return NextResponse.json({ error: "Referenced bootcamp does not exist" }, { status: 400 });
+      }
+
+      cohort = await prisma.cohort.create({
         data: {
+          bootcampId,
           name,
-          description: description || null,
-          startDate: startDate ? new Date(startDate) : null,
+          startDate: new Date(startDate),
           endDate: endDate ? new Date(endDate) : null,
           isActive: isActive !== undefined ? isActive : true,
         },
       });
     } catch {
-      // Offline development fallback
-      bootcamp = {
-        id: `bootcamp-${Date.now()}`,
+      cohort = {
+        id: `cohort-${Date.now()}`,
+        bootcampId,
         name,
-        description: description || null,
-        startDate: startDate ? new Date(startDate) : null,
+        startDate: new Date(startDate),
         endDate: endDate ? new Date(endDate) : null,
         isActive: isActive !== undefined ? isActive : true,
         createdAt: new Date(),
@@ -47,9 +51,9 @@ export async function POST(request: Request) {
       };
     }
 
-    return NextResponse.json({ success: true, bootcamp }, { status: 201 });
+    return NextResponse.json({ success: true, cohort }, { status: 201 });
   } catch (error) {
-    console.error("POST /api/admin/bootcamps error:", error);
-    return NextResponse.json({ error: "Failed to create bootcamp" }, { status: 500 });
+    console.error("POST /api/admin/cohorts error:", error);
+    return NextResponse.json({ error: "Failed to create cohort" }, { status: 500 });
   }
 }

@@ -44,6 +44,18 @@ export async function POST(request: Request) {
           updatedAt: new Date(),
         };
         isPasswordValid = true;
+      } else if (email === "blessing@gdglasu.dev" && password === "password123") {
+        user = {
+          id: "user-mentor-2",
+          firstName: "Blessing",
+          lastName: "Okoro",
+          email: "blessing@gdglasu.dev",
+          role: "MENTOR",
+          avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        isPasswordValid = true;
       } else if (email === "admin@gdglasu.dev" && password === "password123") {
         user = {
           id: "user-admin-1",
@@ -51,6 +63,18 @@ export async function POST(request: Request) {
           lastName: "Okonkwo",
           email: "admin@gdglasu.dev",
           role: "ADMIN",
+          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+        isPasswordValid = true;
+      } else if (email === "superadmin@gdglasu.dev" && password === "password123") {
+        user = {
+          id: "user-superadmin-1",
+          firstName: "Damilola",
+          lastName: "Ade",
+          email: "superadmin@gdglasu.dev",
+          role: "SUPER_ADMIN",
           avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
           createdAt: new Date(),
           updatedAt: new Date(),
