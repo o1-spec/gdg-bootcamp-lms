@@ -32,7 +32,7 @@ export interface NavSectionConfig {
 
 export const STUDENT_NAV_SECTIONS: NavSectionConfig[] = [
   {
-    title: "MAIN NAVIGATION",
+    title: "LEARN",
     items: [
       { id: "dashboard", label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { id: "tracks", label: "My Tracks", href: "/tracks", icon: Layers },
@@ -45,16 +45,21 @@ export const STUDENT_NAV_SECTIONS: NavSectionConfig[] = [
         badgeKey: "pendingAssignments",
         badgeVariant: "accent",
       },
+    ],
+  },
+  {
+    title: "BOOTCAMP",
+    items: [
       {
         id: "schedule",
-        label: "Live Schedule",
+        label: "Schedule",
         href: "/schedule",
         icon: CalendarDays,
         badgeKey: "liveClasses",
         badgeVariant: "danger",
       },
       { id: "attendance", label: "Attendance", href: "/attendance", icon: UserCheck },
-      { id: "progress", label: "Progress Analytics", href: "/progress", icon: TrendingUp },
+      { id: "progress", label: "Progress", href: "/progress", icon: TrendingUp },
       { id: "announcements", label: "Announcements", href: "/announcements", icon: Megaphone },
     ],
   },
@@ -62,7 +67,7 @@ export const STUDENT_NAV_SECTIONS: NavSectionConfig[] = [
 
 export const MENTOR_NAV_SECTIONS: NavSectionConfig[] = [
   {
-    title: "MENTOR PORTAL",
+    title: "TEACHING",
     items: [
       { id: "dashboard", label: "Dashboard", href: "/mentor/dashboard", icon: LayoutDashboard },
       {
@@ -72,7 +77,7 @@ export const MENTOR_NAV_SECTIONS: NavSectionConfig[] = [
         icon: Layers,
         badgeKey: "assignedTracks",
       },
-      { id: "resources", label: "Track Resources", href: "/mentor/resources", icon: FolderGit2 },
+      { id: "resources", label: "Resources", href: "/mentor/resources", icon: FolderGit2 },
       { id: "assignments", label: "Assignments", href: "/mentor/assignments", icon: FileCheck },
       {
         id: "submissions",
@@ -82,6 +87,11 @@ export const MENTOR_NAV_SECTIONS: NavSectionConfig[] = [
         badgeKey: "pendingSubmissions",
         badgeVariant: "accent",
       },
+    ],
+  },
+  {
+    title: "OPERATIONS",
+    items: [
       { id: "schedule", label: "Live Schedule", href: "/mentor/schedule", icon: CalendarDays },
       { id: "attendance", label: "Attendance", href: "/mentor/attendance", icon: UserCheck },
       { id: "announcements", label: "Announcements", href: "/mentor/announcements", icon: Megaphone },
@@ -91,16 +101,31 @@ export const MENTOR_NAV_SECTIONS: NavSectionConfig[] = [
 
 export const ADMIN_NAV_SECTIONS: NavSectionConfig[] = [
   {
-    title: "ADMIN PORTAL",
+    title: "OVERVIEW",
     items: [
       { id: "dashboard", label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+    ],
+  },
+  {
+    title: "PROGRAM STRUCTURE",
+    items: [
       { id: "bootcamps", label: "Bootcamps", href: "/admin/bootcamps", icon: Award },
       { id: "cohorts", label: "Cohorts", href: "/admin/cohorts", icon: CalendarRange },
       { id: "tracks", label: "Tracks", href: "/admin/tracks", icon: Layers },
+    ],
+  },
+  {
+    title: "PEOPLE & ACCESS",
+    items: [
       { id: "users", label: "Users & Roles", href: "/admin/users", icon: Users },
       { id: "enrollments", label: "Enrollments", href: "/admin/enrollments", icon: BookOpen },
       { id: "invites", label: "Invites", href: "/admin/invites", icon: Ticket },
       { id: "mentors", label: "Mentor Assignments", href: "/admin/mentors", icon: ShieldCheck },
+    ],
+  },
+  {
+    title: "OPERATIONS",
+    items: [
       { id: "sessions", label: "Sessions", href: "/admin/sessions", icon: CalendarDays },
       { id: "announcements", label: "Announcements", href: "/admin/announcements", icon: Megaphone },
     ],
