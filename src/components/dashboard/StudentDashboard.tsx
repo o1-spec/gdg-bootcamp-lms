@@ -146,7 +146,7 @@ export function StudentDashboard() {
           )}
 
           {/* 1. Welcome Section */}
-          <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-gradient-to-r from-card via-card to-muted/40 p-6 sm:p-8 shadow-xs">
+          <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-linear-to-r from-card via-card to-muted/40 p-6 sm:p-8 shadow-xs">
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="space-y-2 max-w-2xl">
                 <div className="flex items-center gap-2">
@@ -291,11 +291,10 @@ export function StudentDashboard() {
                         key={filter}
                         type="button"
                         onClick={() => setAssignmentFilter(filter)}
-                        className={`px-2.5 py-1 text-xs rounded-md font-medium transition-colors cursor-pointer ${
-                          assignmentFilter === filter
+                        className={`px-2.5 py-1 text-xs rounded-md font-medium transition-colors cursor-pointer ${assignmentFilter === filter
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted/70 text-muted-foreground hover:text-foreground'
-                        }`}
+                          }`}
                       >
                         {filter.charAt(0).toUpperCase() + filter.slice(1)}
                       </button>
@@ -337,44 +336,40 @@ export function StudentDashboard() {
                     <button
                       type="button"
                       onClick={() => setResourceFilter('all')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${
-                        resourceFilter === 'all'
+                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'all'
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-muted text-muted-foreground hover:text-foreground'
-                      }`}
+                        }`}
                     >
                       All
                     </button>
                     <button
                       type="button"
                       onClick={() => setResourceFilter('pdf')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${
-                        resourceFilter === 'pdf'
+                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'pdf'
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-muted text-muted-foreground hover:text-foreground'
-                      }`}
+                        }`}
                     >
                       PDFs
                     </button>
                     <button
                       type="button"
                       onClick={() => setResourceFilter('code-all')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${
-                        resourceFilter === 'code-all'
+                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'code-all'
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-muted text-muted-foreground hover:text-foreground'
-                      }`}
+                        }`}
                     >
                       Code & Sandbox
                     </button>
                     <button
                       type="button"
                       onClick={() => setResourceFilter('figma')}
-                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${
-                        resourceFilter === 'figma'
+                      className={`px-2 py-0.5 text-xs rounded-md font-medium cursor-pointer ${resourceFilter === 'figma'
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-muted text-muted-foreground hover:text-foreground'
-                      }`}
+                        }`}
                     >
                       Figma
                     </button>

@@ -18,7 +18,7 @@ export function AnnouncementCard({
     <Card
       className={cn(
         'border border-border/80 bg-card hover:border-border transition-all duration-200 shadow-xs',
-        announcement.isPinned && 'border-primary/30 bg-primary/[0.02]'
+        announcement.isPinned && 'border-primary/30 bg-primary/2'
       )}
     >
       <CardContent className="p-4 space-y-3">
