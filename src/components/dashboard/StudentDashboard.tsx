@@ -159,24 +159,6 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
           onSearchChange={setSearchQuery}
         />
 
-        {/* GDG LASU Signature Ticker Ribbon */}
-        <div className="w-full bg-gdg-yellow text-gdg-black py-2 px-6 overflow-hidden border-b border-gdg-black/10">
-          <div className="flex items-center justify-between text-xs font-black tracking-wider uppercase whitespace-nowrap">
-            <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
-              <span>BUILD ✦</span>
-              <span>INNOVATE ✦</span>
-              <span>DESIGN ✦</span>
-              <span>SHIP ✦</span>
-              <span>LEARN ✦</span>
-              <span>CONNECT ✦</span>
-              <span>GROW ✦</span>
-              <span className="hidden sm:inline">BUILD ✦ INNOVATE ✦ SHIP</span>
-            </div>
-            <span className="hidden lg:inline text-[11px] font-bold tracking-normal opacity-90 pl-4">
-              GDG on Campus LASU Career Bootcamp 2026
-            </span>
-          </div>
-        </div>
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-10 max-w-7xl w-full mx-auto">
           {/* Interactive alert toast */}
