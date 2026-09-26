@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { AlertTriangle, Info, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 export type DialogVariant = 'danger' | 'warning' | 'info' | 'success';
@@ -34,7 +35,14 @@ export function ConfirmDialog({
   isDestructive = true,
   variant,
 }: ConfirmDialogProps) {
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
 
   const handleClose = () => {
     if (onCancel) onCancel();
@@ -82,7 +90,7 @@ export function ConfirmDialog({
 
   const styles = getVariantStyles();
 
-  return (
+  const modalContent = (
     <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
@@ -130,4 +138,6 @@ export function ConfirmDialog({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
