@@ -162,7 +162,7 @@ export function AdminTrackDetailClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Track Summary Banner */}
-          <div className="p-5 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6 relative overflow-hidden">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/5 border border-white/10 space-y-6 relative overflow-hidden">
             <div
               className="absolute top-0 left-0 w-2 h-full"
               style={{ backgroundColor: track.accent || '#4285F4' }}
@@ -178,7 +178,7 @@ export function AdminTrackDetailClient({
                     {track.cohort?.name || 'Bootcamp Cohort'}
                   </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white break-words">{track.name}</h2>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white wrap-break-word">{track.name}</h2>
                 <p className="text-xs sm:text-sm text-white/60 max-w-2xl leading-relaxed">
                   {track.description || 'No track description provided.'}
                 </p>
@@ -186,13 +186,13 @@ export function AdminTrackDetailClient({
 
               {/* Quick Stat Pill Counter */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 shrink-0">
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 text-center">
+                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-white/50 block">
                     Students
                   </span>
                   <span className="text-lg font-black font-mono text-white">{students.length}</span>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 text-center">
+                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-white/50 block">
                     Modules
                   </span>
@@ -200,13 +200,13 @@ export function AdminTrackDetailClient({
                     {track.modules?.length || 0}
                   </span>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 text-center">
+                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-white/50 block">
                     Lessons
                   </span>
                   <span className="text-lg font-black font-mono text-white">{totalLessons}</span>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 text-center">
+                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-white/50 block">
                     Attendance
                   </span>
@@ -236,19 +236,17 @@ export function AdminTrackDetailClient({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-t-2xl text-xs font-bold border-b-2 whitespace-nowrap transition-all cursor-pointer ${
-                    isActive
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-t-2xl text-xs font-bold border-b-2 whitespace-nowrap transition-all cursor-pointer ${isActive
                       ? 'border-gdg-red text-white bg-white/5'
-                      : 'border-transparent text-white/50 hover:text-white hover:bg-white/[0.02]'
-                  }`}
+                      : 'border-transparent text-white/50 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-gdg-red' : 'text-white/40'}`} />
                   <span>{tab.label}</span>
                   {tab.count !== undefined && (
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                        isActive ? 'bg-gdg-red/20 text-gdg-red' : 'bg-white/10 text-white/50'
-                      }`}
+                      className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${isActive ? 'bg-gdg-red/20 text-gdg-red' : 'bg-white/10 text-white/50'
+                        }`}
                     >
                       {tab.count}
                     </span>
@@ -288,7 +286,7 @@ export function AdminTrackDetailClient({
             <div className="space-y-4">
               <h3 className="text-base font-bold text-white">Assignments & Submissions</h3>
               {assignments.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No assignments created for this track yet.</p>
                 </div>
               ) : (
@@ -296,7 +294,7 @@ export function AdminTrackDetailClient({
                   {assignments.map((asg) => (
                     <div
                       key={asg.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-4"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-4"
                     >
                       <div className="space-y-1 min-w-0">
                         <h4 className="font-bold text-sm text-white">{asg.title}</h4>
@@ -331,11 +329,11 @@ export function AdminTrackDetailClient({
               </div>
 
               {students.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No students enrolled in this track.</p>
                 </div>
               ) : (
-                <div className="divide-y divide-white/5 p-4 rounded-3xl bg-white/[0.02] border border-white/10">
+                <div className="divide-y divide-white/5 p-4 rounded-3xl bg-white/5 border border-white/10">
                   {students.map((student) => (
                     <div
                       key={student.id}
@@ -386,7 +384,7 @@ export function AdminTrackDetailClient({
               </div>
 
               {mentors.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No mentors currently assigned to this track.</p>
                 </div>
               ) : (
@@ -394,7 +392,7 @@ export function AdminTrackDetailClient({
                   {mentors.map((m) => (
                     <div
                       key={m.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-4"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-4"
                     >
                       <div className="flex items-center gap-3">
                         <Avatar className="w-10 h-10 border border-white/10">
@@ -433,7 +431,7 @@ export function AdminTrackDetailClient({
               </div>
 
               {sessions.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No sessions scheduled for this track.</p>
                 </div>
               ) : (
@@ -441,7 +439,7 @@ export function AdminTrackDetailClient({
                   {sessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-4"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-4"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -477,7 +475,7 @@ export function AdminTrackDetailClient({
           {activeTab === 'attendance' && (
             <div className="space-y-4">
               <h3 className="text-base font-bold text-white">Track Attendance Records</h3>
-              <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4 text-center">
+              <div className="p-8 rounded-3xl bg-white/5 border border-white/10 space-y-4 text-center">
                 <div className="inline-block p-4 rounded-full bg-gdg-green/10 text-gdg-green text-2xl font-mono font-black">
                   {attendanceRate}%
                 </div>

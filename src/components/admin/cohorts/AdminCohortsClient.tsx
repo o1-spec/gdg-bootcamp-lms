@@ -217,7 +217,7 @@ export function AdminCohortsClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Filter Bar */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <span className="text-xs text-white/40 flex items-center gap-1.5 px-1">
                 <Filter className="w-3.5 h-3.5 shrink-0" />
@@ -226,7 +226,7 @@ export function AdminCohortsClient({
               <select
                 value={selectedBootcampFilter}
                 onChange={(e) => setSelectedBootcampFilter(e.target.value)}
-                className="flex-1 sm:flex-initial min-w-[130px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
+                className="flex-1 sm:flex-initial min-w-32.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
               >
                 <option value="all" className="bg-gdg-black">All Bootcamps</option>
                 {bootcamps.map((b) => (
@@ -255,7 +255,7 @@ export function AdminCohortsClient({
 
           {/* Cohorts Grid */}
           {filteredCohorts.length === 0 ? (
-            <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
+            <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/15 space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-gdg-yellow/10 text-gdg-yellow flex items-center justify-center mx-auto">
                 <CalendarRange className="w-6 h-6" />
               </div>
@@ -278,15 +278,14 @@ export function AdminCohortsClient({
               {filteredCohorts.map((cohort) => (
                 <div
                   key={cohort.id}
-                  className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
+                  className="p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`w-2.5 h-2.5 rounded-full ${
-                            cohort.isActive ? 'bg-gdg-green' : 'bg-white/30'
-                          }`}
+                          className={`w-2.5 h-2.5 rounded-full ${cohort.isActive ? 'bg-gdg-green' : 'bg-white/30'
+                            }`}
                         />
                         <span className="text-xs font-mono uppercase text-white/50">
                           {cohort.isActive ? 'Active Cohort' : 'Inactive'}
@@ -302,11 +301,10 @@ export function AdminCohortsClient({
                         </button>
                         <button
                           onClick={() => setDeactivateTarget(cohort)}
-                          className={`p-2 rounded-xl transition-colors ${
-                            cohort.isActive
+                          className={`p-2 rounded-xl transition-colors ${cohort.isActive
                               ? 'text-white/50 hover:text-gdg-red hover:bg-gdg-red/10'
                               : 'text-white/50 hover:text-gdg-green hover:bg-gdg-green/10'
-                          }`}
+                            }`}
                           title={cohort.isActive ? 'Deactivate Cohort' : 'Activate Cohort'}
                         >
                           <Power className="w-4 h-4" />
@@ -356,19 +354,19 @@ export function AdminCohortsClient({
                   {/* Cohort Stats & Navigation */}
                   <div className="space-y-4 pt-4 border-t border-white/5">
                     <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {cohort.trackCount}
                         </span>
                         <span className="text-[10px] text-white/40">Tracks</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {cohort.studentCount}
                         </span>
                         <span className="text-[10px] text-white/40">Students</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {cohort.mentorCount}
                         </span>

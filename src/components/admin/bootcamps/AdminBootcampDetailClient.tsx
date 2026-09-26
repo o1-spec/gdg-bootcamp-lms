@@ -164,27 +164,26 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
           </Link>
 
           {/* Program Overview Banner */}
-          <div className="p-5 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/5 border border-white/10 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
                   <span
-                    className={`w-3 h-3 rounded-full ${
-                      bootcamp.isActive ? 'bg-gdg-green' : 'bg-white/30'
-                    }`}
+                    className={`w-3 h-3 rounded-full ${bootcamp.isActive ? 'bg-gdg-green' : 'bg-white/30'
+                      }`}
                   />
                   <span className="text-xs uppercase font-mono tracking-wider text-white/50">
                     {bootcamp.isActive ? 'Active Master Program' : 'Archived Program'}
                   </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white break-words">{bootcamp.name}</h2>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white wrap-break-word">{bootcamp.name}</h2>
                 {bootcamp.description && (
                   <p className="text-sm text-white/60 max-w-2xl">{bootcamp.description}</p>
                 )}
               </div>
 
               {bootcamp.startDate && (
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs space-y-1 sm:text-right shrink-0">
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs space-y-1 sm:text-right shrink-0">
                   <span className="text-white/40 block">Program Duration</span>
                   <div className="flex items-center sm:justify-end gap-1.5 font-mono text-white font-semibold">
                     <Calendar className="w-3.5 h-3.5 text-gdg-yellow" />
@@ -199,28 +198,28 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
 
             {/* Quick Metrics */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-white/5">
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <CalendarRange className="w-4 h-4 text-gdg-yellow" />
                   <span>Cohorts</span>
                 </div>
                 <span className="text-2xl font-black text-white">{bootcamp.cohortCount}</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <Layers className="w-4 h-4 text-gdg-blue" />
                   <span>Tracks</span>
                 </div>
                 <span className="text-2xl font-black text-white">{bootcamp.trackCount}</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <Users className="w-4 h-4 text-gdg-green" />
                   <span>Students</span>
                 </div>
                 <span className="text-2xl font-black text-white">{bootcamp.studentCount}</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <ShieldCheck className="w-4 h-4 text-gdg-red" />
                   <span>Mentors</span>
@@ -247,7 +246,7 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
             </div>
 
             {bootcamp.cohorts.length === 0 ? (
-              <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10 space-y-3">
+              <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10 space-y-3">
                 <p className="text-xs text-white/40">No cohorts have been created in this bootcamp yet.</p>
                 <button
                   onClick={() => setIsCreateCohortOpen(true)}
@@ -262,14 +261,13 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                 {bootcamp.cohorts.map((cohort: any) => (
                   <div
                     key={cohort.id}
-                    className="p-5 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all space-y-5"
+                    className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all space-y-5"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2 min-w-0">
                         <span
-                          className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                            cohort.isActive ? 'bg-gdg-green' : 'bg-white/30'
-                          }`}
+                          className={`w-2.5 h-2.5 rounded-full shrink-0 ${cohort.isActive ? 'bg-gdg-green' : 'bg-white/30'
+                            }`}
                         />
                         <h4 className="font-bold text-base text-white truncate">{cohort.name}</h4>
                       </div>
@@ -291,10 +289,10 @@ export function AdminBootcampDetailClient({ bootcamp, admin }: BootcampDetailPro
                             <Link
                               key={t.id}
                               href={`/admin/tracks/${t.id}`}
-                              className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.05] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-3 text-xs"
+                              className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-white/15 hover:bg-white/10 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-3 text-xs"
                               style={{ borderLeftColor: t.accent || '#4285F4', borderLeftWidth: '3px' }}
                             >
-                              <span className="font-bold text-white break-words">{t.name}</span>
+                              <span className="font-bold text-white wrap-break-word">{t.name}</span>
                               <div className="flex items-center gap-2 sm:gap-3 text-white/50 text-[11px]">
                                 <span>{t.studentCount} students</span>
                                 <span>•</span>

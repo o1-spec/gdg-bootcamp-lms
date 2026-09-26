@@ -165,7 +165,7 @@ export function AdminDashboardClient({
                   <Link
                     key={i}
                     href={card.href}
-                    className="group relative p-4 sm:p-5 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 flex flex-col justify-between"
+                    className="group relative p-4 sm:p-5 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 flex flex-col justify-between"
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div
@@ -193,7 +193,7 @@ export function AdminDashboardClient({
           {/* Dual Column: Active Cohorts & Upcoming Sessions */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Active Cohorts */}
-            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Active Cohorts</h3>
@@ -209,7 +209,7 @@ export function AdminDashboardClient({
               </div>
 
               {activeCohorts.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-8 text-center rounded-2xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No active cohorts configured</p>
                   <Link
                     href="/admin/cohorts"
@@ -225,7 +225,7 @@ export function AdminDashboardClient({
                     <Link
                       key={cohort.id}
                       href={`/admin/cohorts/${cohort.id}`}
-                      className="group block p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.06] transition-all"
+                      className="group block p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
@@ -239,15 +239,15 @@ export function AdminDashboardClient({
                         </span>
                       </div>
                       <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center text-xs">
-                        <div className="p-2 rounded-xl bg-white/[0.02]">
+                        <div className="p-2 rounded-xl bg-white/5">
                           <span className="block font-bold text-white">{cohort.trackCount}</span>
                           <span className="text-[10px] text-white/40">Tracks</span>
                         </div>
-                        <div className="p-2 rounded-xl bg-white/[0.02]">
+                        <div className="p-2 rounded-xl bg-white/5">
                           <span className="block font-bold text-white">{cohort.studentCount}</span>
                           <span className="text-[10px] text-white/40">Students</span>
                         </div>
-                        <div className="p-2 rounded-xl bg-white/[0.02]">
+                        <div className="p-2 rounded-xl bg-white/5">
                           <span className="block font-bold text-white">{cohort.mentorCount}</span>
                           <span className="text-[10px] text-white/40">Mentors</span>
                         </div>
@@ -259,7 +259,7 @@ export function AdminDashboardClient({
             </section>
 
             {/* Upcoming Sessions */}
-            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Upcoming Sessions</h3>
@@ -275,7 +275,7 @@ export function AdminDashboardClient({
               </div>
 
               {upcomingSessions.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-8 text-center rounded-2xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No upcoming sessions scheduled</p>
                   <Link
                     href="/admin/sessions"
@@ -290,7 +290,7 @@ export function AdminDashboardClient({
                   {upcomingSessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-4"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-start justify-between gap-4"
                     >
                       <div className="min-w-0 flex-1 space-y-1">
                         <div className="flex items-center gap-2">
@@ -360,7 +360,7 @@ export function AdminDashboardClient({
                 <Link
                   key={track.id}
                   href={`/admin/tracks/${track.id}`}
-                  className="group relative p-5 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 hover:bg-white/[0.06] transition-all flex flex-col justify-between"
+                  className="group relative p-5 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all flex flex-col justify-between"
                   style={{ borderLeftColor: track.accent, borderLeftWidth: '4px' }}
                 >
                   <div className="space-y-1 mb-4">
@@ -399,7 +399,7 @@ export function AdminDashboardClient({
           {/* Dual Column: Recent Enrollments & Recent Announcements */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Recent Enrollments */}
-            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Recent Enrollments</h3>
@@ -415,7 +415,7 @@ export function AdminDashboardClient({
               </div>
 
               {recentEnrollments.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-8 text-center rounded-2xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No recent enrollments recorded</p>
                 </div>
               ) : (
@@ -463,7 +463,7 @@ export function AdminDashboardClient({
             </section>
 
             {/* Recent Announcements */}
-            <section className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+            <section className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white">Platform Broadcasts</h3>
@@ -479,7 +479,7 @@ export function AdminDashboardClient({
               </div>
 
               {recentAnnouncements.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-8 text-center rounded-2xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No platform announcements created yet</p>
                 </div>
               ) : (
@@ -487,7 +487,7 @@ export function AdminDashboardClient({
                   {recentAnnouncements.map((ann) => (
                     <div
                       key={ann.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2"
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">

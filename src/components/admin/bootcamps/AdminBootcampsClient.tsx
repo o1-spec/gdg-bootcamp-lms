@@ -190,7 +190,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto">
           {/* Header Summary */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-black text-white">Programs Directory</h2>
               <p className="text-xs text-white/50">
@@ -209,7 +209,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
 
           {/* Bootcamps Grid */}
           {bootcamps.length === 0 ? (
-            <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
+            <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/15 space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-gdg-red/10 text-gdg-red flex items-center justify-center mx-auto">
                 <Award className="w-6 h-6" />
               </div>
@@ -232,7 +232,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
               {bootcamps.map((bootcamp) => (
                 <div
                   key={bootcamp.id}
-                  className="group relative p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between space-y-6"
+                  className="group relative p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between space-y-6"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between gap-3">
@@ -296,25 +296,25 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
                   {/* Summary Stats & CTA */}
                   <div className="space-y-4 pt-4 border-t border-white/5">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {bootcamp.cohortCount}
                         </span>
                         <span className="text-[10px] text-white/40">Cohorts</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {bootcamp.trackCount}
                         </span>
                         <span className="text-[10px] text-white/40">Tracks</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {bootcamp.studentCount}
                         </span>
                         <span className="text-[10px] text-white/40">Students</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {bootcamp.mentorCount}
                         </span>

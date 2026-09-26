@@ -207,7 +207,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
           </Link>
 
           {/* Cohort Overview Card */}
-          <div className="p-5 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-6">
+          <div className="p-5 sm:p-8 rounded-3xl bg-white/5 border border-white/10 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
@@ -232,7 +232,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 text-xs text-white/60">
+              <div className="flex items-center gap-2 p-3.5 rounded-2xl bg-white/5 border border-white/5 text-xs text-white/60">
                 <Calendar className="w-4 h-4 text-gdg-yellow shrink-0" />
                 <span>
                   {format(new Date(cohort.startDate), 'MMM d, yyyy')}
@@ -243,28 +243,28 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
 
             {/* Metric counters */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-white/5">
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <Layers className="w-4 h-4 text-gdg-blue" />
                   <span>Tracks</span>
                 </div>
                 <span className="text-2xl font-black text-white">{cohort.tracks.length}</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <Users className="w-4 h-4 text-gdg-green" />
                   <span>Students</span>
                 </div>
                 <span className="text-2xl font-black text-white">{cohort.totalStudents}</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <ShieldCheck className="w-4 h-4 text-gdg-red" />
                   <span>Mentors</span>
                 </div>
                 <span className="text-2xl font-black text-white">{cohort.totalMentors}</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40 mb-1">
                   <CalendarDays className="w-4 h-4 text-gdg-yellow" />
                   <span>Sessions</span>
@@ -311,7 +311,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               </div>
 
               {cohort.tracks.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10 space-y-3">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10 space-y-3">
                   <p className="text-xs text-white/40">No tracks added to this cohort yet.</p>
                   <button
                     onClick={() => setIsCreateTrackOpen(true)}
@@ -326,7 +326,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   {cohort.tracks.map((track) => (
                     <div
                       key={track.id}
-                      className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-4"
+                      className="p-5 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-4"
                       style={{ borderLeftColor: track.accent || '#4285F4', borderLeftWidth: '4px' }}
                     >
                       <div>
@@ -342,19 +342,19 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                       </div>
 
                       <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/5 text-center text-xs">
-                        <div className="p-2 rounded-xl bg-white/[0.02]">
+                        <div className="p-2 rounded-xl bg-white/5">
                           <span className="block font-bold text-white">
                             {track.enrollments?.length || 0}
                           </span>
                           <span className="text-[10px] text-white/40">Students</span>
                         </div>
-                        <div className="p-2 rounded-xl bg-white/[0.02]">
+                        <div className="p-2 rounded-xl bg-white/5">
                           <span className="block font-bold text-white">
                             {track.mentorAssignments?.length || 0}
                           </span>
                           <span className="text-[10px] text-white/40">Mentors</span>
                         </div>
-                        <div className="p-2 rounded-xl bg-white/[0.02]">
+                        <div className="p-2 rounded-xl bg-white/5">
                           <span className="block font-bold text-white">
                             {track.modules?.length || 0}
                           </span>
@@ -391,11 +391,11 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               </div>
 
               {allStudents.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No students are currently enrolled in any track of this cohort.</p>
                 </div>
               ) : (
-                <div className="divide-y divide-white/5 p-4 rounded-3xl bg-white/[0.02] border border-white/10">
+                <div className="divide-y divide-white/5 p-4 rounded-3xl bg-white/5 border border-white/10">
                   {allStudents.map((student) => (
                     <div
                       key={student.id}
@@ -450,7 +450,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               </div>
 
               {allMentors.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No mentors assigned to this cohort yet.</p>
                 </div>
               ) : (
@@ -458,7 +458,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   {allMentors.map((mentor) => (
                     <div
                       key={mentor.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <Avatar className="w-10 h-10 border border-white/10 shrink-0">
@@ -509,7 +509,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
               </div>
 
               {allSessions.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10">
                   <p className="text-xs text-white/40">No sessions scheduled in this cohort yet.</p>
                 </div>
               ) : (
@@ -517,7 +517,7 @@ export function AdminCohortDetailClient({ cohort, admin }: CohortDetailProps) {
                   {allSessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-3 sm:gap-4"
+                      className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-start justify-between gap-3 sm:gap-4"
                     >
                       <div className="space-y-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2">

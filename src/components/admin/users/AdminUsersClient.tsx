@@ -224,7 +224,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Controls Bar: Search & Role Filters */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" />
               <input
@@ -259,7 +259,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
           </div>
 
           {/* Users Table / List */}
-          <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
+          <div className="rounded-3xl bg-white/5 border border-white/10 overflow-hidden">
             {/* Mobile Card List (< md) */}
             <div className="md:hidden divide-y divide-white/5">
               {filteredUsers.length === 0 ? (
@@ -389,7 +389,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
+                  <tr className="border-b border-white/10 bg-white/5 text-white/40 uppercase tracking-wider font-semibold text-[11px]">
                     <th className="py-4 px-6">User</th>
                     <th className="py-4 px-4">Role</th>
                     <th className="py-4 px-4">Track Affiliations</th>
@@ -410,7 +410,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                       const canEditThisUser = isSuperAdmin || !isTargetSuper;
 
                       return (
-                        <tr key={u.id} className="hover:bg-white/[0.02] transition-colors">
+                        <tr key={u.id} className="hover:bg-white/5 transition-colors">
                           <td className="py-4 px-6">
                             <div className="flex items-center gap-3">
                               <Avatar className="w-9 h-9 border border-white/10">
@@ -551,7 +551,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
               </div>
 
               {/* Profile Card */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
                 <Avatar className="w-14 h-14 border border-white/15">
                   <AvatarImage src={selectedUser.avatarUrl || ''} alt={selectedUser.name} />
                   <AvatarFallback className="bg-gdg-blue text-white font-bold text-lg">
@@ -585,13 +585,13 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                     Student Academic Records
                   </h4>
                   <div className="grid grid-cols-2 gap-3 text-center text-xs">
-                    <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5">
+                    <div className="p-3 rounded-2xl bg-white/5 border border-white/5">
                       <span className="block text-xl font-black text-white">
                         {selectedUser.progressPercentage ?? 65}%
                       </span>
                       <span className="text-[10px] text-white/40">Syllabus Progress</span>
                     </div>
-                    <div className="p-3 rounded-2xl bg-white/[0.02] border border-white/5">
+                    <div className="p-3 rounded-2xl bg-white/5 border border-white/5">
                       <span className="block text-xl font-black text-gdg-green">
                         {selectedUser.attendanceRate ?? 92}%
                       </span>
@@ -599,7 +599,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
                     <span className="text-[11px] text-white/40 font-semibold block">
                       Enrolled Tracks
                     </span>
@@ -610,7 +610,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                         {selectedUser.enrolledTracks.map((t) => (
                           <div
                             key={t.id}
-                            className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-xs"
+                            className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs"
                           >
                             <span className="font-bold text-white">{t.name}</span>
                             <span className="text-[10px] font-mono text-gdg-green">Active Roster</span>
@@ -628,7 +628,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                   <h4 className="text-xs font-bold uppercase tracking-wider text-white/50">
                     Mentor Workload & Assignments
                   </h4>
-                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
                     <span className="text-[11px] text-white/40 font-semibold block">
                       Assigned Tracks ({selectedUser.assignedTracks?.length || 0})
                     </span>
@@ -639,7 +639,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                         {selectedUser.assignedTracks.map((t) => (
                           <div
                             key={t.id}
-                            className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-xs"
+                            className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs"
                           >
                             <span className="font-bold text-white">{t.name}</span>
                             <span className="text-[10px] font-mono text-gdg-yellow">Track Lead</span>

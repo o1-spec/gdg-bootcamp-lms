@@ -161,7 +161,7 @@ export function AdminMentorsClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Header Summary */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-black text-white">Active Mentor Roster</h2>
               <p className="text-xs text-white/50">
@@ -177,7 +177,7 @@ export function AdminMentorsClient({
 
           {/* Mentors Card Grid */}
           {mentors.length === 0 ? (
-            <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-3">
+            <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/15 space-y-3">
               <div className="w-12 h-12 rounded-2xl bg-gdg-yellow/10 text-gdg-yellow flex items-center justify-center mx-auto">
                 <ShieldCheck className="w-6 h-6" />
               </div>
@@ -188,7 +188,7 @@ export function AdminMentorsClient({
               {mentors.map((mentor) => (
                 <div
                   key={mentor.id}
-                  className="p-5 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
+                  className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
                 >
                   <div className="space-y-4">
                     {/* Mentor Header */}
@@ -217,19 +217,19 @@ export function AdminMentorsClient({
 
                     {/* Workload Stats */}
                     <div className="grid grid-cols-3 gap-2 text-center text-xs pt-2 border-t border-white/5">
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {mentor.totalAssignedTracks}
                         </span>
                         <span className="text-[10px] text-white/40">Tracks</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {mentor.totalSupervisedStudents}
                         </span>
                         <span className="text-[10px] text-white/40">Students</span>
                       </div>
-                      <div className="p-2.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-2.5 rounded-2xl bg-white/5 border border-white/5">
                         <span className="block font-black text-white text-sm">
                           {mentor.upcomingSessionsCount}
                         </span>
@@ -249,7 +249,7 @@ export function AdminMentorsClient({
                           {mentor.assignedTracks.map((assignment) => (
                             <div
                               key={assignment.assignmentId}
-                              className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-3 text-xs"
+                              className="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between gap-3 text-xs"
                               style={{ borderLeftColor: assignment.trackAccent, borderLeftWidth: '3px' }}
                             >
                               <div className="min-w-0">

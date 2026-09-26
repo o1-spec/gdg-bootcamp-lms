@@ -27,7 +27,7 @@ export function AdminTrackOverviewTab({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Mentors on Track */}
-      <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+      <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold text-white">Track Mentors</h3>
           <Link
@@ -44,7 +44,7 @@ export function AdminTrackOverviewTab({
             {mentors.map((m) => (
               <div
                 key={m.id}
-                className="p-3 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-between gap-3"
+                className="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between gap-3"
               >
                 <div className="flex items-center gap-3">
                   <Avatar className="w-8 h-8">
@@ -68,7 +68,7 @@ export function AdminTrackOverviewTab({
       </div>
 
       {/* Upcoming Sessions on Track */}
-      <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/10 space-y-4">
+      <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold text-white">Track Sessions</h3>
           <Link
@@ -85,7 +85,7 @@ export function AdminTrackOverviewTab({
             {sessions.slice(0, 3).map((s) => (
               <div
                 key={s.id}
-                className="p-3 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-between gap-3"
+                className="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between gap-3"
               >
                 <div className="space-y-0.5">
                   <p className="text-xs font-bold text-white">{s.title}</p>

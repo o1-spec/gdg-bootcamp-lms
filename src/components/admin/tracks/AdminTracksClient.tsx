@@ -192,7 +192,7 @@ export function AdminTracksClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Filter Bar */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <span className="text-xs text-white/40 flex items-center gap-1.5 px-1 shrink-0">
                 <Filter className="w-3.5 h-3.5 shrink-0" />
@@ -220,7 +220,7 @@ export function AdminTracksClient({
 
           {/* Tracks Grid */}
           {filteredTracks.length === 0 ? (
-            <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
+            <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/15 space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-gdg-blue/10 text-gdg-blue flex items-center justify-center mx-auto">
                 <Layers className="w-6 h-6" />
               </div>
@@ -243,7 +243,7 @@ export function AdminTracksClient({
               {filteredTracks.map((track) => (
                 <div
                   key={track.id}
-                  className="group relative p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between space-y-6"
+                  className="group relative p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between space-y-6"
                   style={{ borderTopColor: track.accent, borderTopWidth: '4px' }}
                 >
                   <div className="space-y-4">
@@ -296,19 +296,19 @@ export function AdminTracksClient({
                   {/* Stats Grid & Action */}
                   <div className="space-y-4 pt-4 border-t border-white/5">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                      <div className="p-2 rounded-xl bg-white/[0.02]">
+                      <div className="p-2 rounded-xl bg-white/5">
                         <span className="block font-black text-white">{track.studentCount}</span>
                         <span className="text-[9px] text-white/40">Students</span>
                       </div>
-                      <div className="p-2 rounded-xl bg-white/[0.02]">
+                      <div className="p-2 rounded-xl bg-white/5">
                         <span className="block font-black text-white">{track.moduleCount}</span>
                         <span className="text-[9px] text-white/40">Modules</span>
                       </div>
-                      <div className="p-2 rounded-xl bg-white/[0.02]">
+                      <div className="p-2 rounded-xl bg-white/5">
                         <span className="block font-black text-white">{track.lessonCount}</span>
                         <span className="text-[9px] text-white/40">Lessons</span>
                       </div>
-                      <div className="p-2 rounded-xl bg-white/[0.02]">
+                      <div className="p-2 rounded-xl bg-white/5">
                         <span className="block font-black text-white">{track.assignmentCount}</span>
                         <span className="text-[9px] text-white/40">Tasks</span>
                       </div>

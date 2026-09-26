@@ -34,7 +34,7 @@ export function AdminTrackCurriculumTab({
       </div>
 
       {(!track.modules || track.modules.length === 0) ? (
-        <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10 space-y-3">
+        <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10 space-y-3">
           <p className="text-xs text-white/40">No modules created yet for this track.</p>
           <button
             onClick={openCreateModule}
@@ -51,11 +51,11 @@ export function AdminTrackCurriculumTab({
             return (
               <div
                 key={mod.id}
-                className="rounded-2xl bg-white/[0.02] border border-white/10 overflow-hidden"
+                className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden"
               >
                 <div
                   onClick={() => toggleModule(mod.id)}
-                  className="p-4 flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.04] transition-colors"
+                  className="p-4 flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xs font-mono font-bold text-white">
@@ -78,7 +78,7 @@ export function AdminTrackCurriculumTab({
                     {mod.lessons.map((lesson: any, lIndex: number) => (
                       <div
                         key={lesson.id}
-                        className="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-3 text-xs"
+                        className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between gap-3 text-xs"
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="text-[11px] font-mono text-white/30">

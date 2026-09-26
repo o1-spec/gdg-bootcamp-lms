@@ -252,7 +252,7 @@ export function AdminEnrollmentsClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Controls: Search & Track Filter */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" />
               <input
@@ -285,7 +285,7 @@ export function AdminEnrollmentsClient({
           </div>
 
           {/* Enrollments List / Table */}
-          <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
+          <div className="rounded-3xl bg-white/5 border border-white/10 overflow-hidden">
             {/* Mobile Card List (< md) */}
             <div className="md:hidden divide-y divide-white/5">
               {filteredEnrollments.length === 0 ? (
@@ -361,7 +361,7 @@ export function AdminEnrollmentsClient({
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
+                  <tr className="border-b border-white/10 bg-white/5 text-white/40 uppercase tracking-wider font-semibold text-[11px]">
                     <th className="py-4 px-6">Student</th>
                     <th className="py-4 px-4">Track & Cohort</th>
                     <th className="py-4 px-4">Enrolled Date</th>
@@ -378,7 +378,7 @@ export function AdminEnrollmentsClient({
                     </tr>
                   ) : (
                     filteredEnrollments.map((enr) => (
-                      <tr key={enr.id} className="hover:bg-white/[0.02] transition-colors">
+                      <tr key={enr.id} className="hover:bg-white/5 transition-colors">
                         <td className="py-4 px-6">
                           <div className="flex items-center gap-3">
                             <Avatar className="w-9 h-9 border border-white/10">
@@ -607,7 +607,7 @@ export function AdminEnrollmentsClient({
               </div>
 
               {/* 3. Students Checklist */}
-              <div className="max-h-60 overflow-y-auto space-y-1.5 p-3 rounded-2xl bg-white/[0.02] border border-white/10">
+              <div className="max-h-60 overflow-y-auto space-y-1.5 p-3 rounded-2xl bg-white/5 border border-white/10">
                 {students.map((student) => {
                   const isAlreadyEnrolled = enrolledInBulkTrack.has(student.id);
                   const isChecked = selectedStudentIds.includes(student.id);
@@ -617,10 +617,10 @@ export function AdminEnrollmentsClient({
                       key={student.id}
                       className={`flex items-center justify-between p-2.5 rounded-xl border transition-all ${
                         isAlreadyEnrolled
-                          ? 'opacity-40 bg-white/[0.01] border-transparent cursor-not-allowed'
+                          ? 'opacity-40 bg-white/5 border-transparent cursor-not-allowed'
                           : isChecked
                           ? 'bg-gdg-blue/15 border-gdg-blue/40 cursor-pointer'
-                          : 'bg-white/[0.02] border-white/5 hover:border-white/15 cursor-pointer'
+                          : 'bg-white/5 border-white/5 hover:border-white/15 cursor-pointer'
                       }`}
                     >
                       <div className="flex items-center gap-3">

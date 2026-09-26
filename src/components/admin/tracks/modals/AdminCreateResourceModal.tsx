@@ -224,7 +224,7 @@ export function AdminCreateResourceModal({
                     className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${
                       isUploadingRes
                         ? 'border-gdg-blue bg-gdg-blue/10 pointer-events-none'
-                        : 'border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/30'
+                        : 'border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/30'
                     }`}
                   >
                     {isUploadingRes ? (

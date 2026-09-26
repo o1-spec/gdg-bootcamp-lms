@@ -273,25 +273,23 @@ export function AdminSessionsClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* View Mode Toggle & Metrics Banner */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white/[0.02] border border-white/10">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-3xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/5 border border-white/10 w-full sm:w-auto overflow-x-auto scrollbar-none">
               <button
                 onClick={() => setViewMode('sessions')}
-                className={`flex-1 sm:flex-initial text-center whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  viewMode === 'sessions'
+                className={`flex-1 sm:flex-initial text-center whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${viewMode === 'sessions'
                     ? 'bg-white/15 text-white shadow-sm'
                     : 'text-white/50 hover:text-white'
-                }`}
+                  }`}
               >
                 Session Schedules ({sessions.length})
               </button>
               <button
                 onClick={() => setViewMode('attendance')}
-                className={`flex-1 sm:flex-initial text-center whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  viewMode === 'attendance'
+                className={`flex-1 sm:flex-initial text-center whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${viewMode === 'attendance'
                     ? 'bg-white/15 text-white shadow-sm'
                     : 'text-white/50 hover:text-white'
-                }`}
+                  }`}
               >
                 Attendance Reporting ({overallRate}%)
               </button>
@@ -308,7 +306,7 @@ export function AdminSessionsClient({
           {viewMode === 'sessions' && (
             <div className="space-y-6">
               {/* Filters */}
-              <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="p-4 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                   <span className="text-xs text-white/40 flex items-center gap-1.5 px-1">
                     <Filter className="w-3.5 h-3.5 shrink-0" />
@@ -318,7 +316,7 @@ export function AdminSessionsClient({
                   <select
                     value={trackFilter}
                     onChange={(e) => setTrackFilter(e.target.value)}
-                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
+                    className="flex-1 sm:flex-initial min-w-30 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   >
                     <option value="all" className="bg-gdg-black">All Tracks</option>
                     {tracks.map((t) => (
@@ -331,7 +329,7 @@ export function AdminSessionsClient({
                   <select
                     value={mentorFilter}
                     onChange={(e) => setMentorFilter(e.target.value)}
-                    className="flex-1 sm:flex-initial min-w-[120px] px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
+                    className="flex-1 sm:flex-initial min-w-30 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-gdg-blue"
                   >
                     <option value="all" className="bg-gdg-black">All Mentors</option>
                     {mentors.map((m) => (
@@ -360,7 +358,7 @@ export function AdminSessionsClient({
 
               {/* Sessions Grid */}
               {filteredSessions.length === 0 ? (
-                <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
+                <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/15 space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-gdg-yellow/10 text-gdg-yellow flex items-center justify-center mx-auto">
                     <CalendarDays className="w-6 h-6" />
                   </div>
@@ -381,7 +379,7 @@ export function AdminSessionsClient({
                     return (
                       <div
                         key={s.id}
-                        className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
+                        className="p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-6"
                         style={{ borderLeftColor: s.trackAccent, borderLeftWidth: '4px' }}
                       >
                         <div className="space-y-3">
@@ -497,27 +495,27 @@ export function AdminSessionsClient({
             <div className="space-y-6">
               {/* Summary Metrics */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                <div className="p-5 rounded-3xl bg-white/5 border border-white/10 text-center">
                   <span className="block text-2xl font-black text-gdg-green">{overallRate}%</span>
                   <span className="text-xs text-white/50">Overall Attendance</span>
                 </div>
-                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                <div className="p-5 rounded-3xl bg-white/5 border border-white/10 text-center">
                   <span className="block text-2xl font-black text-white">{totalPresents}</span>
                   <span className="text-xs text-white/50">Present Check-ins</span>
                 </div>
-                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                <div className="p-5 rounded-3xl bg-white/5 border border-white/10 text-center">
                   <span className="block text-2xl font-black text-gdg-red">{totalAbsents}</span>
                   <span className="text-xs text-white/50">Absences Recorded</span>
                 </div>
-                <div className="p-5 rounded-3xl bg-white/[0.03] border border-white/10 text-center">
+                <div className="p-5 rounded-3xl bg-white/5 border border-white/10 text-center">
                   <span className="block text-2xl font-black text-gdg-yellow">{totalExcused}</span>
                   <span className="text-xs text-white/50">Excused Records</span>
                 </div>
               </div>
 
               {/* Attendance Breakdown: Mobile Cards + Desktop Table */}
-              <div className="rounded-3xl bg-white/[0.02] border border-white/10 overflow-hidden">
-                <div className="p-4 border-b border-white/10 bg-white/[0.02] flex items-center justify-between">
+              <div className="rounded-3xl bg-white/5 border border-white/10 overflow-hidden">
+                <div className="p-4 border-b border-white/10 bg-white/5 flex items-center justify-between">
                   <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">
                     Session Attendance Breakdown
                   </h3>
@@ -539,7 +537,7 @@ export function AdminSessionsClient({
                         <div key={s.id} className="p-4 space-y-3">
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
-                              <p className="font-bold text-white text-sm break-words">{s.title}</p>
+                              <p className="font-bold text-white text-sm wrap-break-word">{s.title}</p>
                               <div className="flex flex-wrap items-center gap-2 mt-1">
                                 <span
                                   className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium"
@@ -566,15 +564,15 @@ export function AdminSessionsClient({
                           </div>
 
                           <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center text-xs">
-                            <div className="p-2 rounded-xl bg-white/[0.03]">
+                            <div className="p-2 rounded-xl bg-white/5">
                               <span className="block text-[10px] text-white/40 uppercase">Present</span>
                               <span className="font-bold text-gdg-green">{s.attendance.present}</span>
                             </div>
-                            <div className="p-2 rounded-xl bg-white/[0.03]">
+                            <div className="p-2 rounded-xl bg-white/5">
                               <span className="block text-[10px] text-white/40 uppercase">Absent</span>
                               <span className="font-bold text-gdg-red">{s.attendance.absent}</span>
                             </div>
-                            <div className="p-2 rounded-xl bg-white/[0.03]">
+                            <div className="p-2 rounded-xl bg-white/5">
                               <span className="block text-[10px] text-white/40 uppercase">Excused</span>
                               <span className="font-bold text-gdg-yellow">{s.attendance.excused}</span>
                             </div>
@@ -589,7 +587,7 @@ export function AdminSessionsClient({
                 <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-white/10 bg-white/[0.02] text-white/40 uppercase tracking-wider font-semibold text-[11px]">
+                      <tr className="border-b border-white/10 bg-white/5 text-white/40 uppercase tracking-wider font-semibold text-[11px]">
                         <th className="py-4 px-6">Session Title</th>
                         <th className="py-4 px-4">Track</th>
                         <th className="py-4 px-4">Date</th>
@@ -608,7 +606,7 @@ export function AdminSessionsClient({
                             : 0;
 
                         return (
-                          <tr key={s.id} className="hover:bg-white/[0.02] transition-colors">
+                          <tr key={s.id} className="hover:bg-white/5 transition-colors">
                             <td className="py-4 px-6">
                               <p className="font-bold text-white">{s.title}</p>
                               <p className="text-[10px] text-white/40 font-mono">{s.mode}</p>

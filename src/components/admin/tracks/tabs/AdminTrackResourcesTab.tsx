@@ -43,7 +43,7 @@ export function AdminTrackResourcesTab({
       </div>
 
       {resourceList.length === 0 ? (
-        <div className="p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/10 space-y-3">
+        <div className="p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/10 space-y-3">
           <div className="w-12 h-12 rounded-2xl bg-white/5 text-white/40 flex items-center justify-center mx-auto">
             <FolderGit2 className="w-6 h-6" />
           </div>
@@ -68,7 +68,7 @@ export function AdminTrackResourcesTab({
             return (
               <div
                 key={res.id}
-                className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between gap-4 group hover:border-white/20 transition-all"
+                className="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between gap-4 group hover:border-white/20 transition-all"
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
@@ -100,7 +100,7 @@ export function AdminTrackResourcesTab({
                   )}
 
                   {isCloudinary && res.originalFileName && (
-                    <div className="flex items-center gap-2 text-[11px] text-white/60 bg-white/[0.02] px-3 py-1.5 rounded-xl border border-white/5">
+                    <div className="flex items-center gap-2 text-[11px] text-white/60 bg-white/5 px-3 py-1.5 rounded-xl border border-white/5">
                       <FileCode2 className="w-3.5 h-3.5 text-gdg-green" />
                       <span className="font-medium text-white/80 truncate">
                         {res.originalFileName}

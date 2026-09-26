@@ -185,7 +185,7 @@ export function AdminAnnouncementsClient({
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
           {/* Filters Bar */}
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="p-4 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <span className="text-xs text-white/40 flex items-center gap-1.5 px-1 sm:px-2 shrink-0">
                 <Filter className="w-3.5 h-3.5" />
@@ -226,7 +226,7 @@ export function AdminAnnouncementsClient({
 
           {/* Announcements Feed */}
           {filteredAnnouncements.length === 0 ? (
-            <div className="p-8 sm:p-12 text-center rounded-3xl bg-white/[0.02] border border-dashed border-white/15 space-y-4">
+            <div className="p-8 sm:p-12 text-center rounded-3xl bg-white/5 border border-dashed border-white/15 space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-gdg-red/10 text-gdg-red flex items-center justify-center mx-auto">
                 <Megaphone className="w-6 h-6" />
               </div>
@@ -237,7 +237,7 @@ export function AdminAnnouncementsClient({
               {filteredAnnouncements.map((ann) => (
                 <div
                   key={ann.id}
-                  className="p-4 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all space-y-4"
+                  className="p-4 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-all space-y-4"
                   style={{
                     borderLeftColor: ann.trackAccent || '#EA4335',
                     borderLeftWidth: '4px',
@@ -252,17 +252,17 @@ export function AdminAnnouncementsClient({
                             ann.priority === 'URGENT'
                               ? 'bg-gdg-red/20 text-gdg-red border border-gdg-red/30'
                               : ann.priority === 'IMPORTANT'
-                              ? 'bg-gdg-yellow/20 text-gdg-yellow border border-gdg-yellow/30'
-                              : ann.priority === 'REMINDER'
-                              ? 'bg-gdg-blue/20 text-gdg-blue border border-gdg-blue/30'
-                              : 'bg-white/10 text-white/70'
+                                ? 'bg-gdg-yellow/20 text-gdg-yellow border border-gdg-yellow/30'
+                                : ann.priority === 'REMINDER'
+                                  ? 'bg-gdg-blue/20 text-gdg-blue border border-gdg-blue/30'
+                                  : 'bg-white/10 text-white/70'
                           )}
                         >
                           {ann.priority}
                         </span>
 
                         <span
-                          className="text-[10px] font-mono px-2 py-0.5 rounded-md font-semibold truncate max-w-[200px]"
+                          className="text-[10px] font-mono px-2 py-0.5 rounded-md font-semibold truncate max-w-50"
                           style={{
                             backgroundColor: ann.trackAccent ? `${ann.trackAccent}20` : '#ffffff10',
                             color: ann.trackAccent || '#FAF7EE',
@@ -276,19 +276,19 @@ export function AdminAnnouncementsClient({
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-base text-white pt-1 break-words">{ann.title}</h3>
+                      <h3 className="font-bold text-base text-white pt-1 wrap-break-word">{ann.title}</h3>
                     </div>
 
                     <button
                       onClick={() => setDeleteTarget(ann)}
-                      className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-white/40 hover:text-gdg-red hover:bg-gdg-red/10 transition-colors shrink-0"
+                      className="p-2 min-h-11 min-w-11 flex items-center justify-center rounded-xl text-white/40 hover:text-gdg-red hover:bg-gdg-red/10 transition-colors shrink-0"
                       title="Delete Announcement"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
 
-                  <p className="text-sm text-white/80 leading-relaxed whitespace-pre-line break-words">
+                  <p className="text-sm text-white/80 leading-relaxed whitespace-pre-line wrap-break-word">
                     {ann.content}
                   </p>
 
@@ -315,7 +315,7 @@ export function AdminAnnouncementsClient({
               </div>
               <button
                 onClick={() => setIsCreateOpen(false)}
-                className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-white/50 hover:text-white hover:bg-white/10"
+                className="p-2 min-h-11 min-w-11 flex items-center justify-center rounded-xl text-white/50 hover:text-white hover:bg-white/10"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -397,14 +397,14 @@ export function AdminAnnouncementsClient({
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="w-full sm:w-auto min-h-[44px] px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 transition-colors text-center"
+                  className="w-full sm:w-auto min-h-11 px-4 py-2.5 rounded-2xl text-xs font-bold text-white/70 hover:text-white hover:bg-white/10 transition-colors text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isCreating}
-                  className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50 transition-colors"
+                  className="w-full sm:w-auto min-h-11 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-red hover:bg-gdg-red/90 text-xs font-bold text-white disabled:opacity-50 transition-colors"
                 >
                   {isCreating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Broadcast Now</span>
