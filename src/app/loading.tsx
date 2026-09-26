@@ -1,83 +1,33 @@
+import React from "react";
+
 export default function RootLoading() {
   return (
-    <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased">
-      {/* Sidebar Skeleton (hidden on small screens) */}
-      <aside className="hidden lg:flex w-72 flex-col bg-gdg-black border-r border-gdg-dark-border p-6 shrink-0 space-y-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/10 animate-pulse" />
-          <div className="space-y-1.5 flex-1">
-            <div className="w-28 h-3.5 bg-white/10 rounded-full animate-pulse" />
-            <div className="w-20 h-2.5 bg-white/5 rounded-full animate-pulse" />
-          </div>
-        </div>
+    <div className="min-h-screen bg-gdg-cream flex flex-col items-center justify-center p-6 text-center antialiased selection:bg-gdg-yellow/30">
+      {/* GDG Pulse Logo / Spinner */}
+      <div className="relative mb-6 flex items-center justify-center">
+        {/* Subtle glowing backdrop pulse */}
+        <div className="absolute w-20 h-20 rounded-full bg-gdg-blue/15 animate-ping" />
+        
+        {/* GDG Ring */}
+        <div className="relative w-14 h-14 rounded-full border-4 border-gdg-border border-t-gdg-blue border-r-gdg-red border-b-gdg-yellow border-l-gdg-green animate-spin" />
+        
+        {/* Center dot */}
+        <div className="absolute w-3 h-3 rounded-full bg-gdg-blue shadow-sm" />
+      </div>
 
-        <div className="space-y-2 pt-4">
-          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-            <div
-              key={i}
-              className="h-10 rounded-xl bg-white/5 animate-pulse"
-              style={{ animationDelay: `${i * 100}ms` }}
-            />
-          ))}
-        </div>
-      </aside>
+      {/* Brand Identity */}
+      <div className="space-y-2 max-w-xs">
+        <h2 className="text-lg font-black text-gdg-black tracking-tight flex items-center justify-center gap-1.5">
+          <span>GDG LASU Bootcamp</span>
+        </h2>
+        <p className="text-xs font-semibold text-gdg-gray animate-pulse tracking-wide">
+          Loading learning platform...
+        </p>
+      </div>
 
-      {/* Main Content Area */}
-      <div className="flex flex-1 flex-col min-w-0">
-        {/* Header Skeleton */}
-        <header className="h-20 border-b border-gdg-border bg-gdg-cream/90 backdrop-blur px-6 sm:px-8 flex items-center justify-between">
-          <div className="w-48 sm:w-72 h-10 rounded-full bg-gdg-border/60 animate-pulse" />
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gdg-border/60 animate-pulse" />
-            <div className="w-10 h-10 rounded-full bg-gdg-border/60 animate-pulse" />
-          </div>
-        </header>
-
-        {/* Content Skeleton */}
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-8 max-w-7xl w-full mx-auto">
-          {/* Hero Banner Skeleton */}
-          <div className="h-56 sm:h-64 rounded-3xl bg-gdg-black p-8 flex flex-col justify-between animate-pulse">
-            <div className="space-y-3">
-              <div className="w-32 h-4 rounded-full bg-white/10" />
-              <div className="w-64 sm:w-96 h-8 rounded-full bg-white/15" />
-              <div className="w-48 sm:w-80 h-4 rounded-full bg-white/10" />
-            </div>
-            <div className="w-40 h-10 rounded-full bg-gdg-cream/20" />
-          </div>
-
-          {/* 4 Stats Cards Skeleton */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-32 rounded-2xl bg-white border border-gdg-border p-5 space-y-3 shadow-sm animate-pulse"
-                style={{ animationDelay: `${i * 120}ms` }}
-              >
-                <div className="w-24 h-3 bg-gdg-border rounded-full" />
-                <div className="w-16 h-7 bg-gdg-black/10 rounded-lg" />
-                <div className="w-32 h-2.5 bg-gdg-border/80 rounded-full" />
-              </div>
-            ))}
-          </div>
-
-          {/* Cards Grid Skeleton */}
-          <div className="space-y-4">
-            <div className="w-48 h-6 bg-gdg-border rounded-full animate-pulse" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="h-64 rounded-3xl bg-white border border-gdg-border p-6 space-y-4 shadow-sm animate-pulse"
-                  style={{ animationDelay: `${i * 150}ms` }}
-                >
-                  <div className="w-full h-28 bg-gdg-border/50 rounded-2xl" />
-                  <div className="w-3/4 h-4 bg-gdg-black/10 rounded-full" />
-                  <div className="w-1/2 h-3 bg-gdg-border rounded-full" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </main>
+      {/* Modern Accent Bar */}
+      <div className="w-28 h-1 rounded-full bg-gdg-border overflow-hidden mt-6">
+        <div className="h-full bg-linear-to-r from-gdg-blue via-gdg-red to-gdg-green animate-pulse" />
       </div>
     </div>
   );
