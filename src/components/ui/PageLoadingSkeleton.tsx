@@ -10,7 +10,7 @@ export function PageLoadingSkeleton({
   return (
     <div className="flex min-h-screen bg-[#FAF7EE] text-[#0D0E11] antialiased">
       {/* Sidebar Skeleton (desktop) */}
-      <aside className="hidden lg:flex w-72 flex-col bg-[#0D0E11] border-r border-[#22242B] p-6 shrink-0 space-y-6">
+      <aside className="hidden lg:flex w-72 flex-col bg-[#0D0E11] border-r border-[#22242B] p-6 shrink-0 space-y-6 lg:sticky lg:top-0 lg:h-screen">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-white/10 animate-pulse" />
           <div className="space-y-1.5 flex-1">

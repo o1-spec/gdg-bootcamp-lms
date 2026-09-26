@@ -264,11 +264,11 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
           <section className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <StatsCard
-                title="Enrolled Tracks"
-                value={stats.enrolledTracks}
-                subtext={enrolledTracks.map(t => t.name.split(' ')[0]).join(', ')}
+                title="Enrolled Track"
+                value={enrolledTracks[0]?.name || (stats.enrolledTracks > 0 ? "1 Track" : "0 Tracks")}
+                subtext={enrolledTracks[0]?.name ? "Active Curriculum Track" : "Not Enrolled"}
                 icon={Layers}
-                badge={{ text: 'Active', variant: 'positive' }}
+                badge={{ text: enrolledTracks[0] ? 'Active' : 'Pending', variant: 'positive' }}
                 accentColor="#4285F4" // Google Blue
                 href="/tracks"
               />
@@ -317,14 +317,14 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
                 href="/tracks"
                 className="inline-flex items-center gap-1.5 text-xs font-black text-gdg-black hover:text-gdg-blue transition-colors cursor-pointer"
               >
-                <span>View all tracks</span>
+                <span>View track curriculum</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 
             {enrolledTracks.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {enrolledTracks.map((track) => (
+                {enrolledTracks.slice(0, 1).map((track) => (
                   <TrackCard
                     key={track.id}
                     track={track}

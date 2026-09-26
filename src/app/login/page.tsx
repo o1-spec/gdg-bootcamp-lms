@@ -52,7 +52,7 @@ function LoginForm() {
 
       setIsSuccess(true);
       const userRole = data.user?.role;
-      let destination = '/';
+      let destination = '/dashboard';
       if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
         destination = '/admin/dashboard';
       } else if (userRole === 'MENTOR') {

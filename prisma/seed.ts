@@ -227,12 +227,10 @@ async function main() {
 
   console.log("🛣️ Created Tracks (Backend, Frontend, DSA)");
 
-  // 5. Enrollments & Mentor Assignments
+  // 5. Enrollments & Mentor Assignments (1 track per student)
   await prisma.enrollment.createMany({
     data: [
       { userId: student1.id, trackId: backendTrack.id, isActive: true },
-      { userId: student1.id, trackId: frontendTrack.id, isActive: true },
-      { userId: student1.id, trackId: dsaTrack.id, isActive: true },
       { userId: student2.id, trackId: backendTrack.id, isActive: true },
       { userId: student3.id, trackId: backendTrack.id, isActive: true },
       { userId: student4.id, trackId: backendTrack.id, isActive: true },

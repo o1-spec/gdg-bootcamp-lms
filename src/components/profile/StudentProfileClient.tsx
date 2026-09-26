@@ -266,17 +266,17 @@ export function StudentProfileClient({ initialUser, enrolledTracks }: StudentPro
                   <div className="flex items-center gap-2">
                     <Layers className="w-4 h-4 text-gdg-blue" />
                     <h3 className="text-xs font-black uppercase tracking-wider text-gdg-black">
-                      My Enrolled Tracks
+                      My Enrolled Track
                     </h3>
                   </div>
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gdg-cream border border-gdg-border text-gdg-gray">
-                    {enrolledTracks.length} Active
+                    {enrolledTracks.length > 0 ? 'Active Track' : 'Not Enrolled'}
                   </span>
                 </div>
 
                 {enrolledTracks.length > 0 ? (
                   <div className="space-y-2.5">
-                    {enrolledTracks.map((trk) => (
+                    {enrolledTracks.slice(0, 1).map((trk) => (
                       <Link
                         key={trk.id}
                         href={`/tracks/${trk.slug || trk.id}`}

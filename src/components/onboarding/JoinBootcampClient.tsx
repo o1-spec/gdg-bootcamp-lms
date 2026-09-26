@@ -85,18 +85,9 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
     }
   }, [initialCode, handleValidate]);
 
-  // Track selection toggle
+  // Track selection (one student has only one track)
   const toggleTrack = (trackId: string) => {
-    const max = validationResult?.invite?.maxTrackSelections || 1;
-    if (selectedTrackIds.includes(trackId)) {
-      setSelectedTrackIds(selectedTrackIds.filter((id) => id !== trackId));
-    } else {
-      if (max === 1) {
-        setSelectedTrackIds([trackId]);
-      } else if (selectedTrackIds.length < max) {
-        setSelectedTrackIds([...selectedTrackIds, trackId]);
-      }
-    }
+    setSelectedTrackIds([trackId]);
   };
 
   // Submit Join Request
@@ -251,10 +242,10 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                   <div className="pt-2 border-t border-gdg-green/20 space-y-2.5">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-bold text-gdg-black">
-                        Select Your Track{invite.maxTrackSelections && invite.maxTrackSelections > 1 ? ` (up to ${invite.maxTrackSelections})` : ''}:
+                        Select Your Track (1 Track):
                       </label>
                       <span className="text-[11px] text-gdg-gray">
-                        {selectedTrackIds.length} of {invite.maxTrackSelections || 1} selected
+                        {selectedTrackIds.length === 1 ? '1 track selected' : 'Please select your track'}
                       </span>
                     </div>
 

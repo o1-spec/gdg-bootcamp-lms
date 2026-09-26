@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 export type DashboardNavTab =
   | 'dashboard'
   | 'my-tracks'
+  | 'tracks'
   | 'resources'
   | 'assignments'
   | 'schedule'
@@ -46,15 +47,15 @@ export function DashboardSidebar({
         <div className="space-y-2 pt-2 border-t border-gdg-dark-border/60">
           <div className="px-3 pb-1 flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-widest text-gdg-cream/40">
-              Enrolled Tracks
+              My Track
             </span>
-            <span className="rounded-full bg-[#1A1C23] px-2 py-0.5 text-[10px] font-bold text-gdg-cream/70 border border-[#2D3039]">
-              {enrolledTracks.length}
+            <span className="rounded-full bg-gdg-green/10 border border-gdg-green/30 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-gdg-green">
+              Active
             </span>
           </div>
 
           <div className="space-y-1.5">
-            {enrolledTracks.map((track) => {
+            {enrolledTracks.slice(0, 1).map((track) => {
               const dotColor =
                 track.name === 'Backend Development'
                   ? 'bg-gdg-blue'

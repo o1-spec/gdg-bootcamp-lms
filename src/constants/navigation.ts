@@ -35,7 +35,7 @@ export const STUDENT_NAV_SECTIONS: NavSectionConfig[] = [
     title: "LEARN",
     items: [
       { id: "dashboard", label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-      { id: "tracks", label: "My Tracks", href: "/tracks", icon: Layers },
+      { id: "tracks", label: "My Track", href: "/tracks", icon: Layers },
       { id: "resources", label: "Resources", href: "/resources", icon: FolderGit2 },
       {
         id: "assignments",

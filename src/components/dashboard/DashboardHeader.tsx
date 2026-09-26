@@ -179,7 +179,8 @@ export function DashboardHeader({
   const getBreadcrumbTitle = (tab: DashboardNavTab) => {
     switch (tab) {
       case 'dashboard':     return { page: 'Dashboard',     sub: 'Overview & Learning Roadmap' };
-      case 'my-tracks':    return { page: 'My Tracks',      sub: 'Curriculum & Modules' };
+      case 'tracks':
+      case 'my-tracks':    return { page: 'My Track',       sub: 'Curriculum & Modules' };
       case 'resources':    return { page: 'Resources',      sub: 'Slides, Notes, Code & Repos' };
       case 'assignments':  return { page: 'Assignments',    sub: 'Projects & Coding Challenges' };
       case 'schedule':     return { page: 'Schedule',       sub: 'Live Mentoring & Workshops' };

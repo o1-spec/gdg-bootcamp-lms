@@ -31,7 +31,7 @@ export function TracksClient({ tracks, student, enrolledTracksSummary }: TracksC
     <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30">
       {/* Sidebar */}
       <DashboardSidebar
-        currentTab="my-tracks"
+        currentTab="tracks"
         student={student}
         enrolledTracks={enrolledTracksSummary}
         isMobileOpen={isMobileSidebarOpen}
@@ -42,7 +42,7 @@ export function TracksClient({ tracks, student, enrolledTracksSummary }: TracksC
 
       <div className="flex flex-1 flex-col min-w-0">
         <DashboardHeader
-          currentTab="my-tracks"
+          currentTab="tracks"
           student={student}
           onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
           onSearchChange={setSearchQuery}
@@ -78,20 +78,20 @@ export function TracksClient({ tracks, student, enrolledTracksSummary }: TracksC
                 </span>
               </div>
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gdg-black tracking-tight">
-                My Tracks
+                My Track
               </h1>
               <p className="text-sm text-gdg-gray font-medium max-w-xl">
-                Continue learning across your enrolled bootcamp tracks. Each track is designed for hands-on portfolio outcomes.
+                Continue learning in your enrolled bootcamp track. Your curriculum is designed for hands-on portfolio outcomes.
               </p>
             </div>
 
             <div className="flex items-center gap-3">
               <div className="rounded-2xl border border-gdg-border bg-white px-4 py-2.5 shadow-2xs">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray block">
-                  Active Enrolled
+                  Active Enrollment
                 </span>
                 <span className="text-lg font-black text-gdg-black">
-                  {tracks.length} {tracks.length === 1 ? 'Track' : 'Tracks'}
+                  {tracks.length > 0 ? '1 Enrolled Track' : '0 Tracks'}
                 </span>
               </div>
             </div>

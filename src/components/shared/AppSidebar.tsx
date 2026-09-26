@@ -76,7 +76,7 @@ export function AppSidebar({
       {/* Sidebar Container */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-70 sm:w-72 max-w-[85vw] flex-col bg-gdg-black text-gdg-cream border-r border-gdg-dark-border transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 shrink-0 select-none',
+          'fixed inset-y-0 left-0 z-50 flex w-70 sm:w-72 max-w-[85vw] flex-col bg-gdg-black text-gdg-cream border-r border-gdg-dark-border transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:shrink-0 select-none',
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >

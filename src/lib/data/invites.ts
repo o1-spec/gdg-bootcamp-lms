@@ -147,26 +147,28 @@ export async function processEnrollmentWithInvite(
     return { success: false, error: "No tracks are available for this invite." };
   }
 
+  // One student has only one track
+  targetTrackIds = targetTrackIds.slice(0, 1);
+
   try {
-    // Check existing enrollments for this user
-    const existingEnrollments = await prisma.enrollment.findMany({
+    // Check if student already has any active track enrollment
+    const existingActiveEnrollment = await prisma.enrollment.findFirst({
       where: {
         userId,
-        trackId: { in: targetTrackIds },
+        isActive: true,
       },
       include: { track: { select: { name: true } } },
     });
 
-    if (existingEnrollments.length >= targetTrackIds.length) {
+    if (existingActiveEnrollment) {
       return {
         success: false,
         alreadyEnrolled: true,
-        error: "You're already enrolled in this track.",
+        error: `You are already enrolled in ${existingActiveEnrollment.track.name}. Each student can only be enrolled in one track.`,
       };
     }
 
-    const enrolledIds = new Set(existingEnrollments.map((e) => e.trackId));
-    const newTrackIds = targetTrackIds.filter((id) => !enrolledIds.has(id));
+    const newTrackIds = targetTrackIds;
 
     // Execute atomic transaction: create enrollments, increment useCount, mark user onboardingCompleted
     await prisma.$transaction(async (tx) => {
