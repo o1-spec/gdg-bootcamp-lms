@@ -165,7 +165,7 @@ export default async function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30 flex flex-col">
+    <div className="min-h-screen bg-gdg-cream text-gdg-black antialiased selection:bg-gdg-yellow/30 flex flex-col w-full overflow-x-hidden">
       {/* ── TOP NAVIGATION ───────────────────────────────────── */}
       <header className="sticky top-0 z-40 w-full border-b border-gdg-border/60 bg-gdg-cream/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
@@ -413,7 +413,7 @@ export default async function LandingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {HOW_IT_WORKS.map((step, idx) => (
                 <div
                   key={idx}
@@ -550,28 +550,28 @@ export default async function LandingPage() {
       </main>
 
       {/* ── FOOTER ─────────────────────────────────────────── */}
-      <footer className="border-t border-gdg-border/60 bg-gdg-cream py-8 text-xs text-gdg-gray">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+      <footer className="border-t border-gdg-border/60 bg-gdg-cream py-8 sm:py-10 text-xs text-gdg-gray w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="font-bold text-gdg-black">GDG on Campus LASU</span>
-            <span>•</span>
+            <span className="text-gdg-gray/40">•</span>
             <span>Bootcamp LMS © {new Date().getFullYear()}</span>
           </div>
 
-          <div className="flex items-center gap-4 font-bold text-gdg-gray">
-            <Link href="/join" className="hover:text-gdg-black transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 font-bold text-gdg-gray">
+            <Link href="/join" className="hover:text-gdg-black transition-colors whitespace-nowrap">
               Join
             </Link>
-            <Link href="/login" className="hover:text-gdg-black transition-colors">
+            <Link href="/login" className="hover:text-gdg-black transition-colors whitespace-nowrap">
               Sign In
             </Link>
-            <Link href="/dashboard" className="hover:text-gdg-black transition-colors">
+            <Link href="/dashboard" className="hover:text-gdg-black transition-colors whitespace-nowrap">
               Student Dashboard
             </Link>
-            <Link href="/mentor" className="hover:text-gdg-black transition-colors">
+            <Link href="/mentor" className="hover:text-gdg-black transition-colors whitespace-nowrap">
               Mentor Portal
             </Link>
-            <Link href="/admin" className="hover:text-gdg-black transition-colors">
+            <Link href="/admin" className="hover:text-gdg-black transition-colors whitespace-nowrap">
               Admin Console
             </Link>
           </div>
