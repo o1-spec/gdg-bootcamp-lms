@@ -4,7 +4,7 @@ import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { registerFormSchema } from '@/lib/validations/auth';
-import { ArrowRight, Lock, Mail, User, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Lock, Mail, User, Loader2, AlertCircle, CheckCircle2, Eye, EyeOff } from 'lucide-react';
 
 function RegisterForm() {
   const router = useRouter();
@@ -25,6 +25,8 @@ function RegisterForm() {
   }>({});
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -213,7 +215,7 @@ function RegisterForm() {
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   required
                   value={password}
@@ -221,8 +223,17 @@ function RegisterForm() {
                   placeholder="Min. 8 characters"
                   className={`w-full h-10 rounded-2xl border ${
                     errors.password ? 'border-gdg-red' : 'border-gdg-border'
-                  } bg-gdg-cream/50 pl-10 pr-4 text-xs font-medium text-gdg-black focus:bg-white focus:outline-none transition-all`}
+                  } bg-gdg-cream/50 pl-10 pr-11 text-xs font-medium text-gdg-black focus:bg-white focus:outline-none transition-all`}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gdg-gray hover:text-gdg-black focus:outline-none transition-colors cursor-pointer"
+                  tabIndex={-1}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
               </div>
               {errors.password && (
                 <p className="mt-1 text-[11px] text-gdg-red font-semibold">{errors.password}</p>
@@ -237,7 +248,7 @@ function RegisterForm() {
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gdg-gray" />
                 <input
                   id="confirmPassword"
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   required
                   value={confirmPassword}
@@ -245,8 +256,17 @@ function RegisterForm() {
                   placeholder="Repeat your password"
                   className={`w-full h-10 rounded-2xl border ${
                     errors.confirmPassword ? 'border-gdg-red' : 'border-gdg-border'
-                  } bg-gdg-cream/50 pl-10 pr-4 text-xs font-medium text-gdg-black focus:bg-white focus:outline-none transition-all`}
+                  } bg-gdg-cream/50 pl-10 pr-11 text-xs font-medium text-gdg-black focus:bg-white focus:outline-none transition-all`}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gdg-gray hover:text-gdg-black focus:outline-none transition-colors cursor-pointer"
+                  tabIndex={-1}
+                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
               </div>
               {errors.confirmPassword && (
                 <p className="mt-1 text-[11px] text-gdg-red font-semibold">{errors.confirmPassword}</p>

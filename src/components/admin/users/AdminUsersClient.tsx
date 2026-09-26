@@ -15,6 +15,7 @@ import {
   Loader2,
   AlertCircle,
   Eye,
+  EyeOff,
   Calendar,
   Layers,
   CheckCircle2,
@@ -99,6 +100,7 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
   });
   const [editError, setEditError] = useState<string | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [showCreatePassword, setShowCreatePassword] = useState(false);
 
   const isSuperAdmin = admin.rawRole === Role.SUPER_ADMIN;
 
@@ -743,15 +745,26 @@ export function AdminUsersClient({ users: initialUsers, admin }: AdminUsersClien
                 <label className="block text-xs font-semibold text-white/80 mb-1.5">
                   Temporary Password <span className="text-gdg-red">*</span>
                 </label>
-                <input
-                  type="password"
-                  required
-                  minLength={6}
-                  placeholder="At least 6 characters"
-                  value={createFormData.password}
-                  onChange={(e) => setCreateFormData({ ...createFormData, password: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
-                />
+                <div className="relative">
+                  <input
+                    type={showCreatePassword ? 'text' : 'password'}
+                    required
+                    minLength={6}
+                    placeholder="At least 6 characters"
+                    value={createFormData.password}
+                    onChange={(e) => setCreateFormData({ ...createFormData, password: e.target.value })}
+                    className="w-full px-4 pr-11 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm text-white focus:outline-none focus:border-gdg-blue"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCreatePassword((prev) => !prev)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white focus:outline-none transition-colors cursor-pointer"
+                    tabIndex={-1}
+                    aria-label={showCreatePassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showCreatePassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
 
               <div>

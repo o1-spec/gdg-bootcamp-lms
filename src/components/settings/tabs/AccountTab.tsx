@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Calendar, Layers, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Calendar, Layers, Loader2, CheckCircle2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { SettingsUser } from '../SettingsClient';
 import { cn } from '@/lib/utils';
 
@@ -30,6 +30,7 @@ export function AccountTab({
     type: 'success' | 'error';
     message: string;
   } | null>(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
   const handleSaveEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -234,16 +235,27 @@ export function AccountTab({
 
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-gdg-black">Current Password</label>
-            <input
-              type="password"
-              required
-              placeholder="Verify identity"
-              value={emailForm.currentPassword}
-              onChange={(e) =>
-                setEmailForm((prev) => ({ ...prev, currentPassword: e.target.value }))
-              }
-              className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
-            />
+            <div className="relative">
+              <input
+                type={showCurrentPassword ? 'text' : 'password'}
+                required
+                placeholder="Verify identity"
+                value={emailForm.currentPassword}
+                onChange={(e) =>
+                  setEmailForm((prev) => ({ ...prev, currentPassword: e.target.value }))
+                }
+                className="w-full px-3.5 pr-10 py-2.5 text-xs font-semibold rounded-xl border border-gdg-border bg-white text-gdg-black focus:outline-none focus:border-gdg-blue focus:ring-1 focus:ring-gdg-blue transition-all"
+              />
+              <button
+                type="button"
+                onClick={() => setShowCurrentPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gdg-gray hover:text-gdg-black focus:outline-none transition-colors cursor-pointer"
+                tabIndex={-1}
+                aria-label={showCurrentPassword ? 'Hide password' : 'Show password'}
+              >
+                {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
           </div>
         </div>
 
