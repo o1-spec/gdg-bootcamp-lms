@@ -1,8 +1,11 @@
 export default function DashboardLoading() {
   return (
     <div className="flex min-h-screen bg-gdg-cream text-gdg-black antialiased">
+      {/* Desktop spacer */}
+      <div className="hidden lg:block w-70 sm:w-72 shrink-0 select-none pointer-events-none" aria-hidden="true" />
+
       {/* Sidebar Skeleton (hidden on small screens) */}
-      <aside className="hidden lg:flex w-72 flex-col bg-gdg-black border-r border-gdg-dark-border p-6 shrink-0 space-y-6 lg:sticky lg:top-0 lg:h-screen">
+      <aside className="hidden lg:flex fixed inset-y-0 left-0 z-40 w-70 sm:w-72 flex-col bg-gdg-black border-r border-gdg-dark-border p-6 shrink-0 space-y-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-white/10 animate-pulse" />
           <div className="space-y-1.5 flex-1">

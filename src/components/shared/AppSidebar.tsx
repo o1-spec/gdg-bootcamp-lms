@@ -79,15 +79,18 @@ export function AppSidebar({
         />
       )}
 
-      {/* Sidebar Container */}
+      {/* Desktop spacer to reserve layout width in parent flex container */}
+      <div className="hidden lg:block w-70 sm:w-72 shrink-0 select-none pointer-events-none" aria-hidden="true" />
+
+      {/* Sidebar Container: Fixed to the screen */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-70 sm:w-72 max-w-[85vw] flex-col bg-gdg-black text-gdg-cream border-r border-gdg-dark-border transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:shrink-0 select-none',
-          isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+          'fixed inset-y-0 left-0 z-40 flex w-70 sm:w-72 max-w-[85vw] flex-col bg-gdg-black text-gdg-cream border-r border-gdg-dark-border transition-transform duration-300 ease-in-out select-none',
+          isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
       >
         {/* Brand Header */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-gdg-dark-border/80">
+        <div className="flex h-20 items-center justify-between px-6 border-b border-gdg-dark-border/80 shrink-0">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1A1C23] border border-[#2D3039] shadow-inner">
               <div className="flex flex-wrap w-5 h-5 gap-1 items-center justify-center">
@@ -123,7 +126,7 @@ export function AppSidebar({
         </div>
 
         {/* Navigation Section */}
-        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-thin scrollbar-thumb-gdg-dark-border">
+        <div className="flex-1 min-h-0 overflow-y-auto px-4 py-6 space-y-6 scrollbar-thin scrollbar-thumb-gdg-dark-border">
           {sections.map((section, idx) => (
             <div key={idx} className="space-y-1.5">
               {section.title && (
@@ -184,7 +187,7 @@ export function AppSidebar({
         </div>
 
         {/* User Profile Footer */}
-        <div className="border-t border-gdg-dark-border p-4 bg-[#0A0B0E]">
+        <div className="border-t border-gdg-dark-border p-4 bg-[#0A0B0E] shrink-0">
           <div className="flex items-center justify-between gap-3">
             <Link
               href="/settings"
