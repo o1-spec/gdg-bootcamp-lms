@@ -2,6 +2,7 @@
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loginSchema } from '@/lib/validations/auth';
 import { ArrowRight, Lock, Mail, Loader2, AlertCircle, CheckCircle2, Eye, EyeOff } from 'lucide-react';
@@ -79,21 +80,15 @@ function LoginForm() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* GDG LASU Brand header */}
         <div className="flex justify-center mb-6">
-          <Link href="/" className="inline-flex items-center gap-3">
-            <div className="flex items-center gap-1 bg-gdg-black px-3 py-2 rounded-2xl">
-              <span className="h-4 w-1.5 rounded-full bg-gdg-blue" />
-              <span className="h-4 w-1.5 rounded-full bg-gdg-red" />
-              <span className="h-4 w-1.5 rounded-full bg-gdg-yellow" />
-              <span className="h-4 w-1.5 rounded-full bg-gdg-green" />
-            </div>
-            <div className="text-left">
-              <span className="text-sm font-black tracking-tight text-gdg-black uppercase block">
-                GDG on Campus
-              </span>
-              <span className="text-[11px] font-bold text-gdg-gray block">
-                Lagos State University • LMS
-              </span>
-            </div>
+          <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+            <Image
+              src="/GDGOC-LASU-logo.webp"
+              alt="GDG on Campus LASU Logo"
+              width={260}
+              height={50}
+              priority
+              className="h-11 sm:h-12 w-auto object-contain"
+            />
           </Link>
         </div>
 

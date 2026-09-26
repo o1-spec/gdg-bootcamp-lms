@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Check, User, Ticket, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -17,9 +19,22 @@ export function OnboardingStepIndicator({ currentStep }: OnboardingStepIndicator
 
   return (
     <div className="w-full max-w-md mx-auto mb-8">
+      <div className="flex justify-center mb-6">
+        <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+          <Image
+            src="/GDGOC-LASU-logo.webp"
+            alt="GDG on Campus LASU Logo"
+            width={240}
+            height={46}
+            priority
+            className="h-10 sm:h-11 w-auto object-contain"
+          />
+        </Link>
+      </div>
+
       <div className="flex items-center justify-between relative">
         {/* Connecting Progress Line */}
-        <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[2px] bg-gdg-border -z-0">
+        <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-0.5 bg-gdg-border z-0">
           <div
             className="h-full bg-gdg-black transition-all duration-300"
             style={{
@@ -44,7 +59,7 @@ export function OnboardingStepIndicator({ currentStep }: OnboardingStepIndicator
                 )}
               >
                 {isDone ? (
-                  <Check className="w-4 h-4 text-gdg-green stroke-[3]" />
+                  <Check className="w-4 h-4 text-gdg-green stroke-3" />
                 ) : (
                   <Icon className="w-4 h-4" />
                 )}

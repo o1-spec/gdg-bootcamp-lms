@@ -20,7 +20,9 @@ export const metadata: Metadata = {
   description: "Official Learning Management System for Google Developer Groups on Campus - Lagos State University Bootcamp.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
   icons: {
-    icon: "/favicon.ico",
+    icon: "/GDGOC-LASU-logo.webp",
+    shortcut: "/GDGOC-LASU-logo.webp",
+    apple: "/GDGOC-LASU-logo.webp",
   },
 };
 

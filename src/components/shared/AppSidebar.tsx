@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { X, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -90,30 +91,30 @@ export function AppSidebar({
         )}
       >
         {/* Brand Header */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-gdg-dark-border/80 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1A1C23] border border-[#2D3039] shadow-inner">
-              <div className="flex flex-wrap w-5 h-5 gap-1 items-center justify-center">
-                <span className="h-2 w-2 rounded-full bg-gdg-red" />
-                <span className="h-2 w-2 rounded-full bg-gdg-blue" />
-                <span className="h-2 w-2 rounded-full bg-gdg-green" />
-                <span className="h-2 w-2 rounded-full bg-gdg-yellow" />
-              </div>
+        <div className="flex h-20 items-center justify-between px-5 border-b border-gdg-dark-border/80 shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 group min-w-0 transition-transform hover:scale-[1.02]">
+            <div className="bg-white rounded-xl px-2 py-1 flex items-center justify-center shadow-xs border border-white/10 shrink-0">
+              <Image
+                src="/GDGOC-LASU-logo.webp"
+                alt="GDG on Campus LASU"
+                width={120}
+                height={24}
+                className="h-6 w-auto object-contain"
+                priority
+              />
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs font-black tracking-wider uppercase text-gdg-cream">
-                  {portalName}
-                </span>
-              </div>
+            <div className="min-w-0">
+              <span className="text-[10px] font-black tracking-wider uppercase text-gdg-cream block truncate">
+                {portalBadge}
+              </span>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-gdg-green animate-pulse" />
-                <span className="text-[10px] font-semibold tracking-wider text-gdg-cream/50 uppercase">
-                  {portalBadge}
+                <span className="h-1.5 w-1.5 rounded-full bg-gdg-green animate-pulse shrink-0" />
+                <span className="text-[9px] font-bold tracking-wider text-gdg-cream/50 uppercase">
+                  Active
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
 
           <button
             type="button"

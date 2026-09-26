@@ -2,6 +2,7 @@
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 import {
   Lock,
@@ -71,8 +72,20 @@ function ResetPasswordForm() {
   return (
     <div className="w-full max-w-md space-y-6">
       <div className="text-center space-y-2">
-        <div className="inline-flex h-14 w-14 rounded-3xl bg-gdg-black text-gdg-green items-center justify-center shadow-md mb-2">
-          <Lock className="h-7 w-7" />
+        <div className="flex justify-center mb-3">
+          <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+            <Image
+              src="/GDGOC-LASU-logo.webp"
+              alt="GDG on Campus LASU Logo"
+              width={240}
+              height={46}
+              priority
+              className="h-10 sm:h-11 w-auto object-contain"
+            />
+          </Link>
+        </div>
+        <div className="inline-flex h-12 w-12 rounded-2xl bg-gdg-black text-gdg-green items-center justify-center shadow-md mb-1">
+          <Lock className="h-6 w-6" />
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-gdg-black tracking-tight">
           Reset Your Password

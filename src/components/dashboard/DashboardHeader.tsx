@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   Bell,
@@ -245,15 +246,15 @@ export function DashboardHeader({
 
       {/* Right: GDG badge, Bell, Avatar */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-        {/* Google 4-color dots badge */}
-        <div className="hidden xl:flex items-center gap-2 rounded-full border border-gdg-border bg-white px-3 py-1.5 shadow-2xs">
-          <div className="flex items-center -space-x-1">
-            <span className="h-2.5 w-2.5 rounded-full bg-gdg-blue ring-2 ring-white" />
-            <span className="h-2.5 w-2.5 rounded-full bg-gdg-red ring-2 ring-white" />
-            <span className="h-2.5 w-2.5 rounded-full bg-gdg-yellow ring-2 ring-white" />
-            <span className="h-2.5 w-2.5 rounded-full bg-gdg-green ring-2 ring-white" />
-          </div>
-          <span className="text-xs font-bold text-gdg-black">GDG LASU</span>
+        {/* GDG LASU Brand Logo badge */}
+        <div className="hidden xl:flex items-center rounded-full border border-gdg-border bg-white px-3 py-1.5 shadow-2xs">
+          <Image
+            src="/GDGOC-LASU-logo.webp"
+            alt="GDG on Campus LASU"
+            width={120}
+            height={24}
+            className="h-5 w-auto object-contain"
+          />
         </div>
 
         {/* Notifications Bell */}

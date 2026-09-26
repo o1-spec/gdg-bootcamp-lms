@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { validateInviteCode } from "@/lib/data/invites";
@@ -43,11 +44,16 @@ export default async function PublicJoinPage(props: {
       <div className="max-w-md w-full space-y-6 text-center">
         {/* Brand */}
         <div className="flex justify-center">
-          <div className="w-14 h-14 rounded-3xl bg-gradient-to-tr from-gdg-red via-gdg-blue to-gdg-green p-[2px] shadow-lg">
-            <div className="w-full h-full bg-gdg-black rounded-[22px] flex items-center justify-center">
-              <span className="font-black text-xl text-gdg-cream">G</span>
-            </div>
-          </div>
+          <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+            <Image
+              src="/GDGOC-LASU-logo.webp"
+              alt="GDG on Campus LASU Logo"
+              width={260}
+              height={50}
+              priority
+              className="h-11 sm:h-12 w-auto object-contain"
+            />
+          </Link>
         </div>
 
         {/* Card */}

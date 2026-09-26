@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import {
@@ -170,26 +171,15 @@ export default async function LandingPage() {
       <header className="sticky top-0 z-40 w-full border-b border-gdg-border/60 bg-gdg-cream/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
           {/* Official GDG on Campus Logo & Brand */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
-            {/* GDG Brackets Mark */}
-            <div className="flex items-center gap-1">
-              <svg className="w-8 h-8" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Left Bracket < (Red top, Blue bottom) */}
-                <path d="M12 4L4 16L12 28" stroke="#4285F4" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M12 4L4 16" stroke="#EA4335" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-                {/* Right Bracket > (Green top, Yellow bottom) */}
-                <path d="M28 4L36 16L28 28" stroke="#FBBC04" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M28 4L36 16" stroke="#34A853" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <div>
-                <span className="text-xs sm:text-sm font-black tracking-tight text-gdg-black block leading-tight">
-                  Google Developer Groups
-                </span>
-                <span className="text-[10px] font-bold tracking-tight text-gdg-gray block leading-tight">
-                  On Campus • Lagos State University
-                </span>
-              </div>
-            </div>
+          <Link href="/" className="flex items-center group shrink-0 transition-transform hover:scale-[1.02]">
+            <Image
+              src="/GDGOC-LASU-logo.webp"
+              alt="Google Developer Groups on Campus Lagos State University"
+              width={260}
+              height={50}
+              priority
+              className="h-10 sm:h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Quick Nav Links (Desktop) */}
@@ -552,8 +542,14 @@ export default async function LandingPage() {
       {/* ── FOOTER ─────────────────────────────────────────── */}
       <footer className="border-t border-gdg-border/60 bg-gdg-cream py-8 sm:py-10 text-xs text-gdg-gray w-full overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="font-bold text-gdg-black">GDG on Campus LASU</span>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Image
+              src="/GDGOC-LASU-logo.webp"
+              alt="GDG on Campus LASU"
+              width={160}
+              height={31}
+              className="h-7 w-auto object-contain opacity-90"
+            />
             <span className="text-gdg-gray/40">•</span>
             <span>Bootcamp LMS © {new Date().getFullYear()}</span>
           </div>

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Layers,
   CheckCircle2,
@@ -186,13 +187,16 @@ export function StudentDashboard({ initialData }: StudentDashboardProps) {
 
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               <div className="space-y-4 max-w-2xl">
-                {/* Google 4-color dots + cohort tag */}
+                {/* Google logo badge + cohort tag */}
                 <div className="flex flex-wrap items-center gap-3">
-                  <div className="flex items-center -space-x-1">
-                    <span className="h-3 w-3 rounded-full bg-gdg-blue ring-2 ring-gdg-black" />
-                    <span className="h-3 w-3 rounded-full bg-gdg-red ring-2 ring-gdg-black" />
-                    <span className="h-3 w-3 rounded-full bg-gdg-yellow ring-2 ring-gdg-black" />
-                    <span className="h-3 w-3 rounded-full bg-gdg-green ring-2 ring-gdg-black" />
+                  <div className="bg-white rounded-xl px-2.5 py-1 inline-flex items-center shadow-xs">
+                    <Image
+                      src="/GDGOC-LASU-logo.webp"
+                      alt="GDG on Campus LASU"
+                      width={120}
+                      height={24}
+                      className="h-5 w-auto object-contain"
+                    />
                   </div>
                   <span className="text-xs font-bold text-gdg-cream/70 uppercase tracking-wider">
                     {student.cohort}

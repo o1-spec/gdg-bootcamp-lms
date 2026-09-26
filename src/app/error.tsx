@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AlertCircle, RotateCcw, Home } from 'lucide-react';
 
 interface ErrorProps {
@@ -18,6 +19,19 @@ export default function RootError({ error, reset }: ErrorProps) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gdg-cream text-gdg-black p-6 antialiased">
       <div className="max-w-md w-full rounded-3xl border border-gdg-border bg-white p-8 sm:p-10 shadow-lg text-center space-y-6">
+        <div className="flex justify-center mb-2">
+          <Link href="/" className="inline-block transition-transform hover:scale-[1.02]">
+            <Image
+              src="/GDGOC-LASU-logo.webp"
+              alt="GDG on Campus LASU Logo"
+              width={220}
+              height={42}
+              priority
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
+        </div>
+
         <div className="w-16 h-16 rounded-2xl bg-gdg-red/10 border border-gdg-red/20 text-gdg-red flex items-center justify-center mx-auto shadow-sm">
           <AlertCircle className="w-8 h-8" />
         </div>
