@@ -121,19 +121,26 @@ export default async function LandingPage() {
         },
       },
       orderBy: { createdAt: "asc" },
-      take: 8,
+      take: 12,
     });
 
     if (dbTracks && dbTracks.length > 0) {
       tracks = dbTracks.map((t, idx) => {
-        const fallback = DEFAULT_TRACKS[idx % DEFAULT_TRACKS.length];
+        const matchingDefault =
+          DEFAULT_TRACKS.find(
+            (dt) =>
+              dt.name.toLowerCase() === t.name.toLowerCase() ||
+              t.slug.includes(dt.slug) ||
+              dt.slug.includes(t.slug)
+          ) || DEFAULT_TRACKS[idx % DEFAULT_TRACKS.length];
+
         return {
           name: t.name,
           slug: t.slug,
-          description: t.description || fallback.description,
-          tech: fallback.tech,
-          icon: fallback.icon,
-          color: t.accent || fallback.color,
+          description: t.description || matchingDefault.description,
+          tech: matchingDefault.tech,
+          icon: matchingDefault.icon,
+          color: t.accent || matchingDefault.color,
         };
       });
     }
@@ -330,49 +337,54 @@ export default async function LandingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-8 max-w-6xl mx-auto">
               {tracks.map((track, idx) => {
                 const Icon = track.icon;
+                const isLastSingle = idx === 6;
                 return (
                   <div
                     key={idx}
-                    className="p-6 rounded-3xl bg-gdg-cream/30 border border-gdg-border hover:border-gdg-black/30 transition-all space-y-5 shadow-2xs flex flex-col justify-between"
+                    className={`p-6 sm:p-7 rounded-3xl bg-gdg-cream/40 border border-gdg-border hover:border-gdg-black/30 transition-all duration-200 hover:shadow-md hover:-translate-y-1 space-y-5 shadow-2xs flex flex-col justify-between ${
+                      isLastSingle
+                        ? "md:col-span-2 md:max-w-lg md:mx-auto lg:col-span-1 lg:col-start-2 lg:max-w-none lg:w-full"
+                        : ""
+                    }`}
                     style={{ borderTop: `4px solid ${track.color}` }}
                   >
-                    <div className="space-y-3">
+                    <div className="space-y-3.5">
                       <div className="flex items-center justify-between gap-3">
                         <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center border"
+                          className="w-11 h-11 rounded-2xl flex items-center justify-center border shadow-xs"
                           style={{
                             backgroundColor: `${track.color}15`,
                             borderColor: `${track.color}30`,
                             color: track.color,
                           }}
                         >
-                          <Icon className="w-5 h-5" />
+                          <Icon className="w-5.5 h-5.5" />
                         </div>
-                        <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded-full bg-white border border-gdg-border text-gdg-black">
+                        <span className="text-[11px] uppercase font-mono font-bold px-2.5 py-0.5 rounded-full bg-white border border-gdg-border text-gdg-black shadow-2xs">
                           Track #{idx + 1}
                         </span>
                       </div>
 
                       <div>
-                        <h3 className="text-base font-black text-gdg-black tracking-tight">{track.name}</h3>
-                        <p className="text-xs text-gdg-gray font-medium leading-relaxed mt-1">
+                        <h3 className="text-lg sm:text-xl font-black text-gdg-black tracking-tight">{track.name}</h3>
+                        <p className="text-xs sm:text-[13px] text-gdg-gray font-medium leading-relaxed mt-1.5">
                           {track.description}
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-3 pt-3 border-t border-gdg-border/60">
-                      <div className="text-[10px] font-bold uppercase tracking-wider text-gdg-gray">
+                    <div className="space-y-2.5 pt-3.5 border-t border-gdg-border/70">
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-gdg-gray">
                         Core Technologies
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {track.tech.map((t, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-white text-gdg-black border border-gdg-border"
+                            className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-white text-gdg-black border border-gdg-border shadow-2xs"
                           >
                             {t}
                           </span>
