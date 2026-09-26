@@ -288,7 +288,7 @@ export function JoinBootcampClient({ user: _user }: JoinBootcampClientProps) {
                                   : 'border-gdg-border bg-white'
                               )}
                             >
-                              {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                              {isSelected && <Check className="w-3.5 h-3.5 stroke-3" />}
                             </div>
                           </div>
                         );

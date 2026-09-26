@@ -60,8 +60,8 @@ export function DashboardSidebar({
                 track.name === 'Backend Development'
                   ? 'bg-gdg-blue'
                   : track.name === 'Frontend Development'
-                  ? 'bg-gdg-green'
-                  : 'bg-gdg-red';
+                    ? 'bg-gdg-green'
+                    : 'bg-gdg-red';
 
               const isCurrentTrack = pathname === `/tracks/${track.slug}`;
 
@@ -74,7 +74,7 @@ export function DashboardSidebar({
                     'group flex w-full items-center justify-between rounded-2xl border p-3 text-left transition-all cursor-pointer',
                     isCurrentTrack
                       ? 'border-gdg-cream bg-[#1C1D22]'
-                      : 'border-gdg-dark-border bg-[#15161A] hover:border-[#383A42] hover:bg-[#1A1B20]'
+                      : 'border-gdg-dark-border bg-gdg-dark-card hover:border-[#383A42] hover:bg-[#1A1B20]'
                   )}
                 >
                   <div className="space-y-1 min-w-0 pr-2">
@@ -95,7 +95,7 @@ export function DashboardSidebar({
         </div>
       )}
 
-      <div className="rounded-2xl border border-gdg-dark-border bg-[#15161A] p-4 space-y-2">
+      <div className="rounded-2xl border border-gdg-dark-border bg-gdg-dark-card p-4 space-y-2">
         <div className="flex items-center gap-2">
           <span className="flex h-2 w-2 rounded-full bg-gdg-green animate-pulse" />
           <span className="text-xs font-bold text-gdg-cream">GDG LASU Chapter</span>
