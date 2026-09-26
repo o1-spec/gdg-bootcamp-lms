@@ -87,6 +87,7 @@ export function AdminCohortsClient({
   // Deactivate dialog
   const [deactivateTarget, setDeactivateTarget] = useState<CohortItem | null>(null);
   const [isDeactivating, setIsDeactivating] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   const resetForm = () => {
     setFormData({
@@ -173,7 +174,7 @@ export function AdminCohortsClient({
       setDeactivateTarget(null);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to update cohort status');
+      setActionError(err.message || 'Failed to update cohort status');
     } finally {
       setIsDeactivating(false);
     }
@@ -537,6 +538,18 @@ export function AdminCohortsClient({
           isLoading={isDeactivating}
         />
       )}
+
+      {/* Error Alert Dialog */}
+      <ConfirmDialog
+        isOpen={!!actionError}
+        onClose={() => setActionError(null)}
+        onConfirm={() => setActionError(null)}
+        title="Cohort Status Update Failed"
+        description={actionError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

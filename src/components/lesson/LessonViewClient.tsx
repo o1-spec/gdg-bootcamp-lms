@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { FullLesson, LessonResourceItem, StudentProfile, Track } from '@/types/lms';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
@@ -11,6 +12,7 @@ import { LessonContent } from './LessonContent';
 import { LessonResources } from './LessonResources';
 import { LessonNavigation } from './LessonNavigation';
 import { LessonSidebar } from './LessonSidebar';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Sparkles } from 'lucide-react';
 
 const fallbackStudent: StudentProfile = {
@@ -48,9 +50,11 @@ export function LessonViewClient({
   student = fallbackStudent,
   enrolledTracks = [],
 }: LessonViewClientProps) {
+  const router = useRouter();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(lesson.status === 'completed');
   const [activeAlert, setActiveAlert] = useState<string | null>(null);
+  const [showCelebration, setShowCelebration] = useState(false);
 
   const handleToggleComplete = async () => {
     const previousState = isCompleted;
@@ -69,6 +73,9 @@ export function LessonViewClient({
       }
 
       setIsCompleted(data.completed);
+      if (data.completed) {
+        setShowCelebration(true);
+      }
       setActiveAlert(
         data.completed
           ? `Great job! "${lesson.title}" marked as completed. Progress updated.`
@@ -198,6 +205,25 @@ export function LessonViewClient({
           </div>
         </main>
       </div>
+
+      {/* Completion Celebration Modal */}
+      <ConfirmDialog
+        isOpen={showCelebration}
+        onClose={() => setShowCelebration(false)}
+        onConfirm={() => {
+          setShowCelebration(false);
+          if (lesson.nextLesson) {
+            router.push(`/dashboard/tracks/${lesson.trackId}/lessons/${lesson.nextLesson.slug}`);
+          } else {
+            router.push(`/dashboard/tracks/${lesson.trackId}`);
+          }
+        }}
+        title="Lesson Completed! 🎉"
+        description={`Outstanding progress! You have completed "${lesson.title}". Keep the momentum going!`}
+        confirmLabel={lesson.nextLesson ? 'Next Lesson →' : 'Back to Track'}
+        cancelText="Stay Here"
+        variant="success"
+      />
     </div>
   );
 }

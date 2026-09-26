@@ -77,6 +77,7 @@ export function AdminMentorsClient({
     trackName: string;
   } | null>(null);
   const [isRemoving, setIsRemoving] = useState(false);
+  const [removalError, setRemovalError] = useState<string | null>(null);
 
   const openAssignModal = (prefillMentorId?: string) => {
     if (prefillMentorId) setSelectedMentorId(prefillMentorId);
@@ -126,7 +127,7 @@ export function AdminMentorsClient({
       setRemovalTarget(null);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to remove mentor');
+      setRemovalError(err.message || 'Failed to remove mentor');
     } finally {
       setIsRemoving(false);
     }
@@ -381,6 +382,18 @@ export function AdminMentorsClient({
           isLoading={isRemoving}
         />
       )}
+
+      {/* Error Alert Dialog */}
+      <ConfirmDialog
+        isOpen={!!removalError}
+        onClose={() => setRemovalError(null)}
+        onConfirm={() => setRemovalError(null)}
+        title="Mentor Assignment Error"
+        description={removalError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

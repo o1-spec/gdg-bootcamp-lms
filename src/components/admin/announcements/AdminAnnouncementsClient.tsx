@@ -76,6 +76,7 @@ export function AdminAnnouncementsClient({
   // Delete dialog
   const [deleteTarget, setDeleteTarget] = useState<AnnouncementItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const handleCreateAnnouncement = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,7 +137,7 @@ export function AdminAnnouncementsClient({
       setDeleteTarget(null);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to delete announcement');
+      setDeleteError(err.message || 'Failed to delete announcement');
     } finally {
       setIsDeleting(false);
     }
@@ -427,6 +428,18 @@ export function AdminAnnouncementsClient({
           isLoading={isDeleting}
         />
       )}
+
+      {/* Error Alert Dialog */}
+      <ConfirmDialog
+        isOpen={!!deleteError}
+        onClose={() => setDeleteError(null)}
+        onConfirm={() => setDeleteError(null)}
+        title="Announcement Action Failed"
+        description={deleteError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

@@ -20,6 +20,7 @@ import { MentorSidebar } from '@/components/mentor/MentorSidebar';
 import { MentorHeader } from '@/components/mentor/MentorHeader';
 import { MentorPendingSubmission, MentorTrackSummary } from '@/lib/data/mentor';
 import { cn } from '@/lib/utils';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 
 interface MentorDashboardClientProps {
   metrics: {
@@ -57,6 +58,7 @@ export function MentorDashboardClient({
   const [reviewFeedback, setReviewFeedback] = useState<string>('');
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [reviewError, setReviewError] = useState<string | null>(null);
 
   const handleSaveReview = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +85,7 @@ export function MentorDashboardClient({
       setActiveReviewSub(null);
       setReviewFeedback('');
     } catch (err: any) {
-      alert(err.message || 'Error saving review');
+      setReviewError(err.message || 'Error saving review');
     } finally {
       setIsSubmittingReview(false);
     }
@@ -618,6 +620,18 @@ export function MentorDashboardClient({
           </div>
         </div>
       )}
+
+      {/* ERROR ALERT DIALOG */}
+      <ConfirmDialog
+        isOpen={!!reviewError}
+        onClose={() => setReviewError(null)}
+        onConfirm={() => setReviewError(null)}
+        title="Review Submission Error"
+        description={reviewError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

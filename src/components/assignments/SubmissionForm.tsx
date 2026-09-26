@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { AssignmentSubmission } from '@/types/lms';
 import { formatFileSize, MAX_FILE_SIZE_MB } from '@/lib/cloudinary-constants';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 
 interface SubmissionFormProps {
   assignmentId?: string;
@@ -55,6 +56,8 @@ export function SubmissionForm({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmSubmitOpen, setIsConfirmSubmitOpen] = useState(false);
+  const [isConfirmRemoveOpen, setIsConfirmRemoveOpen] = useState(false);
 
   const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
     setToastMessage(msg);
@@ -105,7 +108,13 @@ export function SubmissionForm({
     }
   };
 
-  const handleRemoveAttachment = async () => {
+  const handleRemoveAttachment = () => {
+    if (!fileUrl && !fileName) return;
+    setIsConfirmRemoveOpen(true);
+  };
+
+  const executeRemoveAttachment = async () => {
+    setIsConfirmRemoveOpen(false);
     if (!fileUrl && !fileName) return;
 
     if (assignmentId && submission.filePublicId) {
@@ -175,15 +184,20 @@ export function SubmissionForm({
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handlePreSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isUploadingFile) return;
+    if (isUploadingFile || isLoading) return;
 
     if (!githubUrl.trim() && !fileUrl) {
       showToast('Please provide either a GitHub repository URL or upload a project file.', 'error');
       return;
     }
 
+    setIsConfirmSubmitOpen(true);
+  };
+
+  const executeSubmit = async () => {
+    setIsConfirmSubmitOpen(false);
     setIsLoading(true);
 
     try {
@@ -432,7 +446,7 @@ export function SubmissionForm({
   // Active Submission Editing Form
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handlePreSubmit}
       className="rounded-3xl border border-gdg-border bg-white p-5 sm:p-8 space-y-6 shadow-xs"
     >
       {toastMessage && (
@@ -639,6 +653,30 @@ export function SubmissionForm({
           <span>Submit Assignment</span>
         </button>
       </div>
+
+      {/* Confirmation Dialogs */}
+      <ConfirmDialog
+        isOpen={isConfirmSubmitOpen}
+        onClose={() => setIsConfirmSubmitOpen(false)}
+        onConfirm={executeSubmit}
+        title="Submit Assignment for Review?"
+        description={`Once submitted, your mentor will review your deliverable, grade it out of ${maxPoints} points, and provide constructive feedback. Are you ready to submit now?`}
+        confirmLabel="Yes, Submit Assignment"
+        cancelText="Review Form"
+        variant="info"
+        isLoading={isLoading}
+      />
+
+      <ConfirmDialog
+        isOpen={isConfirmRemoveOpen}
+        onClose={() => setIsConfirmRemoveOpen(false)}
+        onConfirm={executeRemoveAttachment}
+        title="Remove Attached File?"
+        description="Are you sure you want to remove this attached file from your submission? This will clear the uploaded project file."
+        confirmLabel="Remove File"
+        cancelText="Keep File"
+        variant="danger"
+      />
     </form>
   );
 }

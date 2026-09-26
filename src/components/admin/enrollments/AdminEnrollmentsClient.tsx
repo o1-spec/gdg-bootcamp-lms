@@ -92,6 +92,7 @@ export function AdminEnrollmentsClient({
   // Deactivate enrollment dialog
   const [deactivateTarget, setDeactivateTarget] = useState<EnrollmentRecord | null>(null);
   const [isDeactivating, setIsDeactivating] = useState(false);
+  const [enrollmentError, setEnrollmentError] = useState<string | null>(null);
 
   // Filter students who are NOT already enrolled in bulkTrackId
   const currentBulkTrack = tracks.find((t) => t.id === bulkTrackId);
@@ -192,7 +193,7 @@ export function AdminEnrollmentsClient({
       setDeactivateTarget(null);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to toggle status');
+      setEnrollmentError(err.message || 'Failed to toggle enrollment status');
     } finally {
       setIsDeactivating(false);
     }
@@ -682,6 +683,18 @@ export function AdminEnrollmentsClient({
           isLoading={isDeactivating}
         />
       )}
+
+      {/* ERROR ALERT DIALOG */}
+      <ConfirmDialog
+        isOpen={!!enrollmentError}
+        onClose={() => setEnrollmentError(null)}
+        onConfirm={() => setEnrollmentError(null)}
+        title="Enrollment Action Failed"
+        description={enrollmentError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

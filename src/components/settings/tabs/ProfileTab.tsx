@@ -6,6 +6,7 @@ import { Camera, Trash2, Loader2, CheckCircle2, AlertCircle } from 'lucide-react
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SettingsUser } from '../SettingsClient';
 import { cn } from '@/lib/utils';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 
 interface ProfileTabProps {
   currentUser: SettingsUser;
@@ -35,6 +36,7 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
     type: 'success' | 'error';
     message: string;
   } | null>(null);
+  const [isConfirmRemoveAvatarOpen, setIsConfirmRemoveAvatarOpen] = useState(false);
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,7 +119,13 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
     }
   };
 
-  const handleRemoveAvatar = async () => {
+  const handleRemoveAvatarClick = () => {
+    if (!currentUser.avatarUrl) return;
+    setIsConfirmRemoveAvatarOpen(true);
+  };
+
+  const executeRemoveAvatar = async () => {
+    setIsConfirmRemoveAvatarOpen(false);
     if (!currentUser.avatarUrl) return;
     setAvatarUploading(true);
     setAvatarFeedback(null);
@@ -208,7 +216,7 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
               {currentUser.avatarUrl && (
                 <button
                   type="button"
-                  onClick={handleRemoveAvatar}
+                  onClick={handleRemoveAvatarClick}
                   disabled={avatarUploading}
                   className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold border border-gdg-border text-gdg-red hover:bg-gdg-red/5 transition-all disabled:opacity-50 cursor-pointer"
                 >
@@ -348,6 +356,19 @@ export function ProfileTab({ currentUser, setCurrentUser }: ProfileTabProps) {
           </button>
         </div>
       </form>
+
+      {/* REMOVE AVATAR CONFIRMATION DIALOG */}
+      <ConfirmDialog
+        isOpen={isConfirmRemoveAvatarOpen}
+        onClose={() => setIsConfirmRemoveAvatarOpen(false)}
+        onConfirm={executeRemoveAvatar}
+        title="Remove Profile Photo?"
+        description="Are you sure you want to remove your profile photo? Your account will revert to displaying your initials."
+        confirmLabel="Remove Photo"
+        cancelText="Cancel"
+        variant="danger"
+        isLoading={avatarUploading}
+      />
     </div>
   );
 }

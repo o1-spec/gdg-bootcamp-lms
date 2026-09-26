@@ -125,6 +125,7 @@ export function AdminSessionsClient({
   // Delete dialog
   const [deleteTarget, setDeleteTarget] = useState<SessionRecord | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const resetForm = () => {
     setFormData({
@@ -217,7 +218,7 @@ export function AdminSessionsClient({
       setDeleteTarget(null);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to delete session');
+      setDeleteError(err.message || 'Failed to delete session');
     } finally {
       setIsDeleting(false);
     }
@@ -857,6 +858,18 @@ export function AdminSessionsClient({
           isLoading={isDeleting}
         />
       )}
+
+      {/* Error Alert Dialog */}
+      <ConfirmDialog
+        isOpen={!!deleteError}
+        onClose={() => setDeleteError(null)}
+        onConfirm={() => setDeleteError(null)}
+        title="Session Action Failed"
+        description={deleteError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

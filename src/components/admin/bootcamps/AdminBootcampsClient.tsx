@@ -73,6 +73,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
   // Deactivate confirmation
   const [deactivateTarget, setDeactivateTarget] = useState<BootcampItem | null>(null);
   const [isDeactivating, setIsDeactivating] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   const resetForm = () => {
     setFormData({
@@ -155,7 +156,7 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
       setDeactivateTarget(null);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to change bootcamp status');
+      setActionError(err.message || 'Failed to change bootcamp status');
     } finally {
       setIsDeactivating(false);
     }
@@ -477,6 +478,18 @@ export function AdminBootcampsClient({ bootcamps: initialBootcamps, admin }: Adm
           isLoading={isDeactivating}
         />
       )}
+
+      {/* Error Alert Dialog */}
+      <ConfirmDialog
+        isOpen={!!actionError}
+        onClose={() => setActionError(null)}
+        onConfirm={() => setActionError(null)}
+        title="Bootcamp Action Failed"
+        description={actionError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+      />
     </div>
   );
 }

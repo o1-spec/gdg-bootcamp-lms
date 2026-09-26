@@ -64,6 +64,7 @@ export function AdminTrackDetailClient({
 
   const [isCreateModuleOpen, setIsCreateModuleOpen] = useState(false);
   const [isSavingModule, setIsSavingModule] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   const handleCreateModule = async (title: string, description: string) => {
     setIsSavingModule(true);
@@ -94,7 +95,7 @@ export function AdminTrackDetailClient({
       setIsCreateModuleOpen(false);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'An error occurred.');
+      setActionError(err.message || 'Failed to create module');
     } finally {
       setIsSavingModule(false);
     }
@@ -525,6 +526,18 @@ export function AdminTrackDetailClient({
         isDestructive={true}
         onConfirm={handleDeleteResource}
         onCancel={() => setDeletingResource(null)}
+      />
+
+      {/* ERROR ALERT DIALOG */}
+      <ConfirmDialog
+        isOpen={!!actionError}
+        title="Module Action Failed"
+        description={actionError || ''}
+        confirmLabel="Dismiss"
+        cancelText={null}
+        variant="warning"
+        onConfirm={() => setActionError(null)}
+        onClose={() => setActionError(null)}
       />
     </div>
   );

@@ -30,6 +30,7 @@ import { AdminSidebar, AdminUser } from '../AdminSidebar';
 import { AdminHeader } from '../AdminHeader';
 import { BootcampInvite } from '@/types/lms';
 import { createInviteSchema } from '@/lib/validations/onboarding';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 
 interface AdminInvitesClientProps {
   initialInvites: BootcampInvite[];
@@ -194,17 +195,26 @@ export function AdminInvitesClient({
     }
   };
 
-  // Delete Invite
-  const handleDelete = async (inviteId: string) => {
-    if (!confirm('Are you sure you want to delete this invite code?')) return;
+  // Delete Invite Dialog State
+  const [deletingInvite, setDeletingInvite] = useState<BootcampInvite | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const confirmDelete = async () => {
+    if (!deletingInvite) return;
+    setIsDeleting(true);
     try {
-      const res = await fetch(`/api/admin/invites/${inviteId}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/invites/${deletingInvite.id}`, { method: 'DELETE' });
       if (res.ok) {
-        setInvites(invites.filter((i) => i.id !== inviteId));
-        showToast('Invite code deleted');
+        setInvites(invites.filter((i) => i.id !== deletingInvite.id));
+        showToast(`Invite code ${deletingInvite.code} deleted`);
+        setDeletingInvite(null);
+      } else {
+        showToast('Failed to delete invite');
       }
     } catch {
       showToast('Failed to delete invite');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -309,11 +319,10 @@ export function AdminInvitesClient({
                 <button
                   key={tab}
                   onClick={() => setActiveFilter(tab)}
-                  className={`px-3 py-1.5 rounded-xl font-bold capitalize transition-all cursor-pointer ${
-                    activeFilter === tab
+                  className={`px-3 py-1.5 rounded-xl font-bold capitalize transition-all cursor-pointer ${activeFilter === tab
                       ? 'bg-white/15 text-white'
                       : 'text-white/50 hover:text-white'
-                  }`}
+                    }`}
                 >
                   {tab}
                 </button>
@@ -379,7 +388,7 @@ export function AdminInvitesClient({
                       </div>
 
                       {/* Bootcamp, Cohort & Track */}
-                      <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/5 space-y-1.5 text-xs">
+                      <div className="p-3 rounded-2xl bg-white/3 border border-white/5 space-y-1.5 text-xs">
                         <div className="font-bold text-white">{inv.bootcampName}</div>
                         <div className="text-[11px] text-white/50">{inv.cohortName || 'All Cohorts'}</div>
                         <div className="pt-1">
@@ -434,7 +443,7 @@ export function AdminInvitesClient({
                           )}
                         </button>
                         <button
-                          onClick={() => handleDelete(inv.id)}
+                          onClick={() => setDeletingInvite(inv)}
                           className="py-1.5 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-gdg-red text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                           title="Delete Invite"
                         >
@@ -467,7 +476,7 @@ export function AdminInvitesClient({
                       const isFull = hasMax && inv.useCount >= (inv.maxUses || 0);
 
                       return (
-                        <tr key={inv.id} className="hover:bg-white/[0.02] transition-colors">
+                        <tr key={inv.id} className="hover:bg-white/2 transition-colors">
                           <td className="px-5 py-4">
                             <div className="flex items-center gap-2">
                               <span className="font-mono font-black text-sm text-white px-2.5 py-1 rounded-xl bg-white/10 border border-white/15 tracking-wider">
@@ -525,9 +534,8 @@ export function AdminInvitesClient({
                               {hasMax && (
                                 <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
                                   <div
-                                    className={`h-full ${
-                                      isFull ? 'bg-gdg-red' : 'bg-gdg-green'
-                                    }`}
+                                    className={`h-full ${isFull ? 'bg-gdg-red' : 'bg-gdg-green'
+                                      }`}
                                     style={{
                                       width: `${Math.min(100, (inv.useCount / (inv.maxUses || 1)) * 100)}%`,
                                     }}
@@ -581,7 +589,7 @@ export function AdminInvitesClient({
                                 )}
                               </button>
                               <button
-                                onClick={() => handleDelete(inv.id)}
+                                onClick={() => setDeletingInvite(inv)}
                                 title="Delete Invite"
                                 className="p-2 rounded-xl text-white/50 hover:text-gdg-red hover:bg-gdg-red/10 transition-colors cursor-pointer"
                               >
@@ -777,14 +785,14 @@ export function AdminInvitesClient({
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="w-full sm:w-auto min-h-[44px] px-4 py-2.5 rounded-2xl text-xs font-bold text-white/60 hover:text-white hover:bg-white/10 transition-colors text-center"
+                  className="w-full sm:w-auto min-h-11 px-4 py-2.5 rounded-2xl text-xs font-bold text-white/60 hover:text-white hover:bg-white/10 transition-colors text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isCreating}
-                  className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-blue hover:bg-gdg-blue/90 text-xs font-bold text-white shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                  className="w-full sm:w-auto min-h-11 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-gdg-blue hover:bg-gdg-blue/90 text-xs font-bold text-white shadow-sm transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isCreating && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Publish Invite</span>
@@ -794,6 +802,18 @@ export function AdminInvitesClient({
           </div>
         </div>
       )}
+
+      {/* Confirm Delete Dialog */}
+      <ConfirmDialog
+        isOpen={Boolean(deletingInvite)}
+        onClose={() => setDeletingInvite(null)}
+        onConfirm={confirmDelete}
+        isLoading={isDeleting}
+        title={`Delete Invite "${deletingInvite?.code}"`}
+        description="Are you sure you want to permanently delete this invite code? Any students attempting to use this code will no longer be able to register."
+        confirmLabel="Delete Invite"
+        isDestructive={true}
+      />
     </div>
   );
 }
