@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, CheckCircle2, AlertCircle, Loader2, LogOut } from 'lucide-react';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { cn } from '@/lib/utils';
 
 export function SecurityTab() {
@@ -22,6 +23,7 @@ export function SecurityTab() {
   } | null>(null);
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleSavePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,13 +76,17 @@ export function SecurityTab() {
     }
   };
 
-  const handleLogout = async () => {
+  const confirmLogout = async () => {
     setIsLoggingOut(true);
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
-      router.push('/login');
     } catch {
+      // ignore
+    } finally {
+      setIsLoggingOut(false);
+      setShowLogoutModal(false);
       router.push('/login');
+      router.refresh();
     }
   };
 
@@ -263,19 +269,29 @@ export function SecurityTab() {
 
           <button
             type="button"
-            onClick={handleLogout}
+            onClick={() => setShowLogoutModal(true)}
             disabled={isLoggingOut}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gdg-red text-white hover:bg-gdg-red/90 transition-all shadow-2xs shrink-0 disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gdg-red text-white hover:bg-gdg-red/90 transition-all shadow-2xs shrink-0 disabled:opacity-50 cursor-pointer"
           >
-            {isLoggingOut ? (
-              <Loader2 className="h-3.5 w-3.5 animate-spin" />
-            ) : (
-              <LogOut className="h-3.5 w-3.5" />
-            )}
+            <LogOut className="h-3.5 w-3.5" />
             <span>Sign Out</span>
           </button>
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmDialog
+        isOpen={showLogoutModal}
+        onClose={() => !isLoggingOut && setShowLogoutModal(false)}
+        onCancel={() => !isLoggingOut && setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        title="Sign Out Confirmation"
+        description="Are you sure you want to sign out from this device? You will need to log back in with your credentials to access your bootcamp materials."
+        confirmLabel="Yes, Sign Out"
+        cancelText="Stay Signed In"
+        variant="danger"
+        isLoading={isLoggingOut}
+      />
     </div>
   );
 }

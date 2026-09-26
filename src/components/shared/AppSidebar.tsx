@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { X, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { NavSectionConfig } from '@/constants/navigation';
 import { cn } from '@/lib/utils';
 
@@ -41,13 +42,18 @@ export function AppSidebar({
 }: AppSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogout = async () => {
+  const confirmLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } catch {
       // Ignore network failure and redirect anyway
     } finally {
+      setIsLoggingOut(false);
+      setShowLogoutModal(false);
       router.push('/login');
       router.refresh();
     }
@@ -208,8 +214,8 @@ export function AppSidebar({
 
             <button
               type="button"
-              onClick={handleLogout}
-              className="rounded-xl p-2 text-gdg-cream/50 hover:bg-gdg-red/20 hover:text-gdg-red transition-colors"
+              onClick={() => setShowLogoutModal(true)}
+              className="rounded-xl p-2 text-gdg-cream/50 hover:bg-gdg-red/20 hover:text-gdg-red transition-colors cursor-pointer"
               title="Sign Out"
               aria-label="Sign out"
             >
@@ -218,6 +224,20 @@ export function AppSidebar({
           </div>
         </div>
       </aside>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmDialog
+        isOpen={showLogoutModal}
+        onClose={() => !isLoggingOut && setShowLogoutModal(false)}
+        onCancel={() => !isLoggingOut && setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        title="Log Out of Bootcamp?"
+        description="Are you sure you want to end your session? You will be signed out from your learning portal and redirected to the login screen."
+        confirmLabel="Yes, Log Out"
+        cancelText="Stay Signed In"
+        variant="danger"
+        isLoading={isLoggingOut}
+      />
     </>
   );
 }

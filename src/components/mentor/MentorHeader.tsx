@@ -11,6 +11,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { MentorNavTab } from './MentorSidebar';
 
 interface MentorHeaderProps {
@@ -38,13 +39,18 @@ export function MentorHeader({
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [profileOpen, setProfileOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogout = async () => {
+  const confirmLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } catch (e) {
       console.error(e);
     } finally {
+      setIsLoggingOut(false);
+      setShowLogoutModal(false);
       router.push('/login');
       router.refresh();
     }
@@ -174,7 +180,10 @@ export function MentorHeader({
               <div className="py-1">
                 <button
                   type="button"
-                  onClick={handleLogout}
+                  onClick={() => {
+                    setProfileOpen(false);
+                    setShowLogoutModal(true);
+                  }}
                   className="flex items-center gap-2 w-full p-2.5 rounded-xl text-xs font-bold text-gdg-red hover:bg-gdg-red/10 transition-colors cursor-pointer text-left"
                 >
                   <LogOut className="h-3.5 w-3.5" />
@@ -185,6 +194,20 @@ export function MentorHeader({
           )}
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmDialog
+        isOpen={showLogoutModal}
+        onClose={() => !isLoggingOut && setShowLogoutModal(false)}
+        onCancel={() => !isLoggingOut && setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        title="Sign Out Confirmation"
+        description="Are you sure you want to sign out of the Mentor Command Center?"
+        confirmLabel="Yes, Sign Out"
+        cancelText="Stay Signed In"
+        variant="danger"
+        isLoading={isLoggingOut}
+      />
     </header>
   );
 }

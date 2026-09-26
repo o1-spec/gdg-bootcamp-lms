@@ -22,6 +22,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { StudentProfile } from '@/types/lms';
 import { DashboardNavTab } from './DashboardSidebar';
 import { cn } from '@/lib/utils';
@@ -35,15 +36,15 @@ interface DashboardHeaderProps {
 
 // Notification types → icons + colors
 const TYPE_META: Record<string, { icon: React.ElementType; color: string }> = {
-  ASSIGNMENT_NEW:      { icon: FileText,   color: 'text-gdg-blue bg-gdg-blue/10' },
-  ASSIGNMENT_GRADED:  { icon: Award,      color: 'text-gdg-green bg-gdg-green/10' },
-  SUBMISSION_RECEIVED:{ icon: BookOpen,   color: 'text-gdg-yellow bg-gdg-yellow/10' },
-  SESSION_NEW:        { icon: Calendar,   color: 'text-gdg-red bg-gdg-red/10' },
-  SESSION_REMINDER:   { icon: Calendar,   color: 'text-gdg-red bg-gdg-red/10' },
-  RESOURCE_NEW:       { icon: FileText,   color: 'text-gdg-blue bg-gdg-blue/10' },
-  ANNOUNCEMENT_NEW:   { icon: Megaphone,  color: 'text-gdg-yellow bg-gdg-yellow/10' },
-  ENROLLMENT_CONFIRMED:{ icon: Award,     color: 'text-gdg-green bg-gdg-green/10' },
-  GENERAL:            { icon: AlertCircle,color: 'text-gdg-gray bg-gdg-gray/10' },
+  ASSIGNMENT_NEW: { icon: FileText, color: 'text-gdg-blue bg-gdg-blue/10' },
+  ASSIGNMENT_GRADED: { icon: Award, color: 'text-gdg-green bg-gdg-green/10' },
+  SUBMISSION_RECEIVED: { icon: BookOpen, color: 'text-gdg-yellow bg-gdg-yellow/10' },
+  SESSION_NEW: { icon: Calendar, color: 'text-gdg-red bg-gdg-red/10' },
+  SESSION_REMINDER: { icon: Calendar, color: 'text-gdg-red bg-gdg-red/10' },
+  RESOURCE_NEW: { icon: FileText, color: 'text-gdg-blue bg-gdg-blue/10' },
+  ANNOUNCEMENT_NEW: { icon: Megaphone, color: 'text-gdg-yellow bg-gdg-yellow/10' },
+  ENROLLMENT_CONFIRMED: { icon: Award, color: 'text-gdg-green bg-gdg-green/10' },
+  GENERAL: { icon: AlertCircle, color: 'text-gdg-gray bg-gdg-gray/10' },
 };
 
 function timeAgo(dateStr: string): string {
@@ -79,6 +80,7 @@ export function DashboardHeader({
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const [notifications, setNotifications] = useState<ApiNotification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -112,7 +114,7 @@ export function DashboardHeader({
           setNotifications(data.notifications ?? []);
           setUnreadCount(data.unreadCount ?? 0);
         })
-        .catch(() => {});
+        .catch(() => { });
     };
 
     loadNotifications();
@@ -149,13 +151,15 @@ export function DashboardHeader({
   }, []);
 
   // ── Logout ────────────────────────────────────────────────────
-  const handleLogout = async () => {
+  const confirmLogout = async () => {
     setIsLoggingOut(true);
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } catch {
       // ignore
     } finally {
+      setIsLoggingOut(false);
+      setShowLogoutModal(false);
       router.push('/login');
       router.refresh();
     }
@@ -178,15 +182,15 @@ export function DashboardHeader({
   // ── Breadcrumb ────────────────────────────────────────────────
   const getBreadcrumbTitle = (tab: DashboardNavTab) => {
     switch (tab) {
-      case 'dashboard':     return { page: 'Dashboard',     sub: 'Overview & Learning Roadmap' };
+      case 'dashboard': return { page: 'Dashboard', sub: 'Overview & Learning Roadmap' };
       case 'tracks':
-      case 'my-tracks':    return { page: 'My Track',       sub: 'Curriculum & Modules' };
-      case 'resources':    return { page: 'Resources',      sub: 'Slides, Notes, Code & Repos' };
-      case 'assignments':  return { page: 'Assignments',    sub: 'Projects & Coding Challenges' };
-      case 'schedule':     return { page: 'Schedule',       sub: 'Live Mentoring & Workshops' };
-      case 'progress':     return { page: 'Progress',       sub: 'Curriculum & Attendance Analytics' };
-      case 'announcements':return { page: 'Announcements',  sub: 'Official Cohort Updates' };
-      default:             return { page: 'Dashboard',      sub: 'Overview' };
+      case 'my-tracks': return { page: 'My Track', sub: 'Curriculum & Modules' };
+      case 'resources': return { page: 'Resources', sub: 'Slides, Notes, Code & Repos' };
+      case 'assignments': return { page: 'Assignments', sub: 'Projects & Coding Challenges' };
+      case 'schedule': return { page: 'Schedule', sub: 'Live Mentoring & Workshops' };
+      case 'progress': return { page: 'Progress', sub: 'Curriculum & Attendance Analytics' };
+      case 'announcements': return { page: 'Announcements', sub: 'Official Cohort Updates' };
+      default: return { page: 'Dashboard', sub: 'Overview' };
     }
   };
   const breadcrumb = getBreadcrumbTitle(currentTab);
@@ -258,7 +262,7 @@ export function DashboardHeader({
             id="notifications-bell"
             type="button"
             onClick={handleBellClick}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gdg-border bg-white hover:bg-[#F2EDE0] text-gdg-black transition-colors cursor-pointer shadow-2xs"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gdg-border bg-white hover:bg-gdg-cream-dark text-gdg-black transition-colors cursor-pointer shadow-2xs"
             aria-label={`Notifications${unreadCount > 0 ? ` — ${unreadCount} unread` : ''}`}
           >
             {notifLoading
@@ -374,7 +378,7 @@ export function DashboardHeader({
           <button
             type="button"
             onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-            className="flex items-center gap-2 rounded-full border border-gdg-border bg-white p-1 sm:pr-3 hover:bg-[#F2EDE0] transition-colors cursor-pointer shadow-2xs"
+            className="flex items-center gap-2 rounded-full border border-gdg-border bg-white p-1 sm:pr-3 hover:bg-gdg-cream-dark transition-colors cursor-pointer shadow-2xs"
           >
             <Avatar className="h-8 w-8 border border-gdg-border">
               <AvatarImage src={student.avatar} alt={student.name} />
@@ -455,22 +459,35 @@ export function DashboardHeader({
               <div className="pt-1 border-t border-gdg-border">
                 <button
                   type="button"
-                  onClick={handleLogout}
+                  onClick={() => {
+                    setProfileMenuOpen(false);
+                    setShowLogoutModal(true);
+                  }}
                   disabled={isLoggingOut}
                   className="flex w-full items-center gap-2 px-3 py-2 text-xs font-bold text-gdg-red hover:bg-gdg-red/10 rounded-xl transition-colors disabled:opacity-60 cursor-pointer"
                 >
-                  {isLoggingOut ? (
-                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                  ) : (
-                    <LogOut className="h-3.5 w-3.5" />
-                  )}
-                  <span>{isLoggingOut ? 'Signing out...' : 'Sign out'}</span>
+                  <LogOut className="h-3.5 w-3.5" />
+                  <span>Sign out</span>
                 </button>
               </div>
             </div>
           )}
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmDialog
+        isOpen={showLogoutModal}
+        onClose={() => !isLoggingOut && setShowLogoutModal(false)}
+        onCancel={() => !isLoggingOut && setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        title="Sign Out Confirmation"
+        description="Are you sure you want to sign out of your GDG LASU Bootcamp portal?"
+        confirmLabel="Yes, Sign Out"
+        cancelText="Stay Signed In"
+        variant="danger"
+        isLoading={isLoggingOut}
+      />
     </header>
   );
 }
