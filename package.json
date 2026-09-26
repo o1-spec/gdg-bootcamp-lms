@@ -7,7 +7,9 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "create-admin": "node scripts/create-admin.mjs"
+    "create-admin": "node scripts/create-admin.mjs",
+    "test": "node scripts/run-full-tests.mjs",
+    "seed:large": "tsx scripts/seed-large-cohort.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
